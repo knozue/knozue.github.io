@@ -65,9 +65,25 @@
 
 <main>
 <!--[](/post/2018-09-27-over-representation-analysis-4-heatmap-visualization_files/Scan_QRcode.png) # Run Addins > Insert Image" to create directories for putting files-->
-<pre class="r"><code>library(tidyverse);library(goseq)</code></pre>
+<pre class="r"><code>library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&quot;annotate&quot;)</code></pre>
 <div id="load-goseq-function" class="section level1">
 <h1>load GOseq function</h1>
+<pre class="r"><code># download cDNA info directly from TAIR 
+At_cdna&lt;-Biostrings::readDNAStringSet(&quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated&quot;)
+At_cdna</code></pre>
+<pre><code>##   A DNAStringSet instance of length 27416
+##         width seq                                      names               
+##     [1]  2016 ATGGTTCAATATAATTTCA...AAAACCGACAGGCGTTGA AT1G50920.1 | Sym...
+##     [2]   546 ATGACTCGTTTGTTGCCTT...GTTGATTCTGGTACATAG AT1G36960.1 | Sym...
+##     [3]  1734 ATGGATTCAGAGTCAGAGT...GATTATATTCTCCAATGA AT1G44020.1 | Sym...
+##     [4]  1059 ATGTCGGTTCCTCCTAGAT...AGAGAGAGTGATAAATAA AT1G15970.1 | Sym...
+##     [5]   765 ATGGCGAGGGGAGAATCGG...ATGTTGAAAGGTTCTTGA AT1G73440.1 | Sym...
+##     ...   ... ...
+## [27412]  2019 GGGTTGAAGTTTAGACCGC...ACTACTAGTCTAGTCTAG ATMG00520.1 | Sym...
+## [27413]   303 ATGGATCTTATCAAATATT...AATAGCATTCAAGGTTAA ATMG00650.1 | Sym...
+## [27414]   384 ATGCTCCCCGCCGGTTGTT...CGATACTTAACTATATAA ATMG01330.1 | Sym...
+## [27415]   573 ATGGATAACCAATTCATTT...CAGCGTAGCGACGGATAA ATMG00070.1 | Sym...
+## [27416]   366 ATGGCATCAAAAATCCGCA...CCTTCTGCATACGCATAA ATMG00130.1 | Sym...</code></pre>
 <pre class="r"><code># GOseq.Atgoslim.BP.list.ORA function
 #This function is used to calculate GO ORA results multiple times.
 getwd()</code></pre>
@@ -134,64 +150,22 @@ head(Atgoslim.TAIR.BP.list)</code></pre>
   }
 }</code></pre>
 </div>
-<div id="go.seq" class="section level1">
-<h1>GO.seq</h1>
-<pre class="r"><code># genes.shade1h.up
-GOseq.Atgoslim.BP.list.ORA(genelist=genes.shade1h.up$AGI)</code></pre>
-</div>
 <div id="importing-enrichment-result-table-and-have-summary-table-table-of-degs-under-construction" class="section level1">
 <h1>Importing enrichment result table and have summary table: Table of DEGs (under construction)</h1>
+<pre class="r"><code># Ding (2018) Cell DEGs
+list.files(path=file.path(&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files&quot;,&quot;output&quot;)) # finding files in different blogs did not work.. Did work this time... why?</code></pre>
+<pre><code>## character(0)</code></pre>
 <pre class="r"><code>getwd()</code></pre>
 <pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog/content/post&quot;</code></pre>
-<pre class="r"><code>list.files(path=file.path(&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files&quot;,&quot;output&quot;)) # finding files in different blogs did not work.. Did work this time... why?</code></pre>
-<pre><code>## character(0)</code></pre>
-<pre class="r"><code>DEG.objs&lt;-list.files(path=file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;)) # copied file.path(&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files&quot;,&quot;output&quot;) folder in this 
+<pre class="r"><code>DEG.objs&lt;-list.files(path=file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;),pattern=&quot;\\.csv$&quot;) # under construction
 DEG.objs</code></pre>
 <pre><code>## [1] &quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv&quot;
 ## [2] &quot;genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.csv&quot;
 ## [3] &quot;trt.DEGs.int.rWT.rU.csv&quot;</code></pre>
 <pre class="r"><code># read csv file
-DEG.count.list&lt;-lapply(DEG.objs, function(x) read_csv(paste(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;),&quot;/&quot;,x,sep=&quot;&quot;)))</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   genes = col_character(),
-##   logFC.genotypenpr1.1 = col_double(),
-##   logFC.genotypenpr1.1.treatmenttreated = col_double(),
-##   logCPM = col_double(),
-##   LR = col_double(),
-##   PValue = col_double(),
-##   FDR = col_double(),
-##   AGI = col_character(),
-##   symbol2 = col_character(),
-##   full_name = col_character()
-## )</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   genes = col_character(),
-##   logFC.genotypenpr4.4D = col_double(),
-##   logFC.genotypenpr4.4D.treatmenttreated = col_double(),
-##   logCPM = col_double(),
-##   LR = col_double(),
-##   PValue = col_double(),
-##   FDR = col_double(),
-##   AGI = col_character(),
-##   symbol2 = col_character(),
-##   full_name = col_character()
-## )</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   genes = col_character(),
-##   logFC = col_double(),
-##   logCPM = col_double(),
-##   LR = col_double(),
-##   PValue = col_double(),
-##   FDR = col_double(),
-##   AGI = col_character(),
-##   symbol2 = col_character(),
-##   full_name = col_character()
-## )</code></pre>
-<pre class="r"><code>names(DEG.count.list)&lt;-gsub(&quot;.csv&quot;,&quot;&quot;,DEG.objs)
-DEG.count.list</code></pre>
+DEG.list&lt;-lapply(DEG.objs, function(x) read_csv(paste(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;),&quot;/&quot;,x,sep=&quot;&quot;)))
+names(DEG.list)&lt;-gsub(&quot;.csv&quot;,&quot;&quot;,DEG.objs)
+DEG.list</code></pre>
 <pre><code>## $genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU
 ## # A tibble: 6,694 x 10
 ##    genes logFC.genotypen… logFC.genotypen… logCPM    LR    PValue       FDR
@@ -241,130 +215,821 @@ DEG.count.list</code></pre>
 ##  9 AT5G0…  4.14   7.14  523. 1.07e-115 3.98e-112 AT5G… AtHsp7… NA;NA      
 ## 10 AT1G2…  2.87   7.19  511. 3.43e-113 1.15e-109 AT1G… AtWAK1… NA;NA;cell…
 ## # ... with 7,801 more rows</code></pre>
+<pre class="r"><code># GOseq.Atgoslim.BP.list.ORA(genelist=genes.shade1h.up$AGI)</code></pre>
 </div>
 <div id="go.ora-for-each-deg-list-loop" class="section level1">
 <h1>GO.ORA for each DEG list (loop)</h1>
 <pre class="r"><code># single coefficient
-
-for(n in 3) {
+names(DEG.list)</code></pre>
+<pre><code>## [1] &quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU&quot;
+## [2] &quot;genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU&quot;
+## [3] &quot;trt.DEGs.int.rWT.rU&quot;</code></pre>
+<pre class="r"><code>for(n in 3:3) {
 library(dplyr)
   #genelist.up&lt;-base::get(paste(&quot;../output/&quot;,DEG.objs.V1.5annotation.unique[n],sep=&quot;&quot;)) %&gt;% rownames_to_column() %&gt;%  dplyr::filter(logFC&gt;0) # does not work
-    genelist.up&lt;-read_csv(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;,DEG.objs[n]))  %&gt;%  dplyr::filter(logFC&gt;0)
-    genelist.down&lt;-read_csv(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;,DEG.objs[n]))  %&gt;%  dplyr::filter(logFC&lt;0)
-    GO.ORA.temp.up&lt;-GOseq.Atgoslim.BP.list.ORA(as_vector(genelist.up[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
-    GO.ORA.temp.down&lt;-GOseq.Brgo.v1.5.Atgoslim.BP.list.ORA(as_vector(genelist.down[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
-  if(as.data.frame(GO.ORA.temp.up)[1,1]==&quot;no enriched GO&quot;&amp; as.data.frame(GO.ORA.temp.down)[1,1]==&quot;no enriched GO&quot;) {next} else if(as.data.frame(GO.ORA.temp.down)[1,1]==&quot;no enriched GO&quot;) {
-     # add sample name
-    GO.ORA.temp.up$sample&lt;-DEG.objs.V1.5annotation.unique[n]
-     # fold change
-    GO.ORA.temp.up$FC&lt;-&quot;up&quot;
-    save(GO.ORA.temp.up,file=paste(&quot;../output/GOseq.exp1.Brgo.v1.5.Atgoslim.BP.list.&quot;,DEG.objs.V1.5annotation.unique[n],&quot;.up.enrich.Rdata&quot;,sep=&quot;&quot;))
-  } else if(as.data.frame(GO.ORA.temp.up)[1,1]==&quot;no enriched GO&quot;) {
-    # add sample name
-    GO.ORA.temp.down$sample&lt;-DEG.objs.V1.5annotation.unique[n]
-    # fold change
-    GO.ORA.temp.down$FC&lt;-&quot;down&quot;
-    save(GO.ORA.temp.down,file=paste(&quot;../output/GOseq.exp1.Brgo.v1.5.Atgoslim.BP.list.&quot;,DEG.objs.V1.5annotation.unique[n],&quot;.down.enrich.Rdata&quot;,sep=&quot;&quot;))
-  } else {
-     # add sample name
-    GO.ORA.temp.up$sample&lt;-DEG.objs.V1.5annotation.unique[n]
-     # fold change
-    GO.ORA.temp.up$FC&lt;-&quot;up&quot;
-    save(GO.ORA.temp.up,file=paste(&quot;../output/GOseq.exp1.Brgo.v1.5.Atgoslim.BP.list.&quot;,DEG.objs.V1.5annotation.unique[n],&quot;.up.enrich.Rdata&quot;,sep=&quot;&quot;))
-      # add sample name
-    GO.ORA.temp.down$sample&lt;-DEG.objs.V1.5annotation.unique[n]
-    # fold change
-    GO.ORA.temp.down$FC&lt;-&quot;down&quot;
-    #View(eKEGG.temp.down.DF)
-    save(GO.ORA.temp.down,file=paste(&quot;../output/GOseq.exp1.Brgo.v1.5.Atgoslim.BP.list.&quot;,DEG.objs.V1.5annotation.unique[n],&quot;.down.enrich.Rdata&quot;,sep=&quot;&quot;))
-  }
+    genelist.up&lt;-DEG.list[[n]]  %&gt;%  dplyr::filter(logFC&gt;0)
+    genelist.down&lt;-DEG.list[[n]] %&gt;%  dplyr::filter(logFC&lt;0)
+    GO.ORA.temp.up&lt;-GOseq.Atgoslim.BP.list.ORA(str_remove(as_vector(genelist.up[,&quot;genes&quot;]),&quot;\\.[[:digit:]]+&quot;),custom.category.list=Atgoslim.TAIR.BP.list) 
+    GO.ORA.temp.down&lt;-GOseq.Atgoslim.BP.list.ORA(str_remove(as_vector(genelist.down[,&quot;genes&quot;]),&quot;\\.[[:digit:]]+&quot;),custom.category.list=Atgoslim.TAIR.BP.list) 
+# handling &quot;no enriched GO&quot; 
+    # genelist.names&lt;-c(&quot;GO.ORA.temp.up_down&quot;,&quot;GO.ORA.temp.down_up&quot;) # test
+    x&lt;-list(GO.ORA.temp.up=GO.ORA.temp.up,
+            GO.ORA.temp.down=GO.ORA.temp.down) # list
+    x&lt;-x[!x==&quot;no enriched GO&quot;] # reove &quot;no enriched GO&quot; result
+    ## add sample info and FC info and save GO.ORA result
+  for (i in 1:length(x)) {
+      GO.ORA.result&lt;-x[[i]] %&gt;% mutate(FC = gsub(&quot;(GO.ORA.temp.)(.)&quot;,&quot;\\2&quot;,names(x)[i]),sample=DEG.objs[n])
+    save(GO.ORA.result,file=file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;,paste(gsub(&quot;.csv&quot;,&quot;&quot;,DEG.objs[n]),gsub(&quot;(GO.ORA.temp.)(.)&quot;,&quot;\\2&quot;,names(x)[i]),&quot;enrich.Rdata&quot;,sep=&quot;.&quot;)))
+    rm(GO.ORA.result)
+    } 
 }</code></pre>
+<pre><code>## Warning in pcls(G): initial point very close to some inequality constraints</code></pre>
+<pre><code>## [1] &quot;enriched.GO is&quot;
+##        category over_represented_pvalue under_represented_pvalue
+## 643  GO:0006952            1.127194e-34                1.0000000
+## 624  GO:0006886            7.258753e-33                1.0000000
+## 2259 GO:0042742            6.626442e-21                1.0000000
+## 1225 GO:0010200            3.858737e-19                1.0000000
+## 430  GO:0006468            3.007738e-17                1.0000000
+## 626  GO:0006888            2.027405e-16                1.0000000
+## 863  GO:0009408            8.132071e-16                1.0000000
+## 1453 GO:0015031            1.469037e-15                1.0000000
+## 1587 GO:0016192            1.650887e-13                1.0000000
+## 1949 GO:0032482            4.969469e-13                1.0000000
+## 628  GO:0006891            4.154328e-12                1.0000000
+## 901  GO:0009611            7.570706e-12                1.0000000
+## 984  GO:0009751            6.974160e-11                1.0000000
+## 910  GO:0009626            1.312138e-10                1.0000000
+## 2097 GO:0034605            1.472659e-10                1.0000000
+## 905  GO:0009617            3.375985e-10                1.0000000
+## 3272 GO:0080167            5.223324e-10                1.0000000
+## 191  GO:0002237            8.378504e-10                1.0000000
+## 717  GO:0007165            8.605229e-10                1.0000000
+## 932  GO:0009651            1.039053e-09                1.0000000
+## 2245 GO:0042542            4.435876e-09                1.0000000
+## 627  GO:0006890            6.596583e-09                1.0000000
+## 1014 GO:0009816            1.376798e-08                1.0000000
+## 906  GO:0009620            1.712451e-08                1.0000000
+## 851  GO:0009306            6.005123e-08                1.0000000
+## 1837 GO:0030968            6.276610e-08                1.0000000
+## 972  GO:0009737            7.520204e-08                1.0000000
+## 675  GO:0007030            8.265301e-08                1.0000000
+## 718  GO:0007166            9.044827e-08                1.0000000
+## 2803 GO:0051259            1.299325e-07                1.0000000
+## 973  GO:0009738            4.810860e-07                1.0000000
+## 2871 GO:0051707            2.090818e-06                0.9999995
+## 2591 GO:0046777            2.236596e-06                0.9999991
+## 654  GO:0006986            2.438230e-06                0.9999998
+## 3444 GO:1900150            6.399834e-06                0.9999993
+## 3056 GO:0070973            8.359768e-06                0.9999996
+## 868  GO:0009414            8.391875e-06                0.9999959
+## 2693 GO:0048544            9.648966e-06                0.9999983
+## 2450 GO:0045332            1.053543e-05                0.9999995
+## 3191 GO:0072583            1.057949e-05                0.9999989
+## 1015 GO:0009817            1.361175e-05                0.9999968
+## 192  GO:0002238            1.484186e-05                0.9999987
+## 1220 GO:0010193            1.562249e-05                0.9999972
+## 1198 GO:0010150            1.702895e-05                0.9999937
+## 2100 GO:0034620            1.733070e-05                0.9999979
+## 429  GO:0006465            1.760197e-05                0.9999985
+## 911  GO:0009627            1.774452e-05                0.9999956
+## 448  GO:0006499            1.973024e-05                0.9999954
+## 1870 GO:0031204            2.235051e-05                1.0000000
+## 635  GO:0006904            2.831111e-05                0.9999936
+## 1044 GO:0009863            3.189073e-05                0.9999955
+## 862  GO:0009407            3.201744e-05                0.9999926
+## 511  GO:0006616            3.545040e-05                0.9999976
+## 426  GO:0006457            3.979662e-05                0.9999802
+## 756  GO:0008219            4.780393e-05                0.9999880
+## 925  GO:0009644            4.998914e-05                0.9999851
+## 3254 GO:0080142            6.226918e-05                0.9999959
+## 625  GO:0006887            6.885707e-05                0.9999810
+## 1647 GO:0018105            8.127620e-05                0.9999718
+## 903  GO:0009615            8.144403e-05                0.9999805
+## 563  GO:0006749            8.501484e-05                0.9999771
+## 3185 GO:0072334            8.701453e-05                0.9999978
+## 59   GO:0000302            8.708749e-05                0.9999779
+## 636  GO:0006906            9.447106e-05                0.9999786
+## 2760 GO:0050829            9.815163e-05                0.9999858
+## 2158 GO:0035556            9.845166e-05                0.9999520
+## 1181 GO:0010112            1.187545e-04                0.9999892
+## 651  GO:0006979            1.230762e-04                0.9999318
+## 2885 GO:0051865            1.245660e-04                0.9999864
+## 3107 GO:0071323            1.510425e-04                1.0000000
+## 1043 GO:0009862            1.527420e-04                0.9999828
+## 2626 GO:0048194            1.528899e-04                0.9999908
+## 2202 GO:0042026            1.836214e-04                0.9999643
+## 864  GO:0009409            2.019371e-04                0.9998822
+## 679  GO:0007034            2.056534e-04                0.9999640
+## 603  GO:0006839            2.267988e-04                0.9999409
+## 2974 GO:0061025            2.845410e-04                0.9999373
+## 1595 GO:0016310            2.987777e-04                0.9998090
+## 1245 GO:0010224            3.068315e-04                0.9998946
+## 2778 GO:0051085            3.451232e-04                0.9999110
+## 2642 GO:0048278            3.840641e-04                0.9999261
+## 1750 GO:0019722            4.127109e-04                0.9998973
+## 2584 GO:0046686            4.432858e-04                0.9997292
+## 38   GO:0000187            4.616590e-04                0.9999579
+## 615  GO:0006874            4.684844e-04                0.9998825
+## 2963 GO:0060866            5.252189e-04                0.9999699
+## 2761 GO:0050832            5.600444e-04                0.9996520
+## 3704 GO:2000022            5.601390e-04                0.9998749
+## 2329 GO:0043207            5.966944e-04                1.0000000
+## 1013 GO:0009814            6.379255e-04                0.9998552
+## 2436 GO:0045087            6.607522e-04                0.9997520
+## 504  GO:0006605            7.120692e-04                0.9999344
+## 2247 GO:0042546            7.400827e-04                0.9997560
+## 2901 GO:0052544            7.413370e-04                0.9998885
+## 2458 GO:0045489            7.769621e-04                0.9998080
+## 3457 GO:1900425            8.788298e-04                0.9999016
+## 1875 GO:0031347            9.014185e-04                0.9996995
+## 1777 GO:0023014            1.012589e-03                0.9996473
+## 1189 GO:0010120            1.062200e-03                0.9998769
+## 3458 GO:1900426            1.073764e-03                0.9998157
+## 1853 GO:0031098            1.087543e-03                0.9996323
+## 440  GO:0006486            1.167370e-03                0.9994398
+## 2207 GO:0042147            1.196837e-03                0.9997222
+## 1876 GO:0031348            1.370772e-03                0.9996884
+## 189  GO:0002229            1.383542e-03                0.9996077
+##      numDEInCat numInCat
+## 643         228      620
+## 624         112      237
+## 2259        113      288
+## 1225         64      136
+## 430         235      774
+## 626          47       93
+## 863          66      157
+## 1453         87      253
+## 1587         54      132
+## 1949         31       62
+## 628          29       48
+## 901          72      204
+## 984          58      162
+## 910          34       67
+## 2097         30       58
+## 905          45      111
+## 3272         49      134
+## 191          19       27
+## 717         102      351
+## 932         133      522
+## 2245         30       68
+## 627          21       36
+## 1014         23       40
+## 906          34       78
+## 851          18       30
+## 1837         13       17
+## 972         105      409
+## 675          22       42
+## 718          24       46
+## 2803         11       17
+## 973          61      211
+## 2871         23       56
+## 2591         67      210
+## 654          12       17
+## 3444         12       19
+## 3056          8       11
+## 868          73      293
+## 2693         17       31
+## 2450         10       12
+## 3191         12       18
+## 1015         20       46
+## 192          10       15
+## 1220         15       31
+## 1198         34      104
+## 2100         12       20
+## 429           9       15
+## 911          20       51
+## 448          19       45
+## 1870          5        5
+## 635          18       39
+## 1044         12       22
+## 862          17       46
+## 511           8       12
+## 426          58      231
+## 756          19       44
+## 925          22       64
+## 3254          8       11
+## 625          20       50
+## 1647         27       74
+## 903          17       39
+## 563          18       52
+## 3185          6        7
+## 59           17       46
+## 636          15       38
+## 2760         11       20
+## 2158         50      173
+## 1181          8       13
+## 651          67      291
+## 2885          9       15
+## 3107          5        5
+## 1043          9       15
+## 2626          8       10
+## 2202         13       26
+## 864          74      329
+## 679          11       24
+## 603          16       41
+## 2974         13       31
+## 1595        101      432
+## 1245         22       65
+## 2778         15       38
+## 2642         11       25
+## 1750         13       42
+## 2584         79      341
+## 38            7       11
+## 615          15       32
+## 2963          6        8
+## 2761         76      477
+## 3704         12       29
+## 2329          3        3
+## 1013         12       29
+## 2436         23       69
+## 504           6       11
+## 2247         18       55
+## 2901          9       16
+## 2458         13       31
+## 3457          7       12
+## 1875         18       53
+## 1777         19       56
+## 1189          7       12
+## 3458          9       18
+## 1853         18       52
+## 440          34      119
+## 2207         11       28
+## 1876         11       25
+## 189          14       35
+##                                                                            term
+## 643                                                            defense response
+## 624                                             intracellular protein transport
+## 2259                                              defense response to bacterium
+## 1225                                                         response to chitin
+## 430                                                     protein phosphorylation
+## 626                                      ER to Golgi vesicle-mediated transport
+## 863                                                            response to heat
+## 1453                                                          protein transport
+## 1587                                                 vesicle-mediated transport
+## 1949                                            Rab protein signal transduction
+## 628                                      intra-Golgi vesicle-mediated transport
+## 901                                                        response to wounding
+## 984                                                  response to salicylic acid
+## 910                                          plant-type hypersensitive response
+## 2097                                                  cellular response to heat
+## 905                                                       response to bacterium
+## 3272                                                       response to karrikin
+## 191                                    response to molecule of bacterial origin
+## 717                                                         signal transduction
+## 932                                                     response to salt stress
+## 2245                                              response to hydrogen peroxide
+## 627                          retrograde vesicle-mediated transport, Golgi to ER
+## 1014                    defense response to bacterium, incompatible interaction
+## 906                                                          response to fungus
+## 851                                                           protein secretion
+## 1837                            endoplasmic reticulum unfolded protein response
+## 972                                                   response to abscisic acid
+## 675                                                          Golgi organization
+## 718                                     cell surface receptor signaling pathway
+## 2803                                            protein complex oligomerization
+## 973                                   abscisic acid-activated signaling pathway
+## 2871                                                 response to other organism
+## 2591                                                protein autophosphorylation
+## 654                                                response to unfolded protein
+## 3444                                   regulation of defense response to fungus
+## 3056                    protein localization to endoplasmic reticulum exit site
+## 868                                               response to water deprivation
+## 2693                                                      recognition of pollen
+## 2450                                                 phospholipid translocation
+## 3191                                             clathrin-dependent endocytosis
+## 1015                       defense response to fungus, incompatible interaction
+## 192                                       response to molecule of fungal origin
+## 1220                                                          response to ozone
+## 1198                                                            leaf senescence
+## 2100                                      cellular response to unfolded protein
+## 429                                                   signal peptide processing
+## 911                                                systemic acquired resistance
+## 448                                           N-terminal protein myristoylation
+## 1870             posttranslational protein targeting to membrane, translocation
+## 635                                      vesicle docking involved in exocytosis
+## 1044                                  salicylic acid mediated signaling pathway
+## 862                                                     toxin catabolic process
+## 511  SRP-dependent cotranslational protein targeting to membrane, translocation
+## 426                                                             protein folding
+## 756                                                                  cell death
+## 925                                            response to high light intensity
+## 3254                          regulation of salicylic acid biosynthetic process
+## 625                                                                  exocytosis
+## 1647                                            peptidyl-serine phosphorylation
+## 903                                                           response to virus
+## 563                                               glutathione metabolic process
+## 3185                                      UDP-galactose transmembrane transport
+## 59                                          response to reactive oxygen species
+## 636                                                              vesicle fusion
+## 2760                                defense response to Gram-negative bacterium
+## 2158                                          intracellular signal transduction
+## 1181                                 regulation of systemic acquired resistance
+## 651                                                response to oxidative stress
+## 2885                                                 protein autoubiquitination
+## 3107                                                cellular response to chitin
+## 1043    systemic acquired resistance, salicylic acid mediated signaling pathway
+## 2626                                                      Golgi vesicle budding
+## 2202                                                          protein refolding
+## 864                                                            response to cold
+## 679                                                          vacuolar transport
+## 603                                                     mitochondrial transport
+## 2974                                                            membrane fusion
+## 1595                                                            phosphorylation
+## 1245                                                           response to UV-B
+## 2778                             chaperone cofactor-dependent protein refolding
+## 2642                                                            vesicle docking
+## 1750                                                 calcium-mediated signaling
+## 2584                                                    response to cadmium ion
+## 38                                                  activation of MAPK activity
+## 615                                            cellular calcium ion homeostasis
+## 2963                                                            leaf abscission
+## 2761                                                 defense response to fungus
+## 3704                     regulation of jasmonic acid mediated signaling pathway
+## 2329                                       response to external biotic stimulus
+## 1013                                 defense response, incompatible interaction
+## 2436                                                     innate immune response
+## 504                                                           protein targeting
+## 2247                                                       cell wall biogenesis
+## 2901                        defense response by callose deposition in cell wall
+## 2458                                                pectin biosynthetic process
+## 3457                       negative regulation of defense response to bacterium
+## 1875                                             regulation of defense response
+## 1777                             signal transduction by protein phosphorylation
+## 1189                                             camalexin biosynthetic process
+## 3458                       positive regulation of defense response to bacterium
+## 1853                          stress-activated protein kinase signaling cascade
+## 440                                                       protein glycosylation
+## 2207                                    retrograde transport, endosome to Golgi
+## 1876                                    negative regulation of defense response
+## 189                                               defense response to oomycetes
+##      ontology over_represented_padjust
+## 643        BP             4.265301e-31
+## 624        BP             1.373356e-29
+## 2259       BP             8.358152e-18
+## 1225       BP             3.650365e-16
+## 430        BP             2.276256e-14
+## 626        BP             1.278617e-13
+## 863        BP             4.395965e-13
+## 1453       BP             6.948544e-13
+## 1587       BP             6.941063e-11
+## 1949       BP             1.880447e-10
+## 628        BP             1.429089e-09
+## 901        BP             2.387296e-09
+## 984        BP             2.030017e-08
+## 910        BP             3.546523e-08
+## 2097       BP             3.715029e-08
+## 905        BP             7.984205e-08
+## 3272       BP             1.162651e-07
+## 191        BP             1.713799e-07
+## 717        BP             1.713799e-07
+## 932        BP             1.965887e-07
+## 2245       BP             7.993026e-07
+## 627        BP             1.134612e-06
+## 1014       BP             2.265132e-06
+## 906        BP             2.699965e-06
+## 851        BP             9.089355e-06
+## 1837       BP             9.134882e-06
+## 972        BP             1.053943e-05
+## 675        BP             1.116996e-05
+## 718        BP             1.180194e-05
+## 2803       BP             1.638882e-05
+## 973        BP             5.872352e-05
+## 2871       BP             2.472392e-04
+## 2591       BP             2.564630e-04
+## 654        BP             2.713606e-04
+## 3444       BP             6.919135e-04
+## 3056       BP             8.582393e-04
+## 868        BP             8.582393e-04
+## 2693       BP             9.608339e-04
+## 2450       BP             1.000819e-03
+## 3191       BP             1.000819e-03
+## 1015       BP             1.256265e-03
+## 192        BP             1.337181e-03
+## 1220       BP             1.374779e-03
+## 1198       BP             1.428623e-03
+## 2100       BP             1.428623e-03
+## 429        BP             1.428623e-03
+## 911        BP             1.428623e-03
+## 448        BP             1.555400e-03
+## 1870       BP             1.726006e-03
+## 635        BP             2.142585e-03
+## 1044       BP             2.329885e-03
+## 862        BP             2.329885e-03
+## 511        BP             2.531025e-03
+## 426        BP             2.788711e-03
+## 756        BP             3.288910e-03
+## 925        BP             3.377838e-03
+## 3254       BP             4.133800e-03
+## 625        BP             4.492330e-03
+## 1647       BP             5.136403e-03
+## 903        BP             5.136403e-03
+## 563        BP             5.230779e-03
+## 3185       BP             5.230779e-03
+## 59         BP             5.230779e-03
+## 636        BP             5.585601e-03
+## 2760       BP             5.644562e-03
+## 2158       BP             5.644562e-03
+## 1181       BP             6.706971e-03
+## 651        BP             6.831271e-03
+## 2885       BP             6.831271e-03
+## 3107       BP             8.035214e-03
+## 1043       BP             8.035214e-03
+## 2626       BP             8.035214e-03
+## 2202       BP             9.518129e-03
+## 864        BP             1.032608e-02
+## 679        BP             1.037590e-02
+## 603        BP             1.129219e-02
+## 2974       BP             1.398316e-02
+## 1595       BP             1.449455e-02
+## 1245       BP             1.469684e-02
+## 2778       BP             1.632433e-02
+## 2642       BP             1.794196e-02
+## 1750       BP             1.904510e-02
+## 2584       BP             2.020956e-02
+## 38         BP             2.079664e-02
+## 615        BP             2.085582e-02
+## 2963       BP             2.310963e-02
+## 2761       BP             2.408598e-02
+## 3704       BP             2.408598e-02
+## 2329       BP             2.536957e-02
+## 1013       BP             2.682122e-02
+## 2436       BP             2.747567e-02
+## 504        BP             2.928772e-02
+## 2247       BP             2.984276e-02
+## 2901       BP             2.984276e-02
+## 2458       BP             3.094763e-02
+## 3457       BP             3.464054e-02
+## 1875       BP             3.516462e-02
+## 1777       BP             3.909835e-02
+## 1189       BP             4.059965e-02
+## 3458       BP             4.063123e-02
+## 1853       BP             4.074516e-02
+## 440        BP             4.330714e-02
+## 2207       BP             4.396922e-02
+## 1876       BP             4.986022e-02
+## 189        BP             4.986022e-02</code></pre>
+<pre><code>## Warning in pcls(G): initial point very close to some inequality constraints</code></pre>
+<p><img src="/post/2018-09-27-over-representation-analysis-4-heatmap-visualization_files/figure-html/unnamed-chunk-4-1.png" width="672" /><img src="/post/2018-09-27-over-representation-analysis-4-heatmap-visualization_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<pre><code>## [1] &quot;enriched.GO is&quot;
+##        category over_represented_pvalue under_represented_pvalue
+## 936  GO:0009658            1.421084e-23                1.0000000
+## 1542 GO:0015979            4.134451e-23                1.0000000
+## 870  GO:0009416            4.934159e-14                1.0000000
+## 990  GO:0009768            1.601237e-13                1.0000000
+## 3480 GO:1901259            2.967639e-12                1.0000000
+## 1547 GO:0015995            6.409151e-10                1.0000000
+## 993  GO:0009773            1.723458e-08                1.0000000
+## 745  GO:0007623            4.511876e-08                1.0000000
+## 926  GO:0009645            6.696258e-08                1.0000000
+## 2278 GO:0042793            4.800680e-07                1.0000000
+## 918  GO:0009637            5.268320e-07                0.9999999
+## 1118 GO:0010027            1.246089e-06                0.9999997
+## 1183 GO:0010114            3.999797e-06                0.9999990
+## 864  GO:0009409            4.663120e-06                0.9999978
+## 2426 GO:0045036            4.748080e-06                0.9999995
+## 1270 GO:0010258            1.091101e-05                1.0000000
+## 1678 GO:0019252            2.555344e-05                0.9999961
+## 974  GO:0009739            4.714442e-05                0.9999824
+## 989  GO:0009767            4.782966e-05                0.9999938
+## 1232 GO:0010207            5.485926e-05                0.9999922
+## 927  GO:0009646            6.023482e-05                0.9999870
+## 215  GO:0005983            6.084207e-05                0.9999930
+## 3141 GO:0071482            6.262228e-05                0.9999953
+## 935  GO:0009657            6.663415e-05                0.9999950
+## 3464 GO:1900865            7.848116e-05                0.9999939
+## 1575 GO:0016120            8.238966e-05                0.9999979
+## 1111 GO:0010020            9.437563e-05                0.9999856
+## 925  GO:0009644            9.468408e-05                0.9999717
+## 1257 GO:0010239            9.809432e-05                0.9999974
+## 67   GO:0000373            1.030097e-04                0.9999867
+## 2427 GO:0045037            1.547592e-04                0.9999781
+## 991  GO:0009769            2.165699e-04                0.9999855
+## 141  GO:0000967            2.272397e-04                0.9999943
+## 1882 GO:0031425            2.569678e-04                0.9999737
+## 668  GO:0007018            2.652535e-04                0.9999108
+## 3465 GO:1900871            3.085897e-04                1.0000000
+## 364  GO:0006353            3.581310e-04                0.9999688
+## 1239 GO:0010218            4.028751e-04                0.9998846
+## 1221 GO:0010196            4.447964e-04                0.9999657
+##      numDEInCat numInCat
+## 936          76      158
+## 1542         63      137
+## 870          73      210
+## 990          19       24
+## 3480         15       16
+## 1547         22       37
+## 993          12       17
+## 745          36      100
+## 926           9       10
+## 2278          9       10
+## 918          24       58
+## 1118         21       49
+## 1183         22       59
+## 864          74      329
+## 2426         12       20
+## 1270          5        5
+## 1678         13       25
+## 974          30      112
+## 989          10       21
+## 1232         11       22
+## 927          15       37
+## 215          10       17
+## 3141          8       12
+## 935           8       12
+## 3464          8       12
+## 1575          6        7
+## 1111         11       22
+## 925          20       64
+## 1257          6        7
+## 67           10       18
+## 2427         10       19
+## 991           6       10
+## 141           5        6
+## 1882          8       13
+## 668          22       62
+## 3465          4        4
+## 364           7       11
+## 1239         16       48
+## 1221          6       10
+##                                                     term ontology
+## 936                             chloroplast organization       BP
+## 1542                                      photosynthesis       BP
+## 870                           response to light stimulus       BP
+## 990    photosynthesis, light harvesting in photosystem I       BP
+## 3480                         chloroplast rRNA processing       BP
+## 1547                    chlorophyll biosynthetic process       BP
+## 993   photosynthetic electron transport in photosystem I       BP
+## 745                                     circadian rhythm       BP
+## 926             response to low light intensity stimulus       BP
+## 2278                               plastid transcription       BP
+## 918                               response to blue light       BP
+## 1118                     thylakoid membrane organization       BP
+## 1183                               response to red light       BP
+## 864                                     response to cold       BP
+## 2426                    protein targeting to chloroplast       BP
+## 1270 NADH dehydrogenase complex (plastoquinone) assembly       BP
+## 1678                         starch biosynthetic process       BP
+## 974                              response to gibberellin       BP
+## 989              photosynthetic electron transport chain       BP
+## 1232                             photosystem II assembly       BP
+## 927                         response to absence of light       BP
+## 215                             starch catabolic process       BP
+## 3141                 cellular response to light stimulus       BP
+## 935                                 plastid organization       BP
+## 3464                        chloroplast RNA modification       BP
+## 1575                       carotene biosynthetic process       BP
+## 1111                                 chloroplast fission       BP
+## 925                     response to high light intensity       BP
+## 1257                         chloroplast mRNA processing       BP
+## 67                              Group II intron splicing       BP
+## 2427              protein import into chloroplast stroma       BP
+## 991   photosynthesis, light harvesting in photosystem II       BP
+## 141                               rRNA 5&#39;-end processing       BP
+## 1882                          chloroplast RNA processing       BP
+## 668                           microtubule-based movement       BP
+## 3465                       chloroplast mRNA modification       BP
+## 364             DNA-templated transcription, termination       BP
+## 1239                           response to far red light       BP
+## 1221                          nonphotochemical quenching       BP
+##      over_represented_padjust
+## 936              5.377382e-20
+## 1542             7.822381e-20
+## 870              6.223620e-11
+## 990              1.514770e-10
+## 3480             2.245909e-09
+## 1547             4.042038e-07
+## 993              9.316524e-06
+## 745              2.134117e-05
+## 926              2.815404e-05
+## 2278             1.812302e-04
+## 918              1.812302e-04
+## 1118             3.929334e-04
+## 1183             1.164249e-03
+## 864              1.197782e-03
+## 2426             1.197782e-03
+## 1270             2.580453e-03
+## 1678             5.687894e-03
+## 974              9.525655e-03
+## 989              9.525655e-03
+## 1232             1.030273e-02
+## 927              1.030273e-02
+## 215              1.030273e-02
+## 3141             1.030273e-02
+## 935              1.050598e-02
+## 3464             1.187891e-02
+## 1575             1.199086e-02
+## 1111             1.279588e-02
+## 925              1.279588e-02
+## 1257             1.279962e-02
+## 67               1.299295e-02
+## 2427             1.889061e-02
+## 991              2.560939e-02
+## 141              2.605682e-02
+## 1882             2.859900e-02
+## 668              2.867769e-02
+## 3465             3.243620e-02
+## 364              3.662615e-02
+## 1239             4.011788e-02
+## 1221             4.315666e-02</code></pre>
 </div>
 <div id="do-separate-analysis-for-double-coefficient-type" class="section level1">
 <h1>do separate analysis for double coefficient type</h1>
 <pre class="r"><code>for(n in 1:2) {
 library(dplyr)
   #genelist.up&lt;-base::get(paste(&quot;../output/&quot;,DEG.objs.V1.5annotation.unique[n],sep=&quot;&quot;)) %&gt;% rownames_to_column() %&gt;%  dplyr::filter(logFC&gt;0) # does not work
-    genelist.upup&lt;-    genelist.up&lt;-read_csv(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;,DEG.objs[n]))  %&gt;%  dplyr::filter(*** &gt;0) %&gt;% dplyr::filter(****&gt;0)
-    
-    #### under construction #####
-    genelist.updown&lt;-read_csv(paste(&quot;../output/&quot;,DEG.objs.V1.5annotation.unique[n],sep=&quot;&quot;))  %&gt;%  dplyr::filter(logFC.trt5E_live&gt;0) %&gt;% dplyr::filter(logFC.genotypeFPsc.trt5E_live&lt;0)
-        genelist.downup&lt;-read_csv(paste(&quot;../output/&quot;,DEG.objs.V1.5annotation.unique[n],sep=&quot;&quot;))  %&gt;%  dplyr::filter(logFC.trt5E_live&lt;0) %&gt;% dplyr::filter(logFC.genotypeFPsc.trt5E_live&gt;0)
-    genelist.downdown&lt;-read_csv(paste(&quot;../output/&quot;,DEG.objs.V1.5annotation.unique[n],sep=&quot;&quot;))  %&gt;%  dplyr::filter(logFC.trt5E_live&lt;0) %&gt;% dplyr::filter(logFC.genotypeFPsc.trt5E_live&lt;0)
-    GO.ORA.temp.up_up&lt;-GOseq.Brgo.v1.5.Atgoslim.BP.list.ORA(as_vector(genelist.upup[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
-    GO.ORA.temp.up_down&lt;-GOseq.Brgo.v1.5.Atgoslim.BP.list.ORA(as_vector(genelist.down[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
-    GO.ORA.temp.down_up&lt;-GOseq.Brgo.v1.5.Atgoslim.BP.list.ORA(as_vector(genelist.downup[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
-    GO.ORA.temp.down_down&lt;-GOseq.Brgo.v1.5.Atgoslim.BP.list.ORA(as_vector(genelist.downdown[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
+      genelist.all&lt;-DEG.list[[n]]
+#     DEG.list[[n]]  %&gt;%  dplyr::select(&quot;logFC.genotypenpr1.1&quot;)
+#         DEG.list[[n]]  %&gt;%  dplyr::select(logFC.genotypenpr1.1)
+# 
+#         DEG.list[[n]]  %&gt;%  dplyr::select(names(DEG.list[[n]])[2]) %&gt;% filter(.&gt;0)
+#         DEG.list[[n]]  %&gt;%  dplyr::filter(names(DEG.list[[n]])[2]&gt;0)
+#         DEG.list[[n]]  %&gt;%  dplyr::filter(logFC.genotypenpr1.1&gt;0) # does work
+#         DEG.list[[n]]  %&gt;%  dplyr::filter(&quot;logFC.genotypenpr1.1&quot;&gt;0)
+#         DEG.list[[n]]  %&gt;%  dplyr::filter(rlang::UQ(&quot;logFC.genotypenpr1.1&quot;)&gt;0)
+#         DEG.list[[n]]  %&gt;%  dplyr::filter(!!&quot;logFC.genotypenpr1.1&quot;&gt;0)
+#         DEG.list[[n]]  %&gt;%  dplyr::filter(!!names(DEG.list[[n]])[2]&gt;0)
+#         DEG.list[[n]]  %&gt;%  dplyr::filter((!!names(DEG.list[[n]])[2])==3.26)
+#         DEG.list[[n]]  %&gt;%  dplyr::filter((!!names(DEG.list[[n]])[2])&lt;0)
+#         DEG.list[[n]]  %&gt;%  dplyr::filter((UQ(as.name(names(DEG.list[[n]])[2])))&gt;0) # works! See https://stackoverflow.com/questions/27197617/filter-data-frame-by-character-column-name-in-dplyr
+# DEG.list[[n]]  %&gt;%  dplyr::filter((as.name(names(DEG.list[[n]])[2]))&gt;0)  # does not work
+genelist.upup&lt;-DEG.list[[n]] %&gt;% dplyr::filter((UQ(as.name(names(DEG.list[[n]])[2])))&gt;0) %&gt;% dplyr::filter((UQ(as.name(names(DEG.list[[n]])[3])))&gt;0)
+    genelist.updown&lt;-DEG.list[[n]] %&gt;% dplyr::filter((UQ(as.name(names(DEG.list[[n]])[2])))&gt;0) %&gt;% dplyr::filter((UQ(as.name(names(DEG.list[[n]])[3])))&lt;0)
+        genelist.downup&lt;-DEG.list[[n]] %&gt;% dplyr::filter((UQ(as.name(names(DEG.list[[n]])[2])))&lt;0) %&gt;% dplyr::filter((UQ(as.name(names(DEG.list[[n]])[3])))&gt;0)
+    genelist.downdown&lt;-  DEG.list[[n]] %&gt;% dplyr::filter((UQ(as.name(names(DEG.list[[n]])[2])))&lt;0) %&gt;% dplyr::filter((UQ(as.name(names(DEG.list[[n]])[3])))&lt;0)
+    GO.ORA.temp.all&lt;-GOseq.Atgoslim.BP.list.ORA(str_remove(as_vector(genelist.all[,&quot;genes&quot;]),&quot;\\.[[:digit:]]+&quot;),custom.category.list=Atgoslim.TAIR.BP.list)
+    GO.ORA.temp.up_up&lt;-GOseq.Atgoslim.BP.list.ORA(str_remove(as_vector(genelist.upup[,&quot;genes&quot;]),&quot;\\.[[:digit:]]+&quot;),custom.category.list=Atgoslim.TAIR.BP.list)
+    GO.ORA.temp.up_down&lt;-GOseq.Atgoslim.BP.list.ORA(str_remove(as_vector(genelist.updown[,&quot;genes&quot;]),&quot;\\.[[:digit:]]+&quot;),custom.category.list=Atgoslim.TAIR.BP.list)
+    GO.ORA.temp.down_up&lt;-GOseq.Atgoslim.BP.list.ORA(str_remove(as_vector(genelist.downup[,&quot;genes&quot;]),&quot;\\.[[:digit:]]+&quot;),custom.category.list=Atgoslim.TAIR.BP.list)
+    GO.ORA.temp.down_down&lt;-GOseq.Atgoslim.BP.list.ORA(str_remove(as_vector(genelist.downdown[,&quot;genes&quot;]),&quot;\\.[[:digit:]]+&quot;),custom.category.list=Atgoslim.TAIR.BP.list)
     # handling &quot;no enriched GO&quot; 
     # genelist.names&lt;-c(&quot;GO.ORA.temp.up_down&quot;,&quot;GO.ORA.temp.down_up&quot;) # test
-    x&lt;-list(GO.ORA.temp.up_up=GO.ORA.temp.up_up,
+    x&lt;-list(GO.ORA.temp.all=GO.ORA.temp.all,
+      GO.ORA.temp.up_up=GO.ORA.temp.up_up,
             GO.ORA.temp.up_down=GO.ORA.temp.up_down,
             GO.ORA.temp.down_up=GO.ORA.temp.down_up,
             GO.ORA.temp.down_down=GO.ORA.temp.down_down) # list
+    print(x[x==&quot;no enriched GO&quot;])
     x&lt;-x[!x==&quot;no enriched GO&quot;] # reove &quot;no enriched GO&quot; result
     ## add sample info and FC info and save GO.ORA result
-  for (i in length(x)) {
-      GO.ORA.result&lt;-x[[i]] %&gt;% mutate(FC = gsub(&quot;(GO.ORA.temp.)(.)&quot;,&quot;\\2&quot;,names(x)[i]),sample=DEG.objs.V1.5annotation.unique[n])
-    save(GO.ORA.result,file=paste(&quot;../output/GOseq.Ding2018&quot;,gsub(&quot;.csv&quot;,&quot;&quot;,DEG.objs[n]),gsub(&quot;(GO.ORA.temp.)(.)&quot;,&quot;\\2&quot;,names(x)[i]),&quot;enrich.Rdata&quot;,sep=&quot;.&quot;))
-    }
+  for (i in 1:length(x)) {
+      GO.ORA.result&lt;-x[[i]] %&gt;% mutate(FC = gsub(&quot;(GO.ORA.temp.)(.)&quot;,&quot;\\2&quot;,names(x)[i]),sample=DEG.objs[n])
+    save(GO.ORA.result,file=file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;,paste(gsub(&quot;.csv&quot;,&quot;&quot;,DEG.objs[n]),gsub(&quot;(GO.ORA.temp.)(.)&quot;,&quot;\\2&quot;,names(x)[i]),&quot;enrich.Rdata&quot;,sep=&quot;.&quot;)))
+    rm(GO.ORA.result)
+    } 
 }</code></pre>
 </div>
 <div id="read-goseq-result-table" class="section level1">
 <h1>read GOseq result table</h1>
-</div>
-<div id="format-the-table-for-heatmap" class="section level1">
-<h1>format the table for heatmap</h1>
+<pre class="r"><code>eGOseqs&lt;-list.files(pattern=&quot;enrich.Rdata&quot;,path=file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;))
+eGOseqs.list2&lt;-sapply(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;,eGOseqs),function(x) mget(load(x))) # mget will return the value of the object(or objects) in a list. see https://stackoverflow.com/questions/29398630/load-data-frames-into-list
+names(eGOseqs.list2)</code></pre>
+<pre><code>##  [1] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result&quot;      
+##  [2] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.down_down.enrich.Rdata.GO.ORA.result&quot;
+##  [3] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.down_up.enrich.Rdata.GO.ORA.result&quot;  
+##  [4] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.up_down.enrich.Rdata.GO.ORA.result&quot;  
+##  [5] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.up_up.enrich.Rdata.GO.ORA.result&quot;    
+##  [6] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result&quot;      
+##  [7] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.down_down.enrich.Rdata.GO.ORA.result&quot;
+##  [8] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.down_up.enrich.Rdata.GO.ORA.result&quot;  
+##  [9] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.up_down.enrich.Rdata.GO.ORA.result&quot;  
+## [10] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/trt.DEGs.int.rWT.rU.down.enrich.Rdata.GO.ORA.result&quot;                                            
+## [11] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/trt.DEGs.int.rWT.rU.up.enrich.Rdata.GO.ORA.result&quot;</code></pre>
+<pre class="r"><code>eGOseqs.list2.summary&lt;-do.call(&quot;rbind&quot;,eGOseqs.list2) 
+head(eGOseqs.list2.summary) # make sure those are file names</code></pre>
+<pre><code>##                                                                                                                                                                            category
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1 GO:0010200
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2 GO:0006952
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3 GO:0042742
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4 GO:0080167
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5 GO:0009751
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6 GO:0006468
+##                                                                                                                                                                          over_represented_pvalue
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1            4.858293e-26
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2            5.724864e-26
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3            1.352377e-23
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4            1.496577e-18
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5            6.725063e-18
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6            3.953862e-15
+##                                                                                                                                                                          under_represented_pvalue
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1                        1
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2                        1
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3                        1
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4                        1
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5                        1
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6                        1
+##                                                                                                                                                                          numDEInCat
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1         91
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2        277
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3        153
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4         80
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5         91
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6        312
+##                                                                                                                                                                          numInCat
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1      136
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2      620
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3      288
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4      134
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5      162
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6      774
+##                                                                                                                                                                                                   term
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1            response to chitin
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2              defense response
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3 defense response to bacterium
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4          response to karrikin
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5    response to salicylic acid
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6       protein phosphorylation
+##                                                                                                                                                                          ontology
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1       BP
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2       BP
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3       BP
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4       BP
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5       BP
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6       BP
+##                                                                                                                                                                          over_represented_padjust
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1             1.083144e-22
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2             1.083144e-22
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3             1.705798e-20
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4             1.415762e-15
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5             5.089528e-15
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6             2.493569e-12
+##                                                                                                                                                                                                   Term
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1            response to chitin
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2              defense response
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3 defense response to bacterium
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4          response to karrikin
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5    response to salicylic acid
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6       protein phosphorylation
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Definition
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1                                                                                                                                               A process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a chitin stimulus.
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2                                                                                                            Reactions, triggered in response to the presence of a foreign body or the occurrence of an injury, which result in restriction of damage to the organism attacked or prevention/recovery from the infection caused by the attack.
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3                                                                                                                                                                                                                                     Reactions triggered in response to the presence of a bacterium that act to protect the cell or organism.
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4 Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a karrikin stimulus. Karrikins are signaling molecules in smoke from burning vegetation that trigger seed germination for many angiosperms (flowering plants).
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5                                                                                                                                     Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a salicylic acid stimulus.
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6                                                                                                                                                                                                                                                                                The process of introducing a phosphate group on to a protein.
+##                                                                                                                                                                           FC
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1 all
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2 all
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3 all
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4 all
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5 all
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6 all
+##                                                                                                                                                                                                                                  sample
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
+## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv</code></pre>
+<pre class="r"><code>rownames(eGOseqs.list2.summary)&lt;-1:nrow(eGOseqs.list2.summary)
+View(eGOseqs.list2.summary)</code></pre>
 </div>
 <div id="drawing-heatmap" class="section level1">
 <h1>Drawing heatmap</h1>
-</div>
-<div id="fig.2-focused-go-ora-heatmap-just-copied" class="section level1">
-<h1># Fig.2 focused GO ORA heatmap (just copied)</h1>
-<pre class="r"><code>eGOseqs&lt;-list.files(pattern=&quot;GOseq.Brgo.Atgoslim.BP.list.(leaf|root)&quot;,path=&quot;../output&quot;)
-# To focus on leaf or root trt, trt.density, select data.
-eGOseqs&lt;-grep(&quot;trt&quot;,eGOseqs,value=TRUE)
-# combine
-eGOseqs.list2&lt;-sapply(paste(&quot;../output/&quot;,eGOseqs,sep=&quot;&quot;),function(x) mget(load(x))) # mget will return the value of the object(or objects) in a list. see https://stackoverflow.com/questions/29398630/load-data-frames-into-list
-names(eGOseqs.list2)
-eGOseqs.list2.summary&lt;-do.call(&quot;rbind&quot;,eGOseqs.list2) 
-head(eGOseqs.list2.summary) # make sure those are file names
-rownames(eGOseqs.list2.summary)&lt;-1:nrow(eGOseqs.list2.summary)
-View(eGOseqs.list2.summary)
-# eGOseqs.list2.summary (more than three genes in each KO)
+<pre class="r"><code># eGOseqs.list2.summary (more than three genes in each KO)
 eGOseqs.list2.summary&lt;-eGOseqs.list2.summary[eGOseqs.list2.summary$numDEInCat&gt;3,]
 # focused on only very significant GO terms
 eGOseqs.list2.summary&lt;-eGOseqs.list2.summary[eGOseqs.list2.summary$over_represented_padjust&lt;1e-4,]
 # how to cluster GO Ontology according to this pattern?
-## using hclust to sort?
-GO.list&lt;-unique(eGOseqs.list2.summary$category);sample.list&lt;-unique(eGOseqs.list2.summary$sample)
-df&lt;-as.data.frame(matrix(rep(0,length(GO.list)*length(sample.list)*2),nrow=length(GO.list),ncol=length(sample.list)*2))
-names(df)&lt;-c(paste(sample.list,&quot;UP&quot;,sep=&quot;_&quot;),paste(sample.list,&quot;DOWN&quot;,sep=&quot;_&quot;))
-df$category&lt;-GO.list
-#for(n in 1:7) {
-for(n in 1:length(sample.list)) {
-df[,paste(sample.list[n],&quot;UP&quot;,sep=&quot;_&quot;)]&lt;-vlookup(df[,&quot;category&quot;],eGOseqs.list2.summary[eGOseqs.list2.summary$sample==sample.list[n]&amp;eGOseqs.list2.summary$FC==&quot;up&quot;,c(&quot;category&quot;,&quot;over_represented_padjust&quot;)],2)
-df[,paste(sample.list[n],&quot;DOWN&quot;,sep=&quot;_&quot;)]&lt;-vlookup(df[,&quot;category&quot;],eGOseqs.list2.summary[eGOseqs.list2.summary$sample==sample.list[n]&amp;eGOseqs.list2.summary$FC==&quot;down&quot;,c(&quot;category&quot;,&quot;over_represented_padjust&quot;)],2)
-}
-# View(df)
+## using hclust to sort GO terms
+GO.list&lt;-unique(eGOseqs.list2.summary$category)
+sample.list&lt;-unique(eGOseqs.list2.summary$sample_FC) # revised
+# having x-label also used the x-label for df below
+eGOseqs.list2.summary &lt;- eGOseqs.list2.summary %&gt;% mutate(sample=str_remove(sample,&quot;.csv&quot;)) %&gt;% mutate(sample=str_remove(sample,&quot;.DEGs.int&quot;)) %&gt;% unite(sample_FC,sample,FC)
+
+# Making matrix for calculate hierarchical clustering of &quot;over-representd_padjust&quot; value using sperad
+df&lt;-eGOseqs.list2.summary %&gt;% dplyr::select(category,sample_FC,over_represented_padjust) %&gt;% spread(sample_FC,over_represented_padjust,-1)
+
 df[df&lt;1e-10]&lt;-1e-10 # to avoid &quot;Inf&quot; after log10 transformation
-df[,1:8]&lt;- -log10(df[,1:8])
+df&lt;- df %&gt;% mutate_at(vars(2:11) ,.funs=function(x) -log10(x))
+# df&lt;- df %&gt;% mutate_at(vars(2:11) ,.funs=-log10) # does not work
+
 df[is.na(df)]&lt;-1
-hc&lt;-stats::hclust(dist(df), &quot;ave&quot;)
-hc$order
-# plot
-library(scales)
-eGOseqs.list2.summary$FC&lt;-factor(eGOseqs.list2.summary$FC,levels=c(&quot;up&quot;,&quot;down&quot;))
-term.ordered&lt;-vlookup(df[hc$order,&quot;category&quot;],eGOseqs.list2.summary[,c(&quot;category&quot;,&quot;Term&quot;)],2)
-eGOseqs.list2.summary$Term&lt;-factor(eGOseqs.list2.summary$Term,levels=term.ordered)
+hc&lt;-stats::hclust(dist(df[,2:11]), &quot;ave&quot;) # only numbers
+hc$order</code></pre>
+<pre><code>##  [1] 51 53 26 18 47 35 23 25 16 38 29 45 12 40 42  2 39 24 33 14 50  5 52
+## [24] 48 31 34 17 13 15  8 55 41  3 30  1 56  9 22 21  4 49 46 43 32 10  6
+## [47]  7 36 27 54 20 28 11 37 19 44</code></pre>
+<pre class="r"><code>hc$labels &lt;-df$category
+hc.tib&lt;-tibble(category=df$category,order=hc$order)
+library(scales)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     discard</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
+<pre class="r"><code># change term order
+hc.tib2&lt;-hc.tib %&gt;% inner_join(eGOseqs.list2.summary[,c(&quot;category&quot;,&quot;term&quot;)],by=&quot;category&quot;) %&gt;% distinct() %&gt;% arrange(desc(order))
+eGOseqs.list2.summary$term&lt;-factor(eGOseqs.list2.summary$term,levels=as_vector(hc.tib2$term))
 # To avoid gray color, add 1e-20 to smaller padjust value
 eGOseqs.list2.summary$over_represented_padjust[eGOseqs.list2.summary$over_represented_padjust&lt;1e-20]&lt;-1e-20
+# format x label
+#eGOseqs.list2.summary &lt;- eGOseqs.list2.summary  %&gt;% mutate(sample2=str_replace(sample,&quot;trt.density&quot;,&quot;trt_density&quot;)) %&gt;%  separate(sample2,into=c(&quot;tissue&quot;,&quot;factor&quot;,&quot;DEGs&quot;,&quot;model&quot;,&quot;ref_density&quot;,&quot;ref_soil&quot;),sep=&quot;\\.&quot;) %&gt;% mutate(ref_soil=str_remove(ref_soil,&quot;r&quot;)) %&gt;% mutate(ref_density=str_remove(ref_density,&quot;r&quot;))  %&gt;% unite(density_FC,ref_density,FC) # simplify elements in &quot;density_FC&quot; column for simpler x label in heatmap
 # plot
-eGOseqs.list2.summary &lt;- eGOseqs.list2.summary %&gt;% mutate(sample2=str_replace(sample,&quot;trt.density&quot;,&quot;trt_density&quot;)) %&gt;%
-  separate(sample2,into=c(&quot;tissue&quot;,&quot;factor&quot;,&quot;DEGs&quot;,&quot;model&quot;,&quot;ref_density&quot;,&quot;ref_soil&quot;),sep=&quot;\\.&quot;) %&gt;%
-  mutate(ref_density=str_remove(ref_density,&quot;r&quot;)) %&gt;%
-  mutate(ref_soil=str_remove(ref_soil,&quot;r&quot;)) %&gt;%
-  unite(density_FC,ref_density,FC) # simplify elements in &quot;density_FC&quot; column for simpler x label in heatmap
-GOseq.plot&lt;-ggplot(eGOseqs.list2.summary,aes(x=density_FC,y=Term)) + geom_tile(aes(fill=-log10(over_represented_padjust)),colour=&quot;black&quot;) + facet_grid(~tissue) + scale_fill_gradient2(limit=c(0,20),low=muted(&quot;green&quot;), high=muted(&quot;magenta&quot;)) # OK
+  GOseq.plot&lt;-ggplot(eGOseqs.list2.summary,aes(x=sample_FC,y=term)) + geom_tile(aes(fill=-log10(over_represented_padjust)),colour=&quot;black&quot;)  + scale_fill_gradient2(limit=c(0,20),low=muted(&quot;green&quot;), high=muted(&quot;magenta&quot;)) # OK
 GOseq.plot&lt;-GOseq.plot+     theme(axis.text.x=element_text(size=10,angle=90),
           axis.text.y=element_text(size=10),
           axis.title=element_text(size=10),
@@ -372,8 +1037,9 @@ GOseq.plot&lt;-GOseq.plot+     theme(axis.text.x=element_text(size=10,angle=90),
           panel.background = element_rect(fill = &quot;white&quot;,colour=&quot;black&quot;),
           plot.title=element_text(size=20),
           axis.line=element_blank()) + labs(x=&quot;&quot;,y=&quot;&quot;,title=&quot;&quot;,fill=&quot;-log10\n pvalue&quot;)
-ggsave(GOseq.plot,file=&quot;../output/2018NSFposter.Fig2.png&quot;,width=11,height=8,units=&quot;in&quot;)
-ggsave(GOseq.plot,file=&quot;../output/2018NSFposter.Fig2.pdf&quot;,width=11,height=8,units=&quot;in&quot;)</code></pre>
+GOseq.plot</code></pre>
+<p><img src="/post/2018-09-27-over-representation-analysis-4-heatmap-visualization_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code># ggplot_build(GOseq.plot)</code></pre>
 </div>
 
 </main>

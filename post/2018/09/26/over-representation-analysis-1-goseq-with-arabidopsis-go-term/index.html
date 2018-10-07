@@ -140,6 +140,63 @@ At_cdna</code></pre>
 </div>
 <div id="run-this-chunck-onece-to-make-atgoslim.tair.bp.list.rdata" class="section level1">
 <h1>Run this chunck onece to make Atgoslim.TAIR.BP.list.Rdata</h1>
+<pre class="r"><code>## download TAIR version of [GOSLIM](http://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FGO_and_PO_Annotations%2FGene_Ontology_Annotations)
+## read me file is http://www.arabidopsis.org/download_files/GO_and_PO_Annotations/Gene_Ontology_Annotations/ATH_GO.README.txt
+## directly read the file from TAIR
+test&lt;-readr::read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/ATH_GO_GOSLIM.txt.gz&quot;,skip=2,col_names=FALSE) # does not work</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X1 = col_character(),
+##   X2 = col_character()
+## )</code></pre>
+<pre><code>## Warning in rbind(names(probs), probs_f): number of columns of result is not
+## a multiple of vector length (arg 1)</code></pre>
+<pre><code>## Warning: 39980 parsing failures.
+## row # A tibble: 5 x 5 col     row col   expected  actual     file                                    expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;                                   actual 1     2 &lt;NA&gt;  2 columns 1 columns  &#39;https://www.arabidopsis.org/download_… file 2     3 &lt;NA&gt;  2 columns 1 columns  &#39;https://www.arabidopsis.org/download_… row 3     4 X1    &quot;&quot;        embedded … &#39;https://www.arabidopsis.org/download_… col 4     4 &lt;NA&gt;  2 columns 1 columns  &#39;https://www.arabidopsis.org/download_… expected 5     5 &lt;NA&gt;  2 columns 1 columns  &#39;https://www.arabidopsis.org/download_…
+## ... ................. ... .......................................................................... ........ .......................................................................... ...... .......................................................................... .... .......................................................................... ... .......................................................................... ... .......................................................................... ........ ..........................................................................
+## See problems(...) for more details.</code></pre>
+<pre class="r"><code>## store uncompressed version in box.com and download it
+#test2&lt;-readr::read_tsv(&quot;https://app.box.com/s/pdxbg2t8vpyatp4x9eewc13qaloa5i4r&quot;,skip=2,col_names=FALSE) # does not work.
+## download file
+download.file(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/ATH_GO_GOSLIM.txt.gz&quot;,destfile =&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/ATH_GO_GOSLIM.txt.gz&quot;) 
+system(&quot;unzip -c 2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/ATH_GO_GOSLIM.txt.gz &gt;  2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/ATH_GO_GOSLIM.txt&quot;) # this is not gunzip.
+Atgoslim.TAIR&lt;-read_tsv(&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/ATH_GO_GOSLIM.txt&quot;,skip=2,col_names = FALSE)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X1 = col_character(),
+##   X2 = col_character(),
+##   X3 = col_character(),
+##   X4 = col_character(),
+##   X5 = col_character(),
+##   X6 = col_character(),
+##   X7 = col_integer(),
+##   X8 = col_character(),
+##   X9 = col_character(),
+##   X10 = col_character(),
+##   X11 = col_character(),
+##   X12 = col_character(),
+##   X13 = col_character(),
+##   X14 = col_character(),
+##   X15 = col_date(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Warning in rbind(names(probs), probs_f): number of columns of result is not
+## a multiple of vector length (arg 1)</code></pre>
+<pre><code>## Warning: 6 parsing failures.
+## row # A tibble: 5 x 5 col      row col   expected   actual   file                                    expected    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;                                   actual 1  21068 X15   &quot;date lik… TAIR     &#39;2018-09-26-over-representation-analys… file 2  21068 &lt;NA&gt;  15 columns 16 colu… &#39;2018-09-26-over-representation-analys… row 3 218961 X15   &quot;date lik… pfsouth  &#39;2018-09-26-over-representation-analys… col 4 218961 &lt;NA&gt;  15 columns 16 colu… &#39;2018-09-26-over-representation-analys… expected 5 218965 X15   &quot;date lik… pfsouth  &#39;2018-09-26-over-representation-analys…
+## ... ................. ... .......................................................................... ........ .......................................................................... ...... .......................................................................... .... .......................................................................... ... .......................................................................... ... .......................................................................... ........ ..........................................................................
+## See problems(...) for more details.</code></pre>
+<pre class="r"><code>Atgoslim.TAIR %&gt;% filter(X8==&quot;P&quot;,X1==&quot;AT4G38360&quot;) %&gt;% dplyr::select(1,5,6,8,9,10)</code></pre>
+<pre><code>## # A tibble: 4 x 6
+##   X1      X5                            X6     X8    X9              X10  
+##   &lt;chr&gt;   &lt;chr&gt;                         &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;
+## 1 AT4G38… vesicle-mediated transport t… GO:00… P     transport       IGI  
+## 2 AT4G38… negative regulation of brass… GO:19… P     other cellular… IGI  
+## 3 AT4G38… negative regulation of brass… GO:19… P     signal transdu… IGI  
+## 4 AT4G38… vacuole organization          GO:00… P     cell organizat… IGI</code></pre>
+<pre class="r"><code>Atgoslim.TAIR.BP &lt;-Atgoslim.TAIR%&gt;% filter(X8==&quot;P&quot;)
+Atgoslim.TAIR.BP.list&lt;-tapply(Atgoslim.TAIR.BP$X6,Atgoslim.TAIR.BP$X1,c)
+save(Atgoslim.TAIR.BP.list,file=file.path(&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files&quot;,&quot;Atgoslim.TAIR.BP.list.Rdata&quot;))
+system(&quot;rm 2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/ATH_GO_GOSLIM.txt*&quot;) # removce both files</code></pre>
 </div>
 <div id="goseq.atgoslim.bp.list.ora-function" class="section level1">
 <h1>GOseq.Atgoslim.BP.list.ORA function</h1>
@@ -239,8 +296,8 @@ GOseq.Atgoslim.BP.list.ORA(genelist=genes.shade1h.up$AGI)</code></pre>
 ## 968                                                                                                                                                                                                                                                                                                                        Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of an auxin stimulus.
 ## 922 Shade avoidance is a set of responses that plants display when they are subjected to the shade of another plant. It often includes elongation, altered flowering time, increased apical dominance and altered partitioning of resources. Plants are able to distinguish between the shade of an inanimate object (e.g. a rock) and the shade of another plant due to the altered balance between red and far-red light in the shade of a plant; this balance between red and far-red light is perceived by phytochrome.</code></pre>
 </div>
-<div id="r-scripts-for-vignett" class="section level1">
-<h1>R scripts for vignett</h1>
+<div id="see-r-scripts-for-vignett" class="section level1">
+<h1>see R scripts for vignett</h1>
 <hr />
 <p><strong>References</strong></p>
 </div>
