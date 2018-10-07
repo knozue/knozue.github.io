@@ -1,0 +1,20 @@
+---
+title: 実験はどう記録するか？
+author: Kazu Nozue
+date: '2018-09-15'
+categories:
+  - data-analysis
+  - project-management
+tags:
+  - 実験ノート
+---
+# 参考にしたサイトと図書
+[九州大学附属図書館](https://guides.lib.kyushu-u.ac.jp/jikken-note)
+
+[実験ノートには何を記録するのか? by 野島高彦](https://www.huffingtonpost.jp/takahiko-nojima/experiment-note_b_5081677.html)
+
+[At the bench (2004) Kathy Barker](https://www.amazon.com/At-Bench-Laboratory-Navigator-Updated/dp/0879697083/ref=sr_1_1?ie=UTF8&qid=1537032045&sr=8-1&keywords=at+the+bench)
+ [邦訳](https://www.amazon.co.jp/%E3%82%A2%E3%83%83%E3%83%88%E3%83%BB%E3%82%B6%E3%83%BB%E3%83%99%E3%83%B3%E3%83%81%E2%80%95%E3%83%90%E3%82%A4%E3%82%AA%E7%A0%94%E7%A9%B6%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97-%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E7%89%88-%E3%82%AD%E3%83%A3%E3%82%B7%E3%83%BC-%E3%83%90%E3%83%BC%E3%82%AB%E3%83%BC/dp/4895924149/ref=sr_1_2?ie=UTF8&qid=1537032227&sr=8-2&keywords=at+the+bench)
+ 
+ [日本の科学と技術 (blog)](http://scienceandtechnology.jp/archives/15527)
+

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Over-representation analysis 4:  heatmap visualization | </title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-09-27</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+  </div>
+
+  <h1><span class="title">Over-representation analysis 4:  heatmap visualization</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/reproducibility">reproducibility</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+<!--[](/post/2018-09-27-over-representation-analysis-4-heatmap-visualization_files/Scan_QRcode.png) # Run Addins > Insert Image" to create directories for putting files-->
+<pre class="r"><code>library(tidyverse);library(goseq)</code></pre>
+<div id="load-goseq-function" class="section level1">
+<h1>load GOseq function</h1>
+<pre class="r"><code># GOseq.Atgoslim.BP.list.ORA function
+#This function is used to calculate GO ORA results multiple times.
+getwd()</code></pre>
+<pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog/content/post&quot;</code></pre>
+<pre class="r"><code>load(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/Atgoslim.TAIR.BP.list.Rdata&quot;)
+# load(&quot;Atgoslim.TAIR.BP.list.Rdata&quot;)
+# load(&quot;../Atgoslim.TAIR.BP.list.Rdata&quot;)
+# load(&quot;../../Atgoslim.TAIR.BP.list.Rdata&quot;)
+# load(&quot;../../public/Atgoslim.TAIR.BP.list.Rdata&quot;)
+
+head(Atgoslim.TAIR.BP.list)</code></pre>
+<pre><code>## $`18S RRNA`
+## [1] &quot;GO:0006412&quot; &quot;GO:0006412&quot; &quot;GO:0006412&quot;
+## 
+## $`25S RRNA`
+## [1] &quot;GO:0043043&quot; &quot;GO:0043043&quot;
+## 
+## $`5.8S RRNA`
+## [1] &quot;GO:0043043&quot; &quot;GO:0043043&quot;
+## 
+## $AAN
+## [1] &quot;GO:0007623&quot;
+## 
+## $AAR1
+## [1] &quot;GO:0006970&quot; &quot;GO:0006970&quot; &quot;GO:0040029&quot;
+## 
+## $AAR2
+## [1] &quot;GO:0009845&quot; &quot;GO:0040029&quot;</code></pre>
+<pre class="r"><code>GOseq.Atgoslim.BP.list.ORA&lt;-function(genelist,padjust=0.05,ontology=&quot;BP&quot;,custom.category.list=Atgoslim.TAIR.BP.list,cdna=At_cdna) { # return GO enrichment table, padjus, padjust=0.05. 
+  bias&lt;-nchar(cdna)
+  names(bias)&lt;-tibble(AGI=names(cdna)) %&gt;% separate(AGI,into=&quot;AGI2&quot;,pattern=&quot;|&quot;,extra=&quot;drop&quot;) %&gt;% dplyr::select(AGI2) %&gt;% as_vector()
+  table(duplicated(names(bias)))
+  #TF&lt;-(names(bias) %in% genelist)*1
+  TF&lt;-as.integer(names(bias) %in% genelist)
+  names(TF)&lt;-names(bias)
+  #print(TF)
+  pwf&lt;-nullp(TF,bias.data=bias)
+  #print(pwf$DEgenes)
+  GO.pval &lt;- goseq(pwf,gene2cat=custom.category.list,use_genes_without_cat=TRUE) # format became different in new goseq version (021111). Does not work (042716)
+  #head(GO.pval) 
+  if(ontology==&quot;BP&quot;) {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;BP&quot;)
+  } else if(ontology==&quot;CC&quot;) {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;CC&quot;)
+  } else {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;MF&quot;)
+  }
+  # calculating padjust by BH  
+  GO.pval2$over_represented_padjust&lt;-p.adjust(GO.pval2$over_represented_pvalue,method=&quot;BH&quot;)
+  if(GO.pval2$over_represented_padjust[1]&gt;padjust) return(&quot;no enriched GO&quot;)
+  else {
+    enriched.GO&lt;-GO.pval2[GO.pval2$over_represented_padjust&lt;padjust,] 
+    print(&quot;enriched.GO is&quot;)
+    print(enriched.GO)
+    
+    ## write Term and Definition 
+    for(i in 1:dim(enriched.GO)[1]) {
+      if(is.null(Term(GOTERM[enriched.GO[i,&quot;category&quot;]]))) {next} else {
+      enriched.GO$Term[i]&lt;-Term(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
+      enriched.GO$Definition[i]&lt;-Definition(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
+      }
+    }
+    return(enriched.GO)
+  }
+}</code></pre>
+</div>
+<div id="go.seq" class="section level1">
+<h1>GO.seq</h1>
+<pre class="r"><code># genes.shade1h.up
+GOseq.Atgoslim.BP.list.ORA(genelist=genes.shade1h.up$AGI)</code></pre>
+</div>
+<div id="importing-enrichment-result-table-and-have-summary-table-table-of-degs-under-construction" class="section level1">
+<h1>Importing enrichment result table and have summary table: Table of DEGs (under construction)</h1>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog/content/post&quot;</code></pre>
+<pre class="r"><code>list.files(path=file.path(&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files&quot;,&quot;output&quot;)) # finding files in different blogs did not work.. Did work this time... why?</code></pre>
+<pre><code>## character(0)</code></pre>
+<pre class="r"><code>DEG.objs&lt;-list.files(path=file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;)) # copied file.path(&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files&quot;,&quot;output&quot;) folder in this 
+DEG.objs</code></pre>
+<pre><code>## [1] &quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv&quot;
+## [2] &quot;genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.csv&quot;
+## [3] &quot;trt.DEGs.int.rWT.rU.csv&quot;</code></pre>
+<pre class="r"><code># read csv file
+DEG.count.list&lt;-lapply(DEG.objs, function(x) read_csv(paste(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;),&quot;/&quot;,x,sep=&quot;&quot;)))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC.genotypenpr1.1 = col_double(),
+##   logFC.genotypenpr1.1.treatmenttreated = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC.genotypenpr4.4D = col_double(),
+##   logFC.genotypenpr4.4D.treatmenttreated = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre class="r"><code>names(DEG.count.list)&lt;-gsub(&quot;.csv&quot;,&quot;&quot;,DEG.objs)
+DEG.count.list</code></pre>
+<pre><code>## $genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU
+## # A tibble: 6,694 x 10
+##    genes logFC.genotypen… logFC.genotypen… logCPM    LR    PValue       FDR
+##    &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 AT2G…        -4.20               -0.720   6.69 1300. 5.30e-283 1.78e-278
+##  2 AT5G…         3.26                0.530   4.76 1000. 5.96e-218 1.00e-213
+##  3 AT1G…        -2.02               -0.475   7.19  629. 2.69e-137 3.01e-133
+##  4 AT1G…        -2.26               -0.511   7.51  620. 2.83e-135 2.38e-131
+##  5 AT3G…        -3.16                0.888   5.33  618. 5.42e-135 3.64e-131
+##  6 AT5G…        -0.212              -6.72    3.89  607. 1.67e-132 9.35e-129
+##  7 AT2G…         2.22                1.95    9.21  572. 7.80e-125 3.74e-121
+##  8 AT5G…         1.82                1.83    9.40  570. 1.54e-124 6.46e-121
+##  9 AT1G…        -3.65               -1.52    3.37  565. 1.92e-123 7.17e-120
+## 10 AT5G…         0.000149           -7.96    3.77  546. 2.42e-119 8.12e-116
+## # ... with 6,684 more rows, and 3 more variables: AGI &lt;chr&gt;,
+## #   symbol2 &lt;chr&gt;, full_name &lt;chr&gt;
+## 
+## $genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU
+## # A tibble: 846 x 10
+##    genes logFC.genotypen… logFC.genotypen… logCPM    LR    PValue       FDR
+##    &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 AT5G…             3.04            0.628   4.76  904. 5.00e-197 1.68e-192
+##  2 AT3G…            -5.45           -0.183   1.98  459. 1.80e-100 3.03e- 96
+##  3 AT5G…            -3.30            0.354   3.10  444. 4.51e- 97 5.05e- 93
+##  4 AT1G…            -7.40           -3.70    2.00  432. 1.32e- 94 1.11e- 90
+##  5 AT3G…            -2.97           -0.301   3.36  372. 1.83e- 81 1.23e- 77
+##  6 AT1G…            -2.50            0.891   6.30  288. 2.54e- 63 1.42e- 59
+##  7 AT2G…            -1.42           -0.703   6.69  277. 7.63e- 61 3.66e- 57
+##  8 AT5G…            -3.04            0.434   4.19  211. 1.75e- 46 7.36e- 43
+##  9 AT2G…            -1.10           -0.237   5.87  209. 5.09e- 46 1.90e- 42
+## 10 AT5G…            -1.84           -0.489   2.78  187. 2.68e- 41 9.01e- 38
+## # ... with 836 more rows, and 3 more variables: AGI &lt;chr&gt;, symbol2 &lt;chr&gt;,
+## #   full_name &lt;chr&gt;
+## 
+## $trt.DEGs.int.rWT.rU
+## # A tibble: 7,811 x 9
+##    genes  logFC logCPM    LR    PValue       FDR AGI   symbol2 full_name  
+##    &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;      
+##  1 AT5G1…  8.57   3.89  675. 7.55e-149 2.54e-144 AT5G… AT-HSP… heat shock…
+##  2 AT1G0…  4.00   4.60  592. 7.94e-131 1.33e-126 AT1G… &lt;NA&gt;    &lt;NA&gt;       
+##  3 AT5G2…  6.16   4.19  588. 5.77e-130 6.46e-126 AT5G… ATWRKY… ARABIDOPSI…
+##  4 AT4G2…  3.85   5.39  586. 1.92e-129 1.59e-125 AT4G… CRK14   cysteine-r…
+##  5 AT5G1…  9.64   3.77  586. 2.37e-129 1.59e-125 AT5G… HSP17.… 17.6 kDa c…
+##  6 AT3G2…  4.92   3.36  546. 9.68e-121 5.42e-117 AT3G… &lt;NA&gt;    &lt;NA&gt;       
+##  7 AT4G2…  3.34   6.70  539. 2.78e-119 1.33e-115 AT4G… SGT1A   &lt;NA&gt;       
+##  8 AT5G2…  3.82   6.70  535. 2.42e-118 1.02e-114 AT5G… AtDMR6… NA;DOWNY M…
+##  9 AT5G0…  4.14   7.14  523. 1.07e-115 3.98e-112 AT5G… AtHsp7… NA;NA      
+## 10 AT1G2…  2.87   7.19  511. 3.43e-113 1.15e-109 AT1G… AtWAK1… NA;NA;cell…
+## # ... with 7,801 more rows</code></pre>
+</div>
+<div id="go.ora-for-each-deg-list-loop" class="section level1">
+<h1>GO.ORA for each DEG list (loop)</h1>
+<pre class="r"><code># single coefficient
+
+for(n in 3) {
+library(dplyr)
+  #genelist.up&lt;-base::get(paste(&quot;../output/&quot;,DEG.objs.V1.5annotation.unique[n],sep=&quot;&quot;)) %&gt;% rownames_to_column() %&gt;%  dplyr::filter(logFC&gt;0) # does not work
+    genelist.up&lt;-read_csv(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;,DEG.objs[n]))  %&gt;%  dplyr::filter(logFC&gt;0)
+    genelist.down&lt;-read_csv(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;,DEG.objs[n]))  %&gt;%  dplyr::filter(logFC&lt;0)
+    GO.ORA.temp.up&lt;-GOseq.Atgoslim.BP.list.ORA(as_vector(genelist.up[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
+    GO.ORA.temp.down&lt;-GOseq.Brgo.v1.5.Atgoslim.BP.list.ORA(as_vector(genelist.down[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
+  if(as.data.frame(GO.ORA.temp.up)[1,1]==&quot;no enriched GO&quot;&amp; as.data.frame(GO.ORA.temp.down)[1,1]==&quot;no enriched GO&quot;) {next} else if(as.data.frame(GO.ORA.temp.down)[1,1]==&quot;no enriched GO&quot;) {
+     # add sample name
+    GO.ORA.temp.up$sample&lt;-DEG.objs.V1.5annotation.unique[n]
+     # fold change
+    GO.ORA.temp.up$FC&lt;-&quot;up&quot;
+    save(GO.ORA.temp.up,file=paste(&quot;../output/GOseq.exp1.Brgo.v1.5.Atgoslim.BP.list.&quot;,DEG.objs.V1.5annotation.unique[n],&quot;.up.enrich.Rdata&quot;,sep=&quot;&quot;))
+  } else if(as.data.frame(GO.ORA.temp.up)[1,1]==&quot;no enriched GO&quot;) {
+    # add sample name
+    GO.ORA.temp.down$sample&lt;-DEG.objs.V1.5annotation.unique[n]
+    # fold change
+    GO.ORA.temp.down$FC&lt;-&quot;down&quot;
+    save(GO.ORA.temp.down,file=paste(&quot;../output/GOseq.exp1.Brgo.v1.5.Atgoslim.BP.list.&quot;,DEG.objs.V1.5annotation.unique[n],&quot;.down.enrich.Rdata&quot;,sep=&quot;&quot;))
+  } else {
+     # add sample name
+    GO.ORA.temp.up$sample&lt;-DEG.objs.V1.5annotation.unique[n]
+     # fold change
+    GO.ORA.temp.up$FC&lt;-&quot;up&quot;
+    save(GO.ORA.temp.up,file=paste(&quot;../output/GOseq.exp1.Brgo.v1.5.Atgoslim.BP.list.&quot;,DEG.objs.V1.5annotation.unique[n],&quot;.up.enrich.Rdata&quot;,sep=&quot;&quot;))
+      # add sample name
+    GO.ORA.temp.down$sample&lt;-DEG.objs.V1.5annotation.unique[n]
+    # fold change
+    GO.ORA.temp.down$FC&lt;-&quot;down&quot;
+    #View(eKEGG.temp.down.DF)
+    save(GO.ORA.temp.down,file=paste(&quot;../output/GOseq.exp1.Brgo.v1.5.Atgoslim.BP.list.&quot;,DEG.objs.V1.5annotation.unique[n],&quot;.down.enrich.Rdata&quot;,sep=&quot;&quot;))
+  }
+}</code></pre>
+</div>
+<div id="do-separate-analysis-for-double-coefficient-type" class="section level1">
+<h1>do separate analysis for double coefficient type</h1>
+<pre class="r"><code>for(n in 1:2) {
+library(dplyr)
+  #genelist.up&lt;-base::get(paste(&quot;../output/&quot;,DEG.objs.V1.5annotation.unique[n],sep=&quot;&quot;)) %&gt;% rownames_to_column() %&gt;%  dplyr::filter(logFC&gt;0) # does not work
+    genelist.upup&lt;-    genelist.up&lt;-read_csv(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;,DEG.objs[n]))  %&gt;%  dplyr::filter(*** &gt;0) %&gt;% dplyr::filter(****&gt;0)
+    
+    #### under construction #####
+    genelist.updown&lt;-read_csv(paste(&quot;../output/&quot;,DEG.objs.V1.5annotation.unique[n],sep=&quot;&quot;))  %&gt;%  dplyr::filter(logFC.trt5E_live&gt;0) %&gt;% dplyr::filter(logFC.genotypeFPsc.trt5E_live&lt;0)
+        genelist.downup&lt;-read_csv(paste(&quot;../output/&quot;,DEG.objs.V1.5annotation.unique[n],sep=&quot;&quot;))  %&gt;%  dplyr::filter(logFC.trt5E_live&lt;0) %&gt;% dplyr::filter(logFC.genotypeFPsc.trt5E_live&gt;0)
+    genelist.downdown&lt;-read_csv(paste(&quot;../output/&quot;,DEG.objs.V1.5annotation.unique[n],sep=&quot;&quot;))  %&gt;%  dplyr::filter(logFC.trt5E_live&lt;0) %&gt;% dplyr::filter(logFC.genotypeFPsc.trt5E_live&lt;0)
+    GO.ORA.temp.up_up&lt;-GOseq.Brgo.v1.5.Atgoslim.BP.list.ORA(as_vector(genelist.upup[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
+    GO.ORA.temp.up_down&lt;-GOseq.Brgo.v1.5.Atgoslim.BP.list.ORA(as_vector(genelist.down[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
+    GO.ORA.temp.down_up&lt;-GOseq.Brgo.v1.5.Atgoslim.BP.list.ORA(as_vector(genelist.downup[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
+    GO.ORA.temp.down_down&lt;-GOseq.Brgo.v1.5.Atgoslim.BP.list.ORA(as_vector(genelist.downdown[,&quot;genes&quot;]),custom.category.list=Brgo.v1.5.Atgoslim.BP.list) 
+    # handling &quot;no enriched GO&quot; 
+    # genelist.names&lt;-c(&quot;GO.ORA.temp.up_down&quot;,&quot;GO.ORA.temp.down_up&quot;) # test
+    x&lt;-list(GO.ORA.temp.up_up=GO.ORA.temp.up_up,
+            GO.ORA.temp.up_down=GO.ORA.temp.up_down,
+            GO.ORA.temp.down_up=GO.ORA.temp.down_up,
+            GO.ORA.temp.down_down=GO.ORA.temp.down_down) # list
+    x&lt;-x[!x==&quot;no enriched GO&quot;] # reove &quot;no enriched GO&quot; result
+    ## add sample info and FC info and save GO.ORA result
+  for (i in length(x)) {
+      GO.ORA.result&lt;-x[[i]] %&gt;% mutate(FC = gsub(&quot;(GO.ORA.temp.)(.)&quot;,&quot;\\2&quot;,names(x)[i]),sample=DEG.objs.V1.5annotation.unique[n])
+    save(GO.ORA.result,file=paste(&quot;../output/GOseq.Ding2018&quot;,gsub(&quot;.csv&quot;,&quot;&quot;,DEG.objs[n]),gsub(&quot;(GO.ORA.temp.)(.)&quot;,&quot;\\2&quot;,names(x)[i]),&quot;enrich.Rdata&quot;,sep=&quot;.&quot;))
+    }
+}</code></pre>
+</div>
+<div id="read-goseq-result-table" class="section level1">
+<h1>read GOseq result table</h1>
+</div>
+<div id="format-the-table-for-heatmap" class="section level1">
+<h1>format the table for heatmap</h1>
+</div>
+<div id="drawing-heatmap" class="section level1">
+<h1>Drawing heatmap</h1>
+</div>
+<div id="fig.2-focused-go-ora-heatmap-just-copied" class="section level1">
+<h1># Fig.2 focused GO ORA heatmap (just copied)</h1>
+<pre class="r"><code>eGOseqs&lt;-list.files(pattern=&quot;GOseq.Brgo.Atgoslim.BP.list.(leaf|root)&quot;,path=&quot;../output&quot;)
+# To focus on leaf or root trt, trt.density, select data.
+eGOseqs&lt;-grep(&quot;trt&quot;,eGOseqs,value=TRUE)
+# combine
+eGOseqs.list2&lt;-sapply(paste(&quot;../output/&quot;,eGOseqs,sep=&quot;&quot;),function(x) mget(load(x))) # mget will return the value of the object(or objects) in a list. see https://stackoverflow.com/questions/29398630/load-data-frames-into-list
+names(eGOseqs.list2)
+eGOseqs.list2.summary&lt;-do.call(&quot;rbind&quot;,eGOseqs.list2) 
+head(eGOseqs.list2.summary) # make sure those are file names
+rownames(eGOseqs.list2.summary)&lt;-1:nrow(eGOseqs.list2.summary)
+View(eGOseqs.list2.summary)
+# eGOseqs.list2.summary (more than three genes in each KO)
+eGOseqs.list2.summary&lt;-eGOseqs.list2.summary[eGOseqs.list2.summary$numDEInCat&gt;3,]
+# focused on only very significant GO terms
+eGOseqs.list2.summary&lt;-eGOseqs.list2.summary[eGOseqs.list2.summary$over_represented_padjust&lt;1e-4,]
+# how to cluster GO Ontology according to this pattern?
+## using hclust to sort?
+GO.list&lt;-unique(eGOseqs.list2.summary$category);sample.list&lt;-unique(eGOseqs.list2.summary$sample)
+df&lt;-as.data.frame(matrix(rep(0,length(GO.list)*length(sample.list)*2),nrow=length(GO.list),ncol=length(sample.list)*2))
+names(df)&lt;-c(paste(sample.list,&quot;UP&quot;,sep=&quot;_&quot;),paste(sample.list,&quot;DOWN&quot;,sep=&quot;_&quot;))
+df$category&lt;-GO.list
+#for(n in 1:7) {
+for(n in 1:length(sample.list)) {
+df[,paste(sample.list[n],&quot;UP&quot;,sep=&quot;_&quot;)]&lt;-vlookup(df[,&quot;category&quot;],eGOseqs.list2.summary[eGOseqs.list2.summary$sample==sample.list[n]&amp;eGOseqs.list2.summary$FC==&quot;up&quot;,c(&quot;category&quot;,&quot;over_represented_padjust&quot;)],2)
+df[,paste(sample.list[n],&quot;DOWN&quot;,sep=&quot;_&quot;)]&lt;-vlookup(df[,&quot;category&quot;],eGOseqs.list2.summary[eGOseqs.list2.summary$sample==sample.list[n]&amp;eGOseqs.list2.summary$FC==&quot;down&quot;,c(&quot;category&quot;,&quot;over_represented_padjust&quot;)],2)
+}
+# View(df)
+df[df&lt;1e-10]&lt;-1e-10 # to avoid &quot;Inf&quot; after log10 transformation
+df[,1:8]&lt;- -log10(df[,1:8])
+df[is.na(df)]&lt;-1
+hc&lt;-stats::hclust(dist(df), &quot;ave&quot;)
+hc$order
+# plot
+library(scales)
+eGOseqs.list2.summary$FC&lt;-factor(eGOseqs.list2.summary$FC,levels=c(&quot;up&quot;,&quot;down&quot;))
+term.ordered&lt;-vlookup(df[hc$order,&quot;category&quot;],eGOseqs.list2.summary[,c(&quot;category&quot;,&quot;Term&quot;)],2)
+eGOseqs.list2.summary$Term&lt;-factor(eGOseqs.list2.summary$Term,levels=term.ordered)
+# To avoid gray color, add 1e-20 to smaller padjust value
+eGOseqs.list2.summary$over_represented_padjust[eGOseqs.list2.summary$over_represented_padjust&lt;1e-20]&lt;-1e-20
+# plot
+eGOseqs.list2.summary &lt;- eGOseqs.list2.summary %&gt;% mutate(sample2=str_replace(sample,&quot;trt.density&quot;,&quot;trt_density&quot;)) %&gt;%
+  separate(sample2,into=c(&quot;tissue&quot;,&quot;factor&quot;,&quot;DEGs&quot;,&quot;model&quot;,&quot;ref_density&quot;,&quot;ref_soil&quot;),sep=&quot;\\.&quot;) %&gt;%
+  mutate(ref_density=str_remove(ref_density,&quot;r&quot;)) %&gt;%
+  mutate(ref_soil=str_remove(ref_soil,&quot;r&quot;)) %&gt;%
+  unite(density_FC,ref_density,FC) # simplify elements in &quot;density_FC&quot; column for simpler x label in heatmap
+GOseq.plot&lt;-ggplot(eGOseqs.list2.summary,aes(x=density_FC,y=Term)) + geom_tile(aes(fill=-log10(over_represented_padjust)),colour=&quot;black&quot;) + facet_grid(~tissue) + scale_fill_gradient2(limit=c(0,20),low=muted(&quot;green&quot;), high=muted(&quot;magenta&quot;)) # OK
+GOseq.plot&lt;-GOseq.plot+     theme(axis.text.x=element_text(size=10,angle=90),
+          axis.text.y=element_text(size=10),
+          axis.title=element_text(size=10),
+          axis.ticks = element_blank(),
+          panel.background = element_rect(fill = &quot;white&quot;,colour=&quot;black&quot;),
+          plot.title=element_text(size=20),
+          axis.line=element_blank()) + labs(x=&quot;&quot;,y=&quot;&quot;,title=&quot;&quot;,fill=&quot;-log10\n pvalue&quot;)
+ggsave(GOseq.plot,file=&quot;../output/2018NSFposter.Fig2.png&quot;,width=11,height=8,units=&quot;in&quot;)
+ggsave(GOseq.plot,file=&quot;../output/2018NSFposter.Fig2.pdf&quot;,width=11,height=8,units=&quot;in&quot;)</code></pre>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term/">&larr; Over-representation analysis 3: GOseq with GO term in non-model organisms</a></span>
+  <span class="nav-next"><a href="/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term/">Over-representation analysis 1: GOseq with GO terms in unsupported model organisms &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="Subscribe">Subscribe</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

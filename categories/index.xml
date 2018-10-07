@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on </title>
+    <link>/categories/</link>
+    <description>Recent content in Categories on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Data-analysis</title>
+      <link>/categories/data-analysis/</link>
+      <pubDate>Mon, 01 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/data-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Native-plant</title>
+      <link>/categories/native-plant/</link>
+      <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/native-plant/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Project-management</title>
+      <link>/categories/project-management/</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/project-management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Travel</title>
+      <link>/categories/travel/</link>
+      <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/travel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>旅行</title>
+      <link>/categories/%E6%97%85%E8%A1%8C/</link>
+      <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/%E6%97%85%E8%A1%8C/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

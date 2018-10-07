@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Google-Form on </title>
+    <link>/tags/google-form/</link>
+    <description>Recent content in Google-Form on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 18 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/google-form/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>その実験、再現できなければ意味がない</title>
+      <link>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84/</link>
+      <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84/</guid>
+      <description>再現できなければ意味がない 数年前、理化学研究所の研究者がNatureに発表した論文が元で1人の自殺者と多額のお金を使った再現性検証実験、多数</description>
+    </item>
+    
+    <item>
+      <title>Busy dad needs project management skills!</title>
+      <link>/post/2018/09/12/the-first-post/</link>
+      <pubDate>Wed, 12 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/09/12/the-first-post/</guid>
+      <description>Here I would like to start describe briefly how I manage my work and personal projects. How to make your experiments reproducible As scientists we need to convince others that your results are not by chance. Here are four advices I want to emphasize here. Keep all records on your lab notebook presicely that should be easy to understand. Simplify methods of data input to reduce errors. Have clear and</description>
+    </item>
+    
+  </channel>
+</rss>
