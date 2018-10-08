@@ -883,19 +883,8 @@ genelist.upup&lt;-DEG.list[[n]] %&gt;% dplyr::filter((UQ(as.name(names(DEG.list[
 <h1>read GOseq result table</h1>
 <pre class="r"><code>eGOseqs&lt;-list.files(pattern=&quot;enrich.Rdata&quot;,path=file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;))
 eGOseqs.list2&lt;-sapply(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;,eGOseqs),function(x) mget(load(x))) # mget will return the value of the object(or objects) in a list. see https://stackoverflow.com/questions/29398630/load-data-frames-into-list
-names(eGOseqs.list2)</code></pre>
-<pre><code>##  [1] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result&quot;      
-##  [2] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.down_down.enrich.Rdata.GO.ORA.result&quot;
-##  [3] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.down_up.enrich.Rdata.GO.ORA.result&quot;  
-##  [4] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.up_down.enrich.Rdata.GO.ORA.result&quot;  
-##  [5] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.up_up.enrich.Rdata.GO.ORA.result&quot;    
-##  [6] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result&quot;      
-##  [7] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.down_down.enrich.Rdata.GO.ORA.result&quot;
-##  [8] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.down_up.enrich.Rdata.GO.ORA.result&quot;  
-##  [9] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.up_down.enrich.Rdata.GO.ORA.result&quot;  
-## [10] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/trt.DEGs.int.rWT.rU.down.enrich.Rdata.GO.ORA.result&quot;                                            
-## [11] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/trt.DEGs.int.rWT.rU.up.enrich.Rdata.GO.ORA.result&quot;</code></pre>
-<pre class="r"><code>eGOseqs.list2.summary&lt;-do.call(&quot;rbind&quot;,eGOseqs.list2) 
+#names(eGOseqs.list2)
+eGOseqs.list2.summary&lt;-do.call(&quot;rbind&quot;,eGOseqs.list2) 
 head(eGOseqs.list2.summary) # make sure those are file names</code></pre>
 <pre><code>##                                                                                                                                                                            category
 ## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1 GO:0010200
@@ -982,10 +971,19 @@ head(eGOseqs.list2.summary) # make sure those are file names</code></pre>
 ## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
 ## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv</code></pre>
 <pre class="r"><code>rownames(eGOseqs.list2.summary)&lt;-1:nrow(eGOseqs.list2.summary)
-View(eGOseqs.list2.summary)</code></pre>
+#View(eGOseqs.list2.summary)</code></pre>
 </div>
 <div id="drawing-heatmap" class="section level1">
 <h1>Drawing heatmap</h1>
+<pre class="r"><code>library(scales) # for mute in plot</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     discard</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
 <pre class="r"><code># eGOseqs.list2.summary (more than three genes in each KO)
 eGOseqs.list2.summary&lt;-eGOseqs.list2.summary[eGOseqs.list2.summary$numDEInCat&gt;3,]
 # focused on only very significant GO terms
@@ -1003,7 +1001,6 @@ df&lt;-eGOseqs.list2.summary %&gt;% dplyr::select(category,sample_FC,over_repres
 df[df&lt;1e-100]&lt;-1e-100 # to avoid &quot;Inf&quot; after log10 transformation
 df&lt;- df %&gt;% mutate_at(vars(2:11) ,.funs=function(x) -log10(x))
 # df&lt;- df %&gt;% mutate_at(vars(2:11) ,.funs=-log10) # does not work
-
 df[is.na(df)]&lt;-1
 df2&lt;-df[,2:11]
 rownames(df2)&lt;-df$category
@@ -1012,18 +1009,8 @@ hc$order</code></pre>
 <pre><code>##  [1] 18 51 53 41  5 35 10 52  2 23 25 47  3 30  1  4 31 55 22 39 24 33 14
 ## [24] 50 48  6  8 34 17 13 15  7 43  9 46 49 32 56 16 38 12 29 45 40 42 44
 ## [47] 21 37 26 36 27 54 20 28 11 19</code></pre>
-<pre class="r"><code>#hc$labels &lt;-df$category # true?
-hc.tib&lt;-tibble(category=hc$labels,order=hc$order)
-library(scales)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;scales&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     discard</code></pre>
-<pre><code>## The following object is masked from &#39;package:readr&#39;:
-## 
-##     col_factor</code></pre>
-<pre class="r"><code># change term order
+<pre class="r"><code>hc.tib&lt;-tibble(category=hc$labels,order=hc$order)
+# change term order using hclust() results
 hc.tib2&lt;-hc.tib %&gt;% inner_join(eGOseqs.list2.summary[,c(&quot;category&quot;,&quot;term&quot;)],by=&quot;category&quot;) %&gt;% distinct() %&gt;% arrange(desc(order))
 eGOseqs.list2.summary$term&lt;-factor(eGOseqs.list2.summary$term,levels=as_vector(hc.tib2$term))
 # To avoid gray color, add 1e-20 to smaller padjust value
