@@ -6,10 +6,19 @@
     <description>Recent content in R on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 07 Oct 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Over-representation analysis 5: useful tools</title>
+      <link>/post/2018/10/07/over-representation-analysis-5-useful-tools/</link>
+      <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/10/07/over-representation-analysis-5-useful-tools/</guid>
+      <description>What genes were found in given categories (eg. GO term) in given gene list?  </description>
+    </item>
     
     <item>
       <title>Differential expression analysis with public available sequencing data</title>
@@ -48,7 +57,8 @@ fasta file for cDNA of your species, fasta file for cDNA of a close model organi
       <pubDate>Thu, 27 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/2018/09/27/over-representation-analysis-4-heatmap-visualization/</guid>
-      <description>Insert Image&#34; to create directories for putting files-- library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&amp;quot;annotate&amp;quot;) load GOseq function # download cDNA info directly from TAIR At_cdna&amp;lt;-Biostrings::readDNAStringSet(&amp;quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated&amp;quot;) At_cdna ## A DNAStringSet instance of length 27416 ## width seq names ## [1] 2016 ATGGTTCAATATAATTTCA...AAAACCGACAGGCGTTGA AT1G50920.1 | Sym... ## [2] 546 ATGACTCGTTTGTTGCCTT...GTTGATTCTGGTACATAG AT1G36960.1 | Sym... ## [3] 1734 ATGGATTCAGAGTCAGAGT...GATTATATTCTCCAATGA AT1G44020.1 | Sym... ## [4] 1059 ATGTCGGTTCCTCCTAGAT...AGAGAGAGTGATAAATAA AT1G15970.1 | Sym... ## [5] 765 ATGGCGAGGGGAGAATCGG...ATGTTGAAAGGTTCTTGA AT1G73440.1 | Sym... ## ... ... .</description>
+      <description>Insert Image&#34; to create directories for putting files-- Similar analysis was found in Guangchuang Yu bioconductor vignettes page.
+library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&amp;quot;annotate&amp;quot;) load GOseq function # download cDNA info directly from TAIR At_cdna&amp;lt;-Biostrings::readDNAStringSet(&amp;quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated&amp;quot;) At_cdna ## A DNAStringSet instance of length 27416 ## width seq names ## [1] 2016 ATGGTTCAATATAATTTCA...AAAACCGACAGGCGTTGA AT1G50920.1 | Sym... ## [2] 546 ATGACTCGTTTGTTGCCTT...GTTGATTCTGGTACATAG AT1G36960.1 | Sym... ## [3] 1734 ATGGATTCAGAGTCAGAGT...GATTATATTCTCCAATGA AT1G44020.1 | Sym... ## [4] 1059 ATGTCGGTTCCTCCTAGAT...AGAGAGAGTGATAAATAA AT1G15970.1 | Sym... ## [5] 765 ATGGCGAGGGGAGAATCGG.</description>
     </item>
     
     <item>

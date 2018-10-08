@@ -65,6 +65,7 @@
 
 <main>
 <!--[](/post/2018-09-27-over-representation-analysis-4-heatmap-visualization_files/Scan_QRcode.png) # Run Addins > Insert Image" to create directories for putting files-->
+<p>Similar analysis was found in <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/enrichplot/inst/doc/enrichplot.html">Guangchuang Yu bioconductor vignettes page</a>.</p>
 <pre class="r"><code>library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&quot;annotate&quot;)</code></pre>
 <div id="load-goseq-function" class="section level1">
 <h1>load GOseq function</h1>
@@ -885,92 +886,8 @@ genelist.upup&lt;-DEG.list[[n]] %&gt;% dplyr::filter((UQ(as.name(names(DEG.list[
 eGOseqs.list2&lt;-sapply(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;,eGOseqs),function(x) mget(load(x))) # mget will return the value of the object(or objects) in a list. see https://stackoverflow.com/questions/29398630/load-data-frames-into-list
 #names(eGOseqs.list2)
 eGOseqs.list2.summary&lt;-do.call(&quot;rbind&quot;,eGOseqs.list2) 
-head(eGOseqs.list2.summary) # make sure those are file names</code></pre>
-<pre><code>##                                                                                                                                                                            category
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1 GO:0010200
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2 GO:0006952
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3 GO:0042742
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4 GO:0080167
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5 GO:0009751
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6 GO:0006468
-##                                                                                                                                                                          over_represented_pvalue
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1            4.858293e-26
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2            5.724864e-26
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3            1.352377e-23
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4            1.496577e-18
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5            6.725063e-18
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6            3.953862e-15
-##                                                                                                                                                                          under_represented_pvalue
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1                        1
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2                        1
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3                        1
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4                        1
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5                        1
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6                        1
-##                                                                                                                                                                          numDEInCat
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1         91
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2        277
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3        153
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4         80
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5         91
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6        312
-##                                                                                                                                                                          numInCat
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1      136
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2      620
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3      288
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4      134
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5      162
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6      774
-##                                                                                                                                                                                                   term
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1            response to chitin
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2              defense response
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3 defense response to bacterium
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4          response to karrikin
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5    response to salicylic acid
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6       protein phosphorylation
-##                                                                                                                                                                          ontology
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1       BP
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2       BP
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3       BP
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4       BP
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5       BP
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6       BP
-##                                                                                                                                                                          over_represented_padjust
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1             1.083144e-22
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2             1.083144e-22
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3             1.705798e-20
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4             1.415762e-15
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5             5.089528e-15
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6             2.493569e-12
-##                                                                                                                                                                                                   Term
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1            response to chitin
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2              defense response
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3 defense response to bacterium
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4          response to karrikin
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5    response to salicylic acid
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6       protein phosphorylation
-##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Definition
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1                                                                                                                                               A process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a chitin stimulus.
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2                                                                                                            Reactions, triggered in response to the presence of a foreign body or the occurrence of an injury, which result in restriction of damage to the organism attacked or prevention/recovery from the infection caused by the attack.
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3                                                                                                                                                                                                                                     Reactions triggered in response to the presence of a bacterium that act to protect the cell or organism.
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4 Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a karrikin stimulus. Karrikins are signaling molecules in smoke from burning vegetation that trigger seed germination for many angiosperms (flowering plants).
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5                                                                                                                                     Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a salicylic acid stimulus.
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6                                                                                                                                                                                                                                                                                The process of introducing a phosphate group on to a protein.
-##                                                                                                                                                                           FC
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1 all
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2 all
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3 all
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4 all
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5 all
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6 all
-##                                                                                                                                                                                                                                  sample
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.1 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.2 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.3 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.4 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.5 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
-## 2018-09-27-over-representation-analysis-4-heatmap-visualization_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result.6 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv</code></pre>
-<pre class="r"><code>rownames(eGOseqs.list2.summary)&lt;-1:nrow(eGOseqs.list2.summary)
+#head(eGOseqs.list2.summary) # make sure those are file names
+rownames(eGOseqs.list2.summary)&lt;-1:nrow(eGOseqs.list2.summary)
 #View(eGOseqs.list2.summary)</code></pre>
 </div>
 <div id="drawing-heatmap" class="section level1">
