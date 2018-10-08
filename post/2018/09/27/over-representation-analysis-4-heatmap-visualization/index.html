@@ -1000,18 +1000,20 @@ eGOseqs.list2.summary &lt;- eGOseqs.list2.summary %&gt;% mutate(sample=str_remov
 # Making matrix for calculate hierarchical clustering of &quot;over-representd_padjust&quot; value using sperad
 df&lt;-eGOseqs.list2.summary %&gt;% dplyr::select(category,sample_FC,over_represented_padjust) %&gt;% spread(sample_FC,over_represented_padjust,-1)
 
-df[df&lt;1e-10]&lt;-1e-10 # to avoid &quot;Inf&quot; after log10 transformation
+df[df&lt;1e-100]&lt;-1e-100 # to avoid &quot;Inf&quot; after log10 transformation
 df&lt;- df %&gt;% mutate_at(vars(2:11) ,.funs=function(x) -log10(x))
 # df&lt;- df %&gt;% mutate_at(vars(2:11) ,.funs=-log10) # does not work
 
 df[is.na(df)]&lt;-1
-hc&lt;-stats::hclust(dist(df[,2:11]), &quot;ave&quot;) # only numbers
+df2&lt;-df[,2:11]
+rownames(df2)&lt;-df$category
+hc&lt;-stats::hclust(dist(df2), &quot;ave&quot;) # only numbers
 hc$order</code></pre>
-<pre><code>##  [1] 51 53 26 18 47 35 23 25 16 38 29 45 12 40 42  2 39 24 33 14 50  5 52
-## [24] 48 31 34 17 13 15  8 55 41  3 30  1 56  9 22 21  4 49 46 43 32 10  6
-## [47]  7 36 27 54 20 28 11 37 19 44</code></pre>
-<pre class="r"><code>hc$labels &lt;-df$category
-hc.tib&lt;-tibble(category=df$category,order=hc$order)
+<pre><code>##  [1] 18 51 53 41  5 35 10 52  2 23 25 47  3 30  1  4 31 55 22 39 24 33 14
+## [24] 50 48  6  8 34 17 13 15  7 43  9 46 49 32 56 16 38 12 29 45 40 42 44
+## [47] 21 37 26 36 27 54 20 28 11 19</code></pre>
+<pre class="r"><code>#hc$labels &lt;-df$category # true?
+hc.tib&lt;-tibble(category=hc$labels,order=hc$order)
 library(scales)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;scales&#39;</code></pre>
@@ -1025,11 +1027,11 @@ library(scales)</code></pre>
 hc.tib2&lt;-hc.tib %&gt;% inner_join(eGOseqs.list2.summary[,c(&quot;category&quot;,&quot;term&quot;)],by=&quot;category&quot;) %&gt;% distinct() %&gt;% arrange(desc(order))
 eGOseqs.list2.summary$term&lt;-factor(eGOseqs.list2.summary$term,levels=as_vector(hc.tib2$term))
 # To avoid gray color, add 1e-20 to smaller padjust value
-eGOseqs.list2.summary$over_represented_padjust[eGOseqs.list2.summary$over_represented_padjust&lt;1e-20]&lt;-1e-20
+eGOseqs.list2.summary$over_represented_padjust[eGOseqs.list2.summary$over_represented_padjust&lt;1e-50]&lt;-1e-50
 # format x label
 #eGOseqs.list2.summary &lt;- eGOseqs.list2.summary  %&gt;% mutate(sample2=str_replace(sample,&quot;trt.density&quot;,&quot;trt_density&quot;)) %&gt;%  separate(sample2,into=c(&quot;tissue&quot;,&quot;factor&quot;,&quot;DEGs&quot;,&quot;model&quot;,&quot;ref_density&quot;,&quot;ref_soil&quot;),sep=&quot;\\.&quot;) %&gt;% mutate(ref_soil=str_remove(ref_soil,&quot;r&quot;)) %&gt;% mutate(ref_density=str_remove(ref_density,&quot;r&quot;))  %&gt;% unite(density_FC,ref_density,FC) # simplify elements in &quot;density_FC&quot; column for simpler x label in heatmap
 # plot
-  GOseq.plot&lt;-ggplot(eGOseqs.list2.summary,aes(x=sample_FC,y=term)) + geom_tile(aes(fill=-log10(over_represented_padjust)),colour=&quot;black&quot;)  + scale_fill_gradient2(limit=c(0,20),low=muted(&quot;green&quot;), high=muted(&quot;magenta&quot;)) # OK
+  GOseq.plot&lt;-ggplot(eGOseqs.list2.summary,aes(x=sample_FC,y=term)) + geom_tile(aes(fill=-log10(over_represented_padjust)),colour=&quot;black&quot;)  + scale_fill_gradient2(limit=c(0,50),low=muted(&quot;green&quot;), high=muted(&quot;magenta&quot;)) # OK
 GOseq.plot&lt;-GOseq.plot+     theme(axis.text.x=element_text(size=10,angle=90),
           axis.text.y=element_text(size=10),
           axis.title=element_text(size=10),
