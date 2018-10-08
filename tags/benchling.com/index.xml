@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Benchling.com on </title>
-    <link>/tags/benchling.com/</link>
+    <link>/tags/benchling.com.html</link>
     <description>Recent content in Benchling.com on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -13,10 +13,10 @@
     
     <item>
       <title>Busy dad needs project management skills!</title>
-      <link>/post/2018/09/12/the-first-post/</link>
+      <link>/post/2018/09/12/the-first-post.html</link>
       <pubDate>Wed, 12 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/12/the-first-post/</guid>
+      <guid>/post/2018/09/12/the-first-post.html</guid>
       <description>Here I would like to start describe briefly how I manage my work and personal projects. How to make your experiments reproducible As scientists we need to convince others that your results are not by chance. Here are four advices I want to emphasize here. Keep all records on your lab notebook presicely that should be easy to understand. Simplify methods of data input to reduce errors. Have clear and</description>
     </item>
     

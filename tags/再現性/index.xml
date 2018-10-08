@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>再現性 on </title>
-    <link>/tags/%E5%86%8D%E7%8F%BE%E6%80%A7/</link>
+    <link>/tags/%E5%86%8D%E7%8F%BE%E6%80%A7.html</link>
     <description>Recent content in 再現性 on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -13,19 +13,19 @@
     
     <item>
       <title>How to make QRcode by R &#43; ggplot2</title>
-      <link>/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2/</link>
+      <link>/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2/</guid>
+      <guid>/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</guid>
       <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ──────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.0.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.6 ## ✔ tidyr 0.8.1 ✔ stringr 1.3.1 ## ✔ readr 1.1.1 ✔ forcats 0.3.0 ## ── Conflicts ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ── ## ✖ dplyr::filter() masks stats::filter() ## ✖ dplyr::lag() masks stats::lag() #QRmatrix&amp;lt;-qrcode_gen(&amp;#39;www.r-project.org&amp;#39;,dataOutput=TRUE) ggqrcode &amp;lt;- function(text, color=&amp;quot;black&amp;quot;, alpha=1) { pkg &amp;lt;- &amp;quot;qrcode&amp;quot; require(pkg, character.</description>
     </item>
     
     <item>
       <title>その実験、再現できなければ意味がない</title>
-      <link>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84/</link>
+      <link>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</link>
       <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84/</guid>
+      <guid>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</guid>
       <description>再現できなければ意味がない 数年前、理化学研究所の研究者がNatureに発表した論文が元で1人の自殺者と多額のお金を使った再現性検証実験、多数</description>
     </item>
     
