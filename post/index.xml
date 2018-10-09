@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on </title>
-    <link>/post.html</link>
+    <link>https://knozue.github.io/post.html</link>
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 07 Oct 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://knozue.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Over-representation analysis 5: useful tools</title>
-      <link>/post/2018/10/07/over-representation-analysis-5-useful-tools.html</link>
+      <link>https://knozue.github.io/post/2018/10/07/over-representation-analysis-5-useful-tools.html</link>
       <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/10/07/over-representation-analysis-5-useful-tools.html</guid>
+      <guid>https://knozue.github.io/post/2018/10/07/over-representation-analysis-5-useful-tools.html</guid>
       <description>What genes were found in given categories (eg. GO term) in given gene list?  </description>
     </item>
     
     <item>
       <title>Differential expression analysis with public available sequencing data</title>
-      <link>/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</link>
+      <link>https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</link>
       <pubDate>Mon, 01 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</guid>
+      <guid>https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</guid>
       <description>Download this Rmd file Please download and modify your input/output file location
  Download RNA-seq data from NCBI Let’s use published RNA-seq data from Arabidopsis thaliana mutants (npr1-1 and npr4-4D) Ding (2018).
 library(tidyverse) library(stringr) library(edgeR)  Trimming unnecessary sequences from data (such as adaptors) by trimmomatic  Needs to trim? Do fastqc and see results  trim? # working in directories containing fastq files fastfiles&amp;lt;-list.files(pattern=&amp;quot;fastq&amp;quot;) system(paste(&amp;quot;fastqc &amp;quot;,fastfiles,sep=&amp;quot;&amp;quot;)) # and then check reports to see if there are adaptor contamination # It seems those files were not contaminated so that no need to trim read files.</description>
@@ -33,78 +33,59 @@ library(tidyverse) library(stringr) library(edgeR)  Trimming unnecessary sequenc
     
     <item>
       <title>Over-representation analysis 2: GOseq with custom categories</title>
-      <link>/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html</link>
+      <link>https://knozue.github.io/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html</link>
       <pubDate>Thu, 27 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
-      <description>If you want to use your own categories instead of GO terms? Please prepare list of genes in each category, such as hormone responsive genes found in Supplemental Dataset 6 in Nemhauser 2006. # Updated hormone responsive gene list (Nozue, in press)
-library(tidyverse);library(readxl);library(readr) hormone.responsiveness6.DF.s.list2.DF2&amp;lt;-readxl::read_xlsx(file.path(&amp;quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files&amp;quot;,&amp;quot;Supplemental_Dataset3_source_of_custom_categories.xlsx&amp;quot;),skip=15,sheet=1) # Does not work. why? # Ask Kazu for this xlsx file. hormone.responsiveness6.DF.s  uner construction load(&amp;quot;../../Annotation/input/Brgo.Atgoslim.BP.list.Rdata&amp;quot;) library(ShortRead);library(goseq);library(GO.db);library(&amp;quot;annotate&amp;quot;) # for ggplot heatmap #library(WGCNA);library(ggplot2);library(reshape2);library(scales) system(&amp;quot;gunzip -c ../../Annotation/input/BrapaV2.5_Chr.cds.fa.gz &amp;gt; .</description>
-    </item>
-    
-    <item>
-      <title>Over-representation analysis 3: GOseq with GO term in non-model organisms</title>
-      <link>/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html</link>
-      <pubDate>Thu, 27 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
-      <description>If you want to analyze non-model organisms, what you an do? Please prepare
-fasta file for cDNA of your species, fasta file for cDNA of a close model organisms to your species, blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (detailed instruciton from NCBI)   uner construction load(&amp;quot;../../Annotation/input/Brgo.Atgoslim.BP.list.Rdata&amp;quot;)  ## Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file ## &amp;#39;../../Annotation/input/Brgo.Atgoslim.BP.list.Rdata&amp;#39;, probable reason &amp;#39;No ## such file or directory&amp;#39; ## Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection library(ShortRead);library(goseq);library(GO.</description>
+      <guid>https://knozue.github.io/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
+      <description>If you want to use your own categories instead of GO terms? Please prepare list of genes in each category, such as hormone responsive genes found in Supplemental Dataset 6 in Nemhauser 2006. ## Updated hormone responsive gene list (Nozue, in press)
+library(tidyverse);library(readxl);library(readr) hormone.responsiveness6.DF.s.list2.DF2&amp;lt;-readxl::read_xlsx(file.path(&amp;quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files&amp;quot;,&amp;quot;Supplemental_Dataset3_source_of_custom_categories.xlsx&amp;quot;),skip=15,sheet=1) # Does not work. why? # because # Ask Kazu for this xlsx file. list.files(file.path(&amp;quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files&amp;quot;)) list.files(path=&amp;quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files&amp;quot;) list.files() hormone.responsiveness6.DF.s  uner construction load(&amp;quot;../../Annotation/input/Brgo.Atgoslim.BP.list.Rdata&amp;quot;) library(ShortRead);library(goseq);library(GO.db);library(&amp;quot;annotate&amp;quot;) # for ggplot heatmap #library(WGCNA);library(ggplot2);library(reshape2);library(scales) system(&amp;quot;gunzip -c .</description>
     </item>
     
     <item>
       <title>Over-representation analysis 4:  heatmap visualization</title>
-      <link>/post/2018/09/27/over-representation-analysis-4-heatmap-visualization.html</link>
+      <link>https://knozue.github.io/post/2018/09/27/over-representation-analysis-4-heatmap-visualization.html</link>
       <pubDate>Thu, 27 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/27/over-representation-analysis-4-heatmap-visualization.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/27/over-representation-analysis-4-heatmap-visualization.html</guid>
       <description>Insert Image&#34; to create directories for putting files-- Similar analysis was found in Guangchuang Yu bioconductor vignettes page.
 library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&amp;quot;annotate&amp;quot;) load GOseq function # download cDNA info directly from TAIR At_cdna&amp;lt;-Biostrings::readDNAStringSet(&amp;quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated&amp;quot;) At_cdna ## A DNAStringSet instance of length 27416 ## width seq names ## [1] 2016 ATGGTTCAATATAATTTCA...AAAACCGACAGGCGTTGA AT1G50920.1 | Sym... ## [2] 546 ATGACTCGTTTGTTGCCTT...GTTGATTCTGGTACATAG AT1G36960.1 | Sym... ## [3] 1734 ATGGATTCAGAGTCAGAGT...GATTATATTCTCCAATGA AT1G44020.1 | Sym... ## [4] 1059 ATGTCGGTTCCTCCTAGAT...AGAGAGAGTGATAAATAA AT1G15970.1 | Sym... ## [5] 765 ATGGCGAGGGGAGAATCGG.</description>
     </item>
     
     <item>
       <title>Over-representation analysis 1: GOseq with GO terms in unsupported model organisms</title>
-      <link>/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</link>
+      <link>https://knozue.github.io/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</link>
       <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</guid>
       <description>purpose Over-representation analysis (“enrichment analysis”) of RNA-seq data considering cDNA length effects with unsupported model organisms.
  background Among many transcriptome analysis platforms, transcriptome analysis by next-generation sequencing (RNA-seq) has been used widely among model and non-model organisms. In RNA-seq, number of reads mapped to reference cDNA sequences (or genes in genome sequences) is proportional to size of genes1. This effect should be corrected especially when enrichment analysis is performed because a gene category of your interest is enriched only because genes in the category are large in size.</description>
     </item>
     
     <item>
       <title>How to make QRcode by R &#43; ggplot2</title>
-      <link>/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</link>
+      <link>https://knozue.github.io/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</guid>
       <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ──────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.0.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.6 ## ✔ tidyr 0.8.1 ✔ stringr 1.3.1 ## ✔ readr 1.1.1 ✔ forcats 0.3.0 ## ── Conflicts ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ── ## ✖ dplyr::filter() masks stats::filter() ## ✖ dplyr::lag() masks stats::lag() #QRmatrix&amp;lt;-qrcode_gen(&amp;#39;www.r-project.org&amp;#39;,dataOutput=TRUE) ggqrcode &amp;lt;- function(text, color=&amp;quot;black&amp;quot;, alpha=1) { pkg &amp;lt;- &amp;quot;qrcode&amp;quot; require(pkg, character.</description>
     </item>
     
     <item>
-      <title>shortcode test</title>
-      <link>/post/2018/09/20/shortcode-test.html</link>
-      <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2018/09/20/shortcode-test.html</guid>
-      <description> Youtube?   Amazon, not working  </description>
-    </item>
-    
-    <item>
       <title>How to read QR code and transfer data to Google sheet.</title>
-      <link>/post/2018/09/19/how-to-read-qr-code-and-transfer-data-to-google-sheet.html</link>
+      <link>https://knozue.github.io/post/2018/09/19/how-to-read-qr-code-and-transfer-data-to-google-sheet.html</link>
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/19/how-to-read-qr-code-and-transfer-data-to-google-sheet.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/19/how-to-read-qr-code-and-transfer-data-to-google-sheet.html</guid>
       <description>Copy scanned info by iphone and paste it on your computer software. Universal Clipboard is useful for this purpose when you use a certain model of iphone, Mac, and macOS.
  Step 1. Install barcode scanner app that can copy scanned info (“QR Scanner”, “QR Reader”, “Qrafter” from App Store worked as of Sep 2018). Step 2. Scan QR code (or any codes?) and copy decoded info. Step 3. Paste the decoded into into your software in your computer (eg.</description>
     </item>
     
     <item>
       <title>How to make QR code in Google Sheet using Integromat.com.</title>
-      <link>/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com.html</link>
+      <link>https://knozue.github.io/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com.html</link>
       <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com.html</guid>
       <description>How to make QR code in google sheet using Integromat.com. The goal of this section is to create QRcode in Google Sheet
 by using Intergromat.com1!
 Outline Create Integromat.com account (free for 100 MB transfer and/or 1000 operation) Link Integromat.com account to your Google accout (for using Google Driv, Sheet) Create a new Google sheet with “sample”,“url”,“QRcode” columns. Create a new Scenario and run once to test it.   How to create QRcode generator scenario.</description>
@@ -112,55 +93,55 @@ Outline Create Integromat.com account (free for 100 MB transfer and/or 1000 oper
     
     <item>
       <title>その実験、再現できなければ意味がない</title>
-      <link>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</link>
+      <link>https://knozue.github.io/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</link>
       <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</guid>
       <description>再現できなければ意味がない 数年前、理化学研究所の研究者がNatureに発表した論文が元で1人の自殺者と多額のお金を使った再現性検証実験、多数</description>
     </item>
     
     <item>
       <title>R memo1</title>
-      <link>/post/2018/09/15/r-memo1.html</link>
+      <link>https://knozue.github.io/post/2018/09/15/r-memo1.html</link>
       <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/15/r-memo1.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/15/r-memo1.html</guid>
       <description></description>
     </item>
     
     <item>
       <title>実験はどう記録するか？</title>
-      <link>/post/2018/09/15/%E5%AE%9F%E9%A8%93%E3%81%AF%E3%81%A9%E3%81%86%E8%A8%98%E9%8C%B2%E3%81%99%E3%82%8B%E3%81%8B.html</link>
+      <link>https://knozue.github.io/post/2018/09/15/%E5%AE%9F%E9%A8%93%E3%81%AF%E3%81%A9%E3%81%86%E8%A8%98%E9%8C%B2%E3%81%99%E3%82%8B%E3%81%8B.html</link>
       <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/15/%E5%AE%9F%E9%A8%93%E3%81%AF%E3%81%A9%E3%81%86%E8%A8%98%E9%8C%B2%E3%81%99%E3%82%8B%E3%81%8B.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/15/%E5%AE%9F%E9%A8%93%E3%81%AF%E3%81%A9%E3%81%86%E8%A8%98%E9%8C%B2%E3%81%99%E3%82%8B%E3%81%8B.html</guid>
       <description>参考にしたサイトと図書 九州大学附属図書館 実験ノートには何を記録するのか? by 野島高彦 At the bench (2004) Kathy Barker 邦訳 日本の科学と技術 (blog)</description>
     </item>
     
     <item>
       <title>海外から日本への旅行：ポータブルWiFi ルーター or プリペイドSIMカード？</title>
-      <link>/post/2018/09/14/wifi-or-sim.html</link>
+      <link>https://knozue.github.io/post/2018/09/14/wifi-or-sim.html</link>
       <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/14/wifi-or-sim.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/14/wifi-or-sim.html</guid>
       <description>今年(2018年)は私には珍しく、単独で出張と家族旅行で日本へ二回行きました（米国在住です）。 双方とも地方での長旅の上に、大都市でも無料のW</description>
     </item>
     
     <item>
       <title>Native plant garden project</title>
-      <link>/post/2018/09/13/native-plant-garden-project.html</link>
+      <link>https://knozue.github.io/post/2018/09/13/native-plant-garden-project.html</link>
       <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/13/native-plant-garden-project.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/13/native-plant-garden-project.html</guid>
       <description> Why don&amp;rsquo;t you grow local native plants in your yards? </description>
     </item>
     
     <item>
       <title>Busy dad needs project management skills!</title>
-      <link>/post/2018/09/12/the-first-post.html</link>
+      <link>https://knozue.github.io/post/2018/09/12/the-first-post.html</link>
       <pubDate>Wed, 12 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/12/the-first-post.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/12/the-first-post.html</guid>
       <description>Here I would like to start describe briefly how I manage my work and personal projects. How to make your experiments reproducible As scientists we need to convince others that your results are not by chance. Here are four advices I want to emphasize here. Keep all records on your lab notebook presicely that should be easy to understand. Simplify methods of data input to reduce errors. Have clear and</description>
     </item>
     

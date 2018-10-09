@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>Over-representation analysis 3: GOseq with GO term in non-model organisms | </title>
+    <title>Over-representation analysis 2: GOseq with custom categories | </title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -46,7 +46,7 @@
   
   </div>
 
-  <h1><span class="title">Over-representation analysis 3: GOseq with GO term in non-model organisms</span></h1>
+  <h1><span class="title">Over-representation analysis 2: GOseq with custom categories</span></h1>
 
   
   <h3 class="author">Kazu Nozue
@@ -64,107 +64,156 @@
 
 
 <main>
-<div id="if-you-want-to-analyze-non-model-organisms-what-you-an-do" class="section level1">
-<h1>If you want to analyze non-model organisms, what you an do?</h1>
-<p>Please prepare</p>
-<ol class="example" style="list-style-type: decimal">
-<li>fasta file for cDNA of your species,</li>
-<li>fasta file for cDNA of a close model organisms to your species,</li>
-<li>blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (<a href="https://www.ncbi.nlm.nih.gov/books/NBK52640/">detailed instruciton from NCBI</a>)</li>
-</ol>
+<div id="if-you-want-to-use-your-own-categories-instead-of-go-terms" class="section level1">
+<h1>If you want to use your own categories instead of GO terms?</h1>
+<p>Please prepare list of genes in each category, such as hormone responsive genes found in Supplemental Dataset 6 in <a href="http://www.sciencedirect.com/science/article/pii/S0092867406009111">Nemhauser 2006</a>. #<img src="/post/2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files/QRcode_generator1_Kazu2e_Screen%20Shot%202018-09-19%20at%207.18.47%20AM.png" /> # Updated hormone responsive gene list (Nozue, in press)</p>
+<pre class="r"><code>library(tidyverse);library(readxl);library(readr)
+hormone.responsiveness6.DF.s.list2.DF2&lt;-readxl::read_xlsx(file.path(&quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files&quot;,&quot;Supplemental_Dataset3_source_of_custom_categories.xlsx&quot;),skip=15,sheet=1) # Does not work. why? 
+# because 
+# Ask Kazu for this xlsx file.
+list.files(file.path(&quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files&quot;))
+list.files(path=&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files&quot;)
+list.files()
+hormone.responsiveness6.DF.s</code></pre>
 </div>
 <div id="uner-construction" class="section level1">
 <h1>uner construction</h1>
-<pre class="r"><code>load(&quot;../../Annotation/input/Brgo.Atgoslim.BP.list.Rdata&quot;) </code></pre>
-<pre><code>## Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-## &#39;../../Annotation/input/Brgo.Atgoslim.BP.list.Rdata&#39;, probable reason &#39;No
-## such file or directory&#39;</code></pre>
-<pre><code>## Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection</code></pre>
-<pre class="r"><code>library(ShortRead);library(goseq);library(GO.db);library(&quot;annotate&quot;)</code></pre>
-<pre><code>## Loading required package: BiocGenerics</code></pre>
-<pre><code>## Loading required package: parallel</code></pre>
-<pre><code>## 
-## Attaching package: &#39;BiocGenerics&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:parallel&#39;:
-## 
-##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-##     clusterExport, clusterMap, parApply, parCapply, parLapply,
-##     parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     IQR, mad, sd, var, xtabs</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     anyDuplicated, append, as.data.frame, basename, cbind,
-##     colMeans, colnames, colSums, dirname, do.call, duplicated,
-##     eval, evalq, Filter, Find, get, grep, grepl, intersect,
-##     is.unsorted, lapply, lengths, Map, mapply, match, mget, order,
-##     paste, pmax, pmax.int, pmin, pmin.int, Position, rank, rbind,
-##     Reduce, rowMeans, rownames, rowSums, sapply, setdiff, sort,
-##     table, tapply, union, unique, unsplit, which, which.max,
-##     which.min</code></pre>
-<pre><code>## Loading required package: BiocParallel</code></pre>
-<pre><code>## Loading required package: Biostrings</code></pre>
-<pre><code>## Loading required package: S4Vectors</code></pre>
-<pre><code>## Loading required package: stats4</code></pre>
-<pre><code>## 
-## Attaching package: &#39;S4Vectors&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     expand.grid</code></pre>
-<pre><code>## Loading required package: IRanges</code></pre>
-<pre><code>## Loading required package: XVector</code></pre>
-<pre><code>## 
-## Attaching package: &#39;Biostrings&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     strsplit</code></pre>
-<pre><code>## Loading required package: Rsamtools</code></pre>
-<pre><code>## Loading required package: GenomeInfoDb</code></pre>
-<pre><code>## Loading required package: GenomicRanges</code></pre>
-<pre><code>## Loading required package: GenomicAlignments</code></pre>
-<pre><code>## Loading required package: SummarizedExperiment</code></pre>
-<pre><code>## Loading required package: Biobase</code></pre>
-<pre><code>## Welcome to Bioconductor
-## 
-##     Vignettes contain introductory material; view with
-##     &#39;browseVignettes()&#39;. To cite Bioconductor, see
-##     &#39;citation(&quot;Biobase&quot;)&#39;, and for packages &#39;citation(&quot;pkgname&quot;)&#39;.</code></pre>
-<pre><code>## Loading required package: DelayedArray</code></pre>
-<pre><code>## Loading required package: matrixStats</code></pre>
-<pre><code>## 
-## Attaching package: &#39;matrixStats&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:Biobase&#39;:
-## 
-##     anyMissing, rowMedians</code></pre>
-<pre><code>## 
-## Attaching package: &#39;DelayedArray&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:matrixStats&#39;:
-## 
-##     colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges</code></pre>
-<pre><code>## The following object is masked from &#39;package:Biostrings&#39;:
-## 
-##     type</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     aperm, apply</code></pre>
-<pre><code>## Loading required package: BiasedUrn</code></pre>
-<pre><code>## Loading required package: geneLenDataBase</code></pre>
-<pre><code>## </code></pre>
-<pre><code>## Loading required package: AnnotationDbi</code></pre>
-<pre><code>## Loading required package: XML</code></pre>
-<pre class="r"><code># for ggplot heatmap
+<pre class="r"><code>load(&quot;../../Annotation/input/Brgo.Atgoslim.BP.list.Rdata&quot;) 
+
+library(ShortRead);library(goseq);library(GO.db);library(&quot;annotate&quot;)
+# for ggplot heatmap
 #library(WGCNA);library(ggplot2);library(reshape2);library(scales)
 system(&quot;gunzip -c ../../Annotation/input/BrapaV2.5_Chr.cds.fa.gz &gt; ../../Annotation/input/BrapaV2.5_Chr.cds.fa&quot;)
-Br_cdna&lt;-readDNAStringSet(&quot;../../Annotation/input/BrapaV2.5_Chr.cds.fa&quot;) #</code></pre>
-<pre><code>## Error in .Call2(&quot;new_input_filexp&quot;, filepath, PACKAGE = &quot;XVector&quot;): cannot open file &#39;../../Annotation/input/BrapaV2.5_Chr.cds.fa&#39;</code></pre>
-<pre class="r"><code>system(&quot;rm ../../Annotation/input/BrapaV2.5_Chr.cds.fa&quot;)
-head(Br_cdna)</code></pre>
-<pre><code>## Error in head(Br_cdna): object &#39;Br_cdna&#39; not found</code></pre>
-<pre class="r"><code>length(bias) # 44239 &gt; 45019</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;bias&#39; not found</code></pre>
-<pre class="r"><code>#  bias.data vector must have the same length as DEgenes vector!
+Br_cdna&lt;-readDNAStringSet(&quot;../../Annotation/input/BrapaV2.5_Chr.cds.fa&quot;) #
+system(&quot;rm ../../Annotation/input/BrapaV2.5_Chr.cds.fa&quot;)
+head(Br_cdna)
+length(bias) # 44239 &gt; 45019
+
+#  bias.data vector must have the same length as DEgenes vector!
 GOseq.Brgo.Atgoslim.BP.list.ORA&lt;-function(genelist,padjust=0.05,ontology=&quot;BP&quot;,custom.category.list=Brgo.Atgoslim.BP.list) { # return GO enrichment table, padjus, padjust=0.05. New BLAST2GO results with only BP Brgo.v2.5.BP.list is used (042518). Brgo.v2.5.BP.list is based on Hajar&#39;s Blast2go, which should be replaced with Brgo.Atgoslim.BP.list and giving a new name to this function (080818).
+  
+  bias&lt;-nchar(Br_cdna)
+  names(bias)&lt;-names(Br_cdna)
+  TF&lt;-(names(bias) %in% genelist)*1
+  names(TF)&lt;-names(bias)
+  #print(TF)
+  pwf&lt;-nullp(TF,bias.data=bias)
+  #print(pwf$DEgenes)
+  GO.pval &lt;- goseq(pwf,gene2cat=custom.category.list,use_genes_without_cat=TRUE) # format became different in new goseq version (021111). Does not work (042716)
+  #GO.pval &lt;- goseq(pwf,gene2cat=Brgo.DF3,use_genes_without_cat=TRUE) # format became different in new goseq version (021111)
+  
+  #head(GO.pval) 
+  if(ontology==&quot;BP&quot;) {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;BP&quot;)
+  } else if(ontology==&quot;CC&quot;) {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;CC&quot;)
+  } else {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;MF&quot;)
+  }
+    
+  GO.pval2$over_represented_padjust&lt;-p.adjust(GO.pval2$over_represented_pvalue,method=&quot;BH&quot;)
+  if(GO.pval2$over_represented_padjust[1]&gt;padjust) return(&quot;no enriched GO&quot;)
+  else {
+    enriched.GO&lt;-GO.pval2[GO.pval2$over_represented_padjust&lt;padjust,] 
+    print(&quot;enriched.GO is&quot;)
+    print(enriched.GO)
+    
+    ## write Term and Definition 
+    for(i in 1:dim(enriched.GO)[1]) {
+      if(is.null(Term(GOTERM[enriched.GO[i,&quot;category&quot;]]))) {next} else {
+      enriched.GO$Term[i]&lt;-Term(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
+      enriched.GO$Definition[i]&lt;-Definition(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
+      }
+    }
+    return(enriched.GO)
+  }
+}</code></pre>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/">&larr; Differential expression analysis with public available sequencing data</a></span>
+  <span class="nav-next"><a href="/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term/">Over-representation analysis 3: GOseq with GO term in non-model organisms &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+<a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="Subscribe">Subscribe</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+
+y BP Brgo.v2.5.BP.list is used (042518). Brgo.v2.5.BP.list is based on Hajar&#39;s Blast2go, which should be replaced with Brgo.Atgoslim.BP.list and giving a new name to this function (080818).
   
   bias&lt;-nchar(Br_cdna)
   names(bias)&lt;-names(Br_cdna)
@@ -232,6 +281,8 @@ GOseq.Brgo.Atgoslim.BP.list.ORA&lt;-function(genelist,padjust=0.05,ontology=&quo
 <script async src="//yihui.name/js/center-img.js"></script>
 
 <footer>
+
+<a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
 
 <div class="footer">
   <ul class="menu">
