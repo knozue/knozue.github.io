@@ -37,8 +37,8 @@ library(tidyverse) library(stringr) library(edgeR)  Trimming unnecessary sequenc
       <pubDate>Thu, 27 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
-      <description>If you want to use your own categories instead of GO terms? Please prepare list of genes in each category, such as hormone responsive genes found in Supplemental Dataset 6 in Nemhauser 2006. ## Updated hormone responsive gene list (Nozue, in press)
-library(tidyverse);library(readxl);library(readr) hormone.responsiveness6.DF.s.list2.DF2&amp;lt;-readxl::read_xlsx(file.path(&amp;quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files&amp;quot;,&amp;quot;Supplemental_Dataset3_source_of_custom_categories.xlsx&amp;quot;),skip=15,sheet=1) # Does not work. why? # because # Ask Kazu for this xlsx file. list.files(file.path(&amp;quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files&amp;quot;)) list.files(path=&amp;quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files&amp;quot;) list.files() hormone.responsiveness6.DF.s  uner construction load(&amp;quot;../../Annotation/input/Brgo.Atgoslim.BP.list.Rdata&amp;quot;) library(ShortRead);library(goseq);library(GO.db);library(&amp;quot;annotate&amp;quot;) # for ggplot heatmap #library(WGCNA);library(ggplot2);library(reshape2);library(scales) system(&amp;quot;gunzip -c .</description>
+      <description>If you want to use your own categories instead of GO terms? Please prepare list of genes in each category, such as hormone responsive genes found in Supplemental Dataset 6 in Nemhauser 2006. # Updated hormone responsive gene list (Nozue, in press)
+library(tidyverse);library(readxl);library(readr) ## ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.0.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.6 ## ✔ tidyr 0.8.1 ✔ stringr 1.</description>
     </item>
     
     <item>
