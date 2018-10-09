@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>Over-representation analysis 2: GOseq with custom categories | </title>
+    <title>Over-representation analysis 3: GOseq with GO term in non-model organisms | </title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -46,7 +46,7 @@
   
   </div>
 
-  <h1><span class="title">Over-representation analysis 2: GOseq with custom categories</span></h1>
+  <h1><span class="title">Over-representation analysis 3: GOseq with GO term in non-model organisms</span></h1>
 
   
   <h3 class="author">Kazu Nozue
@@ -64,12 +64,14 @@
 
 
 <main>
-<div id="if-you-want-to-use-your-own-categories-instead-of-go-terms" class="section level1">
-<h1>If you want to use your own categories instead of GO terms?</h1>
+<div id="if-you-want-to-analyze-non-model-organisms-what-you-an-do" class="section level1">
+<h1>If you want to analyze non-model organisms, what you an do?</h1>
 <p>Please prepare</p>
-</div>
-<div id="section" class="section level1">
-<h1></h1>
+<ol class="example" style="list-style-type: decimal">
+<li>fasta file for cDNA of your species,</li>
+<li>fasta file for cDNA of a close model organisms to your species,</li>
+<li>blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (<a href="https://www.ncbi.nlm.nih.gov/books/NBK52640/">detailed instruciton from NCBI</a>)</li>
+</ol>
 </div>
 <div id="uner-construction" class="section level1">
 <h1>uner construction</h1>
@@ -218,8 +220,8 @@ GOseq.Brgo.Atgoslim.BP.list.ORA&lt;-function(genelist,padjust=0.05,ontology=&quo
 
 
 <nav class="post-nav">
-  <span class="nav-prev"><a href="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html">&larr; Differential expression analysis with public available sequencing data</a></span>
-  <span class="nav-next"><a href="/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html">Over-representation analysis 3: GOseq with GO term in non-model organisms &rarr;</a></span>
+  <span class="nav-prev"><a href="/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html">&larr; Over-representation analysis 2: GOseq with custom categories</a></span>
+  <span class="nav-next"><a href="/post/2018/09/27/over-representation-analysis-4-heatmap-visualization.html">Over-representation analysis 4:  heatmap visualization &rarr;</a></span>
 </nav>
 
 
