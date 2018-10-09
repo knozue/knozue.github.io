@@ -37,7 +37,7 @@ library(tidyverse) library(stringr) library(edgeR)  Trimming unnecessary sequenc
       <pubDate>Thu, 27 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
-      <description>If you want to use your own categories instead of GO terms? Please prepare list of genes in each category, such as hormone responsive genes found in Supplemental Dataset 6 in Nemhauser 2006. # Updated hormone responsive gene list (Nozue, in press)
+      <description>Do you want to use your own categories instead of GO terms? Please prepare list of genes in each category, such as hormone responsive genes found in Supplemental Dataset 6 in Nemhauser 2006. # Updated hormone responsive gene list (Nozue, in press)
 library(tidyverse);library(readxl);library(readr) ## ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.0.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.6 ## ✔ tidyr 0.8.1 ✔ stringr 1.</description>
     </item>
     
