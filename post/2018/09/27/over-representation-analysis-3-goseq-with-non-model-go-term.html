@@ -79,60 +79,6 @@
 <pre class="r"><code>hormone.responsiveness6.DF.s.list2.DF2&lt;-readxl::read_xlsx(file.path(&quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files&quot;,&quot;Supplemental_Dataset3_source_of_custom_categories.xlsx&quot;),skip=15,sheet=1) # Does not work. why? 
 # because uglyURLs and canonifyURLs = true on 100818. I commented out them.
 # Ask Kazu for this xlsx file.
-list.files(file.path(&quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files&quot;))</code></pre>
-<pre><code>## [1] &quot;At.hormone.responsive.list.Rdata&quot;                      
-## [2] &quot;figure-html&quot;                                           
-## [3] &quot;Supplemental_Dataset3_source_of_custom_categories.xlsx&quot;</code></pre>
-<pre class="r"><code>list.files(path=&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files&quot;)</code></pre>
-<pre><code>## character(0)</code></pre>
-<pre class="r"><code>list.files()</code></pre>
-<pre><code>##  [1] &quot;2018-09-12-the-first-post.md&quot;                                                          
-##  [2] &quot;2018-09-13-native-plant-garden-project.md&quot;                                             
-##  [3] &quot;2018-09-14-wifi-or-sim.md&quot;                                                             
-##  [4] &quot;2018-09-15-.html&quot;                                                                      
-##  [5] &quot;2018-09-15-.Rmd&quot;                                                                       
-##  [6] &quot;2018-09-15-r-memo1.html&quot;                                                               
-##  [7] &quot;2018-09-15-r-memo1.Rmd&quot;                                                                
-##  [8] &quot;2018-09-18-.html&quot;                                                                      
-##  [9] &quot;2018-09-18-.Rmd&quot;                                                                       
-## [10] &quot;2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com.html&quot;              
-## [11] &quot;2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com.Rmd&quot;               
-## [12] &quot;2018-09-19-how-to-read-qr-code-and-transfer-data-to-google-sheet.html&quot;                 
-## [13] &quot;2018-09-19-how-to-read-qr-code-and-transfer-data-to-google-sheet.Rmd&quot;                  
-## [14] &quot;2018-09-20-shortcode-test.md&quot;                                                          
-## [15] &quot;2018-09-24-how-to-make-qrcode-by-r-ggplot2.html&quot;                                       
-## [16] &quot;2018-09-24-how-to-make-qrcode-by-r-ggplot2.Rmd&quot;                                        
-## [17] &quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term.html&quot;         
-## [18] &quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term.Rmd&quot;          
-## [19] &quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files&quot;          
-## [20] &quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term.html&quot;           
-## [21] &quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term.Rmd&quot;            
-## [22] &quot;2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term.html&quot;           
-## [23] &quot;2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term.Rmd&quot;            
-## [24] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization.html&quot;                  
-## [25] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization.Rmd&quot;                   
-## [26] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data.html&quot;
-## [27] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data.Rmd&quot; 
-## [28] &quot;2018-10-07-over-representation-analysis-5-useful-tools.html&quot;                           
-## [29] &quot;2018-10-07-over-representation-analysis-5-useful-tools.Rmd&quot;</code></pre>
-<pre class="r"><code>hormone.responsiveness6.DF.s.list2.DF2</code></pre>
-<pre><code>## # A tibble: 519 x 20
-##    ABAdown ACCup ACCdown BLup  BLdown IAAup IAAdown MJup  MJdown CKup 
-##    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-##  1 AT1G21… AT1G… AT1G70… AT1G… AT1G2… AT1G… AT1G74… AT1G… AT1G7… AT1G…
-##  2 AT1G21… AT1G… AT1G29… AT1G… AT1G1… AT1G… AT1G31… AT1G… AT1G3… AT1G…
-##  3 AT1G49… AT1G… AT1G28… AT1G… AT1G6… AT1G… AT1G17… AT1G… AT1G6… AT1G…
-##  4 AT1G73… AT1G… AT1G64… AT2G… AT1G0… AT1G… AT1G13… AT1G… AT1G7… AT1G…
-##  5 AT1G70… AT1G… AT1G72… AT2G… AT1G7… AT1G… AT1G18… AT1G… AT1G4… AT1G…
-##  6 AT1G31… AT2G… AT2G26… AT2G… AT1G1… AT1G… AT1G31… AT1G… AT1G7… AT1G…
-##  7 AT1G77… AT2G… AT2G24… AT2G… AT1G7… AT1G… AT1G77… AT1G… AT1G1… AT1G…
-##  8 AT1G16… AT2G… AT2G03… AT2G… AT2G2… AT1G… AT1G13… AT1G… AT1G6… AT1G…
-##  9 AT1G70… AT2G… AT3G13… AT2G… AT2G3… AT1G… AT1G72… AT1G… AT1G1… AT1G…
-## 10 AT1G77… AT2G… AT3G56… AT3G… AT2G1… AT1G… AT1G72… AT1G… AT1G6… AT1G…
-## # ... with 509 more rows, and 10 more variables: CKdown &lt;chr&gt;, GAup &lt;chr&gt;,
-## #   GAdown &lt;chr&gt;, PIFtarget &lt;chr&gt;, MYC234up &lt;chr&gt;, MYC234down &lt;chr&gt;,
-## #   SAup &lt;chr&gt;, Sadown &lt;chr&gt;, WRKY33up &lt;chr&gt;, WRKY33down &lt;chr&gt;</code></pre>
-<pre class="r"><code># conver to list obejct compatible with goseq()
 hormone.responsiveness6.DF.s.list2.DF2</code></pre>
 <pre><code>## # A tibble: 519 x 20
 ##    ABAdown ACCup ACCdown BLup  BLdown IAAup IAAdown MJup  MJdown CKup 
@@ -150,19 +96,14 @@ hormone.responsiveness6.DF.s.list2.DF2</code></pre>
 ## # ... with 509 more rows, and 10 more variables: CKdown &lt;chr&gt;, GAup &lt;chr&gt;,
 ## #   GAdown &lt;chr&gt;, PIFtarget &lt;chr&gt;, MYC234up &lt;chr&gt;, MYC234down &lt;chr&gt;,
 ## #   SAup &lt;chr&gt;, Sadown &lt;chr&gt;, WRKY33up &lt;chr&gt;, WRKY33down &lt;chr&gt;</code></pre>
+<pre class="r"><code># conver to list obejct compatible with goseq()</code></pre>
 </div>
 <div id="download-updated-gene-description-copied-from-2018-10-01-rmd" class="section level1">
 <h1>Download updated gene description (copied from “2018-10-01-…Rmd”)</h1>
 <p>Most updated annotation can be downloaded from TAIR website (for <a href="https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FSubscriber_Data_Releases">subscribers</a>). I used “TAIR Data 20180630”.</p>
 <pre class="r"><code># turn on TAIR subsciption before this procedure
-At.gene.name &lt;-read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/gene_aliases_20180702.txt.gz&quot;) # Does work from home when I use Pulse Secure.</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   name = col_character(),
-##   symbol = col_character(),
-##   full_name = col_character()
-## )</code></pre>
-<pre class="r"><code># How to concatenate multiple symbols in the same AGI
+At.gene.name &lt;-read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/gene_aliases_20180702.txt.gz&quot;) # Does work from home when I use Pulse Secure.
+# How to concatenate multiple symbols in the same AGI
 At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))
 At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
 <pre><code>## # A tibble: 11 x 3
@@ -244,126 +185,9 @@ head(At.hormone.responsive.list)</code></pre>
 ## 
 ## $AT1G75120
 ## character(0)</code></pre>
-<pre class="r"><code>library(ShortRead);library(goseq);library(GO.db);library(&quot;annotate&quot;)</code></pre>
-<pre><code>## Loading required package: BiocGenerics</code></pre>
-<pre><code>## Loading required package: parallel</code></pre>
-<pre><code>## 
-## Attaching package: &#39;BiocGenerics&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:parallel&#39;:
-## 
-##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-##     clusterExport, clusterMap, parApply, parCapply, parLapply,
-##     parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     combine, intersect, setdiff, union</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     IQR, mad, sd, var, xtabs</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     anyDuplicated, append, as.data.frame, basename, cbind,
-##     colMeans, colnames, colSums, dirname, do.call, duplicated,
-##     eval, evalq, Filter, Find, get, grep, grepl, intersect,
-##     is.unsorted, lapply, lengths, Map, mapply, match, mget, order,
-##     paste, pmax, pmax.int, pmin, pmin.int, Position, rank, rbind,
-##     Reduce, rowMeans, rownames, rowSums, sapply, setdiff, sort,
-##     table, tapply, union, unique, unsplit, which, which.max,
-##     which.min</code></pre>
-<pre><code>## Loading required package: BiocParallel</code></pre>
-<pre><code>## Loading required package: Biostrings</code></pre>
-<pre><code>## Loading required package: S4Vectors</code></pre>
-<pre><code>## Loading required package: stats4</code></pre>
-<pre><code>## 
-## Attaching package: &#39;S4Vectors&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     first, rename</code></pre>
-<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
-## 
-##     expand</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     expand.grid</code></pre>
-<pre><code>## Loading required package: IRanges</code></pre>
-<pre><code>## 
-## Attaching package: &#39;IRanges&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     collapse, desc, slice</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     reduce</code></pre>
-<pre><code>## Loading required package: XVector</code></pre>
-<pre><code>## 
-## Attaching package: &#39;XVector&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     compact</code></pre>
-<pre><code>## 
-## Attaching package: &#39;Biostrings&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     strsplit</code></pre>
-<pre><code>## Loading required package: Rsamtools</code></pre>
-<pre><code>## Loading required package: GenomeInfoDb</code></pre>
-<pre><code>## Loading required package: GenomicRanges</code></pre>
-<pre><code>## Loading required package: GenomicAlignments</code></pre>
-<pre><code>## Loading required package: SummarizedExperiment</code></pre>
-<pre><code>## Loading required package: Biobase</code></pre>
-<pre><code>## Welcome to Bioconductor
-## 
-##     Vignettes contain introductory material; view with
-##     &#39;browseVignettes()&#39;. To cite Bioconductor, see
-##     &#39;citation(&quot;Biobase&quot;)&#39;, and for packages &#39;citation(&quot;pkgname&quot;)&#39;.</code></pre>
-<pre><code>## Loading required package: DelayedArray</code></pre>
-<pre><code>## Loading required package: matrixStats</code></pre>
-<pre><code>## 
-## Attaching package: &#39;matrixStats&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:Biobase&#39;:
-## 
-##     anyMissing, rowMedians</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     count</code></pre>
-<pre><code>## 
-## Attaching package: &#39;DelayedArray&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:matrixStats&#39;:
-## 
-##     colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges</code></pre>
-<pre><code>## The following object is masked from &#39;package:Biostrings&#39;:
-## 
-##     type</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     simplify</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     aperm, apply</code></pre>
-<pre><code>## 
-## Attaching package: &#39;GenomicAlignments&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     last</code></pre>
-<pre><code>## 
-## Attaching package: &#39;ShortRead&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     id</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     compose</code></pre>
-<pre><code>## Loading required package: BiasedUrn</code></pre>
-<pre><code>## Loading required package: geneLenDataBase</code></pre>
-<pre><code>## </code></pre>
-<pre><code>## Loading required package: AnnotationDbi</code></pre>
-<pre><code>## 
-## Attaching package: &#39;AnnotationDbi&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     select</code></pre>
-<pre><code>## Loading required package: XML</code></pre>
-<pre class="r"><code>#  bias.data vector must have the same length as DEgenes vector!
+<pre class="r"><code>library(ShortRead);library(goseq);library(GO.db);library(&quot;annotate&quot;)
+
+#  bias.data vector must have the same length as DEgenes vector!
 GOseq.At.customcat.ORA&lt;-function(genelist,padjust=0.05,custom.category.list=At.hormone.responsive.list,cdna=At_cdna) { # return GO enrichment table, padjus, padjust=0.05. New BLAST2GO results with only BP Brgo.v2.5.BP.list is used (042518). Brgo.v2.5.BP.list is based on Hajar&#39;s Blast2go, which should be replaced with Brgo.Atgoslim.BP.list and giving a new name to this function (080818). cdna is DNAstring object.
   #bias&lt;-nchar(cdna)
   bias&lt;-Biostrings::width(cdna)
