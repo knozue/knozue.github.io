@@ -2,56 +2,56 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on </title>
-    <link>https://knozue.github.io/categories.html</link>
+    <link>/categories/</link>
     <description>Recent content in Categories on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="https://knozue.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Data-analysis</title>
-      <link>https://knozue.github.io/categories/data-analysis.html</link>
+      <link>/categories/data-analysis/</link>
       <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/categories/data-analysis.html</guid>
+      <guid>/categories/data-analysis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Native-plant</title>
-      <link>https://knozue.github.io/categories/native-plant.html</link>
+      <link>/categories/native-plant/</link>
       <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/categories/native-plant.html</guid>
+      <guid>/categories/native-plant/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Project-management</title>
-      <link>https://knozue.github.io/categories/project-management.html</link>
+      <link>/categories/project-management/</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/categories/project-management.html</guid>
+      <guid>/categories/project-management/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Travel</title>
-      <link>https://knozue.github.io/categories/travel.html</link>
+      <link>/categories/travel/</link>
       <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/categories/travel.html</guid>
+      <guid>/categories/travel/</guid>
       <description></description>
     </item>
     
     <item>
       <title>旅行</title>
-      <link>https://knozue.github.io/categories/%E6%97%85%E8%A1%8C.html</link>
+      <link>/categories/%E6%97%85%E8%A1%8C/</link>
       <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/categories/%E6%97%85%E8%A1%8C.html</guid>
+      <guid>/categories/%E6%97%85%E8%A1%8C/</guid>
       <description></description>
     </item>
     

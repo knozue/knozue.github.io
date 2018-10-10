@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Native-plant on </title>
-    <link>https://knozue.github.io/categories/native-plant.html</link>
+    <link>/categories/native-plant/</link>
     <description>Recent content in Native-plant on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 13 Sep 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://knozue.github.io/categories/native-plant/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/native-plant/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Native plant garden project</title>
-      <link>https://knozue.github.io/post/2018/09/13/native-plant-garden-project.html</link>
+      <link>/post/2018/09/13/native-plant-garden-project/</link>
       <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/09/13/native-plant-garden-project.html</guid>
+      <guid>/post/2018/09/13/native-plant-garden-project/</guid>
       <description> Why don&amp;rsquo;t you grow local native plants in your yards? </description>
     </item>
     
