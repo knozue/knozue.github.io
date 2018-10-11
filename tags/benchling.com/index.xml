@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>benchling.com on </title>
-    <link>https://knozue.github.io/tags/benchling.com.html</link>
-    <description>Recent content in benchling.com on </description>
+    <title>benchling.com on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>/tags/benchling.com.html</link>
+    <description>Recent content in benchling.com on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 12 Sep 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://knozue.github.io/tags/benchling.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/benchling.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Busy dad needs project management skills!</title>
-      <link>https://knozue.github.io/post/2018/09/12/the-first-post.html</link>
+      <link>/post/2018/09/12/the-first-post.html</link>
       <pubDate>Wed, 12 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/09/12/the-first-post.html</guid>
+      <guid>/post/2018/09/12/the-first-post.html</guid>
       <description>Here I would like to start describe briefly how I manage my work and personal projects. How to make your experiments reproducible As scientists we need to convince others that your results are not by chance. Here are four advices I want to emphasize here. Keep all records on your lab notebook presicely that should be easy to understand. Simplify methods of data input to reduce errors. Have clear and</description>
     </item>
     
