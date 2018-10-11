@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Over-representation analysis 2: GOseq using custom categories | </title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-10-10</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+  </div>
+
+  <h1><span class="title">Over-representation analysis 2: GOseq using custom categories</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/reproducibility">reproducibility</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+<!--![](/post/2018-10-10-over-representation-analysis-2-goseq-using-custom-categories_files/IMG_1874.png)-->
+<div id="download-updated-gene-description-copied-from-2018-10-01-rmd" class="section level1">
+<h1>Download updated gene description (copied from “2018-10-01-…Rmd”)</h1>
+<p>Most updated annotation can be downloaded from TAIR website (for <a href="https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FSubscriber_Data_Releases">subscribers</a>). I used “TAIR Data 20180630”.</p>
+<pre class="r"><code>library(tidyverse);library(readxl);library(readr)</code></pre>
+<pre><code>## ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
+<pre><code>## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code># turn on TAIR subsciption before this procedure
+At.gene.name &lt;-read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/gene_aliases_20180702.txt.gz&quot;) # Does work from home when I use Pulse Secure.
+# How to concatenate multiple symbols in the same AGI
+At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))
+At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
+<pre><code>## # A tibble: 11 x 3
+##    name     symbol2          full_name                                    
+##    &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;                                        
+##  1 AT1G018… AtGEN1;GEN1      NA;ortholog of HsGEN1                        
+##  2 AT1G019… ATSBT1.1;SBTI1.1 NA;NA                                        
+##  3 AT1G019… AtGET3a;GET3a    Guided Entry of Tail-anchored protein 3a;Gui…
+##  4 AT1G019… ARK2;AtKINUb     armadillo repeat kinesin 2;Arabidopsis thali…
+##  5 AT1G019… BIG3;EDA10       BIG3;embryo sac development arrest 10        
+##  6 AT1G019… AtBBE1;OGOX4     NA;oligogalacturonide oxidase 4              
+##  7 AT1G020… GAE2             UDP-D-glucuronate 4-epimerase 2              
+##  8 AT1G020… SEC1A            secretory 1A                                 
+##  9 AT1G020… LAP6;PKSA        LESS ADHESIVE POLLEN 6;polyketide synthase A 
+## 10 AT1G020… SPL8             squamosa promoter binding protein-like 8     
+## 11 AT1G020… ATCSN7;COP15;CS… ARABIDOPSIS THALIANA COP9 SIGNALOSOME SUBUNI…</code></pre>
+<pre class="r"><code># download cDNA info directly from TAIR
+At_cdna&lt;-Biostrings::readDNAStringSet(&quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cdna_20110103_representative_gene_model_updated&quot;)
+At_cdna # 33602 genes</code></pre>
+<pre><code>##   A DNAStringSet instance of length 33602
+##         width seq                                      names               
+##     [1]  2394 AGAAAACAGTCGACCGTCA...TTGGTAATTTTTTGAGTC AT1G50920.1 | Sym...
+##     [2]   546 ATGACTCGTTTGTTGCCTT...GTTGATTCTGGTACATAG AT1G36960.1 | Sym...
+##     [3]  2314 ATGGATTCAGAGTCAGAGT...GGTGCATTGTGTTTCTCC AT1G44020.1 | Sym...
+##     [4]  1658 TCGTTTCGTCGTCGATCAG...GATTACATGCTACATTTT AT1G15970.1 | Sym...
+##     [5]  1453 ATTGAAAAGAAAACACATC...CACCAAAATCTTCTCATA AT1G73440.1 | Sym...
+##     ...   ... ...
+## [33598]    87 GGATGGATGTCTGAGCGGT...CGAATCCCTCTCCATCCG ATMG00420.1 | Sym...
+## [33599]   384 ATGCTCCCCGCCGGTTGTT...CGATACTTAACTATATAA ATMG01330.1 | Sym...
+## [33600]   573 ATGGATAACCAATTCATTT...CAGCGTAGCGACGGATAA ATMG00070.1 | Sym...
+## [33601]   366 ATGGCATCAAAAATCCGCA...CCTTCTGCATACGCATAA ATMG00130.1 | Sym...
+## [33602]    74 GCGCTCTTAGTTCAGTTCG...CAAATCCTACAGAGCGTG ATMG00930.1 | Sym...</code></pre>
+</div>
+<div id="updated-hormone-responsive-gene-list-nozue-in-press" class="section level1">
+<h1>Updated hormone responsive gene list (Nozue, in press)</h1>
+<pre class="r"><code>hormone.responsiveness6.DF.s.list2.DF2&lt;-readxl::read_xlsx(file.path(&quot;2018-10-10-over-representation-analysis-2-goseq-using-custom-categories_files&quot;,&quot;Supplemental_Dataset3_source_of_custom_categories.xlsx&quot;),skip=15,sheet=1) # Does not work. why? 
+# because uglyURLs and canonifyURLs = true on 100818. I commented out them.
+# Ask Kazu for this xlsx file.
+hormone.responsiveness6.DF.s.list2.DF2</code></pre>
+<pre><code>## # A tibble: 519 x 20
+##    ABAdown ACCup ACCdown BLup  BLdown IAAup IAAdown MJup  MJdown CKup 
+##    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+##  1 AT1G21… AT1G… AT1G70… AT1G… AT1G2… AT1G… AT1G74… AT1G… AT1G7… AT1G…
+##  2 AT1G21… AT1G… AT1G29… AT1G… AT1G1… AT1G… AT1G31… AT1G… AT1G3… AT1G…
+##  3 AT1G49… AT1G… AT1G28… AT1G… AT1G6… AT1G… AT1G17… AT1G… AT1G6… AT1G…
+##  4 AT1G73… AT1G… AT1G64… AT2G… AT1G0… AT1G… AT1G13… AT1G… AT1G7… AT1G…
+##  5 AT1G70… AT1G… AT1G72… AT2G… AT1G7… AT1G… AT1G18… AT1G… AT1G4… AT1G…
+##  6 AT1G31… AT2G… AT2G26… AT2G… AT1G1… AT1G… AT1G31… AT1G… AT1G7… AT1G…
+##  7 AT1G77… AT2G… AT2G24… AT2G… AT1G7… AT1G… AT1G77… AT1G… AT1G1… AT1G…
+##  8 AT1G16… AT2G… AT2G03… AT2G… AT2G2… AT1G… AT1G13… AT1G… AT1G6… AT1G…
+##  9 AT1G70… AT2G… AT3G13… AT2G… AT2G3… AT1G… AT1G72… AT1G… AT1G1… AT1G…
+## 10 AT1G77… AT2G… AT3G56… AT3G… AT2G1… AT1G… AT1G72… AT1G… AT1G6… AT1G…
+## # ... with 509 more rows, and 10 more variables: CKdown &lt;chr&gt;, GAup &lt;chr&gt;,
+## #   GAdown &lt;chr&gt;, PIFtarget &lt;chr&gt;, MYC234up &lt;chr&gt;, MYC234down &lt;chr&gt;,
+## #   SAup &lt;chr&gt;, Sadown &lt;chr&gt;, WRKY33up &lt;chr&gt;, WRKY33down &lt;chr&gt;</code></pre>
+<pre class="r"><code># conver to list obejct compatible with goseq() below</code></pre>
+</div>
+<div id="format-hormone.responsiveness6.df.s.list2.df2-into-goseq-compatible-list-run-once" class="section level1">
+<h1>format hormone.responsiveness6.DF.s.list2.DF2 into goseq() compatible list (run once)</h1>
+<pre class="r"><code># extract AGI from At_cdna
+At.gene.name&lt;-tibble(name=names(At_cdna)) %&gt;% separate(name,into=c(&quot;name2&quot;,&quot;Symbol&quot;,&quot;description&quot;),sep=&quot; \\|&quot;,extra=&quot;drop&quot;,fill=&quot;left&quot;) %&gt;%  mutate(AGI=str_remove(name2,pattern=&quot;\\.[[:digit:]]+&quot;)) 
+# make presence/absense hormone responsive gene table (dataframe)
+  for(i in 1:20) {
+  genes&lt;-hormone.responsiveness6.DF.s.list2.DF2[!is.na(hormone.responsiveness6.DF.s.list2.DF2[,i]),i] %&gt;% as_vector()
+  temp&lt;-data.frame(AGI=genes,category=names(hormone.responsiveness6.DF.s.list2.DF2)[i])
+  #At.gene.name %&gt;% left_join(temp,by=c(&quot;name&quot;=&quot;AGI&quot;)) -&gt; At.gene.name
+At.gene.name %&gt;% left_join(temp,by=&quot;AGI&quot;) -&gt; At.gene.name 
+  }
+names(At.gene.name)[5:24] &lt;- names(hormone.responsiveness6.DF.s.list2.DF2)
+At.gene.name %&gt;% filter(str_detect(AGI,pattern=&quot;AT1G|AT2G|AT3G|AT4G|AT5G|ATC|ATM&quot;)) %&gt;% unite(category,5:24,sep=&quot;,&quot;)-&gt;test2
+test2[1:10,] %&gt;%  mutate(category=gsub(&quot;NA&quot;,&quot;&quot;,category)) %&gt;% mutate(category=gsub(&quot;,&quot;,&quot;&quot;,category))
+# only select genes with AGI name and concatenate categories
+At.gene.name %&gt;% filter(str_detect(AGI,pattern=&quot;AT1G|AT2G|AT3G|AT4G|AT5G|ATC|ATM&quot;)) %&gt;% unite(category,5:24,sep=&quot;,&quot;) %&gt;%  mutate(category=gsub(&quot;NA,&quot;,&quot;&quot;,category)) %&gt;% mutate(category=gsub(&quot;,NA&quot;,&quot;&quot;,category)) %&gt;% mutate(category=gsub(&quot;NA&quot;,&quot;&quot;,category)) -&gt;test3
+# convert into list object
+temp.list&lt;-list()
+for(i in 1:dim(test3)[1]) {
+  temp.list[[i]]&lt;-test3 %&gt;% slice(i) %&gt;% pull(category)
+}
+names(temp.list)&lt;-test3 %&gt;% pull(AGI)
+# split concatanated categories in each gene
+At.hormone.responsive.list&lt;-lapply(temp.list,function(x) unlist(strsplit(x, split=&quot;,&quot;)))
+# save
+save(At.hormone.responsive.list,file=&quot;2018-09-27-over-representation-analysis-2-goseq-with-custom-categories_files/At.hormone.responsive.list.Rdata&quot;)</code></pre>
+</div>
+<div id="goseq-ora-function-with-arabidopss-thaliana-hormone-responsive-genes-under-construction" class="section level1">
+<h1>GOseq ORA function with Arabidopss thaliana hormone responsive genes (under construction)</h1>
+<pre class="r"><code>load(&quot;2018-10-10-over-representation-analysis-2-goseq-using-custom-categories_files/At.hormone.responsive.list.Rdata&quot;)
+head(At.hormone.responsive.list)</code></pre>
+<pre><code>## $AT1G50920
+## character(0)
+## 
+## $AT1G36960
+## character(0)
+## 
+## $AT1G44020
+## character(0)
+## 
+## $AT1G15970
+## character(0)
+## 
+## $AT1G73440
+## character(0)
+## 
+## $AT1G75120
+## character(0)</code></pre>
+<pre class="r"><code>library(ShortRead);library(goseq);library(GO.db);library(&quot;annotate&quot;)
+
+#  bias.data vector must have the same length as DEgenes vector! 
+## if you want to test expressed genes as background, add background in this function
+GOseq.At.customcat.ORA&lt;-function(genelist,padjust=0.05,custom.category.list=At.hormone.responsive.list,cdna=At_cdna,background=&quot;&quot;) { # return GO enrichment table, padjus, padjust=0.05. New BLAST2GO results with only BP Brgo.v2.5.BP.list is used (042518). Brgo.v2.5.BP.list is based on Hajar&#39;s Blast2go, which should be replaced with Brgo.Atgoslim.BP.list and giving a new name to this function (080818). cdna is DNAstring object. background is a vector of genes.
+  #bias&lt;-nchar(cdna)
+  bias&lt;-Biostrings::width(cdna)
+  # add name to &quot;bias&quot;. cdna
+  #names(bias)&lt;-names(cdna)
+ names(bias) &lt;- tibble(name=names(cdna)) %&gt;% separate(name,into=c(&quot;name2&quot;,&quot;Symbol&quot;,&quot;description&quot;),sep=&quot; \\|&quot;,extra=&quot;drop&quot;,fill=&quot;left&quot;) %&gt;%  mutate(AGI=str_remove(name2,pattern=&quot;\\.[[:digit:]]+&quot;)) %&gt;% pull(AGI)
+ if(background==&quot;&quot;) {print(&quot;Use all genes in genome as background&quot;)} else {
+ # select only expressed geens 
+  bias &lt;- bias[background]
+  print(&quot;Expessed genes are used as background.&quot;)
+  print(paste(&quot;length of bias is &quot;,length(bias)))
+ }
+  TF&lt;-(names(bias) %in% genelist)*1
+  names(TF)&lt;-names(bias)
+  #print(TF)
+  pwf&lt;-nullp(TF,bias.data=bias)
+  #print(pwf$DEgenes)
+  GO.pval &lt;- goseq(pwf,gene2cat=custom.category.list,use_genes_without_cat=TRUE) # format became different in new goseq version (021111). Does not work (042716)
+  # calculate p ajust by BH
+  GO.pval$over_represented_padjust&lt;-p.adjust(GO.pval$over_represented_pvalue,method=&quot;BH&quot;)
+  if(GO.pval$over_represented_padjust[1]&gt;padjust) return(&quot;no enriched GO&quot;)
+  else {
+    enriched.GO&lt;-GO.pval[GO.pval$over_represented_padjust&lt;padjust,] 
+    print(&quot;enriched.GO is&quot;)
+    print(enriched.GO)
+    return(enriched.GO)
+  }
+}</code></pre>
+</div>
+<div id="test-the-function" class="section level1">
+<h1>test the function</h1>
+<pre class="r"><code>load(&quot;2018-10-10-over-representation-analysis-2-goseq-using-custom-categories_files/dge.nolow.Rdata&quot;)
+expressed.genes&lt;-gsub(&quot;(.)(\\.[[:digit:]]+)&quot;,&quot;\\1&quot;,as_vector(dge.nolow$genes))</code></pre>
+<pre><code>## Loading required package: edgeR</code></pre>
+<pre><code>## Loading required package: limma</code></pre>
+<pre><code>## 
+## Attaching package: &#39;limma&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:BiocGenerics&#39;:
+## 
+##     plotMA</code></pre>
+<pre class="r"><code>GOseq.At.customcat.ORA(genelist=hormone.responsiveness6.DF.s.list2.DF2$IAAup, background=&quot;&quot;) # Total genes in genome are background</code></pre>
+<pre><code>## [1] &quot;Use all genes in genome as background&quot;</code></pre>
+<pre><code>## Warning in pcls(G): initial point very close to some inequality constraints</code></pre>
+<pre><code>## Using manually entered categories.</code></pre>
+<pre><code>## Calculating the p-values...</code></pre>
+<p><img src="/post/2018-10-10-over-representation-analysis-2-goseq-using-custom-categories_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre><code>## [1] &quot;enriched.GO is&quot;
+##      category over_represented_pvalue under_represented_pvalue numDEInCat
+## 11      IAAup            0.000000e+00                1.0000000        198
+## 12     MJdown            4.395205e-21                1.0000000         23
+## 5        BLup            7.235275e-18                1.0000000         11
+## 19 WRKY33down            1.763824e-16                1.0000000         18
+## 16  PIFtarget            2.001183e-14                1.0000000         11
+## 3       ACCup            2.464518e-11                1.0000000          8
+## 13       MJup            6.723578e-09                1.0000000         18
+## 1     ABAdown            1.782286e-07                1.0000000         12
+## 4      BLdown            2.043251e-06                0.9999999          5
+## 18       SAup            8.089212e-06                0.9999992          8
+## 8      GAdown            1.526185e-05                0.9999993          5
+## 7        CKup            5.622343e-04                0.9999614          4
+## 10    IAAdown            6.516900e-03                0.9994291          3
+##    numInCat over_represented_padjust
+## 11      198             0.000000e+00
+## 12      230             4.395205e-20
+## 5        28             4.823517e-17
+## 19      195             8.819122e-16
+## 16       52             8.004731e-14
+## 3        34             8.215059e-11
+## 13      519             1.921022e-08
+## 1       269             4.455716e-07
+## 4        33             4.540558e-06
+## 18      168             1.617842e-05
+## 8        50             2.774883e-05
+## 7        60             9.370572e-04
+## 10       61             1.002600e-02</code></pre>
+<pre><code>##      category over_represented_pvalue under_represented_pvalue numDEInCat
+## 11      IAAup            0.000000e+00                1.0000000        198
+## 12     MJdown            4.395205e-21                1.0000000         23
+## 5        BLup            7.235275e-18                1.0000000         11
+## 19 WRKY33down            1.763824e-16                1.0000000         18
+## 16  PIFtarget            2.001183e-14                1.0000000         11
+## 3       ACCup            2.464518e-11                1.0000000          8
+## 13       MJup            6.723578e-09                1.0000000         18
+## 1     ABAdown            1.782286e-07                1.0000000         12
+## 4      BLdown            2.043251e-06                0.9999999          5
+## 18       SAup            8.089212e-06                0.9999992          8
+## 8      GAdown            1.526185e-05                0.9999993          5
+## 7        CKup            5.622343e-04                0.9999614          4
+## 10    IAAdown            6.516900e-03                0.9994291          3
+##    numInCat over_represented_padjust
+## 11      198             0.000000e+00
+## 12      230             4.395205e-20
+## 5        28             4.823517e-17
+## 19      195             8.819122e-16
+## 16       52             8.004731e-14
+## 3        34             8.215059e-11
+## 13      519             1.921022e-08
+## 1       269             4.455716e-07
+## 4        33             4.540558e-06
+## 18      168             1.617842e-05
+## 8        50             2.774883e-05
+## 7        60             9.370572e-04
+## 10       61             1.002600e-02</code></pre>
+<pre class="r"><code>GOseq.At.customcat.ORA(genelist=hormone.responsiveness6.DF.s.list2.DF2$IAAup, background=expressed.genes) # Expressed genes in samples used for DEGs are background.</code></pre>
+<pre><code>## Warning in if (background == &quot;&quot;) {: the condition has length &gt; 1 and only
+## the first element will be used</code></pre>
+<pre><code>## [1] &quot;Expessed genes are used as background.&quot;
+## [1] &quot;length of bias is  16799&quot;</code></pre>
+<pre><code>## Using manually entered categories.
+## Calculating the p-values...</code></pre>
+<p><img src="/post/2018-10-10-over-representation-analysis-2-goseq-using-custom-categories_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<pre><code>## [1] &quot;enriched.GO is&quot;
+##      category over_represented_pvalue under_represented_pvalue numDEInCat
+## 11      IAAup            0.000000e+00                1.0000000        143
+## 12     MJdown            5.092312e-16                1.0000000         21
+## 5        BLup            6.670465e-13                1.0000000          9
+## 19 WRKY33down            1.372204e-12                1.0000000         16
+## 16  PIFtarget            4.126366e-10                1.0000000          8
+## 3       ACCup            3.002866e-06                0.9999999          5
+## 4      BLdown            8.892919e-06                0.9999997          5
+## 13       MJup            4.273610e-05                0.9999900         14
+## 1     ABAdown            7.261961e-05                0.9999870         10
+## 18       SAup            9.374241e-05                0.9999867          8
+## 8      GAdown            5.425846e-04                0.9999639          4
+## 7        CKup            7.477068e-03                0.9993214          3
+##    numInCat over_represented_padjust
+## 11      143             0.000000e+00
+## 12      221             5.092312e-15
+## 5        25             4.446976e-12
+## 19      159             6.861019e-12
+## 16       34             1.650546e-09
+## 3        26             1.000955e-05
+## 4        33             2.540834e-05
+## 13      454             1.068403e-04
+## 1       257             1.613769e-04
+## 18      154             1.874848e-04
+## 8        43             9.865175e-04
+## 7        46             1.246178e-02</code></pre>
+<pre><code>##      category over_represented_pvalue under_represented_pvalue numDEInCat
+## 11      IAAup            0.000000e+00                1.0000000        143
+## 12     MJdown            5.092312e-16                1.0000000         21
+## 5        BLup            6.670465e-13                1.0000000          9
+## 19 WRKY33down            1.372204e-12                1.0000000         16
+## 16  PIFtarget            4.126366e-10                1.0000000          8
+## 3       ACCup            3.002866e-06                0.9999999          5
+## 4      BLdown            8.892919e-06                0.9999997          5
+## 13       MJup            4.273610e-05                0.9999900         14
+## 1     ABAdown            7.261961e-05                0.9999870         10
+## 18       SAup            9.374241e-05                0.9999867          8
+## 8      GAdown            5.425846e-04                0.9999639          4
+## 7        CKup            7.477068e-03                0.9993214          3
+##    numInCat over_represented_padjust
+## 11      143             0.000000e+00
+## 12      221             5.092312e-15
+## 5        25             4.446976e-12
+## 19      159             6.861019e-12
+## 16       34             1.650546e-09
+## 3        26             1.000955e-05
+## 4        33             2.540834e-05
+## 13      454             1.068403e-04
+## 1       257             1.613769e-04
+## 18      154             1.874848e-04
+## 8        43             9.865175e-04
+## 7        46             1.246178e-02</code></pre>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2018/10/07/over-representation-analysis-5-useful-tools.html">Over-representation analysis 5: useful tools &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="Subscribe RSS feed">Subscribe RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

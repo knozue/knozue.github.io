@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>Over-representation analysis 2: GOseq with custom categories | </title>
+    <title>Over-representation analysis 3: GOseq with GO term in non-model organisms | </title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -46,7 +46,7 @@
   
   </div>
 
-  <h1><span class="title">Over-representation analysis 2: GOseq with custom categories</span></h1>
+  <h1><span class="title">Over-representation analysis 3: GOseq with GO term in non-model organisms</span></h1>
 
   
   <h3 class="author">Kazu Nozue
@@ -64,136 +64,134 @@
 
 
 <main>
-<div id="do-you-want-to-use-your-own-categories-instead-of-go-terms" class="section level1">
-<h1>Do you want to use your own categories instead of GO terms?</h1>
-<p>Please prepare list of genes in each category, such as hormone responsive genes found in Supplemental Dataset 6 in <a href="http://www.sciencedirect.com/science/article/pii/S0092867406009111">Nemhauser 2006</a>. <!--[](/post/2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files/QRcode_generator1_Kazu2e_Screen Shot 2018-09-19 at 7.18.47 AM.png)--> # Updated hormone responsive gene list (Nozue, in press)</p>
-<pre class="r"><code>library(tidyverse);library(readxl);library(readr)</code></pre>
-<pre><code>## ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
-## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>hormone.responsiveness6.DF.s.list2.DF2&lt;-readxl::read_xlsx(file.path(&quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files&quot;,&quot;Supplemental_Dataset3_source_of_custom_categories.xlsx&quot;),skip=15,sheet=1) # Does not work. why? 
-# because uglyURLs and canonifyURLs = true on 100818. I commented out them.
-# Ask Kazu for this xlsx file.
-hormone.responsiveness6.DF.s.list2.DF2</code></pre>
-<pre><code>## # A tibble: 519 x 20
-##    ABAdown ACCup ACCdown BLup  BLdown IAAup IAAdown MJup  MJdown CKup 
-##    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-##  1 AT1G21… AT1G… AT1G70… AT1G… AT1G2… AT1G… AT1G74… AT1G… AT1G7… AT1G…
-##  2 AT1G21… AT1G… AT1G29… AT1G… AT1G1… AT1G… AT1G31… AT1G… AT1G3… AT1G…
-##  3 AT1G49… AT1G… AT1G28… AT1G… AT1G6… AT1G… AT1G17… AT1G… AT1G6… AT1G…
-##  4 AT1G73… AT1G… AT1G64… AT2G… AT1G0… AT1G… AT1G13… AT1G… AT1G7… AT1G…
-##  5 AT1G70… AT1G… AT1G72… AT2G… AT1G7… AT1G… AT1G18… AT1G… AT1G4… AT1G…
-##  6 AT1G31… AT2G… AT2G26… AT2G… AT1G1… AT1G… AT1G31… AT1G… AT1G7… AT1G…
-##  7 AT1G77… AT2G… AT2G24… AT2G… AT1G7… AT1G… AT1G77… AT1G… AT1G1… AT1G…
-##  8 AT1G16… AT2G… AT2G03… AT2G… AT2G2… AT1G… AT1G13… AT1G… AT1G6… AT1G…
-##  9 AT1G70… AT2G… AT3G13… AT2G… AT2G3… AT1G… AT1G72… AT1G… AT1G1… AT1G…
-## 10 AT1G77… AT2G… AT3G56… AT3G… AT2G1… AT1G… AT1G72… AT1G… AT1G6… AT1G…
-## # ... with 509 more rows, and 10 more variables: CKdown &lt;chr&gt;, GAup &lt;chr&gt;,
-## #   GAdown &lt;chr&gt;, PIFtarget &lt;chr&gt;, MYC234up &lt;chr&gt;, MYC234down &lt;chr&gt;,
-## #   SAup &lt;chr&gt;, Sadown &lt;chr&gt;, WRKY33up &lt;chr&gt;, WRKY33down &lt;chr&gt;</code></pre>
-<pre class="r"><code># conver to list obejct compatible with goseq()</code></pre>
+<div id="if-you-want-to-analyze-non-model-organisms-what-you-an-do" class="section level1">
+<h1>If you want to analyze non-model organisms, what you an do?</h1>
+<p>Please prepare</p>
+<ol class="example" style="list-style-type: decimal">
+<li>fasta file for cDNA of your species,</li>
+<li>fasta file for cDNA of a close model organisms to your species,</li>
+<li>blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (<a href="https://www.ncbi.nlm.nih.gov/books/NBK52640/">detailed instruciton from NCBI</a>) <!--[](/post/2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term_files/Trello_example_Screen Shot 2018-09-20 at 9.58.20 AM.png)--> # required libraries</li>
+</ol>
+<pre class="r"><code>library(tidyverse);library(readr);library(readxl)</code></pre>
 </div>
-<div id="download-updated-gene-description-copied-from-2018-10-01-rmd" class="section level1">
-<h1>Download updated gene description (copied from “2018-10-01-…Rmd”)</h1>
-<p>Most updated annotation can be downloaded from TAIR website (for <a href="https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FSubscriber_Data_Releases">subscribers</a>). I used “TAIR Data 20180630”.</p>
-<pre class="r"><code># turn on TAIR subsciption before this procedure
-At.gene.name &lt;-read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/gene_aliases_20180702.txt.gz&quot;) # Does work from home when I use Pulse Secure.
-# How to concatenate multiple symbols in the same AGI
-At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))
-At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
-<pre><code>## # A tibble: 11 x 3
-##    name     symbol2          full_name                                    
-##    &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;                                        
-##  1 AT1G018… AtGEN1;GEN1      NA;ortholog of HsGEN1                        
-##  2 AT1G019… ATSBT1.1;SBTI1.1 NA;NA                                        
-##  3 AT1G019… AtGET3a;GET3a    Guided Entry of Tail-anchored protein 3a;Gui…
-##  4 AT1G019… ARK2;AtKINUb     armadillo repeat kinesin 2;Arabidopsis thali…
-##  5 AT1G019… BIG3;EDA10       BIG3;embryo sac development arrest 10        
-##  6 AT1G019… AtBBE1;OGOX4     NA;oligogalacturonide oxidase 4              
-##  7 AT1G020… GAE2             UDP-D-glucuronate 4-epimerase 2              
-##  8 AT1G020… SEC1A            secretory 1A                                 
-##  9 AT1G020… LAP6;PKSA        LESS ADHESIVE POLLEN 6;polyketide synthase A 
-## 10 AT1G020… SPL8             squamosa promoter binding protein-like 8     
-## 11 AT1G020… ATCSN7;COP15;CS… ARABIDOPSIS THALIANA COP9 SIGNALOSOME SUBUNI…</code></pre>
-<pre class="r"><code># download cDNA info directly from TAIR 
-At_cdna&lt;-Biostrings::readDNAStringSet(&quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated&quot;)
-At_cdna</code></pre>
-<pre><code>##   A DNAStringSet instance of length 27416
-##         width seq                                      names               
-##     [1]  2016 ATGGTTCAATATAATTTCA...AAAACCGACAGGCGTTGA AT1G50920.1 | Sym...
-##     [2]   546 ATGACTCGTTTGTTGCCTT...GTTGATTCTGGTACATAG AT1G36960.1 | Sym...
-##     [3]  1734 ATGGATTCAGAGTCAGAGT...GATTATATTCTCCAATGA AT1G44020.1 | Sym...
-##     [4]  1059 ATGTCGGTTCCTCCTAGAT...AGAGAGAGTGATAAATAA AT1G15970.1 | Sym...
-##     [5]   765 ATGGCGAGGGGAGAATCGG...ATGTTGAAAGGTTCTTGA AT1G73440.1 | Sym...
-##     ...   ... ...
-## [27412]  2019 GGGTTGAAGTTTAGACCGC...ACTACTAGTCTAGTCTAG ATMG00520.1 | Sym...
-## [27413]   303 ATGGATCTTATCAAATATT...AATAGCATTCAAGGTTAA ATMG00650.1 | Sym...
-## [27414]   384 ATGCTCCCCGCCGGTTGTT...CGATACTTAACTATATAA ATMG01330.1 | Sym...
-## [27415]   573 ATGGATAACCAATTCATTT...CAGCGTAGCGACGGATAA ATMG00070.1 | Sym...
-## [27416]   366 ATGGCATCAAAAATCCGCA...CCTTCTGCATACGCATAA ATMG00130.1 | Sym...</code></pre>
+<div id="reciprocal-blastn" class="section level1">
+<h1>Reciprocal BLASTN</h1>
+<pre class="r"><code># look Julin&#39;s scripts</code></pre>
 </div>
-<div id="format-hormone.responsiveness6.df.s.list2.df2-into-goseq-compatible-list" class="section level1">
-<h1>format hormone.responsiveness6.DF.s.list2.DF2 into goseq() compatible list</h1>
-<pre class="r"><code># extract AGI from At_cdna
-At.gene.name&lt;-tibble(name=names(At_cdna)) %&gt;% separate(name,into=c(&quot;name2&quot;,&quot;Symbol&quot;,&quot;description&quot;),sep=&quot; \\|&quot;,extra=&quot;drop&quot;,fill=&quot;left&quot;) %&gt;%  mutate(AGI=str_remove(name2,pattern=&quot;\\.[[:digit:]]+&quot;)) 
-# make presence/absense hormone responsive gene table (dataframe)
-  for(i in 1:20) {
-  genes&lt;-hormone.responsiveness6.DF.s.list2.DF2[!is.na(hormone.responsiveness6.DF.s.list2.DF2[,i]),i] %&gt;% as_vector()
-  temp&lt;-data.frame(AGI=genes,category=names(hormone.responsiveness6.DF.s.list2.DF2)[i])
-  #At.gene.name %&gt;% left_join(temp,by=c(&quot;name&quot;=&quot;AGI&quot;)) -&gt; At.gene.name
-At.gene.name %&gt;% left_join(temp,by=&quot;AGI&quot;) -&gt; At.gene.name 
+<div id="annotate-br-genes-with-atgoslim" class="section level1">
+<h1>Annotate Br genes with Atgoslim</h1>
+<pre class="r"><code>  ## making Brgo.v3.0anno.Atgoslim.BP.list (run once)
+getwd()</code></pre>
+<pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog/content/post&quot;</code></pre>
+<pre class="r"><code>list.files()</code></pre>
+<pre><code>##  [1] &quot;2018-09-12-the-first-post.md&quot;                                                           
+##  [2] &quot;2018-09-13-native-plant-garden-project.md&quot;                                              
+##  [3] &quot;2018-09-14-wifi-or-sim.md&quot;                                                              
+##  [4] &quot;2018-09-15-.html&quot;                                                                       
+##  [5] &quot;2018-09-15-.Rmd&quot;                                                                        
+##  [6] &quot;2018-09-15-r-memo1.html&quot;                                                                
+##  [7] &quot;2018-09-15-r-memo1.Rmd&quot;                                                                 
+##  [8] &quot;2018-09-18-.html&quot;                                                                       
+##  [9] &quot;2018-09-18-.Rmd&quot;                                                                        
+## [10] &quot;2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com.html&quot;               
+## [11] &quot;2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com.Rmd&quot;                
+## [12] &quot;2018-09-19-how-to-read-qr-code-and-transfer-data-to-google-sheet.html&quot;                  
+## [13] &quot;2018-09-19-how-to-read-qr-code-and-transfer-data-to-google-sheet.Rmd&quot;                   
+## [14] &quot;2018-09-20-shortcode-test.md&quot;                                                           
+## [15] &quot;2018-09-24-how-to-make-qrcode-by-r-ggplot2.html&quot;                                        
+## [16] &quot;2018-09-24-how-to-make-qrcode-by-r-ggplot2.Rmd&quot;                                         
+## [17] &quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term.html&quot;          
+## [18] &quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term.Rmd&quot;           
+## [19] &quot;2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term_files&quot;           
+## [20] &quot;2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term.html&quot;            
+## [21] &quot;2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term.Rmd&quot;             
+## [22] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization.html&quot;                   
+## [23] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization.Rmd&quot;                    
+## [24] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files&quot;
+## [25] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data.html&quot; 
+## [26] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data.Rmd&quot;  
+## [27] &quot;2018-10-07-over-representation-analysis-5-useful-tools.html&quot;                            
+## [28] &quot;2018-10-07-over-representation-analysis-5-useful-tools.Rmd&quot;                             
+## [29] &quot;2018-10-10-over-representation-analysis-2-goseq-using-custom-categories_files&quot;          
+## [30] &quot;2018-10-10-over-representation-analysis-2-goseq-using-custom-categories.html&quot;           
+## [31] &quot;2018-10-10-over-representation-analysis-2-goseq-using-custom-categories.Rmd&quot;</code></pre>
+<pre class="r"><code>  ### prerequisit: results from reciprocal BLAST against Arabidopsis thaliana
+  Br.v3.0anno.At.BLAST&lt;-readr::read_csv(file=&quot;2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term_files/Brapa_V3.0_annotated.csv&quot;) # BLASTed by Julin. Due to &quot;On Sat, Sep 29, 2018 at 3:54 PM John Davis &lt;jtdavis@ucdavis.edu&gt; wrote: the max_target_seqs option does not return the top hits but the first N sequences which pass the e-value cutoff.&quot;, we need to rerun script.</code></pre>
+<pre><code>## Warning: Missing column names filled in: &#39;X1&#39; [1]</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X1 = col_integer(),
+##   name = col_character(),
+##   chrom = col_character(),
+##   start = col_integer(),
+##   end = col_integer(),
+##   subject = col_character(),
+##   AGI = col_character(),
+##   At_symbol = col_character(),
+##   At_description = col_character(),
+##   perc_ID = col_double(),
+##   aln_length = col_integer(),
+##   mismatch = col_integer(),
+##   gap_open = col_integer(),
+##   qstart = col_integer(),
+##   qend = col_integer(),
+##   sstart = col_integer(),
+##   send = col_integer(),
+##   eval = col_double(),
+##   score = col_double()
+## )</code></pre>
+<pre class="r"><code>Br.v3.0anno.At.BLAST</code></pre>
+<pre><code>## # A tibble: 38,899 x 19
+##       X1 name  chrom start   end subject AGI   At_symbol At_description
+##    &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;         
+##  1     1 BraA… A01    2864  5220 AT1G43… AT1G… &lt;NA&gt;      &lt;NA&gt;          
+##  2     2 BraA… A01    5264  7621 AT4G38… AT4G… LAZ1      &lt;NA&gt;          
+##  3     3 BraA… A01    8705  9661 AT4G38… AT4G… &lt;NA&gt;      &lt;NA&gt;          
+##  4     4 BraA… A01   10292 11917 AT4G38… AT4G… AQI       &lt;NA&gt;          
+##  5     5 BraA… A01   12431 13279 AT4G38… AT4G… ATEXP20;… expansin -lik…
+##  6     6 BraA… A01   16133 19645 AT4G38… AT4G… ATCSLD4;… encodes a gen…
+##  7     7 BraA… A01   21106 22090 AT4G38… AT4G… ATEXLA2;… member of EXP…
+##  8     8 BraA… A01   23348 24434 AT4G38… AT4G… AtSSU;GG… &lt;NA&gt;          
+##  9     9 BraA… A01   29350 32812 AT4G38… AT4G… STY46     &lt;NA&gt;          
+## 10    10 BraA… A01   33188 33706 AT4G38… AT4G… &lt;NA&gt;      &lt;NA&gt;          
+## # ... with 38,889 more rows, and 10 more variables: perc_ID &lt;dbl&gt;,
+## #   aln_length &lt;int&gt;, mismatch &lt;int&gt;, gap_open &lt;int&gt;, qstart &lt;int&gt;,
+## #   qend &lt;int&gt;, sstart &lt;int&gt;, send &lt;int&gt;, eval &lt;dbl&gt;, score &lt;dbl&gt;</code></pre>
+</div>
+<div id="section" class="section level1">
+<h1></h1>
+<pre class="r"><code>  # asign At GO into corresponding Br genes
+  Brgo.v3.0anno.Atgoslim.BP.list&lt;-list()
+  ###### under construction #############
+  
+  for(i in 1:length(Br.v2.5anno.At.BLAST$name)) {
+    if(is.null(Atgoslim.TAIR.BP.list[[as_vector(Br.v2.5anno.At.BLAST[i,&quot;AGI&quot;])]])) next else {
+      Brgo.v2.5anno.Atgoslim.BP.list[[i]]&lt;-Atgoslim.TAIR.BP.list[[as_vector(Br.v2.5anno.At.BLAST[i,&quot;AGI&quot;])]]
+      names(Brgo.v2.5anno.Atgoslim.BP.list)[[i]]&lt;-as_vector(Br.v2.5anno.At.BLAST[i,&quot;name&quot;])
+    }
   }
-names(At.gene.name)[5:24] &lt;- names(hormone.responsiveness6.DF.s.list2.DF2)
-At.gene.name %&gt;% filter(str_detect(AGI,pattern=&quot;AT1G|AT2G|AT3G|AT4G|AT5G|ATC|ATM&quot;)) %&gt;% unite(category,5:24,sep=&quot;,&quot;)-&gt;test2
-test2[1:10,] %&gt;%  mutate(category=gsub(&quot;NA&quot;,&quot;&quot;,category)) %&gt;% mutate(category=gsub(&quot;,&quot;,&quot;&quot;,category))
-# only select genes with AGI name and concatenate categories
-At.gene.name %&gt;% filter(str_detect(AGI,pattern=&quot;AT1G|AT2G|AT3G|AT4G|AT5G|ATC|ATM&quot;)) %&gt;% unite(category,5:24,sep=&quot;,&quot;) %&gt;%  mutate(category=gsub(&quot;NA,&quot;,&quot;&quot;,category)) %&gt;% mutate(category=gsub(&quot;,NA&quot;,&quot;&quot;,category)) %&gt;% mutate(category=gsub(&quot;NA&quot;,&quot;&quot;,category)) -&gt;test3
-# convert into list object
-temp.list&lt;-list()
-for(i in 1:dim(test3)[1]) {
-  temp.list[[i]]&lt;-test3 %&gt;% slice(i) %&gt;% pull(category)
-}
-names(temp.list)&lt;-test3 %&gt;% pull(AGI)
-# split concatanated categories in each gene
-At.hormone.responsive.list&lt;-lapply(temp.list,function(x) unlist(strsplit(x, split=&quot;,&quot;)))
-# save
-save(At.hormone.responsive.list,file=&quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files/At.hormone.responsive.list.Rdata&quot;)</code></pre>
+  table(sapply(Brgo.v2.5anno.Atgoslim.BP.list,is.null))
+  Brgo.v2.5anno.Atgoslim.BP.list.list&lt;-Brgo.v2.5anno.Atgoslim.BP.list[!sapply(Brgo.v2.5anno.Atgoslim.BP.list,is.null)]
+  table(sapply(Brgo.v2.5anno.Atgoslim.BP.list,is.null))
+  #save(Brgo.v2.5anno.Atgoslim.BP.list,file=&quot;../../Annotation/input/Brgo.v2.5anno.Atgoslim.BP.list.Rdata&quot;)
+  save(Brgo.v2.5anno.Atgoslim.BP.list,file=file.path(&quot;common&quot;,&quot;Annotation&quot;,&quot;output&quot;,&quot;v2.5annotation&quot;,&quot;Brgo.v2.5anno.Atgoslim.BP.list.Rdata&quot;))
+#} else {print(&quot;change directory&quot;);stop}</code></pre>
 </div>
-<div id="goseq-ora-function-with-arabidopss-thaliana-hormone-responsive-genes" class="section level1">
-<h1>GOseq ORA function with Arabidopss thaliana hormone responsive genes</h1>
-<pre class="r"><code>load(&quot;2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files/At.hormone.responsive.list.Rdata&quot;)
-head(At.hormone.responsive.list)</code></pre>
-<pre><code>## $AT1G50920
-## character(0)
-## 
-## $AT1G36960
-## character(0)
-## 
-## $AT1G44020
-## character(0)
-## 
-## $AT1G15970
-## character(0)
-## 
-## $AT1G73440
-## character(0)
-## 
-## $AT1G75120
-## character(0)</code></pre>
-<pre class="r"><code>library(ShortRead);library(goseq);library(GO.db);library(&quot;annotate&quot;)
-
-#  bias.data vector must have the same length as DEgenes vector!
-GOseq.At.customcat.ORA&lt;-function(genelist,padjust=0.05,custom.category.list=At.hormone.responsive.list,cdna=At_cdna) { # return GO enrichment table, padjus, padjust=0.05. New BLAST2GO results with only BP Brgo.v2.5.BP.list is used (042518). Brgo.v2.5.BP.list is based on Hajar&#39;s Blast2go, which should be replaced with Brgo.Atgoslim.BP.list and giving a new name to this function (080818). cdna is DNAstring object.
-  #bias&lt;-nchar(cdna)
-  bias&lt;-Biostrings::width(cdna)
-  # add name to &quot;bias&quot;. cdna
-  #names(bias)&lt;-names(cdna)
- names(bias) &lt;- tibble(name=names(cdna)) %&gt;% separate(name,into=c(&quot;name2&quot;,&quot;Symbol&quot;,&quot;description&quot;),sep=&quot; \\|&quot;,extra=&quot;drop&quot;,fill=&quot;left&quot;) %&gt;%  mutate(AGI=str_remove(name2,pattern=&quot;\\.[[:digit:]]+&quot;)) %&gt;% pull(AGI)
+<div id="uner-construction" class="section level1">
+<h1>uner construction</h1>
+<pre class="r"><code>load(&quot;../../Annotation/input/Brgo.Atgoslim.BP.list.Rdata&quot;) 
+library(ShortRead);library(goseq);library(GO.db);library(&quot;annotate&quot;)
+# for ggplot heatmap
+#library(WGCNA);library(ggplot2);library(reshape2);library(scales)
+# read cDNA fasta file with v3.0 annotation
+Br_cdna&lt;-readDNAStringSet(&quot;http://brassicadb.org/brad/datasets/pub/Genomes/Brassica_rapa/V3.0/Brapa_genome_v3.0_cds.fasta.gz&quot;)
+head(Br_cdna)</code></pre>
+</div>
+<div id="goseq-ora-function-for-brassica-rapa" class="section level1">
+<h1>GOseq ORA function for Brassica rapa</h1>
+<pre class="r"><code>GOseq.Brgo.Atgoslim.BP.list.ORA&lt;-function(genelist,padjust=0.05,ontology=&quot;BP&quot;,custom.category.list=Brgo.Atgoslim.BP.list,cdna=Br_cdna) { # return GO enrichment table, padjus, padjust=0.05. 
+  bias&lt;-nchar(cdna)
+  names(bias)&lt;-names(cdna)
   TF&lt;-(names(bias) %in% genelist)*1
   names(TF)&lt;-names(bias)
   #print(TF)
@@ -202,96 +200,32 @@ GOseq.At.customcat.ORA&lt;-function(genelist,padjust=0.05,custom.category.list=A
   GO.pval &lt;- goseq(pwf,gene2cat=custom.category.list,use_genes_without_cat=TRUE) # format became different in new goseq version (021111). Does not work (042716)
   #GO.pval &lt;- goseq(pwf,gene2cat=Brgo.DF3,use_genes_without_cat=TRUE) # format became different in new goseq version (021111)
   
-  # #head(GO.pval) 
-  # if(ontology==&quot;BP&quot;) {
-  #   GO.pval2&lt;-subset(GO.pval,ontology==&quot;BP&quot;)
-  # } else if(ontology==&quot;CC&quot;) {
-  #   GO.pval2&lt;-subset(GO.pval,ontology==&quot;CC&quot;)
-  # } else {
-  #   GO.pval2&lt;-subset(GO.pval,ontology==&quot;MF&quot;)
-  # }
+  #head(GO.pval) 
+  if(ontology==&quot;BP&quot;) {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;BP&quot;)
+  } else if(ontology==&quot;CC&quot;) {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;CC&quot;)
+  } else {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;MF&quot;)
+  }
     
-  GO.pval$over_represented_padjust&lt;-p.adjust(GO.pval$over_represented_pvalue,method=&quot;BH&quot;)
-  if(GO.pval$over_represented_padjust[1]&gt;padjust) return(&quot;no enriched GO&quot;)
+  GO.pval2$over_represented_padjust&lt;-p.adjust(GO.pval2$over_represented_pvalue,method=&quot;BH&quot;)
+  if(GO.pval2$over_represented_padjust[1]&gt;padjust) return(&quot;no enriched GO&quot;)
   else {
-    enriched.GO&lt;-GO.pval[GO.pval$over_represented_padjust&lt;padjust,] 
+    enriched.GO&lt;-GO.pval2[GO.pval2$over_represented_padjust&lt;padjust,] 
     print(&quot;enriched.GO is&quot;)
     print(enriched.GO)
     
-    # ## write Term and Definition 
-    # for(i in 1:dim(enriched.GO)[1]) {
-    #   if(is.null(Term(GOTERM[enriched.GO[i,&quot;category&quot;]]))) {next} else {
-    #   enriched.GO$Term[i]&lt;-Term(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
-    #   enriched.GO$Definition[i]&lt;-Definition(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
-    #   }
-    #}
+    ## write Term and Definition 
+    for(i in 1:dim(enriched.GO)[1]) {
+      if(is.null(Term(GOTERM[enriched.GO[i,&quot;category&quot;]]))) {next} else {
+      enriched.GO$Term[i]&lt;-Term(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
+      enriched.GO$Definition[i]&lt;-Definition(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
+      }
+    }
     return(enriched.GO)
   }
 }</code></pre>
-</div>
-<div id="test-the-function" class="section level1">
-<h1>test the function</h1>
-<pre class="r"><code>GOseq.At.customcat.ORA(genelist=hormone.responsiveness6.DF.s.list2.DF2$IAAup)</code></pre>
-<pre><code>## Using manually entered categories.</code></pre>
-<pre><code>## Calculating the p-values...</code></pre>
-<p><img src="/post/2018-09-27-over-representation-analysis-2-goseq-with-non-model-go-term_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<pre><code>## [1] &quot;enriched.GO is&quot;
-##      category over_represented_pvalue under_represented_pvalue numDEInCat
-## 11      IAAup            0.000000e+00                1.0000000        198
-## 12     MJdown            1.514835e-19                1.0000000         23
-## 5        BLup            6.983620e-17                1.0000000         11
-## 19 WRKY33down            1.037009e-14                1.0000000         18
-## 16  PIFtarget            1.176369e-13                1.0000000         11
-## 3       ACCup            1.326587e-10                1.0000000          8
-## 13       MJup            5.101117e-08                1.0000000         18
-## 1     ABAdown            5.084168e-07                0.9999999         12
-## 4      BLdown            3.667101e-06                0.9999999          5
-## 8      GAdown            3.245315e-05                0.9999983          5
-## 18       SAup            4.149904e-05                0.9999947          8
-## 7        CKup            9.865021e-04                0.9999212          4
-## 10    IAAdown            1.006668e-02                0.9989673          3
-##    numInCat over_represented_padjust
-## 11      198             0.000000e+00
-## 12      230             1.514835e-18
-## 5        28             4.655747e-16
-## 19      195             5.185045e-14
-## 16       52             4.705474e-13
-## 3        34             4.421957e-10
-## 13      519             1.457462e-07
-## 1       269             1.271042e-06
-## 4        33             8.149112e-06
-## 8        50             6.490630e-05
-## 18      168             7.545280e-05
-## 7        60             1.644170e-03
-## 10       61             1.548720e-02</code></pre>
-<pre><code>##      category over_represented_pvalue under_represented_pvalue numDEInCat
-## 11      IAAup            0.000000e+00                1.0000000        198
-## 12     MJdown            1.514835e-19                1.0000000         23
-## 5        BLup            6.983620e-17                1.0000000         11
-## 19 WRKY33down            1.037009e-14                1.0000000         18
-## 16  PIFtarget            1.176369e-13                1.0000000         11
-## 3       ACCup            1.326587e-10                1.0000000          8
-## 13       MJup            5.101117e-08                1.0000000         18
-## 1     ABAdown            5.084168e-07                0.9999999         12
-## 4      BLdown            3.667101e-06                0.9999999          5
-## 8      GAdown            3.245315e-05                0.9999983          5
-## 18       SAup            4.149904e-05                0.9999947          8
-## 7        CKup            9.865021e-04                0.9999212          4
-## 10    IAAdown            1.006668e-02                0.9989673          3
-##    numInCat over_represented_padjust
-## 11      198             0.000000e+00
-## 12      230             1.514835e-18
-## 5        28             4.655747e-16
-## 19      195             5.185045e-14
-## 16       52             4.705474e-13
-## 3        34             4.421957e-10
-## 13      519             1.457462e-07
-## 1       269             1.271042e-06
-## 4        33             8.149112e-06
-## 8        50             6.490630e-05
-## 18      168             7.545280e-05
-## 7        60             1.644170e-03
-## 10       61             1.548720e-02</code></pre>
 </div>
 
 </main>
@@ -311,7 +245,7 @@ GOseq.At.customcat.ORA&lt;-function(genelist,padjust=0.05,custom.category.list=A
 
 <nav class="post-nav">
   <span class="nav-prev"><a href="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html">&larr; Differential expression analysis with public available sequencing data</a></span>
-  <span class="nav-next"><a href="/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html">Over-representation analysis 3: GOseq with GO term in non-model organisms &rarr;</a></span>
+  <span class="nav-next"><a href="/post/2018/09/27/over-representation-analysis-4-heatmap-visualization.html">Over-representation analysis 4:  heatmap visualization &rarr;</a></span>
 </nav>
 
 

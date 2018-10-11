@@ -105,19 +105,21 @@ fastfiles.SE&lt;- fastfiles %&gt;% as_tibble() %&gt;% separate(value,into=c(&quo
 </div>
 <div id="build-index" class="section level1">
 <h1>Build index</h1>
-<pre class="r"><code>#system(&quot;kallisto index -i TAIR10_cdna_20110103_representative_gene_model_kallisto_index TAIR10_cdna_20110103_representative_gene_model.gz&quot;)</code></pre>
+<pre class="r"><code>#system(&quot;kallisto index -i TAIR10_cdna_20110103_representative_gene_model_kallisto_index TAIR10_cdna_20110103_representative_gene_model.gz&quot;)
+# This reference seq has been updated in 2012! Redo mapping (101018)
+#system(&quot;kallisto index -i TAIR10_cdna_20110103_representative_gene_model_updated_kallisto_index TAIR10_cdna_20110103_representative_gene_model_updated&quot;)</code></pre>
 </div>
 <div id="mapping" class="section level1">
 <h1>mapping</h1>
 <pre class="r"><code># makin directory for mapped 
-system(&quot;mkdir kallisto_sam_out&quot;)
+system(&quot;mkdir kallisto_sam_out2&quot;)
 # reading fastq files
 fastqfiles&lt;-list.files(pattern=&quot;fastq.gz&quot;)
 # fastq files with single end 
 fastqfiles.SE&lt;- fastqfiles %&gt;% as_tibble() %&gt;% separate(value,into=c(&quot;SRA&quot;,&quot;type&quot;,&quot;compress&quot;),sep=&quot;\\.&quot;) %&gt;% separate(SRA,into=c(&quot;SRA&quot;,&quot;pair&quot;),sep=&quot;_&quot;) %&gt;% group_by(SRA) %&gt;%summarize(num=n()) %&gt;% filter(num==1) %&gt;% select(SRA) %&gt;% as_vector()
-for(x in fastafiles.SE) {
-system(paste(&quot;kallisto quant -i TAIR10_cdna_20110103_representative_gene_model_kallisto_index  -o kallisto_sam_out/&quot;,x,&quot; --single -l 200 -s 40 --pseudobam &quot;,x,&quot;_1.fastq.gz | samtools view -Sb - &gt; kallisto_sam_out/&quot;,x,&quot;/&quot;,x,&quot;.bam,sep=&quot;&quot;))
-setwd(paste(&quot;kallisto_sam_out/&quot;,x,sep=&quot;&quot;))
+for(x in fastqfiles.SE) {
+system(paste(&quot;kallisto quant -i TAIR10_cdna_20110103_representative_gene_model_updated_kallisto_index  -o kallisto_sam_out2/&quot;,x,&quot; --single -l 200 -s 40 --pseudobam &quot;,x,&quot;_1.fastq.gz | samtools view -Sb - &gt; kallisto_sam_out2/&quot;,x,&quot;/&quot;,x,&quot;.bam&quot;,sep=&quot;&quot;))
+setwd(paste(&quot;kallisto_sam_out2/&quot;,x,sep=&quot;&quot;))
 system(paste(&quot;samtools sort *.bam -o &quot;,x,&quot;.sorted.bam&quot;,sep=&quot;&quot;))
 system(&quot;samtools index *.sorted.bam&quot;)
 setwd(&quot;../../&quot;)
@@ -129,13 +131,13 @@ setwd(&quot;../../&quot;)
 <div id="move-the-counts-to-my-local-computer-julin-used-lftp-httpswww.networkworld.comarticle2833203operating-systemsunix--flexibly-moving-files-with-lftp.html" class="section level1">
 <h1>Move the counts to my local computer # Julin used lftp (<a href="https://www.networkworld.com/article/2833203/operating-systems/unix--flexibly-moving-files-with-lftp.html" class="uri">https://www.networkworld.com/article/2833203/operating-systems/unix--flexibly-moving-files-with-lftp.html</a>)</h1>
 <pre class="r"><code>#In my computer, 
-# lftp sftp://whitney.plb.ucdavis.edu
+# lftp sftp://kazu@whitney.plb.ucdavis.edu
 #  cd NGS/Ding_2018_Cell
-#  mirror /kallisto_sam_out</code></pre>
+#  mirror kallisto_sam_out2</code></pre>
 </div>
 <div id="remove-unused-files" class="section level1">
 <h1>remove unused files</h1>
-<pre class="r"><code>system(&quot;cd kallisto_sam_out&quot;)
+<pre class="r"><code>system(&quot;cd  2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out2&quot;)
 system(&quot;rm */*.json&quot;)
 system(&quot;rm */*.bam*&quot;)</code></pre>
 </div>
@@ -145,53 +147,20 @@ system(&quot;rm */*.bam*&quot;)</code></pre>
 </div>
 <div id="get-counts-into-r" class="section level1">
 <h1>Get counts into R</h1>
-<pre class="r"><code>kallisto_files &lt;- dir(path = &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out&quot;,pattern=&quot;abundance.tsv&quot;,recursive = TRUE,full.names = TRUE)
-kallisto_files</code></pre>
-<pre><code>##  [1] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739807/abundance.tsv.gz&quot;
-##  [2] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739808/abundance.tsv.gz&quot;
-##  [3] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739809/abundance.tsv.gz&quot;
-##  [4] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739810/abundance.tsv.gz&quot;
-##  [5] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739811/abundance.tsv.gz&quot;
-##  [6] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739812/abundance.tsv.gz&quot;
-##  [7] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739813/abundance.tsv.gz&quot;
-##  [8] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739814/abundance.tsv.gz&quot;
-##  [9] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739815/abundance.tsv.gz&quot;
-## [10] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739816/abundance.tsv.gz&quot;
-## [11] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739817/abundance.tsv.gz&quot;
-## [12] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out/SRR6739818/abundance.tsv.gz&quot;</code></pre>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog/content/post&quot;</code></pre>
-<pre class="r"><code>kallisto_files2&lt;-list.files(path=&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out&quot;)
-kallisto_files2</code></pre>
-<pre><code>##  [1] &quot;SRR6739807&quot; &quot;SRR6739808&quot; &quot;SRR6739809&quot; &quot;SRR6739810&quot; &quot;SRR6739811&quot;
-##  [6] &quot;SRR6739812&quot; &quot;SRR6739813&quot; &quot;SRR6739814&quot; &quot;SRR6739815&quot; &quot;SRR6739816&quot;
-## [11] &quot;SRR6739817&quot; &quot;SRR6739818&quot;</code></pre>
-<pre class="r"><code>kallisto_names &lt;- str_split(kallisto_files,&quot;/&quot;,simplify=TRUE)[,3]
-kallisto_names</code></pre>
-<pre><code>##  [1] &quot;SRR6739807&quot; &quot;SRR6739808&quot; &quot;SRR6739809&quot; &quot;SRR6739810&quot; &quot;SRR6739811&quot;
-##  [6] &quot;SRR6739812&quot; &quot;SRR6739813&quot; &quot;SRR6739814&quot; &quot;SRR6739815&quot; &quot;SRR6739816&quot;
-## [11] &quot;SRR6739817&quot; &quot;SRR6739818&quot;</code></pre>
-<pre class="r"><code>#![](/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/Scan_QRcode.png)</code></pre>
+<pre class="r"><code>kallisto_files &lt;- dir(path = &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out2&quot;,pattern=&quot;abundance.tsv&quot;,recursive = TRUE,full.names = TRUE)
+kallisto_files
+getwd()
+kallisto_files2&lt;-list.files(path=&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/kallisto_sam_out2&quot;)
+kallisto_files2
+kallisto_names &lt;- str_split(kallisto_files,&quot;/&quot;,simplify=TRUE)[,3]
+kallisto_names
+#![](/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/Scan_QRcode.png)</code></pre>
 </div>
 <div id="combine-count-data-in-list" class="section level1">
 <h1>combine count data in list</h1>
 <pre class="r"><code>counts.list &lt;- lapply(kallisto_files,read_tsv)
 names(counts.list) &lt;- kallisto_names
 counts.list[[1]]</code></pre>
-<pre><code>## # A tibble: 33,602 x 5
-##    target_id   length eff_length est_counts   tpm
-##    &lt;chr&gt;        &lt;int&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
-##  1 AT1G50920.1   2394       2195     3598   88.8 
-##  2 AT1G36960.1    546        347        0    0   
-##  3 AT1G44020.1   2314       2115       50.3  1.29
-##  4 AT1G15970.1   1658       1459      427   15.9 
-##  5 AT1G73440.1   1453       1254      133.   5.74
-##  6 AT1G75120.1   1520       1321       52    2.13
-##  7 AT1G17600.1   3332       3133      685   11.9 
-##  8 AT1G50860.1   3846       3647        0    0   
-##  9 AT1G51380.1   1452       1253       65    2.81
-## 10 AT1G77370.1    620        421      728   93.7 
-## # ... with 33,592 more rows</code></pre>
 </div>
 <div id="combine-counts-data" class="section level1">
 <h1>combine counts data</h1>
@@ -199,25 +168,11 @@ counts.list[[1]]</code></pre>
   bind_cols(counts.list[[1]][,&quot;target_id&quot;],.) 
 counts[is.na(counts)] &lt;- 0
 colnames(counts) &lt;- sub(&quot;.est_counts&quot;,&quot;&quot;,colnames(counts),fixed = TRUE)
-counts</code></pre>
-<pre><code>## # A tibble: 33,602 x 13
-##    target_id SRR6739807 SRR6739808 SRR6739809 SRR6739810 SRR6739811
-##    &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-##  1 AT1G5092…     3598       3442      3653          3531       4027
-##  2 AT1G3696…        0          0         0             0          0
-##  3 AT1G4402…       50.3       64.7       5.57         13          7
-##  4 AT1G1597…      427        412       316           348        319
-##  5 AT1G7344…      133.       129.      154           141        155
-##  6 AT1G7512…       52         46        74           110        122
-##  7 AT1G1760…      685        764       231           220        264
-##  8 AT1G5086…        0          0         0             0          0
-##  9 AT1G5138…       65         81        72            78         73
-## 10 AT1G7737…      728        760       495           559        499
-## # ... with 33,592 more rows, and 7 more variables: SRR6739812 &lt;dbl&gt;,
-## #   SRR6739813 &lt;dbl&gt;, SRR6739814 &lt;dbl&gt;, SRR6739815 &lt;dbl&gt;,
-## #   SRR6739816 &lt;dbl&gt;, SRR6739817 &lt;dbl&gt;, SRR6739818 &lt;dbl&gt;</code></pre>
-<pre class="r"><code># write counts data
-write_csv(counts,&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/counts.csv.gz&quot;)</code></pre>
+counts
+counts.updated&lt;-counts
+
+# write counts data
+write_csv(counts.updated,&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/counts.updated.csv.gz&quot;)</code></pre>
 </div>
 <div id="sample-info" class="section level1">
 <h1>sample info</h1>
@@ -246,7 +201,7 @@ sample.info.final &lt;- left_join(sample.info,sample.info2,by=&quot;SampleName&q
 </div>
 <div id="check-libraries-by-barplot-and-mds-plots" class="section level1">
 <h1>check libraries by barplot and MDS plots</h1>
-<pre class="r"><code>counts&lt;-read_csv(&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/counts.csv.gz&quot;)</code></pre>
+<pre class="r"><code>counts&lt;-read_csv(&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/counts.updated.csv.gz&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   target_id = col_character(),
@@ -269,91 +224,53 @@ sample.info.final &lt;- left_join(sample.info,sample.info2,by=&quot;SampleName&q
                group=as_vector(sample.info.final[sample.info.final$LibraryLayout==&quot;SINGLE&quot;,&quot;group&quot;]),
                samples=sample.info.final[sample.info.final$LibraryLayout==&quot;SINGLE&quot;,],
                genes=counts$target_id)
-dge</code></pre>
-<pre><code>## An object of class &quot;DGEList&quot;
-## $counts
-##   SRR6739807 SRR6739808 SRR6739809 SRR6739810 SRR6739811 SRR6739812
-## 1  3598.0000  3442.0000 3653.00000       3531       4027       3775
-## 2     0.0000     0.0000    0.00000          0          0          0
-## 3    50.3242    64.6564    5.56732         13          7         10
-## 4   427.0000   412.0000  316.00000        348        319        357
-## 5   132.8050   129.1680  154.00000        141        155        131
-##   SRR6739813 SRR6739814 SRR6739815 SRR6739816 SRR6739817 SRR6739818
-## 1       4195  4317.9900  4015.0000  3874.0000   3663.000       3642
-## 2          0     0.0000     0.0000     0.0000      0.000          0
-## 3          6     6.0000    23.4844    15.8395      4.000          4
-## 4        286   306.0000   389.0000   362.0000    290.000        285
-## 5        126    99.8598   156.8950   130.7830    101.738        120
-## 33597 more rows ...
-## 
-## $samples
-##                     group lib.size norm.factors        Run
-## SRR6739807     WT_treated 21747803            1 SRR6739807
-## SRR6739808     WT_treated 21005249            1 SRR6739808
-## SRR6739809   WT_untreated 21052743            1 SRR6739809
-## SRR6739810   WT_untreated 22518666            1 SRR6739810
-## SRR6739811 npr1-1_treated 21437014            1 SRR6739811
-##                      sample        group.1 genotype treatment rep
-## SRR6739807     WT_treated_1     WT_treated       WT   treated   1
-## SRR6739808     WT_treated_2     WT_treated       WT   treated   2
-## SRR6739809   WT_untreated_1   WT_untreated       WT untreated   1
-## SRR6739810   WT_untreated_2   WT_untreated       WT untreated   2
-## SRR6739811 npr1-1_treated_1 npr1-1_treated   npr1-1   treated   1
-##            LibraryLayout
-## SRR6739807        SINGLE
-## SRR6739808        SINGLE
-## SRR6739809        SINGLE
-## SRR6739810        SINGLE
-## SRR6739811        SINGLE
-## 7 more rows ...
-## 
-## $genes
-##         genes
-## 1 AT1G50920.1
-## 2 AT1G36960.1
-## 3 AT1G44020.1
-## 4 AT1G15970.1
-## 5 AT1G73440.1
-## 33597 more rows ...</code></pre>
+# Filtering.
+## From edgeR User guide (section 2.6. Filtering) &quot;As a rule of thumb, genes are dropped if they can’t possibly be expressed in all the samples for any of the conditions. Users can set their own definition of genes being expressed. Usually a gene is required to have a count of 5-10 in a library to be considered expressed in that library. Users should also filter with count-per-million (CPM) rather than filtering on the counts directly, as the latter does not account for differences in library sizes between samples&quot;
+dge.nolow&lt;-dge[rowSums(cpm(dge)&gt; 5) &gt;= 2,] # two replicates in this experiment. 
+table(rowSums(cpm(dge)&gt; 5) &gt;= 2) </code></pre>
+<pre><code>## 
+## FALSE  TRUE 
+## 16803 16799</code></pre>
 <pre class="r"><code># normalization
-dge &lt;- calcNormFactors(dge)
+dge.nolow &lt;- calcNormFactors(dge.nolow)
+
 # lib.size check
-ggplot(dge$samples,aes(x=sample,y=norm.factors,fill=genotype)) + geom_col() + 
+ggplot(dge.nolow$samples,aes(x=sample,y=norm.factors,fill=genotype)) + geom_col() + 
   theme(axis.text.x  = element_text(angle=90, vjust=0.5,size = 7)) </code></pre>
 <p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 <div id="mds-plot" class="section level1">
 <h1>MDS plot</h1>
-<pre class="r"><code>mds &lt;- plotMDS(dge,method = &quot;bcv&quot;,labels=dge$samples$group,gene.selection = &quot;pairwise&quot;, ndim=3)</code></pre>
+<pre class="r"><code>mds &lt;- plotMDS(dge.nolow,method = &quot;bcv&quot;,labels=dge.nolow$samples$group,gene.selection = &quot;pairwise&quot;, ndim=3)</code></pre>
 <p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <pre class="r"><code>mds.pl &lt;- as_tibble(mds$cmdscale.out) %&gt;% 
   bind_cols(data.frame(sample=row.names(mds$cmdscale.out)),.) %&gt;%
-  left_join(dge$sample,by=c(sample=&quot;Run&quot;))</code></pre>
+  left_join(dge.nolow$sample,by=c(sample=&quot;Run&quot;))</code></pre>
 <pre><code>## Warning: Column `sample`/`Run` joining factor and character vector,
 ## coercing into character vector</code></pre>
 <pre class="r"><code>mds.pl %&gt;% ggplot(aes(x=V1,y=V2,color=as.factor(treatment),label=genotype)) + geom_text(angle=30) + ggtitle(&quot;DIM 1 vs 2&quot;)</code></pre>
-<p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-13-2.png" width="672" /> # edgeR (model with glm)</p>
+<p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-13-2.png" width="672" /> # edge.nolowR (model with glm)</p>
 <pre class="r"><code># set references in genotype and treatment
-dge$samples$genotype&lt;-factor(dge$samples$genotype,levels=c(&quot;WT&quot;,&quot;npr4-4D&quot;,&quot;npr1-1&quot;))
-dge$samples$treatment&lt;-factor(dge$samples$treatment,levels=c(&quot;untreated&quot;,&quot;treated&quot;))
+dge.nolow$samples$genotype&lt;-factor(dge.nolow$samples$genotype,levels=c(&quot;WT&quot;,&quot;npr4-4D&quot;,&quot;npr1-1&quot;))
+dge.nolow$samples$treatment&lt;-factor(dge.nolow$samples$treatment,levels=c(&quot;untreated&quot;,&quot;treated&quot;))
 # making model matrix
-design.int &lt;- with(dge$samples, model.matrix(~ genotype*treatment + rep))
+design.int &lt;- with(dge.nolow$samples, model.matrix(~ genotype*treatment + rep))
 # estimateDisp
-dge.int &lt;- estimateDisp(dge,design = design.int)
+dge.nolow.int &lt;- estimateDisp(dge.nolow,design = design.int)
 ## fit linear model
-fit.int &lt;- glmFit(dge.int,design.int)
+fit.int &lt;- glmFit(dge.nolow.int,design.int)
 # get DEGs, treatment effects in Col (rWT = reference WT, rU = reference is untreated)
 trt.lrt.rWT.rU &lt;- glmLRT(fit.int,coef = c(&quot;treatmenttreated&quot;)) 
 trt.DEGs.int.rWT.rU &lt;- topTags(trt.lrt.rWT.rU,n = Inf,p.value = 0.05)$table;nrow(trt.DEGs.int.rWT.rU) # </code></pre>
-<pre><code>## [1] 7811</code></pre>
+<pre><code>## [1] 7862</code></pre>
 <pre class="r"><code># get DEGs, genotype effects in npr1-1 (no matter treated or untreated) (coef=c(&quot;genotypenpr1-1&quot;,&quot;genotypenpr1-1:treatmenttreated&quot;))
 genotypenpr1_genotypenpr1.treatmenttreated.lrt.rWT.rU &lt;- glmLRT(fit.int,coef = c(&quot;genotypenpr1-1&quot;,&quot;genotypenpr1-1:treatmenttreated&quot;))
 genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU &lt;- topTags(genotypenpr1_genotypenpr1.treatmenttreated.lrt.rWT.rU,n = Inf,p.value = 0.05)$table;nrow(genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU) # </code></pre>
-<pre><code>## [1] 6694</code></pre>
+<pre><code>## [1] 6460</code></pre>
 <pre class="r"><code># get DEGs, genotype effects in npr4-4D (no matter treated or untreated) (coef=c(&quot;genotypenpr4-4D&quot;,&quot;genotypenpr4-4D:treatmenttreated&quot;))
 genotypenpr4_genotypenpr4.treatmenttreated.lrt.rWT.rU &lt;- glmLRT(fit.int,coef = c(&quot;genotypenpr4-4D&quot;,&quot;genotypenpr4-4D:treatmenttreated&quot;))
 genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU &lt;- topTags(genotypenpr4_genotypenpr4.treatmenttreated.lrt.rWT.rU,n = Inf,p.value = 0.05)$table;nrow(genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU) # 846</code></pre>
-<pre><code>## [1] 846</code></pre>
+<pre><code>## [1] 854</code></pre>
 </div>
 <div id="download-updated-gene-description" class="section level1">
 <h1>Download updated gene description</h1>
@@ -461,11 +378,11 @@ DEGs.count&lt;-sapply(DEG.count.list,function(x) {
         }  )
 DEGs.count</code></pre>
 <pre><code>## genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU 
-##                                                       6694 
+##                                                       6460 
 ## genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU 
-##                                                        846 
+##                                                        854 
 ##                                        trt.DEGs.int.rWT.rU 
-##                                                       7811</code></pre>
+##                                                       7862</code></pre>
 <pre class="r"><code># learn get()
 # for nice table
 # DEG.count&lt;-DEG.count %&gt;%
@@ -487,22 +404,22 @@ DEGs.count</code></pre>
 <h1>Plot gene expression pattern</h1>
 <p>For some reasons, labeller = label_wrap_gen(width=30) does not work here. Needs to make a function for plotting graph later to reduce redundancy of scripts.</p>
 <pre class="r"><code># calculate normalized gene expression level
-cpm.wide &lt;- bind_cols(dge$gene,as_tibble(cpm(dge))) %&gt;% as_tibble() %&gt;% rename(transcript_ID=genes)
+cpm.wide &lt;- bind_cols(dge.nolow$gene,as_tibble(cpm(dge.nolow))) %&gt;% as_tibble() %&gt;% rename(transcript_ID=genes)
 cpm.wide</code></pre>
-<pre><code>## # A tibble: 33,602 x 13
+<pre><code>## # A tibble: 16,799 x 13
 ##    transcript_ID SRR6739807 SRR6739808 SRR6739809 SRR6739810 SRR6739811
 ##    &lt;chr&gt;              &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-##  1 AT1G50920.1       169.       164.      176.       159.       185.   
-##  2 AT1G36960.1         0          0         0          0          0    
-##  3 AT1G44020.1         2.36       3.07      0.268      0.584      0.321
-##  4 AT1G15970.1        20.0       19.6      15.2       15.6       14.6  
-##  5 AT1G73440.1         6.23       6.14      7.41       6.33       7.10 
-##  6 AT1G75120.1         2.44       2.19      3.56       4.94       5.59 
-##  7 AT1G17600.1        32.1       36.3      11.1        9.88      12.1  
-##  8 AT1G50860.1         0          0         0          0          0    
-##  9 AT1G51380.1         3.05       3.85      3.47       3.50       3.35 
-## 10 AT1G77370.1        34.1       36.1      23.8       25.1       22.9  
-## # ... with 33,592 more rows, and 7 more variables: SRR6739812 &lt;dbl&gt;,
+##  1 AT1G50920.1       169.       164.       175.       158.       184.  
+##  2 AT1G15970.1        20.0       19.7       15.2       15.6       14.6 
+##  3 AT1G73440.1         6.22       6.17       7.39       6.33       7.10
+##  4 AT1G75120.1         2.44       2.20       3.55       4.94       5.59
+##  5 AT1G17600.1        32.1       36.5       11.1        9.87      12.1 
+##  6 AT1G77370.1        34.1       36.3       23.7       25.1       22.9 
+##  7 AT1G10950.1       172.       171.       133.       148.       173.  
+##  8 AT1G31870.1        40.8       38.5       26.8       26.9       33.3 
+##  9 AT1G51360.1         7.40       7.64       9.07      10.4        6.82
+## 10 AT1G50950.1         4.45       4.49       3.74       5.16       5.50
+## # ... with 16,789 more rows, and 7 more variables: SRR6739812 &lt;dbl&gt;,
 ## #   SRR6739813 &lt;dbl&gt;, SRR6739814 &lt;dbl&gt;, SRR6739815 &lt;dbl&gt;,
 ## #   SRR6739816 &lt;dbl&gt;, SRR6739817 &lt;dbl&gt;, SRR6739818 &lt;dbl&gt;</code></pre>
 <pre class="r"><code>#write_csv(cpm.wide,file.path(&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files&quot;,&quot;output&quot;,&quot;cpm_wide_Ding_2018_Cell.csv.gz&quot;))
@@ -523,20 +440,16 @@ p2</code></pre>
 plot.data3&lt;-DEG.count.list[[&quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU&quot;]] %&gt;% left_join(cpm.wide,by=c(&quot;genes&quot;=&quot;transcript_ID&quot;)) %&gt;% unite(AGI_desc,c(&quot;AGI&quot;,&quot;symbol2&quot;)) %&gt;% dplyr::select(-LR,-PValue,-genes) 
 # plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p3&lt;-plot.data3 %&gt;% filter(logFC.genotypenpr1.1&gt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC.genotypenpr1.1,-logFC.genotypenpr1.1.treatmenttreated,-FDR,-full_name,-logCPM) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;logFC.genotypenpr1.1&gt;0&quot;)
-p3</code></pre>
-<p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-<pre class="r"><code># plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
+p3
+# plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p4&lt;-plot.data3 %&gt;% filter(logFC.genotypenpr1.1&lt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC.genotypenpr1.1,-logFC.genotypenpr1.1.treatmenttreated,-FDR,-full_name,-logCPM) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;logFC.genotypenpr1.1&lt;0&quot;)
-p4</code></pre>
-<p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-20-2.png" width="672" /></p>
-<pre class="r"><code># plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
+p4
+# plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p5&lt;-plot.data3 %&gt;% filter(logFC.genotypenpr1.1.treatmenttreated&gt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC.genotypenpr1.1,-logFC.genotypenpr1.1.treatmenttreated,-FDR,-full_name,-logCPM) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;logFC.genotypenpr1.1.treatmenttreated&gt;0&quot;)
-p5</code></pre>
-<p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-20-3.png" width="672" /></p>
-<pre class="r"><code># plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
+p5
+# plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p6&lt;-plot.data3 %&gt;% filter(logFC.genotypenpr1.1.treatmenttreated&lt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC.genotypenpr1.1,-logFC.genotypenpr1.1.treatmenttreated,-FDR,-full_name,-logCPM) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;logFC.genotypenpr1.1.treatmenttreated&lt;0&quot;)
 p6</code></pre>
-<p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-20-4.png" width="672" /></p>
 </div>
 
 </main>
@@ -556,7 +469,7 @@ p6</code></pre>
 
 <nav class="post-nav">
   <span class="nav-prev"><a href="/post/2018/10/07/over-representation-analysis-5-useful-tools.html">&larr; Over-representation analysis 5: useful tools</a></span>
-  <span class="nav-next"><a href="/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html">Over-representation analysis 2: GOseq with custom categories &rarr;</a></span>
+  <span class="nav-next"><a href="/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html">Over-representation analysis 3: GOseq with GO term in non-model organisms &rarr;</a></span>
 </nav>
 
 
