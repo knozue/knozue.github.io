@@ -27,7 +27,7 @@ library(tidyverse);library(readxl);library(readr) ## ── Attaching packages �
       <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/post/2018/10/07/over-representation-analysis-5-useful-tools.html</guid>
-      <description>What genes were found in given categories (eg. GO term) in given gene list? # prepare GO term - gene table (eg. GOSLIM result), gene list of interest, GO term of interest # output data format is a dataframe with columns (each GO term) and rows (gene names listed in gene list of interest provided by a user) and value (0 (absent) or 1 (present)) # A function look like   read GOseq result table eGOseqs&amp;lt;-list.</description>
+      <description>What genes were found in given categories (eg. GO term) in given gene list? library(tidyverse);library(readxl);library(readr) ## ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.0.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.6 ## ✔ tidyr 0.8.1 ✔ stringr 1.3.1 ## ✔ readr 1.1.1 ✔ forcats 0.3.0 ## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ── ## ✖ dplyr::filter() masks stats::filter() ## ✖ dplyr::lag() masks stats::lag() # prepare GO term - gene table (eg.</description>
     </item>
     
     <item>

@@ -67,6 +67,15 @@
 <div id="what-genes-were-found-in-given-categories-eg.-go-term-in-given-gene-list" class="section level1">
 <h1>What genes were found in given categories (eg. GO term) in given gene list?</h1>
 <!--![](/post/2018-10-07-over-representation-analysis-5-useful-tools_files/GoogleSheet_QRcode2_Screen Shot 2018-09-19 at 7.43.47 AM.png)-->
+<pre class="r"><code>library(tidyverse);library(readxl);library(readr)</code></pre>
+<pre><code>## ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
+<pre><code>## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code># prepare GO term - gene table (eg. GOSLIM result), gene list of interest, GO term of interest
 # output data format is a dataframe with columns (each GO term) and rows (gene names listed in gene list of interest provided by a user) and value (0 (absent) or 1 (present))
 # A function look like </code></pre>
@@ -76,6 +85,7 @@
 <pre class="r"><code>eGOseqs&lt;-list.files(pattern=&quot;enrich.Rdata&quot;,path=file.path(&quot;2018-10-07-over-representation-analysis-5-useful-tools_files&quot;,&quot;output_copy_ORA4&quot;))
 eGOseqs.list2&lt;-sapply(file.path(&quot;2018-10-07-over-representation-analysis-5-useful-tools_files&quot;,&quot;output_copy_ORA4&quot;,eGOseqs),function(x) mget(load(x))) # mget will return the value of the object(or objects) in a list. see https://stackoverflow.com/questions/29398630/load-data-frames-into-list
 #names(eGOseqs.list2)
+# Make list into data.frame 
 eGOseqs.list2.summary&lt;-do.call(&quot;rbind&quot;,eGOseqs.list2) 
 #head(eGOseqs.list2.summary) # make sure those are file names
 rownames(eGOseqs.list2.summary)&lt;-1:nrow(eGOseqs.list2.summary)
@@ -938,15 +948,142 @@ DEG.objs</code></pre>
 ## [2] &quot;genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.csv&quot;
 ## [3] &quot;trt.DEGs.int.rWT.rU.csv&quot;</code></pre>
 <pre class="r"><code># read csv file
-DEG.list&lt;-lapply(DEG.objs, function(x) read_csv(paste(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;),&quot;/&quot;,x,sep=&quot;&quot;)))</code></pre>
-<pre><code>## Error in read_csv(paste(file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;, : could not find function &quot;read_csv&quot;</code></pre>
-<pre class="r"><code>names(DEG.list)&lt;-gsub(&quot;.csv&quot;,&quot;&quot;,DEG.objs)</code></pre>
-<pre><code>## Error in names(DEG.list) &lt;- gsub(&quot;.csv&quot;, &quot;&quot;, DEG.objs): object &#39;DEG.list&#39; not found</code></pre>
-<pre class="r"><code>DEG.list</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;DEG.list&#39; not found</code></pre>
+DEG.list&lt;-lapply(DEG.objs, function(x) read_csv(file.path(&quot;2018-10-07-over-representation-analysis-5-useful-tools_files&quot;,&quot;output_copy_ORA4&quot;,x)))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC.genotypenpr1.1 = col_double(),
+##   logFC.genotypenpr1.1.treatmenttreated = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC.genotypenpr4.4D = col_double(),
+##   logFC.genotypenpr4.4D.treatmenttreated = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre class="r"><code>names(DEG.list)&lt;-gsub(&quot;.csv&quot;,&quot;&quot;,DEG.objs)
+DEG.list</code></pre>
+<pre><code>## $genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU
+## # A tibble: 6,694 x 10
+##    genes logFC.genotypen… logFC.genotypen… logCPM    LR    PValue       FDR
+##    &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 AT2G…        -4.20               -0.720   6.69 1300. 5.30e-283 1.78e-278
+##  2 AT5G…         3.26                0.530   4.76 1000. 5.96e-218 1.00e-213
+##  3 AT1G…        -2.02               -0.475   7.19  629. 2.69e-137 3.01e-133
+##  4 AT1G…        -2.26               -0.511   7.51  620. 2.83e-135 2.38e-131
+##  5 AT3G…        -3.16                0.888   5.33  618. 5.42e-135 3.64e-131
+##  6 AT5G…        -0.212              -6.72    3.89  607. 1.67e-132 9.35e-129
+##  7 AT2G…         2.22                1.95    9.21  572. 7.80e-125 3.74e-121
+##  8 AT5G…         1.82                1.83    9.40  570. 1.54e-124 6.46e-121
+##  9 AT1G…        -3.65               -1.52    3.37  565. 1.92e-123 7.17e-120
+## 10 AT5G…         0.000149           -7.96    3.77  546. 2.42e-119 8.12e-116
+## # ... with 6,684 more rows, and 3 more variables: AGI &lt;chr&gt;,
+## #   symbol2 &lt;chr&gt;, full_name &lt;chr&gt;
+## 
+## $genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU
+## # A tibble: 846 x 10
+##    genes logFC.genotypen… logFC.genotypen… logCPM    LR    PValue       FDR
+##    &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 AT5G…             3.04            0.628   4.76  904. 5.00e-197 1.68e-192
+##  2 AT3G…            -5.45           -0.183   1.98  459. 1.80e-100 3.03e- 96
+##  3 AT5G…            -3.30            0.354   3.10  444. 4.51e- 97 5.05e- 93
+##  4 AT1G…            -7.40           -3.70    2.00  432. 1.32e- 94 1.11e- 90
+##  5 AT3G…            -2.97           -0.301   3.36  372. 1.83e- 81 1.23e- 77
+##  6 AT1G…            -2.50            0.891   6.30  288. 2.54e- 63 1.42e- 59
+##  7 AT2G…            -1.42           -0.703   6.69  277. 7.63e- 61 3.66e- 57
+##  8 AT5G…            -3.04            0.434   4.19  211. 1.75e- 46 7.36e- 43
+##  9 AT2G…            -1.10           -0.237   5.87  209. 5.09e- 46 1.90e- 42
+## 10 AT5G…            -1.84           -0.489   2.78  187. 2.68e- 41 9.01e- 38
+## # ... with 836 more rows, and 3 more variables: AGI &lt;chr&gt;, symbol2 &lt;chr&gt;,
+## #   full_name &lt;chr&gt;
+## 
+## $trt.DEGs.int.rWT.rU
+## # A tibble: 7,811 x 9
+##    genes  logFC logCPM    LR    PValue       FDR AGI   symbol2 full_name  
+##    &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;      
+##  1 AT5G1…  8.57   3.89  675. 7.55e-149 2.54e-144 AT5G… AT-HSP… heat shock…
+##  2 AT1G0…  4.00   4.60  592. 7.94e-131 1.33e-126 AT1G… &lt;NA&gt;    &lt;NA&gt;       
+##  3 AT5G2…  6.16   4.19  588. 5.77e-130 6.46e-126 AT5G… ATWRKY… ARABIDOPSI…
+##  4 AT4G2…  3.85   5.39  586. 1.92e-129 1.59e-125 AT4G… CRK14   cysteine-r…
+##  5 AT5G1…  9.64   3.77  586. 2.37e-129 1.59e-125 AT5G… HSP17.… 17.6 kDa c…
+##  6 AT3G2…  4.92   3.36  546. 9.68e-121 5.42e-117 AT3G… &lt;NA&gt;    &lt;NA&gt;       
+##  7 AT4G2…  3.34   6.70  539. 2.78e-119 1.33e-115 AT4G… SGT1A   &lt;NA&gt;       
+##  8 AT5G2…  3.82   6.70  535. 2.42e-118 1.02e-114 AT5G… AtDMR6… NA;DOWNY M…
+##  9 AT5G0…  4.14   7.14  523. 1.07e-115 3.98e-112 AT5G… AtHsp7… NA;NA      
+## 10 AT1G2…  2.87   7.19  511. 3.43e-113 1.15e-109 AT1G… AtWAK1… NA;NA;cell…
+## # ... with 7,801 more rows</code></pre>
 </div>
-<div id="section" class="section level1">
-<h1></h1>
+<div id="making-a-function" class="section level1">
+<h1>Making a function</h1>
+<pre class="r"><code>genes.in.enriched.category&lt;-function(enrich.result,gene.list,category.table=Atgoslim.TAIR.BP.list) { # return data frame with all input data with ... which format is good? VennDiagram input format?  
+  enrich.category&lt;-enrich.result[enrich.result$over_represented_pvalue&lt;0.05,&quot;category&quot;]
+  temp&lt;-category.table[gene.list] # short category.table for enriched.result # gene.list shas to be character (not factor)  
+  #names(temp[!is.na(names(temp))])
+  temp&lt;-temp[!is.na(names(temp))] # remove non matched AGI
+  test&lt;-data.frame(AGI=names(temp))
+  for(i in enrich.category) {
+    x&lt;-rep(0,length(names(temp)))
+    x[grep(i,temp)]&lt;-1
+    test&lt;-cbind(test,x)
+    names(test)[dim(test)[2]]&lt;-i
+  }
+  return(test) 
+}</code></pre>
+</div>
+<div id="a-case-study-all-misregulated-genes-in-npr1-1-ding-2018-cell" class="section level1">
+<h1>A case study: all misregulated genes in npr1-1 (Ding (2018) Cell)</h1>
+<pre class="r"><code>names(eGOseqs.list2)[1] # all misregulated genes in npr1-1  genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv</code></pre>
+<pre><code>## [1] &quot;2018-10-07-over-representation-analysis-5-useful-tools_files/output_copy_ORA4/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result&quot;</code></pre>
+<pre class="r"><code>results.table&lt;-genes.in.enriched.category(enrich.result=eGOseqs.list2[[1]],gene.list=gsub(&quot;(.)(\\.[[:digit:]]+)&quot;,&quot;\\1&quot;,DEG.list[[1]]$genes))
+results.table[1:10,1:10] # the first 10 rows and columns</code></pre>
+<pre><code>##          AGI GO:0010200 GO:0006952 GO:0042742 GO:0080167 GO:0009751
+## 1  AT2G14560          0          0          0          0          1
+## 2  AT1G21250          0          0          0          0          1
+## 3  AT1G35710          0          0          0          0          0
+## 4  AT3G02550          0          0          0          0          0
+## 5  AT5G12030          0          0          0          0          0
+## 6  AT2G34430          0          0          0          0          0
+## 7  AT5G54270          0          0          0          0          0
+## 8  AT1G13470          0          0          0          0          0
+## 9  AT5G12020          0          0          0          0          0
+## 10 AT5G22570          0          0          1          0          0
+##    GO:0006468 GO:0009651 GO:0009416 GO:0009408
+## 1           0          0          0          0
+## 2           1          0          0          0
+## 3           1          0          0          0
+## 4           0          0          0          0
+## 5           0          1          0          1
+## 6           0          0          1          0
+## 7           0          0          1          0
+## 8           0          0          0          0
+## 9           0          1          0          1
+## 10          0          0          0          0</code></pre>
 </div>
 
 </main>
