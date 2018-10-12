@@ -6,10 +6,20 @@
     <description>Recent content in reproducibility on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 12 Oct 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/tags/reproducibility/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Merging two branches in Git </title>
+      <link>https://knozue.github.io/post/2018/10/12/merging-two-branches-in-git.html</link>
+      <pubDate>Fri, 12 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2018/10/12/merging-two-branches-in-git.html</guid>
+      <description>Do you have branches in your git and want to merge them? How to merge two branches? Here is a simple example using RStudio.
+ Initial commit. (&amp;ldquo;1st commit&amp;rdquo;) 2nd commit (&amp;ldquo;koi no yokan&amp;rdquo;) 3rd commit (&amp;ldquo;Tsuki ni nureta futari&amp;rdquo;) 4th commit (&amp;ldquo;Mayonaka Sugi no koi&amp;rdquo;) Making branch1 Commit on branch1 (&amp;ldquo;Jirettai&amp;rdquo;) Move to master and 5th commit on 1st line (&amp;ldquo;Wine red&amp;rdquo;) Merge them. &amp;ldquo;git merge branch1&amp;rdquo; conflict (not error messages on terminal and &amp;ldquo;U&amp;rdquo; in right top window on doc1.</description>
+    </item>
     
     <item>
       <title>Over-representation analysis 2: GOseq using custom categories</title>
