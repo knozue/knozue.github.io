@@ -68,10 +68,13 @@
 <h1>If you want to analyze non-model organisms, what you an do?</h1>
 <p>Please prepare</p>
 <ol class="example" style="list-style-type: decimal">
-<li>fasta file for cDNA of your species,</li>
-<li>fasta file for cDNA of a close model organisms to your species,</li>
-<li>blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (<a href="https://www.ncbi.nlm.nih.gov/books/NBK52640/">detailed instruciton from NCBI</a>) <!--[](/post/2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term_files/Trello_example_Screen Shot 2018-09-20 at 9.58.20 AM.png)--> # required libraries</li>
+<li>fasta file for cDNA of your species (eg. Brassica rapa),</li>
+<li>fasta file for cDNA of a close model organisms to your species (eg. Arabidopsis thaliana for Brassica rapa),</li>
+<li>blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (<a href="https://www.ncbi.nlm.nih.gov/books/NBK52640/">detailed instruciton from NCBI</a>) <!--[](/post/2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term_files/Trello_example_Screen Shot 2018-09-20 at 9.58.20 AM.png)--></li>
 </ol>
+</div>
+<div id="required-libraries" class="section level1">
+<h1>required libraries</h1>
 <pre class="r"><code>library(tidyverse);library(readr);library(readxl)</code></pre>
 <pre><code>## ── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
@@ -84,8 +87,6 @@
 </div>
 <div id="blastn" class="section level1">
 <h1>BLASTN</h1>
-<div id="blast" class="section level2">
-<h2>BLAST</h2>
 <p>Use the <a href="http://brassicadb.org/brad/datasets/pub/Genomes/Brassica_rapa/V1.5/">Chifu V1.5 file</a> BLAST against <a href="ftp://ftp.arabidopsis.org/home/tair/Sequences/blast_datasets/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated">TAIR10 CDS</a></p>
 <p>Because these organisms are relatively closely related I will use blastn instead of blastp to focus on best match</p>
 <pre class="r"><code># look Julin&#39;s scripts and work by myself
@@ -98,7 +99,6 @@ system(&quot;gunzip Brassica_rapa.20100830.cds.gz&quot;)
 system(&quot;blastn -query Brassica_rapa.20100830.cds -db TAIR10_cds_20110103_representative_gene_model_updated.fa -strand both -task dc-megablast -outfmt 10 -culling_limit 1 -max_hsps 1 -evalue 10e-4 -num_threads 3 -template_type coding -template_length 16 -out Brapa1.0_vs_At_dc-megablast_out.csv&quot;)
 # system(&quot;rm Brassica_rapa.20100830.cds&quot;)
 setwd(&quot;..&quot;)</code></pre>
-</div>
 </div>
 <div id="import-results" class="section level1">
 <h1>import results</h1>
