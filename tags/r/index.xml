@@ -6,10 +6,20 @@
     <description>Recent content in R on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 17 Oct 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Over-representation analysis 3: GOseq with GO term in non-model organisms</title>
+      <link>https://knozue.github.io/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</link>
+      <pubDate>Wed, 17 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
+      <description>If you want to analyze non-model organisms, what you an do? Please prepare
+fasta file for cDNA of your species, fasta file for cDNA of a close model organisms to your species, blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (detailed instruciton from NCBI) # required libraries  library(tidyverse);library(readr);library(readxl) ## ── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.0.0 ✔ purrr 0.2.5 ## ✔ tibble 1.</description>
+    </item>
     
     <item>
       <title>Over-representation analysis 2: GOseq using custom categories</title>
@@ -39,16 +49,6 @@ library(tidyverse);library(readxl);library(readr) ## ── Attaching packages �
       <description>Download this Rmd file Please download and modify your input/output file location
  Download RNA-seq data from NCBI Let’s use published RNA-seq data from Arabidopsis thaliana mutants (npr1-1 and npr4-4D) Ding (2018).
 library(tidyverse) library(stringr) library(edgeR)  Trimming unnecessary sequences from data (such as adaptors) by trimmomatic  Needs to trim? Do fastqc and see results  trim? # working in directories containing fastq files fastfiles&amp;lt;-list.files(pattern=&amp;quot;fastq&amp;quot;) system(paste(&amp;quot;fastqc &amp;quot;,fastfiles,sep=&amp;quot;&amp;quot;)) # and then check reports to see if there are adaptor contamination # It seems those files were not contaminated so that no need to trim read files.</description>
-    </item>
-    
-    <item>
-      <title>Over-representation analysis 3: GOseq with GO term in non-model organisms</title>
-      <link>https://knozue.github.io/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html</link>
-      <pubDate>Thu, 27 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2018/09/27/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
-      <description>If you want to analyze non-model organisms, what you an do? Please prepare
-fasta file for cDNA of your species, fasta file for cDNA of a close model organisms to your species, blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (detailed instruciton from NCBI) # required libraries  library(tidyverse);library(readr);library(readxl)  Reciprocal BLASTN # look Julin&amp;#39;s scripts  Annotate Br genes with Atgoslim  ## making Brgo.v3.0anno.Atgoslim.BP.list (run once) getwd() ## [1] &amp;quot;/Volumes/data_personal/Kazu_blog/content/post&amp;quot; list.</description>
     </item>
     
     <item>

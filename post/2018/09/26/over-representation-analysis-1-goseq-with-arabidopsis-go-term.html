@@ -138,24 +138,13 @@ At_cdna</code></pre>
 <pre class="r"><code># remove uncompressed file
 #system(&quot;rm 2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/TAIR10_cdna_20110103_representative_gene_model&quot;)</code></pre>
 </div>
-<div id="run-this-chunck-onece-to-make-atgoslim.tair.bp.list.rdata" class="section level1">
-<h1>Run this chunck onece to make Atgoslim.TAIR.BP.list.Rdata</h1>
+<div id="run-this-chunck-once-to-make-atgoslim.tair.bp.list.rdata" class="section level1">
+<h1>Run this chunck once to make Atgoslim.TAIR.BP.list.Rdata</h1>
 <pre class="r"><code>## download TAIR version of [GOSLIM](http://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FGO_and_PO_Annotations%2FGene_Ontology_Annotations)
 ## read me file is http://www.arabidopsis.org/download_files/GO_and_PO_Annotations/Gene_Ontology_Annotations/ATH_GO.README.txt
 ## directly read the file from TAIR
-test&lt;-readr::read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/ATH_GO_GOSLIM.txt.gz&quot;,skip=2,col_names=FALSE) # does not work</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   X1 = col_character(),
-##   X2 = col_character()
-## )</code></pre>
-<pre><code>## Warning in rbind(names(probs), probs_f): number of columns of result is not
-## a multiple of vector length (arg 1)</code></pre>
-<pre><code>## Warning: 39980 parsing failures.
-## row # A tibble: 5 x 5 col     row col   expected  actual     file                                    expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;                                   actual 1     2 &lt;NA&gt;  2 columns 1 columns  &#39;https://www.arabidopsis.org/download_… file 2     3 &lt;NA&gt;  2 columns 1 columns  &#39;https://www.arabidopsis.org/download_… row 3     4 X1    &quot;&quot;        embedded … &#39;https://www.arabidopsis.org/download_… col 4     4 &lt;NA&gt;  2 columns 1 columns  &#39;https://www.arabidopsis.org/download_… expected 5     5 &lt;NA&gt;  2 columns 1 columns  &#39;https://www.arabidopsis.org/download_…
-## ... ................. ... .......................................................................... ........ .......................................................................... ...... .......................................................................... .... .......................................................................... ... .......................................................................... ... .......................................................................... ........ ..........................................................................
-## See problems(...) for more details.</code></pre>
-<pre class="r"><code>## store uncompressed version in box.com and download it
+#test&lt;-readr::read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/ATH_GO_GOSLIM.txt.gz&quot;,skip=2,col_names=FALSE) # does not work
+## store uncompressed version in box.com and download it
 #test2&lt;-readr::read_tsv(&quot;https://app.box.com/s/pdxbg2t8vpyatp4x9eewc13qaloa5i4r&quot;,skip=2,col_names=FALSE) # does not work.
 ## download file
 download.file(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/ATH_GO_GOSLIM.txt.gz&quot;,destfile =&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/ATH_GO_GOSLIM.txt.gz&quot;) 
