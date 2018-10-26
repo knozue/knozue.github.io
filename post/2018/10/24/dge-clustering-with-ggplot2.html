@@ -64,7 +64,10 @@
 
 
 <main>
-<p>Hierarchical clustering is powerful method to classify gene expression pattern. Here I applied a method develped by <a href="https://plot.ly/ggplot2/ggdendro-dendrograms/">an example of plotly</a>. <!--[test](/post/2018-10-24-dge-clustering-with-ggplot2_files/Screen Shot 2018-10-12 at 3.34.17 PM.png){width=400px}--> # required libraries</p>
+<p>Hierarchical clustering is powerful method to classify gene expression pattern. Here I applied a method develped by <a href="https://plot.ly/ggplot2/ggdendro-dendrograms/">an example of plotly</a>.</p>
+<!--[test](/post/2018-10-24-dge-clustering-with-ggplot2_files/Screen Shot 2018-10-12 at 3.34.17 PM.png){width=400px}-->
+<div id="required-libraries" class="section level1">
+<h1>required libraries</h1>
 <pre class="r"><code># install.packages(&#39;ggdendro&#39;)
 library(tidyverse);library(ggdendro);library(plotly)</code></pre>
 <pre><code>## ── Attaching packages ──────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
@@ -86,6 +89,7 @@ library(tidyverse);library(ggdendro);library(plotly)</code></pre>
 <pre><code>## The following object is masked from &#39;package:graphics&#39;:
 ## 
 ##     layout</code></pre>
+</div>
 <div id="readling-gene-lists-and-expression-value" class="section level1">
 <h1>readling gene lists and expression value</h1>
 <pre class="r"><code># reading gene expression value (Ding, 2018) from my privious blog ([&quot;Differential expression analysis with public available sequencing data&quot;](https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html) on 2018-10-01))
@@ -267,8 +271,8 @@ head(DEG.list)</code></pre>
 DEG.DF&lt;- cpm.wide %&gt;% filter(transcript_ID %in% DEG.genes)
 dim(DEG.DF) # 305 13</code></pre>
 </div>
-<div id="an-example" class="section level1">
-<h1>An example</h1>
+<div id="an-example-under-construction-there-is-a-bug" class="section level1">
+<h1>An example (under construction; there is a bug)</h1>
 <pre class="r"><code>#dendogram data
 x &lt;- as.matrix(scale(t(DEG.DF[,-1])))</code></pre>
 <pre><code>## Error in t(DEG.DF[, -1]): object &#39;DEG.DF&#39; not found</code></pre>
@@ -346,7 +350,7 @@ q&lt;-subplot(px, p_empty, p, py, nrows = 2, margin = 0.01)</code></pre>
 <pre class="r"><code>q</code></pre>
 <pre><code>## function (save = &quot;default&quot;, status = 0, runLast = TRUE) 
 ## .Internal(quit(save, status, runLast))
-## &lt;bytecode: 0x7fd6f2980850&gt;
+## &lt;bytecode: 0x7fef22c95058&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>To save image, you need to sign-in <a href="https://plot.ly/">plotly website</a> and set environmental variables as described in signup() function help. And then run one line below</p>
 <pre class="r"><code>plotly_IMAGE(q,width=1000,height=500, format=&quot;png&quot;,scale=1, out_file=&quot;dendrogram2.png&quot;)</code></pre>
