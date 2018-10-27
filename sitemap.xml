@@ -58,6 +58,11 @@
   </url>
   
   <url>
+    <loc>https://knozue.github.io/post/2018/09/20/shortcode-test.html</loc>
+    <lastmod>2018-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://knozue.github.io/post/2018/09/19/how-to-read-qr-code-and-transfer-data-to-google-sheet.html</loc>
     <lastmod>2018-09-19T00:00:00+00:00</lastmod>
   </url>
@@ -231,6 +236,12 @@
   <url>
     <loc>https://knozue.github.io/tags/reproducibility.html</loc>
     <lastmod>2018-10-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://knozue.github.io/tags/test.html</loc>
+    <lastmod>2018-09-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

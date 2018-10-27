@@ -116,6 +116,16 @@ library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&amp
     </item>
     
     <item>
+      <title>shortcode test</title>
+      <link>https://knozue.github.io/post/2018/09/20/shortcode-test.html</link>
+      <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2018/09/20/shortcode-test.html</guid>
+      <description>Youtube?   Amazon, not working     --     --    
+  &amp;nbsp;Amazonで詳細を見る    # does no work -- -- R for Data Science amzn_assoc_ad_type = &#34;banner&#34;; amzn_assoc_marketplace = &#34;amazon&#34;; amzn_assoc_region = &#34;US&#34;; amzn_assoc_placement = &#34;assoc_banner_placement_default&#34;; amzn_assoc_campaigns = &#34;computers_accesories&#34;; amzn_assoc_banner_type = &#34;category&#34;; amzn_assoc_p = &#34;21&#34;; amzn_assoc_isresponsive = &#34;false&#34;; amzn_assoc_banner_id = &#34;1SHGCFFM6T54YWBQH8G2&#34;; amzn_assoc_width = &#34;125&#34;; amzn_assoc_height = &#34;125&#34;; amzn_assoc_tracking_id = &#34;</description>
+    </item>
+    
+    <item>
       <title>How to read QR code and transfer data to Google sheet.</title>
       <link>https://knozue.github.io/post/2018/09/19/how-to-read-qr-code-and-transfer-data-to-google-sheet.html</link>
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
