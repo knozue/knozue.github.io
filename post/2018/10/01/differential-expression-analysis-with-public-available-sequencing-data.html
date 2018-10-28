@@ -279,32 +279,24 @@ genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU &lt;- topTags(genotyp
 <pre class="r"><code>At.gene.name &lt;-read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/gene_aliases_20180702.txt.gz&quot;) # Does work from home when I use Pulse Secure.</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
-##   name = col_character(),
-##   symbol = col_character(),
-##   full_name = col_character()
+##   `&lt;!doctype html&gt;` = col_character()
 ## )</code></pre>
+<pre><code>## Warning in rbind(names(probs), probs_f): number of columns of result is not
+## a multiple of vector length (arg 1)</code></pre>
+<pre><code>## Warning: 46 parsing failures.
+## row # A tibble: 5 x 5 col     row col   expected  actual   file                                      expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;                                     actual 1     2 &lt;NA&gt;  1 columns 2 colum… &#39;https://www.arabidopsis.org/download_fi… file 2     3 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… row 3     4 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… col 4     5 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… expected 5     6 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi…
+## ... ................. ... .......................................................................... ........ .......................................................................... ...... .......................................................................... .... .......................................................................... ... .......................................................................... ... .......................................................................... ........ ..........................................................................
+## See problems(...) for more details.</code></pre>
 <pre class="r"><code># test %&gt;% dplyr::select(name,symbol) %&gt;% group_by(name) %&gt;% spread(key=name,value=symbol)
 # test %&gt;% dplyr::select(name,symbol) %&gt;% spread(key=symbol,value=name)
 # test %&gt;% dplyr::select(name,symbol) %&gt;% group_by(name) %&gt;% spread(key=symbol,value=name)
 # test %&gt;% dplyr::select(name,symbol) %&gt;% group_by(name) %&gt;% summarise(n())
 # How to concatenate multiple symbols in the same AGI
-At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))
-
-At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
-<pre><code>## # A tibble: 11 x 3
-##    name     symbol2          full_name                                    
-##    &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;                                        
-##  1 AT1G018… AtGEN1;GEN1      NA;ortholog of HsGEN1                        
-##  2 AT1G019… ATSBT1.1;SBTI1.1 NA;NA                                        
-##  3 AT1G019… AtGET3a;GET3a    Guided Entry of Tail-anchored protein 3a;Gui…
-##  4 AT1G019… ARK2;AtKINUb     armadillo repeat kinesin 2;Arabidopsis thali…
-##  5 AT1G019… BIG3;EDA10       BIG3;embryo sac development arrest 10        
-##  6 AT1G019… AtBBE1;OGOX4     NA;oligogalacturonide oxidase 4              
-##  7 AT1G020… GAE2             UDP-D-glucuronate 4-epimerase 2              
-##  8 AT1G020… SEC1A            secretory 1A                                 
-##  9 AT1G020… LAP6;PKSA        LESS ADHESIVE POLLEN 6;polyketide synthase A 
-## 10 AT1G020… SPL8             squamosa promoter binding protein-like 8     
-## 11 AT1G020… ATCSN7;COP15;CS… ARABIDOPSIS THALIANA COP9 SIGNALOSOME SUBUNI…</code></pre>
+At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))</code></pre>
+<pre><code>## Error in grouped_df_impl(data, unname(vars), drop): Column `name` is unknown</code></pre>
+<pre class="r"><code>At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
+<pre><code>## # A tibble: 0 x 1
+## # ... with 1 variable: `&lt;!doctype html&gt;` &lt;chr&gt;</code></pre>
 </div>
 <div id="make-output-directory-for-saving-deg-results-as-csv-files" class="section level1">
 <h1>Make “output” directory for saving DEG results as csv files</h1>
@@ -313,15 +305,20 @@ At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
 <div id="add-gene-descripion-to-deg-files" class="section level1">
 <h1>Add gene descripion to DEG files</h1>
 <pre class="r"><code># WT (Col) treatment DEG
-trt.DEGs.int.rWT.rU.desc&lt;- trt.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))
-write_csv(trt.DEGs.int.rWT.rU.desc,path=&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/trt.DEGs.int.rWT.rU.csv&quot;)
-
-# npr1-1 (either treated or untreated)
-genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.desc &lt;- genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))
-write_csv(genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.desc,&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv&quot;)
-# npr4-4 (either treated or untreated)
-genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.desc &lt;- genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))
-write_csv(genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.desc,&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.csv&quot;)</code></pre>
+trt.DEGs.int.rWT.rU.desc&lt;- trt.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))</code></pre>
+<pre><code>## Error: `by` can&#39;t contain join column `name` which is missing from RHS</code></pre>
+<pre class="r"><code>write_csv(trt.DEGs.int.rWT.rU.desc,path=&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/trt.DEGs.int.rWT.rU.csv&quot;)</code></pre>
+<pre><code>## Error in is.data.frame(x): object &#39;trt.DEGs.int.rWT.rU.desc&#39; not found</code></pre>
+<pre class="r"><code># npr1-1 (either treated or untreated)
+genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.desc &lt;- genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))</code></pre>
+<pre><code>## Error: `by` can&#39;t contain join column `name` which is missing from RHS</code></pre>
+<pre class="r"><code>write_csv(genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.desc,&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv&quot;)</code></pre>
+<pre><code>## Error in is.data.frame(x): object &#39;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.desc&#39; not found</code></pre>
+<pre class="r"><code># npr4-4 (either treated or untreated)
+genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.desc &lt;- genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))</code></pre>
+<pre><code>## Error: `by` can&#39;t contain join column `name` which is missing from RHS</code></pre>
+<pre class="r"><code>write_csv(genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.desc,&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.csv&quot;)</code></pre>
+<pre><code>## Error in is.data.frame(x): object &#39;genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.desc&#39; not found</code></pre>
 </div>
 <div id="table-for-degs-summary" class="section level1">
 <h1>table for DEGs summary</h1>
@@ -384,22 +381,6 @@ DEGs.count</code></pre>
 ##                                                        854 
 ##                                        trt.DEGs.int.rWT.rU 
 ##                                                       7862</code></pre>
-<pre class="r"><code># learn get()
-# for nice table
-# DEG.count&lt;-DEG.count %&gt;%
-#   mutate(object=str_replace(object,&quot;trt5E_live.genotypeFPsc_trt5E_live&quot;,&quot;trt5E_live+genotypeFPsc:trt5E_live&quot;)) %&gt;%
-#   mutate(object=str_replace(object,&quot;trt5E_live.genotypeR500_trt5E_live&quot;,&quot;trt5E_live+genotypeR500:trt5E_live&quot;)) %&gt;%
-#   mutate(object=str_replace(object,&quot;trt5E_live.genotypeFPsc_genotypeFPsc&quot;,&quot;genotypeFPsc+genotypeFPsc:trt5E_live&quot;)) %&gt;%
-#   mutate(object=str_replace(object,&quot;trt5E_live.genotypeR500_genotypeR500&quot;,&quot;genotypeR500+genotypeR500:trt5E_live&quot;)) %&gt;%
-#   
-#   mutate(object=str_replace(object,&quot;genotypeFPsc_trt5E_live&quot;,&quot;genotypeFPsc:trt5E_live&quot;)) %&gt;%
-#   mutate(object=str_replace(object,&quot;genotypeR500_trt5E_live&quot;,&quot;genotypeR500:trt5E_live&quot;)) %&gt;%
-#   mutate(object=str_remove(object,&quot;.DEGs&quot;)) %&gt;%
-#   mutate(object=str_replace_all(object,&quot;\\.r&quot;,&quot;\\_r&quot;)) %&gt;%
-#   mutate(object=str_remove(object,&quot;.v1.5annotation&quot;)) 
-
-# drawing table (under construction, 9/27/2018) needs to work on &quot;model&quot; column
-#DEG.count %&gt;% separate(object, into=c(&quot;genotype&quot;,&quot;term&quot;,&quot;model&quot;),sep = &quot;\\.&quot;,extra=&quot;drop&quot;)  %&gt;% separate(model,into=c(&quot;model&quot;,&quot;ref_trt&quot;,&quot;ref_genotype&quot;),sep=&quot;_&quot;) %&gt;%  dplyr::arrange(tissue,term,model) %&gt;% knitr::kable()</code></pre>
 </div>
 <div id="plot-gene-expression-pattern" class="section level1">
 <h1>Plot gene expression pattern</h1>
@@ -454,7 +435,11 @@ p5</code></pre>
 <pre class="r"><code># plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p6&lt;-plot.data3 %&gt;% filter(logFC.genotypenpr1.1.treatmenttreated&lt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC.genotypenpr1.1,-logFC.genotypenpr1.1.treatmenttreated,-FDR,-full_name,-logCPM) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;logFC.genotypenpr1.1.treatmenttreated&lt;0&quot;)
 p6</code></pre>
-<p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-20-4.png" width="672" /></p>
+<img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-20-4.png" width="672" /> # R books <!--KazuRbook1-->
+<div id="amzn-assoc-ad-99af12ae-45ba-4556-8dc6-e84f97060807">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=99af12ae-45ba-4556-8dc6-e84f97060807"></script>
 </div>
 
 </main>
