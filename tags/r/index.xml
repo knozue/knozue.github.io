@@ -47,7 +47,7 @@ fasta file for cDNA of your species (eg. Brassica rapa), fasta file for cDNA of 
       
       <guid>https://knozue.github.io/post/2018/10/10/over-representation-analysis-2-goseq-using-custom-categories.html</guid>
       <description>Download updated gene description (copied from “2018-10-01-…Rmd”) Most updated annotation can be downloaded from TAIR website (for subscribers). I used “TAIR Data 20180630”.
-library(tidyverse);library(readxl);library(readr) ## ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.0.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.6 ## ✔ tidyr 0.8.1 ✔ stringr 1.3.1 ## ✔ readr 1.1.1 ✔ forcats 0.3.0 ## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ── ## ✖ dplyr::filter() masks stats::filter() ## ✖ dplyr::lag() masks stats::lag() # turn on TAIR subsciption before this procedure At.</description>
+library(tidyverse);library(readxl);library(readr) ## ── Attaching packages ───────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.0.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.7 ## ✔ tidyr 0.8.1 ✔ stringr 1.3.1 ## ✔ readr 1.1.1 ✔ forcats 0.3.0 ## ── Conflicts ──────────────────────────────────────────── tidyverse_conflicts() ── ## ✖ dplyr::filter() masks stats::filter() ## ✖ dplyr::lag() masks stats::lag() # turn on TAIR subsciption before this procedure At.</description>
     </item>
     
     <item>
@@ -106,15 +106,6 @@ library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&amp
       
       <guid>https://knozue.github.io/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</guid>
       <description>再現できなければ意味がない 数年前、理化学研究所の研究者がNatureに発表した論文が元で1人の自殺者と多額のお金を使った再現性検証実験、多数</description>
-    </item>
-    
-    <item>
-      <title>R memo1</title>
-      <link>https://knozue.github.io/post/2018/09/15/r-memo1.html</link>
-      <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2018/09/15/r-memo1.html</guid>
-      <description></description>
     </item>
     
   </channel>

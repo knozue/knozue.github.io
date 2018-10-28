@@ -69,33 +69,28 @@
 <h1>Download updated gene description (copied from “2018-10-01-…Rmd”)</h1>
 <p>Most updated annotation can be downloaded from TAIR website (for <a href="https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FSubscriber_Data_Releases">subscribers</a>). I used “TAIR Data 20180630”.</p>
 <pre class="r"><code>library(tidyverse);library(readxl);library(readr)</code></pre>
-<pre><code>## ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ── Attaching packages ───────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.7
 ## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
 ## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ──────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code># turn on TAIR subsciption before this procedure
-At.gene.name &lt;-read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/gene_aliases_20180702.txt.gz&quot;) # Does work from home when I use Pulse Secure.
-# How to concatenate multiple symbols in the same AGI
-At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))
-At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
-<pre><code>## # A tibble: 11 x 3
-##    name     symbol2          full_name                                    
-##    &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;                                        
-##  1 AT1G018… AtGEN1;GEN1      NA;ortholog of HsGEN1                        
-##  2 AT1G019… ATSBT1.1;SBTI1.1 NA;NA                                        
-##  3 AT1G019… AtGET3a;GET3a    Guided Entry of Tail-anchored protein 3a;Gui…
-##  4 AT1G019… ARK2;AtKINUb     armadillo repeat kinesin 2;Arabidopsis thali…
-##  5 AT1G019… BIG3;EDA10       BIG3;embryo sac development arrest 10        
-##  6 AT1G019… AtBBE1;OGOX4     NA;oligogalacturonide oxidase 4              
-##  7 AT1G020… GAE2             UDP-D-glucuronate 4-epimerase 2              
-##  8 AT1G020… SEC1A            secretory 1A                                 
-##  9 AT1G020… LAP6;PKSA        LESS ADHESIVE POLLEN 6;polyketide synthase A 
-## 10 AT1G020… SPL8             squamosa promoter binding protein-like 8     
-## 11 AT1G020… ATCSN7;COP15;CS… ARABIDOPSIS THALIANA COP9 SIGNALOSOME SUBUNI…</code></pre>
+At.gene.name &lt;-read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/gene_aliases_20180702.txt.gz&quot;) # Does work from home when I use Pulse Secure.</code></pre>
+<pre><code>## Warning in rbind(names(probs), probs_f): number of columns of result is not
+## a multiple of vector length (arg 1)</code></pre>
+<pre><code>## Warning: 46 parsing failures.
+## row # A tibble: 5 x 5 col     row col   expected  actual   file                                      expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;                                     actual 1     2 &lt;NA&gt;  1 columns 2 colum… &#39;https://www.arabidopsis.org/download_fi… file 2     3 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… row 3     4 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… col 4     5 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… expected 5     6 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi…
+## ... ................. ... .......................................................................... ........ .......................................................................... ...... .......................................................................... .... .......................................................................... ... .......................................................................... ... .......................................................................... ........ ..........................................................................
+## See problems(...) for more details.</code></pre>
+<pre class="r"><code># How to concatenate multiple symbols in the same AGI
+At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))</code></pre>
+<pre><code>## Error in grouped_df_impl(data, unname(vars), drop): Column `name` is unknown</code></pre>
+<pre class="r"><code>At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
+<pre><code>## # A tibble: 0 x 1
+## # ... with 1 variable: `&lt;!doctype html&gt;` &lt;chr&gt;</code></pre>
 <pre class="r"><code># download cDNA info directly from TAIR
 At_cdna&lt;-Biostrings::readDNAStringSet(&quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cdna_20110103_representative_gene_model_updated&quot;)
 At_cdna # 33602 genes</code></pre>
@@ -113,8 +108,8 @@ At_cdna # 33602 genes</code></pre>
 ## [33601]   366 ATGGCATCAAAAATCCGCA...CCTTCTGCATACGCATAA ATMG00130.1 | Sym...
 ## [33602]    74 GCGCTCTTAGTTCAGTTCG...CAAATCCTACAGAGCGTG ATMG00930.1 | Sym...</code></pre>
 </div>
-<div id="updated-hormone-responsive-gene-list-nozue-in-press" class="section level1">
-<h1>Updated hormone responsive gene list (Nozue, in press)</h1>
+<div id="updated-hormone-responsive-gene-list1" class="section level1">
+<h1>Updated hormone responsive gene list<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h1>
 <pre class="r"><code>hormone.responsiveness6.DF.s.list2.DF2&lt;-readxl::read_xlsx(file.path(&quot;2018-10-10-over-representation-analysis-2-goseq-using-custom-categories_files&quot;,&quot;Supplemental_Dataset3_source_of_custom_categories.xlsx&quot;),skip=15,sheet=1) # Does not work. why? 
 # because uglyURLs and canonifyURLs = true on 100818. I commented out them.
 # Ask Kazu for this xlsx file.
@@ -353,6 +348,15 @@ expressed.genes&lt;-gsub(&quot;(.)(\\.[[:digit:]]+)&quot;,&quot;\\1&quot;,as_vec
 ## 18      154             1.874848e-04
 ## 8        43             9.865175e-04
 ## 7        46             1.246178e-02</code></pre>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Nozue K, Devisetty UK, Lekkala S, Mueller-Moule P, Bak A, Casteel CL, Maloof JN (2018) Network analysis reveals a role for salicylic acid pathway components in shade avoidance. Plant Physiol. doi: 10.1104/pp.18.00920<a href="#fnref1">↩</a></p></li>
+</ol>
 </div>
 
 </main>
