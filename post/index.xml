@@ -6,20 +6,10 @@
     <description>Recent content in Posts on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 01 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 26 Oct 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>How to run shiny app in a blog</title>
-      <link>https://knozue.github.io/post/2018/11/01/how-to-run-shiny-app-in-a-blog.html</link>
-      <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2018/11/01/how-to-run-shiny-app-in-a-blog.html</guid>
-      <description>Shiny is an interactive application written in R using Shiny package. A Shiny app can be run on local RStudio or on server. If a Shyny app&amp;rsquo;s URL is available, you can embed the URL into &amp;lt;iframe&amp;gt;&amp;lt;/iframe&amp;gt; (a HTML tag). An output is html by following instruction. Also this blog is made by markdown and posted by blogdown R package that uses Hugo language for static website framework.
-Instruction step1.</description>
-    </item>
     
     <item>
       <title>Another plant defense hormone is required for responses to light in plant</title>
@@ -180,15 +170,6 @@ Outline Create Integromat.com account (free for 100 MB transfer and/or 1000 oper
       
       <guid>https://knozue.github.io/post/2018/09/12/the-first-post.html</guid>
       <description>Here I would like to start describe briefly how I manage my work and personal projects. How to make your experiments reproducible As scientists we need to convince others that your results are not by chance. Here are four advices I want to emphasize here. Keep all records on your lab notebook presicely that should be easy to understand. Simplify methods of data input to reduce errors. Have clear and</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://knozue.github.io/post/1/01/01.html</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/1/01/01.html</guid>
-      <description>How to run shiny app in a blog       code{white-space: pre;} pre:not([class]) { background-color: white; }  if (window.hljs) { hljs.configure({languages: []}); hljs.initHighlightingOnLoad(); if (document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) { window.setTimeout(function() { hljs.initHighlighting(); }, 0); } }  h1 { font-size: 34px; } h1.title { font-size: 38px; } h2 { font-size: 30px; } h3 { font-size: 24px; } h4 { font-size: 18px; } h5 { font-size: 16px; } h6 { font-size: 12px; } .</description>
     </item>
     
   </channel>

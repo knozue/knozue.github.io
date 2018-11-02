@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>shiny on Daddy&#39;s data analysis by Kazu Nozue</title>
-    <link>https://knozue.github.io/tags/shiny.html</link>
+    <link>/tags/shiny.html</link>
     <description>Recent content in shiny on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 01 Nov 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://knozue.github.io/tags/shiny/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/shiny/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>How to run shiny app in a blog</title>
-      <link>https://knozue.github.io/post/2018/11/01/how-to-run-shiny-app-in-a-blog.html</link>
+      <link>/post/2018/11/01/how-to-run-shiny-app-in-a-blog.html</link>
       <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/11/01/how-to-run-shiny-app-in-a-blog.html</guid>
+      <guid>/post/2018/11/01/how-to-run-shiny-app-in-a-blog.html</guid>
       <description>Shiny is an interactive application written in R using Shiny package. A Shiny app can be run on local RStudio or on server. If a Shyny app&amp;rsquo;s URL is available, you can embed the URL into &amp;lt;iframe&amp;gt;&amp;lt;/iframe&amp;gt; (a HTML tag). An output is html by following instruction. Also this blog is made by markdown and posted by blogdown R package that uses Hugo language for static website framework.
 Instruction step1.</description>
     </item>
