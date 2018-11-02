@@ -6,10 +6,20 @@
     <description>Recent content in reproducibility on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 26 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 01 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/tags/reproducibility/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to run shiny app in a blog</title>
+      <link>https://knozue.github.io/post/2018/11/01/how-to-run-shiny-app-in-a-blog.html</link>
+      <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2018/11/01/how-to-run-shiny-app-in-a-blog.html</guid>
+      <description>Shiny is an interactive application written in R using Shiny package. A Shiny app can be run on local RStudio or on server. If a Shyny app&amp;rsquo;s URL is available, you can embed the URL into &amp;lt;iframe&amp;gt;&amp;lt;/iframe&amp;gt; (a HTML tag). An output is html by following instruction. Also this blog is made by markdown and posted by blogdown R package that uses Hugo language for static website framework.
+Instruction step1.</description>
+    </item>
     
     <item>
       <title>Another plant defense hormone is required for responses to light in plant</title>
@@ -27,7 +37,7 @@
       
       <guid>https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2.html</guid>
       <description>Hierarchical clustering is powerful method to classify gene expression pattern. Here I applied a method develped by an example of plotly.
-Required libraries # install.packages(&amp;#39;ggdendro&amp;#39;) library(tidyverse);library(ggdendro);library(plotly)  Reading gene lists and expression value # reading gene expression value (Ding, 2018) from my privious blog ([&amp;quot;Differential expression analysis with public available sequencing data&amp;quot;](https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html) on 2018-10-01)) load(file.path(&amp;quot;2018-10-24-dge-clustering-with-ggplot2_files&amp;quot;,&amp;quot;dge.nolow.Ding2018.Rdata&amp;quot;)) dge.nolow ## Loading required package: edgeR ## Loading required package: limma ## An object of class &amp;quot;DGEList&amp;quot; ## $counts ## SRR6739807 SRR6739808 SRR6739809 SRR6739810 SRR6739811 SRR6739812 ## 1 3598.</description>
+Required libraries # install.packages(&amp;#39;ggdendro&amp;#39;) library(tidyverse);library(ggdendro);library(plotly)  Reading expression value # reading gene expression value (Ding, 2018) from my privious blog ([&amp;quot;Differential expression analysis with public available sequencing data&amp;quot;](https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html) on 2018-10-01)) load(file.path(&amp;quot;2018-10-24-dge-clustering-with-ggplot2_files&amp;quot;,&amp;quot;dge.nolow.Ding2018.Rdata&amp;quot;)) dge.nolow ## Loading required package: edgeR ## Loading required package: limma ## An object of class &amp;quot;DGEList&amp;quot; ## $counts ## SRR6739807 SRR6739808 SRR6739809 SRR6739810 SRR6739811 SRR6739812 ## 1 3598.</description>
     </item>
     
     <item>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>embedded Shiny | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-10-30</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+  </div>
+
+  <h1><span class="title">embedded Shiny</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/shiny">shiny</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+<div id="copy-a-part-from-httpsgithub.combrettoryembedding-a-shiny-app-in-blogdown" class="section level1">
+<h1>copy a part from <a href="https://github.com/brettory/Embedding-a-shiny-app-in-blogdown" class="uri">https://github.com/brettory/Embedding-a-shiny-app-in-blogdown</a></h1>
+<div id="note-iframe-did-not-work.-kazu" class="section level2">
+<h2>note iframe did not work. (Kazu)</h2>
+<p>This week I am trying to embed a shiny app on a static website using blogdown. In a couple of weeks I get to present a short introduction of blogdown at the first ever <a href="https://www.meetup.com/rladies-rotterdam/events/246776180/">R-ladies meetup</a> in the Netherlands following a presentation on Rmarkdown and Shiny<sup><a href="#fn1" id="ref1">1</a></sup>. It will be a nice bonus if I can show how to embed shiny apps in blogdown!</p>
+<p><br></p>
+<p>Ok, now comes the hard part</p>
+<p><br></p>
+</div>
+<div id="the-shiny-app" class="section level2">
+<h2>The shiny app</h2>
+<p>To embed a shiny app on a static site you need to have it published elsewhere online. This can be done for free on <a href="https://www.shinyapps.io/">shinyapps.io</a>. Once you create an account you just follow three very simple instructions on the website to deploy your app. Once deployed, you end up with a url, which you can then embed in an Rmarkdown file using one line of html. Since my focus today is not on how to write a shiny app, I’m going to go through these steps out of order, starting with how to put an app online.</p>
+<p><br></p>
+<div id="deploying-a-shiny-app" class="section level3">
+<h3>Deploying a shiny app</h3>
+<p>I hope I’m not insulting anyone’s intelligence here, but it wasn’t immediate obvious to me so I will start by defining “deploy”. When you deploy something, you basically are publishing it online.</p>
+<p>Ok, now that that’s out of the way, I can explain how to publish it online. After writing my app, I saved it as an Rmarkdown file (app.Rmd), which I deployed at (<a href="https://brettory.shinyapps.io/gender_tech_country/" class="uri">https://brettory.shinyapps.io/gender_tech_country/</a>). To get R to recognize an .Rmd file as a shiny app, you need to include one extra line in the header: <code>runtime: shiny</code></p>
+<p>Your header will look something like this:</p>
+<pre><code>---
+output: html_document
+runtime: shiny
+---</code></pre>
+<p>I didn’t include the title, author, or date here because I want only the app to show up when I link to it.</p>
+<p>Since the shiny app will be running online and not off of your personal computer, you need to upload the data as well. To do so, just make sure the data is in the same folder (or a subfolder within the main folder) as the folder where you store your app.Rmd file. It would also work to link to data that is alreay online. And be sure to use relative paths (ex: “data/KaggleSurvey.csv”) rathter than absolute paths (ex: “User/Brett/Documents/App/data/KaggleSurvey.csv”). If your shiny app is running locally but doesn’t run when you post it online, it’s probably the paths, but I recommend the <a href="https://support.rstudio.com/hc/en-us/articles/231249288-Why-does-my-app-work-locally-but-not-on-my-Shiny-Server-">Rstudio’s help page</a> to troubleshoot other problems.</p>
+<p><br></p>
+</div>
+<div id="creating-the-shiny-app" class="section level3">
+<h3>Creating the shiny app</h3>
+<p>My goal was to create an app with two tabs. The first would let users select which country they are interested in, then show them a bar chart of the number of men and women working in tech in each country. In the second tab, I would have a simple tabulation of number of tech workers per gender and per country.</p>
+<p>To create this app, I first needed to prep the data as shown above. Because my data manipulations of the Kaggle survey weren’t very complicated, I just included the above code in my app.Rmd file with echo=FALSE heading each chunk so it would run but wouldn’t produce any output. <code>echo=FALSE</code> is just one of the many useful commands that can be found on this <a href="https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">Rmarkdown cheat sheet</a>.</p>
+<p>The resulting file can be found on <a href="https://github.com/brettory/shiny_app_women_in_tech">GitHub</a>.</p>
+<p>Finally, I created the following shiny app:</p>
+<pre class="r"><code>ui &lt;- fluidPage(
+  selectInput(&quot;Country&quot;, label = &quot;Country:&quot;,
+              choices = c(&quot;Argentina&quot;, &quot;Australia&quot;, &quot;Belarus&quot;, &quot;Belgium&quot;,&quot;Brazil&quot;,&quot;Canada&quot;,&quot;Chile&quot;,
+                          &quot;Colombia&quot;,&quot;Czech Republic&quot;,&quot;Denmark&quot;,&quot;Egypt&quot;,&quot;Finland&quot;,&quot;France&quot;,&quot;Germany&quot;,      
+                          &quot;Greece&quot;,&quot;Hong Kong&quot;,&quot;Hungary&quot;,&quot;India&quot;,&quot;Indonesia&quot;,&quot;Iran&quot;,&quot;Ireland&quot; ,      
+                          &quot;Israel&quot;,&quot;Italy&quot;,&quot;Japan&quot;,&quot;Kenya&quot;,&quot;Malaysia&quot;,&quot;Mexico&quot;,&quot;Netherlands&quot; ,  
+                          &quot;New Zealand&quot;,&quot;Nigeria&quot;,&quot;Norway&quot;,&quot;Pakistan&quot;,&quot;China&quot;,&quot;Philippines&quot;,&quot;Poland&quot;   ,     
+                          &quot;Portugal&quot;,&quot;Romania&quot;,&quot;Russia&quot;,&quot;Singapore&quot;,&quot;South Africa&quot; ,&quot;South Korea&quot;,&quot;Spain&quot;  ,       
+                          &quot;Sweden&quot;,&quot;Switzerland&quot;,&quot;Taiwan&quot;,&quot;Turkey&quot;,&quot;Ukraine&quot;,&quot;United Kingdom&quot;, &quot;United States&quot;,
+                          &quot;Vietnam&quot;), selected = &quot;United States&quot;),
+  mainPanel(
+
+      # Output: Tabset w/ plot, summary, and table ----
+      tabsetPanel(type = &quot;tabs&quot;,
+                  tabPanel(&quot;Plot&quot;, plotOutput(&quot;barchart&quot;, width = &quot;90%&quot;, height = &quot;250px&quot;)),
+                  tabPanel(&quot;Table&quot;, tableOutput(&quot;table&quot;))
+      )
+  )
+)
+server &lt;- function(input, output) {
+  output$barchart &lt;- renderPlot({
+      ggplot(subset(kssmall, Country==input$Country), aes(gender, count)) +
+      geom_bar(stat = &quot;identity&quot;, aes(fill = gender), position = &quot;dodge&quot;) +
+      xlab(&quot;Gender&quot;) + ylab(&quot;Count&quot;) +
+      ggtitle(&quot;Women in tech&quot;) + 
+      theme_bw()
+  })
+   output$table &lt;- renderTable({
+    kssmall
+  })
+
+  options = list(height = 1000)  
+}
+
+
+shinyApp(ui = ui, server = server)</code></pre>
+<p>One problem I kept running into in making the app is that my barchart was too big for the panel the app is deployed in, so I was getting a scrollbar. Since it’s just a simple barchart, I really wanted to be able to see relative number of women to men working in tech in one glance without having to scroll. You can adjust the size of the output within the panel, and you’ll see I did this with <code>plotOutput(&quot;barchart&quot;, width = &quot;90%&quot;, height = &quot;250px&quot;)</code>. The width defaults to 100% and the height to 400px. After playing around with it a bit I settled on 90% width and 250 pixel height.</p>
+<p><br></p>
+</div>
+<div id="embed-the-app-in-a-blogdown-post" class="section level3">
+<h3>Embed the app in a blogdown post</h3>
+<p>Once created and deployed, I simply embed my shiny app in my Rmarkdown file with a little html <code>&lt;iframe src=&quot;myurl&quot;&gt; &lt;/iframe&gt;</code></p>
+<p>Here you can also control the size of the frame with commands width and height, and additional commands like scrolling and frameborder to make it look a little nicer. The exact command I use to embed the shiny app is:</p>
+<pre><code>&lt;iframe width=&quot;700&quot; height=&quot;400&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot;  src=&quot;https://brettory.shinyapps.io/gender_tech_country/&quot;&gt; &lt;/iframe&gt;</code></pre>
+<p>The final product:</p>
+<p><br></p>
+<iframe width="700" height="400" scrolling="no" frameborder="no" src="https://brettory.shinyapps.io/gender_tech_country/">
+</iframe>
+<p>It does take a while to load, probably because I do data manipulation within the app file rather than in a separate file, but I will leave that problem for another day!</p>
+<p><br></p>
+</div>
+</div>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/10/30/embedding-shiny-app-test.html">&larr; Embedding Shiny app test</a></span>
+  <span class="nav-next"><a href="/post/2018/10/26/another-plant-defense-hormone-is-required-for-responses-to-light-in-plant.html">Another plant defense hormone is required for responses to light in plant &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

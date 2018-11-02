@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>travel | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <title>How to run shiny app in a blog | Daddy&#39;s data analysis by Kazu Nozue</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
 
   </head>
 
-  <body>
+  <body class="page">
     <nav class="header">
       <div class="banner">
 <a href="/">
@@ -22,53 +22,103 @@
 
       <div class="head-meta">
       
-        <span>travel</span>
-        <span>2018-11-01</span>
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-11-01</span>
         
-        <span>1 / 1</span>
+        
+        
+          
+        
+        
+        
+        
       
       </div>
     </nav>
 
-
 <div class="container">
-<main class="list">
+<article>
+<div class="article-meta">
 
-
-<section class="article-list">
   <div class="categories">
   
-  
-    <a href="/categories/travel">travel</a>
-  
+    <a href="/categories/data-analysis">data-analysis</a>
   
   </div>
-  <h1><a href="/post/2018/09/14/wifi-or-sim.html">海外から日本への旅行：ポータブルWiFi ルーター or プリペイドSIMカード？</a></h1>
-  <div class="date-author">
-    <span class="author">Kazu Nozue
-</span> / 
-    <span class="date">2018-09-14</span>
-  </div>
-  <div class="summary">
-    <a href="/post/2018/09/14/wifi-or-sim.html">
-    
-    
-    
-    <div class="thumbnail"><img src="/post/2018-09-14-wifi-or-sim_files/IMG_1874.png" alt="Thumbnail" /></div>
-    
-    
-    
-      
-    
-    今年(2018年)は私には珍しく、単独で出張と家族旅行で日本へ二回行きました（米国在住です）。 双方とも地方での長旅の上に、大都市でも無料のWiFiがあまり発達していないので、一回目はプリペイドSIMカードを購入、2回目はポータブルWiFiルーターをレンタルしました。結論は、ポータブルWiFiルーターの方がコストパフォーマンスに優れていました。更に、ポータブルチャージャーとあせて使用すると一日中携帯もWiFiも使えます。その詳細な感想を以下にレビューします。
-[&hellip;] 関空のSonetの自販機で購入。事前に日本円が必要。使用後は郵送して返品。私の携帯はATTのiPhone5cだった &hellip;
-    </a>
-  </div>
-</section>
+
+  <h1><span class="title">How to run shiny app in a blog</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/shiny">shiny</a>; <a href="/tags/reproducibility">reproducibility</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+<p>Shiny is an interactive application written in R using Shiny package. A Shiny app can be run on local RStudio or on server. If a Shyny app&rsquo;s URL is available, you can embed the URL into &lt;iframe&gt;&lt;/iframe&gt; (a HTML tag). An output is html by following instruction. Also this blog is made by markdown and posted by <a href="https://bookdown.org/yihui/blogdown/">blogdown R package</a> that uses <a href="https://gohugo.io/">Hugo</a> language for static website framework.</p>
+
+<h1 id="instruction">Instruction</h1>
+
+<p>step1. Click Preview.
+step2. In the preview opened, click &ldquo;Open in Browser&rdquo;.</p>
+
+<h1 id="here-is-a-code">Here is a code</h1>
+
+<p>Note that to visualize code, add four spaces or one tab at the beginning. See <a href="https://www.markdownguide.org/basic-syntax/">Markdown guide</a>.</p>
+
+<pre><code>&lt;iframe src=&quot;http://dev.open-meta.org/site/iframeDemo&quot; 
+    style=&quot;border: 2px solid red; width: 100%; height: 500px;&quot;&gt;
+It looks like your browser doesn't support iframes.
+&lt;/iframe&gt;
+</code></pre>
+
+<iframe src="http://dev.open-meta.org/site/iframeDemo" 
+        style="border: 2px solid red; width: 100%; height: 500px;">
+    It looks like your browser doesn't support iframes.
+</iframe>
+
+<p>Please try to slide the bar and write a title of this plot.</p>
+
+<p>Cool!</p>
+
+<h1 id="references">References</h1>
+
+<p><a href="http://www.open-meta.org/technology/shiny/see-your-shiny-app-inside-wordpress-with-iframes/">&ldquo;See your shiny app inside WordPress with iframe embedding&rdquo; in Open Meta</a></p>
 
 </main>
-<nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2018/10/26/another-plant-defense-hormone-is-required-for-responses-to-light-in-plant.html">Another plant defense hormone is required for responses to light in plant &rarr;</a></span>
 </nav>
+
+
+
+</article>
 </div>
 
 <script async src="//yihui.name/js/center-img.js"></script>
@@ -120,6 +170,13 @@
 
 
 
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
 
 
 
