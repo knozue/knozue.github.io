@@ -279,24 +279,32 @@ genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU &lt;- topTags(genotyp
 <pre class="r"><code>At.gene.name &lt;-read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/gene_aliases_20180702.txt.gz&quot;) # Does work from home when I use Pulse Secure.</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
-##   `&lt;!doctype html&gt;` = col_character()
+##   name = col_character(),
+##   symbol = col_character(),
+##   full_name = col_character()
 ## )</code></pre>
-<pre><code>## Warning in rbind(names(probs), probs_f): number of columns of result is not
-## a multiple of vector length (arg 1)</code></pre>
-<pre><code>## Warning: 46 parsing failures.
-## row # A tibble: 5 x 5 col     row col   expected  actual   file                                      expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;                                     actual 1     2 &lt;NA&gt;  1 columns 2 colum… &#39;https://www.arabidopsis.org/download_fi… file 2     3 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… row 3     4 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… col 4     5 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… expected 5     6 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi…
-## ... ................. ... .......................................................................... ........ .......................................................................... ...... .......................................................................... .... .......................................................................... ... .......................................................................... ... .......................................................................... ........ ..........................................................................
-## See problems(...) for more details.</code></pre>
 <pre class="r"><code># test %&gt;% dplyr::select(name,symbol) %&gt;% group_by(name) %&gt;% spread(key=name,value=symbol)
 # test %&gt;% dplyr::select(name,symbol) %&gt;% spread(key=symbol,value=name)
 # test %&gt;% dplyr::select(name,symbol) %&gt;% group_by(name) %&gt;% spread(key=symbol,value=name)
 # test %&gt;% dplyr::select(name,symbol) %&gt;% group_by(name) %&gt;% summarise(n())
 # How to concatenate multiple symbols in the same AGI
-At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))</code></pre>
-<pre><code>## Error in grouped_df_impl(data, unname(vars), drop): Column `name` is unknown</code></pre>
-<pre class="r"><code>At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
-<pre><code>## # A tibble: 0 x 1
-## # ... with 1 variable: `&lt;!doctype html&gt;` &lt;chr&gt;</code></pre>
+At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))
+
+At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
+<pre><code>## # A tibble: 11 x 3
+##    name     symbol2          full_name                                    
+##    &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;                                        
+##  1 AT1G018… AtGEN1;GEN1      NA;ortholog of HsGEN1                        
+##  2 AT1G019… ATSBT1.1;SBTI1.1 NA;NA                                        
+##  3 AT1G019… AtGET3a;GET3a    Guided Entry of Tail-anchored protein 3a;Gui…
+##  4 AT1G019… ARK2;AtKINUb     armadillo repeat kinesin 2;Arabidopsis thali…
+##  5 AT1G019… BIG3;EDA10       BIG3;embryo sac development arrest 10        
+##  6 AT1G019… AtBBE1;OGOX4     NA;oligogalacturonide oxidase 4              
+##  7 AT1G020… GAE2             UDP-D-glucuronate 4-epimerase 2              
+##  8 AT1G020… SEC1A            secretory 1A                                 
+##  9 AT1G020… LAP6;PKSA        LESS ADHESIVE POLLEN 6;polyketide synthase A 
+## 10 AT1G020… SPL8             squamosa promoter binding protein-like 8     
+## 11 AT1G020… ATCSN7;COP15;CS… ARABIDOPSIS THALIANA COP9 SIGNALOSOME SUBUNI…</code></pre>
 </div>
 <div id="make-output-directory-for-saving-deg-results-as-csv-files" class="section level1">
 <h1>Make “output” directory for saving DEG results as csv files</h1>
@@ -305,20 +313,15 @@ At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=p
 <div id="add-gene-descripion-to-deg-files" class="section level1">
 <h1>Add gene descripion to DEG files</h1>
 <pre class="r"><code># WT (Col) treatment DEG
-trt.DEGs.int.rWT.rU.desc&lt;- trt.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))</code></pre>
-<pre><code>## Error: `by` can&#39;t contain join column `name` which is missing from RHS</code></pre>
-<pre class="r"><code>write_csv(trt.DEGs.int.rWT.rU.desc,path=&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/trt.DEGs.int.rWT.rU.csv&quot;)</code></pre>
-<pre><code>## Error in is.data.frame(x): object &#39;trt.DEGs.int.rWT.rU.desc&#39; not found</code></pre>
-<pre class="r"><code># npr1-1 (either treated or untreated)
-genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.desc &lt;- genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))</code></pre>
-<pre><code>## Error: `by` can&#39;t contain join column `name` which is missing from RHS</code></pre>
-<pre class="r"><code>write_csv(genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.desc,&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv&quot;)</code></pre>
-<pre><code>## Error in is.data.frame(x): object &#39;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.desc&#39; not found</code></pre>
-<pre class="r"><code># npr4-4 (either treated or untreated)
-genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.desc &lt;- genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))</code></pre>
-<pre><code>## Error: `by` can&#39;t contain join column `name` which is missing from RHS</code></pre>
-<pre class="r"><code>write_csv(genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.desc,&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.csv&quot;)</code></pre>
-<pre><code>## Error in is.data.frame(x): object &#39;genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.desc&#39; not found</code></pre>
+trt.DEGs.int.rWT.rU.desc&lt;- trt.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))
+write_csv(trt.DEGs.int.rWT.rU.desc,path=&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/trt.DEGs.int.rWT.rU.csv&quot;)
+
+# npr1-1 (either treated or untreated)
+genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.desc &lt;- genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))
+write_csv(genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.desc,&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv&quot;)
+# npr4-4 (either treated or untreated)
+genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.desc &lt;- genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))
+write_csv(genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.desc,&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/output/genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.csv&quot;)</code></pre>
 </div>
 <div id="table-for-degs-summary" class="section level1">
 <h1>table for DEGs summary</h1>
@@ -435,7 +438,46 @@ p5</code></pre>
 <pre class="r"><code># plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p6&lt;-plot.data3 %&gt;% filter(logFC.genotypenpr1.1.treatmenttreated&lt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC.genotypenpr1.1,-logFC.genotypenpr1.1.treatmenttreated,-FDR,-full_name,-logCPM) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;logFC.genotypenpr1.1.treatmenttreated&lt;0&quot;)
 p6</code></pre>
-<img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-20-4.png" width="672" /> # R books <!--KazuRbook1-->
+<p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-20-4.png" width="672" /> # Session info</p>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.5.1 (2018-07-02)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS High Sierra 10.13.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] bindrcpp_0.2.2  edgeR_3.22.5    limma_3.36.5    forcats_0.3.0  
+##  [5] stringr_1.3.1   dplyr_0.7.7     purrr_0.2.5     readr_1.1.1    
+##  [9] tidyr_0.8.2     tibble_1.4.2    ggplot2_3.1.0   tidyverse_1.2.1
+## 
+## loaded via a namespace (and not attached):
+##  [1] locfit_1.5-9.1   tidyselect_0.2.5 xfun_0.4         splines_3.5.1   
+##  [5] haven_1.1.2      lattice_0.20-35  colorspace_1.3-2 htmltools_0.3.6 
+##  [9] yaml_2.2.0       utf8_1.1.4       rlang_0.3.0.1    pillar_1.3.0    
+## [13] glue_1.3.0       withr_2.1.2      modelr_0.1.2     readxl_1.1.0    
+## [17] bindr_0.1.1      plyr_1.8.4       munsell_0.5.0    blogdown_0.9    
+## [21] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      evaluate_0.12   
+## [25] labeling_0.3     knitr_1.20       curl_3.2         fansi_0.4.0     
+## [29] broom_0.5.0      Rcpp_0.12.19     scales_1.0.0     backports_1.1.2 
+## [33] jsonlite_1.5     hms_0.4.2        digest_0.6.18    stringi_1.2.4   
+## [37] bookdown_0.7     grid_3.5.1       rprojroot_1.3-2  cli_1.0.1       
+## [41] tools_3.5.1      magrittr_1.5     lazyeval_0.2.1   crayon_1.3.4    
+## [45] pkgconfig_2.0.2  xml2_1.2.0       lubridate_1.7.4  assertthat_0.2.0
+## [49] rmarkdown_1.10   httr_1.3.1       rstudioapi_0.8   R6_2.3.0        
+## [53] nlme_3.1-137     compiler_3.5.1</code></pre>
+</div>
+<div id="r-books" class="section level1">
+<h1>R books</h1>
+<!--KazuRbook1-->
 <div id="amzn-assoc-ad-99af12ae-45ba-4556-8dc6-e84f97060807">
 
 </div>

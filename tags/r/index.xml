@@ -47,7 +47,7 @@ fasta file for cDNA of your species (eg. Brassica rapa), fasta file for cDNA of 
       
       <guid>https://knozue.github.io/post/2018/10/10/over-representation-analysis-2-goseq-using-custom-categories.html</guid>
       <description>Download updated gene description (copied from “2018-10-01-…Rmd”) Most updated annotation can be downloaded from TAIR website (for subscribers). I used “TAIR Data 20180630”.
-library(tidyverse);library(readxl);library(readr) ## ── Attaching packages ───────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.0.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.7 ## ✔ tidyr 0.8.1 ✔ stringr 1.3.1 ## ✔ readr 1.1.1 ✔ forcats 0.3.0 ## ── Conflicts ──────────────────────────────────────────── tidyverse_conflicts() ── ## ✖ dplyr::filter() masks stats::filter() ## ✖ dplyr::lag() masks stats::lag() # turn on TAIR subsciption before this procedure At.</description>
+library(tidyverse);library(readxl);library(readr) ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.1.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.7 ## ✔ tidyr 0.8.2 ✔ stringr 1.3.1 ## ✔ readr 1.1.1 ✔ forcats 0.3.0 ## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ── ## ✖ dplyr::filter() masks stats::filter() ## ✖ dplyr::lag() masks stats::lag() # turn on TAIR subsciption before this procedure At.</description>
     </item>
     
     <item>

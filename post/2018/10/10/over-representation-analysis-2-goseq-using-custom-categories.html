@@ -69,28 +69,33 @@
 <h1>Download updated gene description (copied from “2018-10-01-…Rmd”)</h1>
 <p>Most updated annotation can be downloaded from TAIR website (for <a href="https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FSubscriber_Data_Releases">subscribers</a>). I used “TAIR Data 20180630”.</p>
 <pre class="r"><code>library(tidyverse);library(readxl);library(readr)</code></pre>
-<pre><code>## ── Attaching packages ───────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+<pre><code>## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
 ## ✔ tibble  1.4.2     ✔ dplyr   0.7.7
-## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+## ✔ tidyr   0.8.2     ✔ stringr 1.3.1
 ## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code># turn on TAIR subsciption before this procedure
-At.gene.name &lt;-read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/gene_aliases_20180702.txt.gz&quot;) # Does work from home when I use Pulse Secure.</code></pre>
-<pre><code>## Warning in rbind(names(probs), probs_f): number of columns of result is not
-## a multiple of vector length (arg 1)</code></pre>
-<pre><code>## Warning: 46 parsing failures.
-## row # A tibble: 5 x 5 col     row col   expected  actual   file                                      expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;                                     actual 1     2 &lt;NA&gt;  1 columns 2 colum… &#39;https://www.arabidopsis.org/download_fi… file 2     3 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… row 3     4 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… col 4     5 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi… expected 5     6 &lt;NA&gt;  1 columns 3 colum… &#39;https://www.arabidopsis.org/download_fi…
-## ... ................. ... .......................................................................... ........ .......................................................................... ...... .......................................................................... .... .......................................................................... ... .......................................................................... ... .......................................................................... ........ ..........................................................................
-## See problems(...) for more details.</code></pre>
-<pre class="r"><code># How to concatenate multiple symbols in the same AGI
-At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))</code></pre>
-<pre><code>## Error in grouped_df_impl(data, unname(vars), drop): Column `name` is unknown</code></pre>
-<pre class="r"><code>At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
-<pre><code>## # A tibble: 0 x 1
-## # ... with 1 variable: `&lt;!doctype html&gt;` &lt;chr&gt;</code></pre>
+At.gene.name &lt;-read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/gene_aliases_20180702.txt.gz&quot;) # Does work from home when I use Pulse Secure.
+# How to concatenate multiple symbols in the same AGI
+At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))
+At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
+<pre><code>## # A tibble: 11 x 3
+##    name     symbol2          full_name                                    
+##    &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;                                        
+##  1 AT1G018… AtGEN1;GEN1      NA;ortholog of HsGEN1                        
+##  2 AT1G019… ATSBT1.1;SBTI1.1 NA;NA                                        
+##  3 AT1G019… AtGET3a;GET3a    Guided Entry of Tail-anchored protein 3a;Gui…
+##  4 AT1G019… ARK2;AtKINUb     armadillo repeat kinesin 2;Arabidopsis thali…
+##  5 AT1G019… BIG3;EDA10       BIG3;embryo sac development arrest 10        
+##  6 AT1G019… AtBBE1;OGOX4     NA;oligogalacturonide oxidase 4              
+##  7 AT1G020… GAE2             UDP-D-glucuronate 4-epimerase 2              
+##  8 AT1G020… SEC1A            secretory 1A                                 
+##  9 AT1G020… LAP6;PKSA        LESS ADHESIVE POLLEN 6;polyketide synthase A 
+## 10 AT1G020… SPL8             squamosa promoter binding protein-like 8     
+## 11 AT1G020… ATCSN7;COP15;CS… ARABIDOPSIS THALIANA COP9 SIGNALOSOME SUBUNI…</code></pre>
 <pre class="r"><code># download cDNA info directly from TAIR
 At_cdna&lt;-Biostrings::readDNAStringSet(&quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cdna_20110103_representative_gene_model_updated&quot;)
 At_cdna # 33602 genes</code></pre>
@@ -348,6 +353,70 @@ expressed.genes&lt;-gsub(&quot;(.)(\\.[[:digit:]]+)&quot;,&quot;\\1&quot;,as_vec
 ## 18      154             1.874848e-04
 ## 8        43             9.865175e-04
 ## 7        46             1.246178e-02</code></pre>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.5.1 (2018-07-02)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS High Sierra 10.13.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats4    parallel  stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
+## 
+## other attached packages:
+##  [1] edgeR_3.22.5                limma_3.36.5               
+##  [3] annotate_1.58.0             XML_3.98-1.16              
+##  [5] GO.db_3.6.0                 AnnotationDbi_1.42.1       
+##  [7] goseq_1.32.0                geneLenDataBase_1.16.0     
+##  [9] BiasedUrn_1.07              ShortRead_1.38.0           
+## [11] GenomicAlignments_1.16.0    SummarizedExperiment_1.10.1
+## [13] DelayedArray_0.6.6          matrixStats_0.54.0         
+## [15] Biobase_2.40.0              Rsamtools_1.32.3           
+## [17] GenomicRanges_1.32.7        GenomeInfoDb_1.16.0        
+## [19] Biostrings_2.48.0           XVector_0.20.0             
+## [21] IRanges_2.14.12             S4Vectors_0.18.3           
+## [23] BiocParallel_1.14.2         BiocGenerics_0.26.0        
+## [25] bindrcpp_0.2.2              readxl_1.1.0               
+## [27] forcats_0.3.0               stringr_1.3.1              
+## [29] dplyr_0.7.7                 purrr_0.2.5                
+## [31] readr_1.1.1                 tidyr_0.8.2                
+## [33] tibble_1.4.2                ggplot2_3.1.0              
+## [35] tidyverse_1.2.1            
+## 
+## loaded via a namespace (and not attached):
+##  [1] nlme_3.1-137           bitops_1.0-6           bit64_0.9-7           
+##  [4] lubridate_1.7.4        progress_1.2.0         RColorBrewer_1.1-2    
+##  [7] httr_1.3.1             rprojroot_1.3-2        tools_3.5.1           
+## [10] backports_1.1.2        utf8_1.1.4             R6_2.3.0              
+## [13] mgcv_1.8-25            DBI_1.0.0              lazyeval_0.2.1        
+## [16] colorspace_1.3-2       withr_2.1.2            prettyunits_1.0.2     
+## [19] tidyselect_0.2.5       bit_1.1-14             curl_3.2              
+## [22] compiler_3.5.1         cli_1.0.1              rvest_0.3.2           
+## [25] xml2_1.2.0             rtracklayer_1.40.6     bookdown_0.7          
+## [28] scales_1.0.0           digest_0.6.18          rmarkdown_1.10        
+## [31] pkgconfig_2.0.2        htmltools_0.3.6        rlang_0.3.0.1         
+## [34] RSQLite_2.1.1          rstudioapi_0.8         bindr_0.1.1           
+## [37] hwriter_1.3.2          jsonlite_1.5           RCurl_1.95-4.11       
+## [40] magrittr_1.5           GenomeInfoDbData_1.1.0 Matrix_1.2-15         
+## [43] Rcpp_0.12.19           munsell_0.5.0          fansi_0.4.0           
+## [46] stringi_1.2.4          yaml_2.2.0             zlibbioc_1.26.0       
+## [49] plyr_1.8.4             blob_1.1.1             grid_3.5.1            
+## [52] crayon_1.3.4           lattice_0.20-35        haven_1.1.2           
+## [55] GenomicFeatures_1.32.3 hms_0.4.2              locfit_1.5-9.1        
+## [58] knitr_1.20             pillar_1.3.0           biomaRt_2.36.1        
+## [61] glue_1.3.0             evaluate_0.12          blogdown_0.9          
+## [64] latticeExtra_0.6-28    modelr_0.1.2           cellranger_1.1.0      
+## [67] gtable_0.2.0           assertthat_0.2.0       xfun_0.4              
+## [70] xtable_1.8-3           broom_0.5.0            memoise_1.1.0</code></pre>
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>

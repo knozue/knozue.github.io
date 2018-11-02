@@ -150,7 +150,9 @@ head(Atgoslim.TAIR.BP.list)</code></pre>
 <h1>Importing enrichment result table and have summary table: Table of DEGs (under construction)</h1>
 <pre class="r"><code># Ding (2018) Cell DEGs
 list.files(path=file.path(&quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files&quot;,&quot;output&quot;)) # finding files in different blogs did not work.. Did work this time... why?</code></pre>
-<pre><code>## character(0)</code></pre>
+<pre><code>## [1] &quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv&quot;
+## [2] &quot;genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.csv&quot;
+## [3] &quot;trt.DEGs.int.rWT.rU.csv&quot;</code></pre>
 <pre class="r"><code>getwd()</code></pre>
 <pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog/content/post&quot;</code></pre>
 <pre class="r"><code>DEG.objs&lt;-list.files(path=file.path(&quot;2018-09-27-over-representation-analysis-4-heatmap-visualization_files&quot;,&quot;output&quot;),pattern=&quot;\\.csv$&quot;) # under construction
@@ -941,6 +943,69 @@ GOseq.plot&lt;-GOseq.plot+     theme(axis.text.x=element_text(size=10,angle=90),
 GOseq.plot</code></pre>
 <p><img src="/post/2018-09-27-over-representation-analysis-4-heatmap-visualization_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code># ggplot_build(GOseq.plot)</code></pre>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.5.1 (2018-07-02)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS High Sierra 10.13.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats4    parallel  stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
+## 
+## other attached packages:
+##  [1] scales_1.0.0                bindrcpp_0.2.2             
+##  [3] annotate_1.58.0             XML_3.98-1.16              
+##  [5] GO.db_3.6.0                 AnnotationDbi_1.42.1       
+##  [7] goseq_1.32.0                geneLenDataBase_1.16.0     
+##  [9] BiasedUrn_1.07              ShortRead_1.38.0           
+## [11] GenomicAlignments_1.16.0    SummarizedExperiment_1.10.1
+## [13] DelayedArray_0.6.6          matrixStats_0.54.0         
+## [15] Biobase_2.40.0              Rsamtools_1.32.3           
+## [17] GenomicRanges_1.32.7        GenomeInfoDb_1.16.0        
+## [19] Biostrings_2.48.0           XVector_0.20.0             
+## [21] IRanges_2.14.12             S4Vectors_0.18.3           
+## [23] BiocParallel_1.14.2         BiocGenerics_0.26.0        
+## [25] forcats_0.3.0               stringr_1.3.1              
+## [27] dplyr_0.7.7                 purrr_0.2.5                
+## [29] readr_1.1.1                 tidyr_0.8.2                
+## [31] tibble_1.4.2                ggplot2_3.1.0              
+## [33] tidyverse_1.2.1            
+## 
+## loaded via a namespace (and not attached):
+##  [1] nlme_3.1-137           bitops_1.0-6           lubridate_1.7.4       
+##  [4] bit64_0.9-7            progress_1.2.0         RColorBrewer_1.1-2    
+##  [7] httr_1.3.1             rprojroot_1.3-2        tools_3.5.1           
+## [10] backports_1.1.2        utf8_1.1.4             R6_2.3.0              
+## [13] mgcv_1.8-25            DBI_1.0.0              lazyeval_0.2.1        
+## [16] colorspace_1.3-2       withr_2.1.2            prettyunits_1.0.2     
+## [19] tidyselect_0.2.5       bit_1.1-14             compiler_3.5.1        
+## [22] cli_1.0.1              rvest_0.3.2            xml2_1.2.0            
+## [25] labeling_0.3           rtracklayer_1.40.6     bookdown_0.7          
+## [28] digest_0.6.18          rmarkdown_1.10         pkgconfig_2.0.2       
+## [31] htmltools_0.3.6        rlang_0.3.0.1          readxl_1.1.0          
+## [34] rstudioapi_0.8         RSQLite_2.1.1          bindr_0.1.1           
+## [37] hwriter_1.3.2          jsonlite_1.5           RCurl_1.95-4.11       
+## [40] magrittr_1.5           GenomeInfoDbData_1.1.0 Matrix_1.2-15         
+## [43] fansi_0.4.0            Rcpp_0.12.19           munsell_0.5.0         
+## [46] stringi_1.2.4          yaml_2.2.0             zlibbioc_1.26.0       
+## [49] plyr_1.8.4             grid_3.5.1             blob_1.1.1            
+## [52] crayon_1.3.4           lattice_0.20-35        haven_1.1.2           
+## [55] GenomicFeatures_1.32.3 hms_0.4.2              knitr_1.20            
+## [58] pillar_1.3.0           biomaRt_2.36.1         glue_1.3.0            
+## [61] evaluate_0.12          blogdown_0.9           latticeExtra_0.6-28   
+## [64] modelr_0.1.2           cellranger_1.1.0       gtable_0.2.0          
+## [67] assertthat_0.2.0       xfun_0.4               xtable_1.8-3          
+## [70] broom_0.5.0            memoise_1.1.0</code></pre>
 <!--KazuRbook1 https://affiliate-program.amazon.com/home/ads/adcode/saved-->
 <div id="amzn-assoc-ad-99af12ae-45ba-4556-8dc6-e84f97060807">
 
