@@ -438,7 +438,10 @@ p5</code></pre>
 <pre class="r"><code># plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p6&lt;-plot.data3 %&gt;% filter(logFC.genotypenpr1.1.treatmenttreated&lt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC.genotypenpr1.1,-logFC.genotypenpr1.1.treatmenttreated,-FDR,-full_name,-logCPM) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;logFC.genotypenpr1.1.treatmenttreated&lt;0&quot;)
 p6</code></pre>
-<p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-20-4.png" width="672" /> # Session info</p>
+<p><img src="/post/2018-10-01-differential-expression-analysis-with-public-available-sequencing-data_files/figure-html/unnamed-chunk-20-4.png" width="672" /></p>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session info</h1>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R version 3.5.1 (2018-07-02)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
@@ -482,6 +485,14 @@ p6</code></pre>
 
 </div>
 <script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=99af12ae-45ba-4556-8dc6-e84f97060807"></script>
+</div>
+<div id="r-and-bioinformatics" class="section level1">
+<h1>R and bioinformatics</h1>
+<!--R bioinformatics (Vince book)-->
+<div id="amzn-assoc-ad-935bf2a7-7f3b-405c-8fd5-ba4b1be608a8">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=935bf2a7-7f3b-405c-8fd5-ba4b1be608a8"></script>
 </div>
 
 </main>

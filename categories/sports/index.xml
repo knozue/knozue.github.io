@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sports on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>https://knozue.github.io/categories/sports.html</link>
+    <description>Recent content in sports on Daddy&#39;s data analysis by Kazu Nozue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 06 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://knozue.github.io/categories/sports/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Interactive app for time-course data of your kids meet scores</title>
+      <link>https://knozue.github.io/post/2018/11/06/interactive-app-for-time-course-data-of-your-kids-meet-scores.html</link>
+      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2018/11/06/interactive-app-for-time-course-data-of-your-kids-meet-scores.html</guid>
+      <description>Shiny package in R language can create a fantastic application in interactive mode using a browser (for free!). In an example below, you can download data file for four years of figure records in US junior olympics of synchronized swimming (public available data from USA synchro web site, compiled by Kazu Nozue). Using search box, you can narrow data down using any words found in any columns in data, such</description>
+    </item>
+    
+  </channel>
+</rss>

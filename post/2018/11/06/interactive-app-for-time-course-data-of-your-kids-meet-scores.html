@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Interactive app for time-course data of your kids meet scores | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-11-06</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+     &hercon; <a href="/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84">スポーツ</a>
+  
+     &hercon; <a href="/categories/sports">sports</a>
+  
+  </div>
+
+  <h1><span class="title">Interactive app for time-course data of your kids meet scores</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/git">git</a>; <a href="/tags/r">R</a>; <a href="/tags/reproducibility">reproducibility</a>; <a href="/tags/shiny">Shiny</a>; <a href="/tags/synchronized-swimming">Synchronized Swimming</a>; <a href="/tags/artistic-swimming">Artistic Swimming</a>; <a href="/tags/%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%AD%E3%83%8A%E3%82%A4%E3%82%BA%E3%83%89%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0">シンクロナイズドスイミング</a>; <a href="/tags/%E3%82%A2%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0">アーティスティックスイミング</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+<p><a href="https://shiny.rstudio.com/">Shiny package</a> in R language can create a fantastic application in interactive mode using a browser (for free!). In an example below, you can download data file for four years of figure records in US junior olympics of synchronized swimming (public available data from <a href="https://www.teamusa.org/usa-synchronized-swimming/events/event-results">USA synchro web site</a>, compiled by Kazu Nozue). Using search box, you can narrow data down using any words found in any columns in data, such as “Walnut Creek”.</p>
+<div id="how-to-use-the-shiny-app" class="section level1">
+<h1>How to use the Shiny app</h1>
+<p>Clone my <a href="https://github.com/knozue/SynchFigure">git repository</a> and follow instruction in READme file. To learn how to clone git repository, please read <a href="http://jnmaloof.github.io/BIS180L_web/2018/04/19/1-Git-in-R/">github instruciton in Prof. Julin Maloof (UC Davis) class</a>.</p>
+</div>
+<div id="uplodad-data-file" class="section level1">
+<h1>Uplodad data file</h1>
+<p>By clicking “upload”, select “Synchro_Figure_score - record.JO.csv” in cloned repository.</p>
+<!-- screenshot of Synchro_Fig shiny app (upload data file)-->
+</div>
+<div id="select-data-highlighted-which-is-plotted-in-right-window." class="section level1">
+<h1>Select data (highlighted), which is plotted in right window.</h1>
+<!-- screenshot of Synchro_Fig shiny app (select data and having a plot)-->
+<!-- 2002, 3, 4, 5, walnut creek  -->
+<div class="figure">
+<img src="/post/2018-11-06-interactive-app-for-time-course-data-of-your-kids-meet-scores_files/Screen%20Shot%202018-11-05%20at%208.12.37%20PM.png" alt="Shiny app for Synchronized Swimming Figure score" width="800" />
+<p class="caption">Shiny app for Synchronized Swimming Figure score</p>
+</div>
+</div>
+<div id="you-can-download-the-plot" class="section level1">
+<h1>You can download the plot</h1>
+<p>Click “download plot” button. <!-- downloaded pdf of Synchro_Fig shiny app--> <embed src="/post/2018-11-06-interactive-app-for-time-course-data-of-your-kids-meet-scores_files/plot_wca.pdf" width="800" /></p>
+<p>The R scripts and a sample data can be found in <a href="https://github.com/knozue/SynchFigure">one of my github repository</a>.</p>
+</div>
+<div id="to-learn-more" class="section level1">
+<h1>To learn more</h1>
+<ul>
+<li><a href="https://www.rstudio.com">RStudio</a></li>
+<li><a href="https://shiny.rstudio.com/articles/">Shiny</a></li>
+<li><p>Synchronized (or Artistic) Swimming <a href="http://www.fina.org/discipline/artistic-swimming">FINA artistic swimming</a>, <a href="https://www.teamusa.org/USA-Synchronized-Swimming">USA synchro</a>, <a href="https://www.swim.or.jp/compe_sync/">日本水連アーテスティックスイミング</a></p></li>
+<li>R Book <!--KazuRbook1 https://affiliate-program.amazon.com/home/ads/adcode/saved-->
+<div id="amzn-assoc-ad-99af12ae-45ba-4556-8dc6-e84f97060807">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=99af12ae-45ba-4556-8dc6-e84f97060807"></script></li>
+</ul>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2018/10/26/another-plant-defense-hormone-is-required-for-responses-to-light-in-plant.html">Another plant defense hormone is required for responses to light in plant &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

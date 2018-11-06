@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://knozue.github.io/post/2018/11/06/interactive-app-for-time-course-data-of-your-kids-meet-scores.html</loc>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://knozue.github.io/post/2018/10/26/another-plant-defense-hormone-is-required-for-responses-to-light-in-plant.html</loc>
     <lastmod>2018-10-26T00:00:00+00:00</lastmod>
   </url>
@@ -88,6 +93,12 @@
   </url>
   
   <url>
+    <loc>https://knozue.github.io/tags/artistic-swimming.html</loc>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://knozue.github.io/tags/california.html</loc>
     <lastmod>2018-10-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -100,7 +111,7 @@
   
   <url>
     <loc>https://knozue.github.io/</loc>
-    <lastmod>2018-10-26T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -130,7 +141,7 @@
   
   <url>
     <loc>https://knozue.github.io/post.html</loc>
-    <lastmod>2018-10-26T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -142,13 +153,25 @@
   
   <url>
     <loc>https://knozue.github.io/tags/r.html</loc>
-    <lastmod>2018-10-26T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://knozue.github.io/tags/shiny.html</loc>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://knozue.github.io/tags/synchronized-swimming.html</loc>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://knozue.github.io/tags.html</loc>
-    <lastmod>2018-10-18T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -172,7 +195,7 @@
   
   <url>
     <loc>https://knozue.github.io/categories/data-analysis.html</loc>
-    <lastmod>2018-10-26T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -184,7 +207,7 @@
   
   <url>
     <loc>https://knozue.github.io/tags/git.html</loc>
-    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -220,13 +243,37 @@
   
   <url>
     <loc>https://knozue.github.io/tags/reproducibility.html</loc>
-    <lastmod>2018-10-26T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://knozue.github.io/categories/sports.html</loc>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://knozue.github.io/categories/travel.html</loc>
     <lastmod>2018-09-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://knozue.github.io/tags/%E3%82%A2%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0.html</loc>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://knozue.github.io/tags/%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%AD%E3%83%8A%E3%82%A4%E3%82%BA%E3%83%89%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0.html</loc>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://knozue.github.io/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84.html</loc>
+    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
