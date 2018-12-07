@@ -6,10 +6,21 @@
     <description>Recent content in benchling.com on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/tags/benchling.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Annotating sequences by benchling.com</title>
+      <link>https://knozue.github.io/post/2018/12/06/annotating-sequences-by-benchling-com.html</link>
+      <pubDate>Thu, 06 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2018/12/06/annotating-sequences-by-benchling-com.html</guid>
+      <description>Draft for a new post Annotating sequences is critical for making a construct in molecular biology. Benchling.com is a powerful tool for automating the annotation process. This example explains how to label “2x35S promoter” region in sequences of interest.
+step1: Before adding 2x35S promoter benchling.com plasmid annotation (step1)
+  step2: Exporting 2x25S promoter feature info (sequences) from known annotated sequence From pMDC32 vector (ref), which has been imported into benchling.</description>
+    </item>
     
     <item>
       <title>Busy dad needs project management skills!</title>
