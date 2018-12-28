@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>VennDiagram with differentially expressed genes | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-12-28</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+  </div>
+
+  <h1><span class="title">VennDiagram with differentially expressed genes</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/reproducibility">reproducibility</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+<div id="how-to-draw-venndiagram-from-differentially-expressed-genes" class="section level1">
+<h1>How to draw VennDiagram from differentially expressed genes?</h1>
+<p>The last time I posted how to draw a VennDiagram with a simulated data. This time I would like to explain how to draw a VennDiagram from differentially expressed genes (DEGs).</p>
+</div>
+<div id="overlap-between-degs-from-oct-1-2018-blog-post-differential-expression-analysis-with-public-available-sequencing-data" class="section level1">
+<h1>Overlap between DEGs from <a href="https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html">Oct 1, 2018 blog post, “Differential expression analysis with public available sequencing data”</a></h1>
+<pre class="r"><code>library(limma)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ───────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.7
+## ✔ tidyr   0.8.2     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
+<pre><code>## ── Conflicts ──────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code># library(ggforce)</code></pre>
+</div>
+<div id="misregulated-geens-in-npr1-1-in-treated-samples" class="section level1">
+<h1>misregulated geens in npr1-1 in treated samples</h1>
+<pre class="r"><code>load(file.path(&quot;2018-12-28-venndiagram-with-differentially-expressed-genes_files&quot;,&quot;dge.nolow.Ding2018.Rdata&quot;))
+dge.nolow</code></pre>
+<pre><code>## Loading required package: edgeR</code></pre>
+<pre><code>## An object of class &quot;DGEList&quot;
+## $counts
+##   SRR6739807 SRR6739808 SRR6739809 SRR6739810 SRR6739811 SRR6739812
+## 1   3598.000   3442.000       3653       3531       4027       3775
+## 4    427.000    412.000        316        348        319        357
+## 5    132.805    129.168        154        141        155        131
+## 6     52.000     46.000         74        110        122         91
+## 7    685.000    764.000        231        220        264        247
+##   SRR6739813 SRR6739814 SRR6739815 SRR6739816 SRR6739817 SRR6739818
+## 1       4195  4317.9900   4015.000   3874.000   3663.000       3642
+## 4        286   306.0000    389.000    362.000    290.000        285
+## 5        126    99.8598    156.895    130.783    101.738        120
+## 6        118   135.0000     60.000     52.000     85.000         79
+## 7        118   131.0000    416.000    383.000    104.000        164
+## 16794 more rows ...
+## 
+## $samples
+##                     group lib.size norm.factors        Run
+## SRR6739807     WT_treated 21747803    0.9813040 SRR6739807
+## SRR6739808     WT_treated 21005249    0.9969243 SRR6739808
+## SRR6739809   WT_untreated 21052743    0.9901012 SRR6739809
+## SRR6739810   WT_untreated 22518666    0.9893923 SRR6739810
+## SRR6739811 npr1-1_treated 21437014    1.0185940 SRR6739811
+##                      sample        group.1 genotype treatment rep
+## SRR6739807     WT_treated_1     WT_treated       WT   treated   1
+## SRR6739808     WT_treated_2     WT_treated       WT   treated   2
+## SRR6739809   WT_untreated_1   WT_untreated       WT untreated   1
+## SRR6739810   WT_untreated_2   WT_untreated       WT untreated   2
+## SRR6739811 npr1-1_treated_1 npr1-1_treated   npr1-1   treated   1
+##            LibraryLayout
+## SRR6739807        SINGLE
+## SRR6739808        SINGLE
+## SRR6739809        SINGLE
+## SRR6739810        SINGLE
+## SRR6739811        SINGLE
+## 7 more rows ...
+## 
+## $genes
+##         genes
+## 1 AT1G50920.1
+## 4 AT1G15970.1
+## 5 AT1G73440.1
+## 6 AT1G75120.1
+## 7 AT1G17600.1
+## 16794 more rows ...</code></pre>
+<pre class="r"><code># set references in genotype and treatment
+dge.nolow$samples$genotype&lt;-factor(dge.nolow$samples$genotype,levels=c(&quot;WT&quot;,&quot;npr4-4D&quot;,&quot;npr1-1&quot;))
+dge.nolow$samples$treatment&lt;-factor(dge.nolow$samples$treatment,levels=c(&quot;treated&quot;,&quot;untreated&quot;))
+# making model matrix
+design.int &lt;- with(dge.nolow$samples, model.matrix(~ genotype*treatment + rep))
+# estimateDisp
+dge.nolow.int &lt;- estimateDisp(dge.nolow,design = design.int)
+## fit linear model
+fit.int &lt;- glmFit(dge.nolow.int,design.int)
+# get DEGs, genotype effects in npr1-1 (no matter treated or untreated) (coef=c(&quot;genotypenpr1-1&quot;,&quot;genotypenpr1-1:treatmenttreated&quot;))
+genotypenpr1_genotypenpr1.treatmentuntreated.lrt.rWT.rT &lt;- glmLRT(fit.int,coef = c(&quot;genotypenpr1-1&quot;,&quot;genotypenpr1-1:treatmentuntreated&quot;))
+genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT &lt;- topTags(genotypenpr1_genotypenpr1.treatmentuntreated.lrt.rWT.rT,n = Inf,p.value = 0.05)$table;nrow(genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT) # </code></pre>
+<pre><code>## [1] 6460</code></pre>
+</div>
+<div id="download-updated-gene-description" class="section level1">
+<h1>Download updated gene description</h1>
+<p>Most updated annotation can be downloaded from TAIR website (for <a href="https://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FSubscriber_Data_Releases">subscribers</a>). I used “TAIR Data 20180630”.</p>
+<pre class="r"><code>At.gene.name &lt;-read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/gene_aliases_20180702.txt.gz&quot;) # Does work from home when I use Pulse Secure.</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   name = col_character(),
+##   symbol = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre class="r"><code># test %&gt;% dplyr::select(name,symbol) %&gt;% group_by(name) %&gt;% spread(key=name,value=symbol)
+# test %&gt;% dplyr::select(name,symbol) %&gt;% spread(key=symbol,value=name)
+# test %&gt;% dplyr::select(name,symbol) %&gt;% group_by(name) %&gt;% spread(key=symbol,value=name)
+# test %&gt;% dplyr::select(name,symbol) %&gt;% group_by(name) %&gt;% summarise(n())
+# How to concatenate multiple symbols in the same AGI
+At.gene.name &lt;- At.gene.name %&gt;% group_by(name) %&gt;% summarise(symbol2=paste(symbol,collapse=&quot;;&quot;),full_name=paste(full_name,collapse=&quot;;&quot;))
+
+At.gene.name %&gt;% dplyr::slice(100:110) # OK</code></pre>
+<pre><code>## # A tibble: 11 x 3
+##    name     symbol2          full_name                                    
+##    &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;                                        
+##  1 AT1G018… AtGEN1;GEN1      NA;ortholog of HsGEN1                        
+##  2 AT1G019… ATSBT1.1;SBTI1.1 NA;NA                                        
+##  3 AT1G019… AtGET3a;GET3a    Guided Entry of Tail-anchored protein 3a;Gui…
+##  4 AT1G019… ARK2;AtKINUb     armadillo repeat kinesin 2;Arabidopsis thali…
+##  5 AT1G019… BIG3;EDA10       BIG3;embryo sac development arrest 10        
+##  6 AT1G019… AtBBE1;OGOX4     NA;oligogalacturonide oxidase 4              
+##  7 AT1G020… GAE2             UDP-D-glucuronate 4-epimerase 2              
+##  8 AT1G020… SEC1A            secretory 1A                                 
+##  9 AT1G020… LAP6;PKSA        LESS ADHESIVE POLLEN 6;polyketide synthase A 
+## 10 AT1G020… SPL8             squamosa promoter binding protein-like 8     
+## 11 AT1G020… ATCSN7;COP15;CS… ARABIDOPSIS THALIANA COP9 SIGNALOSOME SUBUNI…</code></pre>
+</div>
+<div id="add-gene-descripion-to-deg-files" class="section level1">
+<h1>Add gene descripion to DEG files</h1>
+<pre class="r"><code># npr1-1 (either treated or untreated)
+genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT.desc &lt;- genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT %&gt;% mutate(AGI=str_remove(genes,pattern=&quot;\\.[[:digit:]]+$&quot;)) %&gt;% left_join(At.gene.name,by=c(&quot;AGI&quot;=&quot;name&quot;))
+write_csv(genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT.desc,&quot;2018-12-28-venndiagram-with-differentially-expressed-genes_files/output/genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT.csv&quot;)</code></pre>
+</div>
+<div id="read-deg-files" class="section level1">
+<h1>read DEG files</h1>
+<pre class="r"><code># read csv files 
+getwd()</code></pre>
+<pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog/content/post&quot;</code></pre>
+<pre class="r"><code>## read csv file names
+DEG.objs&lt;-list.files(path=file.path(&quot;2018-12-28-venndiagram-with-differentially-expressed-genes_files&quot;,&quot;output&quot;))
+DEG.objs</code></pre>
+<pre><code>## [1] &quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv&quot;  
+## [2] &quot;genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT.csv&quot;
+## [3] &quot;genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.csv&quot;  
+## [4] &quot;trt.DEGs.int.rWT.rU.csv&quot;</code></pre>
+<pre class="r"><code>## read csv files
+DEG.count.list&lt;-lapply(DEG.objs, function(x) read_csv(paste(file.path(&quot;2018-12-28-venndiagram-with-differentially-expressed-genes_files&quot;,&quot;output&quot;),&quot;/&quot;,x,sep=&quot;&quot;)))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC.genotypenpr1.1 = col_double(),
+##   logFC.genotypenpr1.1.treatmenttreated = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC.genotypenpr1.1 = col_double(),
+##   logFC.genotypenpr1.1.treatmentuntreated = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC.genotypenpr4.4D = col_double(),
+##   logFC.genotypenpr4.4D.treatmenttreated = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre class="r"><code>names(DEG.count.list)&lt;-gsub(&quot;.csv&quot;,&quot;&quot;,DEG.objs)</code></pre>
+</div>
+<div id="interpretation-of-edger-glm-double-coefficient-results-toptag" class="section level1">
+<h1>Interpretation of edgeR glm double coefficient results (topTag)</h1>
+<pre class="r"><code>names(DEG.count.list)</code></pre>
+<pre><code>## [1] &quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU&quot;  
+## [2] &quot;genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT&quot;
+## [3] &quot;genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU&quot;  
+## [4] &quot;trt.DEGs.int.rWT.rU&quot;</code></pre>
+<pre class="r"><code># reference in treatment was &quot;untreated&quot;
+DEG.count.list[[&quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU&quot;]]</code></pre>
+<pre><code>## # A tibble: 6,460 x 10
+##    genes logFC.genotypen… logFC.genotypen… logCPM    LR    PValue       FDR
+##    &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 AT2G…           -4.19            -0.733   6.69 1327. 6.75e-289 1.13e-284
+##  2 AT5G…            3.26             0.517   4.76 1072. 1.33e-233 1.11e-229
+##  3 AT1G…           -2.01            -0.488   7.19  659. 6.38e-144 3.57e-140
+##  4 AT1G…           -2.25            -0.525   7.51  624. 2.54e-136 1.07e-132
+##  5 AT3G…           -3.15             0.874   5.33  622. 1.00e-135 3.36e-132
+##  6 AT5G…           -0.206           -6.73    3.90  595. 7.88e-130 2.21e-126
+##  7 AT1G…           -3.64            -1.53    3.37  581. 7.28e-127 1.75e-123
+##  8 AT5G…            1.83             1.82    9.40  571. 1.04e-124 2.18e-121
+##  9 AT2G…            2.23             1.94    9.22  559. 4.26e-122 7.94e-119
+## 10 AT5G…           -2.01            -3.49    4.19  538. 1.19e-117 2.00e-114
+## # ... with 6,450 more rows, and 3 more variables: AGI &lt;chr&gt;,
+## #   symbol2 &lt;chr&gt;, full_name &lt;chr&gt;</code></pre>
+<pre class="r"><code># reference in treatment was &quot;treated&quot;
+## genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT
+DEG.count.list[[&quot;genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT&quot;]]</code></pre>
+<pre><code>## # A tibble: 6,460 x 10
+##    genes logFC.genotypen… logFC.genotypen… logCPM    LR    PValue       FDR
+##    &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 AT2G…            -4.92            0.733   6.69 1327. 6.75e-289 1.13e-284
+##  2 AT5G…             3.78           -0.517   4.76 1072. 1.33e-233 1.11e-229
+##  3 AT1G…            -2.50            0.488   7.19  659. 6.38e-144 3.57e-140
+##  4 AT1G…            -2.78            0.525   7.51  624. 2.54e-136 1.07e-132
+##  5 AT3G…            -2.28           -0.874   5.33  622. 1.00e-135 3.36e-132
+##  6 AT5G…            -6.94            6.73    3.90  595. 7.88e-130 2.21e-126
+##  7 AT1G…            -5.17            1.53    3.37  581. 7.28e-127 1.75e-123
+##  8 AT5G…             3.65           -1.82    9.40  571. 1.04e-124 2.18e-121
+##  9 AT2G…             4.17           -1.94    9.22  559. 4.26e-122 7.94e-119
+## 10 AT5G…            -5.50            3.49    4.19  538. 1.19e-117 2.00e-114
+## # ... with 6,450 more rows, and 3 more variables: AGI &lt;chr&gt;,
+## #   symbol2 &lt;chr&gt;, full_name &lt;chr&gt;</code></pre>
+<pre class="r"><code># Total numbe of DEGS are the same off course.
+
+# Absolute value of &quot;logFC.genotypenpr1.1.treatmenttreated&quot; in genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv is the same with one in  &quot;logFC.genotypenpr1.1.treatmentuntreated&quot; in genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT.csv and only signs (positive or negative) are different.
+
+# logFC.genotypenpr1.1 column
+## In &quot;genotypenpr1_genotypenpr1.treatmentuntreated.DEGs.int.rWT.rT.csv&quot;, logFC value are calculated for &quot;treated&quot; (=reference is &quot;treated&quot;; rT) samples.
+## In &quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv&quot;, logFC value are calculated for &quot;treated&quot; (=reference is &quot;treated&quot;; rT) samples.</code></pre>
+</div>
+<div id="making-summary-table" class="section level1">
+<h1>making summary table</h1>
+<pre class="r"><code># combine all DEG gene names
+all.DEGs&lt;-unique(c(DEG.count.list[[&quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU&quot;]]$genes,DEG.count.list[[&quot;trt.DEGs.int.rWT.rU&quot;]]$genes))
+# 
+WT.SA.up&lt;-DEG.count.list[[&quot;trt.DEGs.int.rWT.rU&quot;]] %&gt;% filter(logFC&gt;0) %&gt;% mutate(WT.SA.up=1) %&gt;% select(genes,WT.SA.up)
+WT.SA.down&lt;-DEG.count.list[[&quot;trt.DEGs.int.rWT.rU&quot;]] %&gt;% filter(logFC&lt;0) %&gt;% mutate(WT.SA.down=1) %&gt;% select(genes,WT.SA.down)
+# npr1.1 regulated genes
+npr1.gt&lt;-DEG.count.list[[&quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU&quot;]] %&gt;% mutate(npr1.gt=1) %&gt;% select(genes,npr1.gt)
+
+# summarize
+summary.DEGS&lt;-tibble(genes=all.DEGs) %&gt;% full_join(WT.SA.up,by=&quot;genes&quot;) %&gt;% full_join(WT.SA.down,by=&quot;genes&quot;) %&gt;% full_join(npr1.gt,by=&quot;genes&quot;)
+dim(summary.DEGS)[1]==length(all.DEGs)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>summary.DEGS[is.na(summary.DEGS)]&lt;-0
+# convert into count table
+vdc&lt;-limma::vennCounts(summary.DEGS[,-1])
+# plot (classical way)
+limma::vennDiagram(vdc) # traditional version</code></pre>
+<p><img src="/post/2018-12-28-venndiagram-with-differentially-expressed-genes_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code># plot (ggplot2 version) ### under construction ####</code></pre>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.5.1 (2018-07-02)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS  10.14.1
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] bindrcpp_0.2.2  edgeR_3.22.5    forcats_0.3.0   stringr_1.3.1  
+##  [5] dplyr_0.7.7     purrr_0.2.5     readr_1.1.1     tidyr_0.8.2    
+##  [9] tibble_1.4.2    ggplot2_3.1.0   tidyverse_1.2.1 limma_3.36.5   
+## 
+## loaded via a namespace (and not attached):
+##  [1] locfit_1.5-9.1   tidyselect_0.2.5 xfun_0.4         splines_3.5.1   
+##  [5] haven_1.1.2      lattice_0.20-35  colorspace_1.3-2 htmltools_0.3.6 
+##  [9] yaml_2.2.0       utf8_1.1.4       rlang_0.3.0.1    pillar_1.3.0    
+## [13] glue_1.3.0       withr_2.1.2      modelr_0.1.2     readxl_1.1.0    
+## [17] bindr_0.1.1      plyr_1.8.4       munsell_0.5.0    blogdown_0.9    
+## [21] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      evaluate_0.12   
+## [25] knitr_1.21       curl_3.2         fansi_0.4.0      broom_0.5.0     
+## [29] Rcpp_1.0.0       scales_1.0.0     backports_1.1.2  jsonlite_1.6    
+## [33] hms_0.4.2        digest_0.6.18    stringi_1.2.4    bookdown_0.7    
+## [37] grid_3.5.1       cli_1.0.1        tools_3.5.1      magrittr_1.5    
+## [41] lazyeval_0.2.1   crayon_1.3.4     pkgconfig_2.0.2  xml2_1.2.0      
+## [45] lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.11   httr_1.3.1      
+## [49] rstudioapi_0.8   R6_2.3.0         nlme_3.1-137     compiler_3.5.1</code></pre>
+</div>
+<div id="ref" class="section level1">
+<h1>Ref</h1>
+<p><a href="https://scriptsandstatistics.wordpress.com/2018/04/26/how-to-plot-venn-diagrams-using-r-ggplot2-and-ggforce/">norbert’s blog</a> <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/systemPipeR/inst/doc/systemPipeR.html">systemPipeR package</a></p>
+<!-- Amazon Associate ad, KazuRbook1-->
+<div id="amzn-assoc-ad-99af12ae-45ba-4556-8dc6-e84f97060807">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=99af12ae-45ba-4556-8dc6-e84f97060807"></script>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2018/12/20/list-to-data-frame-in-r-tidyverse.html">List to data frame in R tidyverse &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

@@ -105,9 +105,33 @@ ggplot(df.venn) +
 </div>
 <div id="using-differentially-expressed-genes" class="section level1">
 <h1>Using differentially expressed genes</h1>
+</div>
+<div id="making-a-function" class="section level1">
+<h1>Making a function</h1>
+<pre class="r"><code>genes.in.enriched.category&lt;-function(enrich.result,gene.list,category.table=Atgoslim.TAIR.BP.list) { # return data frame with all input data with ... which format is good? VennDiagram input format?  
+  enrich.category&lt;-enrich.result[enrich.result$over_represented_pvalue&lt;0.05,&quot;category&quot;]
+  temp&lt;-category.table[gene.list] # short category.table for enriched.result # gene.list shas to be character (not factor)  
+  #names(temp[!is.na(names(temp))])
+  temp&lt;-temp[!is.na(names(temp))] # remove non matched AGI
+  test&lt;-data.frame(AGI=names(temp))
+  for(i in enrich.category) {
+    x&lt;-rep(0,length(names(temp)))
+    x[grep(i,temp)]&lt;-1
+    test&lt;-cbind(test,x)
+    names(test)[dim(test)[2]]&lt;-i
+  }
+  return(test) 
+}</code></pre>
+</div>
+<div id="overlap-between-degs" class="section level1">
+<h1>Overlap between DEGs</h1>
 <pre class="r"><code># read csv files
 
-# run a function in ORA part5. </code></pre>
+# making summary table
+
+# convert into count table
+
+# plot (classical way)</code></pre>
 </div>
 <div id="ref" class="section level1">
 <h1>Ref</h1>

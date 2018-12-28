@@ -6,10 +6,20 @@
     <description>Recent content in R on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 20 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>VennDiagram with differentially expressed genes</title>
+      <link>https://knozue.github.io/post/2018/12/28/venndiagram-with-differentially-expressed-genes.html</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2018/12/28/venndiagram-with-differentially-expressed-genes.html</guid>
+      <description>How to draw VennDiagram from differentially expressed genes? The last time I posted how to draw a VennDiagram with a simulated data. This time I would like to explain how to draw a VennDiagram from differentially expressed genes (DEGs).
+ Overlap between DEGs from Oct 1, 2018 blog post, “Differential expression analysis with public available sequencing data” library(limma) library(tidyverse) ## ── Attaching packages ───────────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.</description>
+    </item>
     
     <item>
       <title>List to data frame in R tidyverse</title>
