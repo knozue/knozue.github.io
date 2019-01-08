@@ -6,10 +6,19 @@
     <description>Recent content in data-analysis on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/categories/data-analysis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Confirming genotypes by visualizing mutations from RNAseq data</title>
+      <link>https://knozue.github.io/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</link>
+      <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</guid>
+      <description>RNAseq is a powerful tool for transcriptome analysis. It is also useful for genotyping (for example, 1). Here I demonstrated an example of confirmation of genotype used for RNAseq. There are some unavoidable errors due to unexpected mistakes in many steps (eg. contamination of seeds, contamination of samples, pipetting errors during library preparation, rotation of plates, etc.). Therefore confirmation of genotype using RNAseq data is useful for quality control of samples used 2.</description>
+    </item>
     
     <item>
       <title>VennDiagram with differentially expressed genes</title>

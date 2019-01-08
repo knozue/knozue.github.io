@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://knozue.github.io/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</loc>
+    <lastmod>2019-01-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://knozue.github.io/post/2018/12/28/venndiagram-with-differentially-expressed-genes.html</loc>
     <lastmod>2018-12-28T00:00:00+00:00</lastmod>
   </url>
@@ -126,7 +131,7 @@
   
   <url>
     <loc>https://knozue.github.io/</loc>
-    <lastmod>2018-12-28T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -149,6 +154,12 @@
   </url>
   
   <url>
+    <loc>https://knozue.github.io/tags/igv.html</loc>
+    <lastmod>2019-01-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://knozue.github.io/tags/integromat.com.html</loc>
     <lastmod>2018-09-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -156,7 +167,7 @@
   
   <url>
     <loc>https://knozue.github.io/post.html</loc>
-    <lastmod>2018-12-28T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -168,7 +179,7 @@
   
   <url>
     <loc>https://knozue.github.io/tags/r.html</loc>
-    <lastmod>2018-12-28T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -204,13 +215,13 @@
   
   <url>
     <loc>https://knozue.github.io/tags/benchling.com.html</loc>
-    <lastmod>2018-12-06T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://knozue.github.io/categories/data-analysis.html</loc>
-    <lastmod>2018-12-28T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -258,7 +269,7 @@
   
   <url>
     <loc>https://knozue.github.io/tags/reproducibility.html</loc>
-    <lastmod>2018-12-28T00:00:00+00:00</lastmod>
+    <lastmod>2019-01-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

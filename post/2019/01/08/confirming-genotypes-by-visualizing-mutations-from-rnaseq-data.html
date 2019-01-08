@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Confirming genotypes by visualizing mutations from RNAseq data | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2019-01-08</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+  </div>
+
+  <h1><span class="title">Confirming genotypes by visualizing mutations from RNAseq data</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/benchling.com">benchling.com</a>; <a href="/tags/igv">IGV</a>; <a href="/tags/r">R</a>; <a href="/tags/reproducibility">reproducibility</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+<p>RNAseq is a powerful tool for transcriptome analysis. It is also useful for genotyping (for example, <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>). Here I demonstrated an example of confirmation of genotype used for RNAseq. There are some unavoidable errors due to unexpected mistakes in many steps (eg. contamination of seeds, contamination of samples, pipetting errors during library preparation, rotation of plates, etc.). Therefore confirmation of genotype using RNAseq data is useful for quality control of samples used <a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. Please find bam files used in my previous blog <a href="https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html">“Differential expression analysis with public available sequencing data”</a> on Oct 1, 2018.</p>
+<div id="chop-npr1-cdna-from-each-bam" class="section level1">
+<h1>chop NPR1 cDNA from each bam</h1>
+<pre class="r"><code>setwd(&quot;kallisto_sam_out2&quot;)
+sorted.bam.files&lt;-list.files(pattern=&quot;sorted.bam$&quot;,recursive = TRUE)
+SRRs&lt;-list.files(pattern=&quot;(SRR)([[:digit:]]+)$&quot;)
+for(y in SRRs) {
+  system(paste(&quot;samtools view -b &quot;,y,&quot;/*.sorted.bam AT1G64280.1 -o &quot;,y,&quot;_AT1G64280.bam&quot;,sep=&quot;&quot;))  
+}
+# sample info from NCBI
+sample.info&lt;-read_csv(&quot;http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?save=efetch&amp;rettype=runinfo&amp;db=sra&amp;term=PRJNA434313&quot;) # Directly from ncbi site. This works!
+# convert sample info into human readable version
+sample.info2&lt;-tibble(SampleName=c(&quot;GSM3014771&quot;,&quot;GSM3014772&quot;,&quot;GSM3014773&quot;,&quot;GSM3014774&quot;,&quot;GSM3014775&quot;,&quot;GSM3014776&quot;,&quot;GSM3014777&quot;,&quot;GSM3014778&quot;,&quot;GSM3014779&quot;,&quot;GSM3014780&quot;,&quot;GSM3014781&quot;,&quot;GSM3014782&quot;,&quot;GSM3014783&quot;,&quot;GSM3014784&quot;,&quot;GSM3014785&quot;,&quot;GSM3014786&quot;),sample=c(&quot;WT_treated_1&quot;,&quot;WT_treated_2&quot;,&quot;WT_untreated_1&quot;,&quot;WT_untreated_2&quot;,&quot;npr1-1_treated_1&quot;,&quot;npr1-1_treated_2&quot;,&quot;npr1-1_untreated_1&quot;,&quot;npr1-1_untreated_2&quot;,&quot;npr4-4D_treated_1&quot;,&quot;npr4-4D_treated_2&quot;,&quot;npr4-4D_untreated_1&quot;,&quot;npr4-4D_untreated_2&quot;,&quot;npr1-1_npr4-4D_treated_1&quot;,&quot;npr1-1_npr4-4D_treated_2&quot;,&quot;npr1-1_npr4-4D_untreated_1&quot;,&quot;npr1-1_npr4-4D_untreated_2&quot;)) # # from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110702
+# combine 
+sample.info.final &lt;- left_join(sample.info,sample.info2,by=&quot;SampleName&quot;) %&gt;% dplyr::select(Run,sample,LibraryLayout) %&gt;%  separate(sample,into=c(&quot;genotype1&quot;,&quot;genotype2&quot;,&quot;treatment&quot;,&quot;rep&quot;),sep=&quot;_&quot;,fill=&quot;left&quot;,remove=FALSE) %&gt;% unite(genotype,genotype1,genotype2,sep=&quot;_&quot;) %&gt;% mutate(genotype=str_replace(genotype,&quot;NA_&quot;,&quot;&quot;)) %&gt;% unite(group,genotype,treatment,sep=&quot;_&quot;,remove=FALSE)</code></pre>
+</div>
+<div id="index-each-bam" class="section level1">
+<h1>index each bam</h1>
+<pre class="r"><code>SRRs_npr1.bam&lt;-list.files(pattern=&quot;AT1G64280.bam&quot;)
+sapply(paste(&quot;samtools index -b &quot;,SRRs_npr1.bam,sep=&quot;&quot;),function(x) system(x))</code></pre>
+</div>
+<div id="visualize-npr1-1-mutation-by-igv" class="section level1">
+<h1>Visualize npr1-1 mutation by IGV</h1>
+<p>To visualize sequence reads (also called “reads”) <a href="http://software.broadinstitute.org/software/igv/home">Integrative Genomics Viewer</a> (IGV, v2.4.10) was used. Mutation of C to T that lead a missense mutation (His (CAT) to Tyr (TAT)) in the third ankyrin repeat <a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> was confirmed.</p>
+<div id="known-npr1-1-mutation-from-my-note-on-benchling.com" class="section level2">
+<h2>Known npr1-1 mutation (from my note on benchling.com)</h2>
+<div class="figure">
+<img src="/post/2019-01-08-confirming-genotype-by-visualizing-mutation-in-rnaseq-data_files/NPR1cDNA.npr1-1mutation.benchling.com.png" alt="benchling.com npr1-1 mutation" width="400" />
+<p class="caption">benchling.com npr1-1 mutation</p>
+</div>
+</div>
+<div id="igv-view-of-npr1-cdna" class="section level2">
+<h2>IGV view of NPR1 cDNA</h2>
+<p>Upper track is wild type and lower track is npr1-1.</p>
+<div class="figure">
+<img src="/post/2019-01-08-confirming-genotype-by-visualizing-mutation-in-rnaseq-data_files/IGV_Ding2018_Screen%20Shot%202019-01-07%20at%201.46.11%20PM.png" alt="IGV Ding 2018 NPR1" width="400" />
+<p class="caption">IGV Ding 2018 NPR1</p>
+</div>
+</div>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.5.1 (2018-07-02)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS  10.14.1
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## loaded via a namespace (and not attached):
+##  [1] compiler_3.5.1  magrittr_1.5    bookdown_0.7    tools_3.5.1    
+##  [5] htmltools_0.3.6 yaml_2.2.0      Rcpp_1.0.0      stringi_1.2.4  
+##  [9] rmarkdown_1.11  blogdown_0.9    knitr_1.21      stringr_1.3.1  
+## [13] digest_0.6.18   xfun_0.4        evaluate_0.12</code></pre>
+</div>
+<div id="r-books" class="section level1">
+<h1>R books</h1>
+<!--KazuRbook1-->
+<div id="amzn-assoc-ad-99af12ae-45ba-4556-8dc6-e84f97060807">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=99af12ae-45ba-4556-8dc6-e84f97060807"></script>
+</div>
+<div id="r-and-bioinformatics" class="section level1">
+<h1>R and bioinformatics</h1>
+<!--R bioinformatics (Vince book)-->
+<div id="amzn-assoc-ad-935bf2a7-7f3b-405c-8fd5-ba4b1be608a8">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=935bf2a7-7f3b-405c-8fd5-ba4b1be608a8"></script>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Koenig D, Jiménez-Gómez JM, Kimura S, Fulop D, Chitwood DH, Headland LR, Kumar R, Covington MF, Devisetty UK, Tat AV, et al (2013) Comparative transcriptomics reveals patterns of selection in domesticated and wild tomato. PNAS 110: E2655–E2662<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Nozue K, Devisetty UK, Lekkala S, Mueller-Moulé P, Bak A, Casteel CL, Maloof JN (2018) Network Analysis Reveals a Role for Salicylic Acid Pathway Components in Shade Avoidance. Plant Physiology 178: 1720–1732<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Cao H, Glazebrook J, Clarke JD, Volko S, Dong X (1997) The Arabidopsis NPR1 gene that controls systemic acquired resistance encodes a novel protein containing ankyrin repeats. Cell 88: 57–63<a href="#fnref3">↩</a></p></li>
+</ol>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2018/12/28/venndiagram-with-differentially-expressed-genes.html">VennDiagram with differentially expressed genes &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+
