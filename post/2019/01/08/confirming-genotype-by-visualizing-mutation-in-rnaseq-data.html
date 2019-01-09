@@ -72,7 +72,7 @@ sorted.bam.files&lt;-list.files(pattern=&quot;sorted.bam$&quot;,recursive = TRUE
 SRRs&lt;-list.files(pattern=&quot;(SRR)([[:digit:]]+)$&quot;)
 for(y in SRRs) {
   system(paste(&quot;samtools view -b &quot;,y,&quot;/*.sorted.bam AT1G64280.1 -o &quot;,y,&quot;_AT1G64280.bam&quot;,sep=&quot;&quot;))  
-}
+} # &quot;AT1G64280&quot; is a gene ID for NPR1 and AT1G64280.1 is a representative splicing variant.
 # sample info from NCBI
 sample.info&lt;-read_csv(&quot;http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?save=efetch&amp;rettype=runinfo&amp;db=sra&amp;term=PRJNA434313&quot;) # Directly from ncbi site. This works!
 # convert sample info into human readable version
