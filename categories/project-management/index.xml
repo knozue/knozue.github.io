@@ -17,7 +17,7 @@
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</guid>
-      <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ──────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.0.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.6 ## ✔ tidyr 0.8.1 ✔ stringr 1.3.1 ## ✔ readr 1.1.1 ✔ forcats 0.3.0 ## ── Conflicts ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ── ## ✖ dplyr::filter() masks stats::filter() ## ✖ dplyr::lag() masks stats::lag() #QRmatrix&amp;lt;-qrcode_gen(&amp;#39;www.r-project.org&amp;#39;,dataOutput=TRUE) ggqrcode &amp;lt;- function(text, color=&amp;quot;black&amp;quot;, alpha=1) { pkg &amp;lt;- &amp;quot;qrcode&amp;quot; require(pkg, character.</description>
+      <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ──────────────────────────────────────────────────────────</description>
     </item>
     
     <item>

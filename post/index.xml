@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Three months later: Native plant garden project2</title>
+      <link>https://knozue.github.io/post/2019/01/16/three-months-later-native-plant-garden-project2.html</link>
+      <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2019/01/16/three-months-later-native-plant-garden-project2.html</guid>
+      <description>Many small plants are growing in my yards. Are they native plants that I sprindkled? As I posted in last fall, I started watering early November 2018 and late rainy season has started after the tragic wild fire (&amp;ldquo;Butte Camp Fire&amp;rdquo;). On January 2019 I&amp;rsquo;ve noticed a couple of unfamiliar plants in my yards (Fig. 1), which should be one of native plants in California central valley pollination seed mix.</description>
+    </item>
     
     <item>
       <title>Confirming genotypes by visualizing mutations from RNAseq data</title>
@@ -47,9 +56,7 @@ library(tidyverse) ## ── Attaching packages ──────────�
       <pubDate>Thu, 06 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/post/2018/12/06/annotating-sequences-by-benchling-com.html</guid>
-      <description>Annotating sequences is critical for making a construct in molecular biology. Benchling.com is a powerful tool for automating the annotation process. This example explains how to label “2x35S promoter” region in sequences of interest.
-step1: Before adding 2x35S promoter benchling.com plasmid annotation (step1)
-  step2: Exporting 2x25S promoter feature info (sequences) from known annotated sequence From pMDC32 vector (ref), which has been imported into benchling.com inventory, select “2x25S promoter” feature from “plasmid” view, and then right click to show a window to “Add to Feature Library”.</description>
+      <description>Annotating sequences is critical for making a construct in molecular biology. Benchling.com is a powerful tool for automating the annotation process. This example explains how to label “2x35S promoter” region in sequences of interest. step1: Before adding 2x35S promoter benchling.com plasmid annotation (step1) step2: Exporting 2x25S promoter feature info (sequences) from known annotated sequence From pMDC32 vector</description>
     </item>
     
     <item>
@@ -96,7 +103,7 @@ Required libraries # install.packages(&amp;#39;ggdendro&amp;#39;) library(tidyve
       
       <guid>https://knozue.github.io/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
       <description>If you want to analyze non-model organisms, what you can do? Please prepare
-fasta file for cDNA of your species (eg. Brassica rapa), fasta file for cDNA of a close model organisms to your species (eg. Arabidopsis thaliana for Brassica rapa), blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (detailed instruciton from NCBI)    required libraries library(tidyverse);library(readr);library(readxl) ## ── Attaching packages ───────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.</description>
+fasta file for cDNA of your species (eg. Brassica rapa), fasta file for cDNA of a close model organisms to your species (eg. Arabidopsis thaliana for Brassica rapa), blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (detailed instruciton from NCBI)    required libraries library(tidyverse);library(readr);library(readxl) ## ── Attaching packages ───────────────────────────────────────── tidyverse 1.</description>
     </item>
     
     <item>
@@ -152,7 +159,7 @@ library(tidyverse) library(stringr) library(edgeR)  Trimming unnecessary sequenc
       
       <guid>https://knozue.github.io/post/2018/09/27/over-representation-analysis-4-heatmap-visualization.html</guid>
       <description>Insert Image&#34; to create directories for putting files-- Similar analysis was found in Guangchuang Yu bioconductor vignettes page.
-library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&amp;quot;annotate&amp;quot;) load GOseq function # download cDNA info directly from TAIR At_cdna&amp;lt;-Biostrings::readDNAStringSet(&amp;quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated&amp;quot;) At_cdna ## A DNAStringSet instance of length 27416 ## width seq names ## [1] 2016 ATGGTTCAATATAATTTCA...AAAACCGACAGGCGTTGA AT1G50920.1 | Sym... ## [2] 546 ATGACTCGTTTGTTGCCTT...GTTGATTCTGGTACATAG AT1G36960.1 | Sym... ## [3] 1734 ATGGATTCAGAGTCAGAGT...GATTATATTCTCCAATGA AT1G44020.1 | Sym... ## [4] 1059 ATGTCGGTTCCTCCTAGAT...AGAGAGAGTGATAAATAA AT1G15970.1 | Sym... ## [5] 765 ATGGCGAGGGGAGAATCGG.</description>
+library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&amp;quot;annotate&amp;quot;) load GOseq function # download cDNA info directly from TAIR At_cdna&amp;lt;-Biostrings::readDNAStringSet(&amp;quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated&amp;quot;) At_cdna ## A DNAStringSet instance of length 27416 ## width seq names ## [1] 2016 ATGGTTCAATATAATTTCA...AAAACCGACAGGCGTTGA AT1G50920.1 | Sym... ## [2] 546 ATGACTCGTTTGTTGCCTT...GTTGATTCTGGTACATAG AT1G36960.1 | Sym... ## [3] 1734 ATGGATTCAGAGTCAGAGT...GATTATATTCTCCAATGA AT1G44020.1 | Sym... ## [4] 1059 ATGTCGGTTCCTCCTAGAT...AGAGAGAGTGATAAATAA AT1G15970.1 | Sym.</description>
     </item>
     
     <item>
@@ -171,7 +178,7 @@ library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&amp
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</guid>
-      <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ──────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.0.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.6 ## ✔ tidyr 0.8.1 ✔ stringr 1.3.1 ## ✔ readr 1.1.1 ✔ forcats 0.3.0 ## ── Conflicts ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ── ## ✖ dplyr::filter() masks stats::filter() ## ✖ dplyr::lag() masks stats::lag() #QRmatrix&amp;lt;-qrcode_gen(&amp;#39;www.r-project.org&amp;#39;,dataOutput=TRUE) ggqrcode &amp;lt;- function(text, color=&amp;quot;black&amp;quot;, alpha=1) { pkg &amp;lt;- &amp;quot;qrcode&amp;quot; require(pkg, character.</description>
+      <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ──────────────────────────────────────────────────────────</description>
     </item>
     
     <item>
