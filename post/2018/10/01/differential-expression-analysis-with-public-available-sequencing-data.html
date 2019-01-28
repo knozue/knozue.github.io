@@ -95,7 +95,7 @@ fastfiles.SE&lt;- fastfiles %&gt;% as_tibble() %&gt;% separate(value,into=c(&quo
 # trim by trimmomatic (not necessary this time)
 # system(&quot;makedir trimmed&quot;)
 #for (x in fastfiles) {
-#system(paste(&quot;trimmomatic.sh SE -threads 4 &quot;,fastfiles,&quot; trimmed/trimmed_&quot;,fastfiles,&quot; ILLUMINACLIP:Bradseq_adapter.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36&quot;,sep=&quot;&quot;))
+#system(paste(&quot;trimmomatic.sh SE -threads 4 &quot;,x,&quot; trimmed/trimmed_&quot;,x,&quot; ILLUMINACLIP:Bradseq_adapter.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36&quot;,sep=&quot;&quot;)) # bug fixed
 #}
 # Or using inline loop?
 #system(&quot;for i in *fastq.gz; do trimmomatic.sh SE -threads 4 $i trimmed/trimmed$i ILLUMINACLIP:Bradseq_adapter.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36; done&quot;)</code></pre>
@@ -470,12 +470,12 @@ p6</code></pre>
 ##  [5] haven_1.1.2      lattice_0.20-35  colorspace_1.3-2 htmltools_0.3.6 
 ##  [9] yaml_2.2.0       utf8_1.1.4       rlang_0.3.0.1    pillar_1.3.0    
 ## [13] glue_1.3.0       withr_2.1.2      modelr_0.1.2     readxl_1.1.0    
-## [17] bindr_0.1.1      plyr_1.8.4       munsell_0.5.0    blogdown_0.9    
+## [17] bindr_0.1.1      plyr_1.8.4       munsell_0.5.0    blogdown_0.10   
 ## [21] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      evaluate_0.12   
 ## [25] labeling_0.3     knitr_1.21       curl_3.2         fansi_0.4.0     
 ## [29] broom_0.5.0      Rcpp_1.0.0       scales_1.0.0     backports_1.1.2 
 ## [33] jsonlite_1.6     hms_0.4.2        digest_0.6.18    stringi_1.2.4   
-## [37] bookdown_0.7     grid_3.5.1       cli_1.0.1        tools_3.5.1     
+## [37] bookdown_0.9     grid_3.5.1       cli_1.0.1        tools_3.5.1     
 ## [41] magrittr_1.5     lazyeval_0.2.1   crayon_1.3.4     pkgconfig_2.0.2 
 ## [45] xml2_1.2.0       lubridate_1.7.4  assertthat_0.2.0 rmarkdown_1.11  
 ## [49] httr_1.3.1       rstudioapi_0.8   R6_2.3.0         nlme_3.1-137    
