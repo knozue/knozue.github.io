@@ -1,0 +1,62 @@
+---
+title: "Slide with R by Xarigan package"
+author: "Kazu Nozue"
+date: "2018/12/12 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    #css: ["default.css","my-theme.css"]
+    css: "default.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+<style>
+.small-code3 code.r {
+   color: magenta;
+  font-size: 0.7em;
+}
+#header1 {
+  color: blue;
+}
+.header2 h1 {
+  color: purple;
+  font-size: 1.5em;
+}
+code.r{ /* Code block */
+    font-size: 1em;
+    color: green;
+}
+</style>
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = TRUE,error=TRUE)
+```
+---
+
+<large>prerequisite_large</large> 
+prerequisite_normal
+<small>prerequisite_small</small>
+* All above work.
+```{r}
+library(edgeR);library(tidyverse);library(readr);library(readxl)
+```
+---
+class: center
+# control code chunk appearance (chunk option did not work)
+```{r, cols.print=1,rows.print=1}
+mtcars
+```
+---
+# control code chunk appearance2
+test
+```{r, size="small"}
+mtcars
+```
+---
+class: header2, small-code3
+# control code chunk appearance3 using class: header2, small-code3
+```{r, out.width=3}
+mtcars
+```
