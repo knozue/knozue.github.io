@@ -6,10 +6,28 @@
     <description>Recent content on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 30 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Slide presentation in R with xarigan package</title>
+      <link>https://knozue.github.io/post/2019/01/30/slide-presentation-in-r-with-xarigan-package.html</link>
+      <pubDate>Wed, 30 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2019/01/30/slide-presentation-in-r-with-xarigan-package.html</guid>
+      <description>How to make slides in RStudio As an audience of a seminar, it is difficut to follow presentation when screen is scrolling down that happens in regular websites. Esay convertion from RMarkdown to slides are described in Rmarkdown book. To make slides for presentation of your RMarkdown documents, xarigan package developed by Yihui Xie is a powerful tool. Please find a demo presentation. Alternative method is using Rpresentation or isoslides (see details in the Rmarkdown book).</description>
+    </item>
+    
+    <item>
+      <title>Slide presentation in R with xarigan package</title>
+      <link>https://knozue.github.io/post/2019/01/30/slide-presentation-in-r-with-xarigan-package.html</link>
+      <pubDate>Wed, 30 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2019/01/30/slide-presentation-in-r-with-xarigan-package.html</guid>
+      <description>How to make slides in RStudio As an audience of a seminar, it is difficut to follow presentation when screen is scrolling down that happens in regular websites. Esay convertion from RMarkdown to slides are described in Rmarkdown book. To make slides for presentation of your RMarkdown documents, xarigan package developed by Yihui Xie is a powerful tool. Please find a demo presentation. Alternative method is using Rpresentation or isoslides (see details in the Rmarkdown book).</description>
+    </item>
     
     <item>
       <title>Three months later: Native plant garden project2</title>
