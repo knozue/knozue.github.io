@@ -6,10 +6,19 @@
     <description>Recent content in data-analysis on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 30 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/categories/data-analysis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Needs more cargo space in electric vehicles!</title>
+      <link>https://knozue.github.io/post/2019/03/30/needs-more-cargo-space-in-electric-vehicles.html</link>
+      <pubDate>Sat, 30 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2019/03/30/needs-more-cargo-space-in-electric-vehicles.html</guid>
+      <description>Advantages of electric vehicles Electric vehicle (EV) became popular in California. Recently I can find more than one Tesla car during my daily commute. There are a couple of advantages of EV compared with gas powered vehicles; (1) higher cost efficiency (higher MPGe1), (2) lower maintainance cost, and (3) tax incentives and rebate (read an article in energysage.com, one in a utility company, and a site from U.S. Department of Energy).</description>
+    </item>
     
     <item>
       <title>Slide presentation in R with xarigan package</title>
@@ -94,7 +103,7 @@ Required libraries # install.packages(&amp;#39;ggdendro&amp;#39;) library(tidyve
       
       <guid>https://knozue.github.io/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
       <description>If you want to analyze non-model organisms, what you can do? Please prepare
-fasta file for cDNA of your species (eg. Brassica rapa), fasta file for cDNA of a close model organisms to your species (eg. Arabidopsis thaliana for Brassica rapa), blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (detailed instruciton from NCBI)    required libraries library(tidyverse);library(readr);library(readxl) ## ── Attaching packages ───────────────────────────────────────── tidyverse 1.</description>
+fasta file for cDNA of your species (eg. Brassica rapa), fasta file for cDNA of a close model organisms to your species (eg. Arabidopsis thaliana for Brassica rapa), blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (detailed instruciton from NCBI)    required libraries library(tidyverse);library(readr);library(readxl) ## ── Attaching packages ───────────────────────────────────── tidyverse 1.</description>
     </item>
     
     <item>
@@ -169,7 +178,7 @@ library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&amp
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</guid>
-      <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ──────────────────────────────────────────────────────────</description>
+      <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.1.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.7 ## ✔ tidyr</description>
     </item>
     
     <item>

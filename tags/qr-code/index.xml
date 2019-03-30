@@ -17,7 +17,7 @@
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</guid>
-      <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ──────────────────────────────────────────────────────────</description>
+      <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.1.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.7 ## ✔ tidyr</description>
     </item>
     
     <item>

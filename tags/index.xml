@@ -23,7 +23,7 @@
     <item>
       <title>California</title>
       <link>https://knozue.github.io/tags/california.html</link>
-      <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 30 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/tags/california.html</guid>
       <description></description>
@@ -95,9 +95,18 @@
     <item>
       <title>RNA-seq</title>
       <link>https://knozue.github.io/tags/rna-seq.html</link>
-      <pubDate>Mon, 01 Oct 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/tags/rna-seq.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RStudio</title>
+      <link>https://knozue.github.io/tags/rstudio.html</link>
+      <pubDate>Wed, 30 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/tags/rstudio.html</guid>
       <description></description>
     </item>
     
@@ -156,6 +165,15 @@
     </item>
     
     <item>
+      <title>ggplot2</title>
+      <link>https://knozue.github.io/tags/ggplot2.html</link>
+      <pubDate>Sat, 30 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/tags/ggplot2.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>git</title>
       <link>https://knozue.github.io/tags/git.html</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
@@ -206,6 +224,15 @@
       <pubDate>Thu, 20 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/tags/tidyverse.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xarigan</title>
+      <link>https://knozue.github.io/tags/xarigan.html</link>
+      <pubDate>Wed, 30 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/tags/xarigan.html</guid>
       <description></description>
     </item>
     
