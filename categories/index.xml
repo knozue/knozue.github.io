@@ -2,83 +2,83 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Daddy&#39;s data analysis by Kazu Nozue</title>
-    <link>/categories.html</link>
+    <link>https://knozue.github.io/categories.html</link>
     <description>Recent content in Categories on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://knozue.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>EV</title>
-      <link>/categories/ev.html</link>
+      <link>https://knozue.github.io/categories/ev.html</link>
       <pubDate>Sat, 30 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>/categories/ev.html</guid>
+      <guid>https://knozue.github.io/categories/ev.html</guid>
       <description></description>
     </item>
     
     <item>
       <title>data-analysis</title>
-      <link>/categories/data-analysis.html</link>
+      <link>https://knozue.github.io/categories/data-analysis.html</link>
       <pubDate>Sat, 30 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>/categories/data-analysis.html</guid>
+      <guid>https://knozue.github.io/categories/data-analysis.html</guid>
       <description></description>
     </item>
     
     <item>
       <title>native-plant</title>
-      <link>/categories/native-plant.html</link>
+      <link>https://knozue.github.io/categories/native-plant.html</link>
       <pubDate>Wed, 17 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>/categories/native-plant.html</guid>
+      <guid>https://knozue.github.io/categories/native-plant.html</guid>
       <description></description>
     </item>
     
     <item>
       <title>project-management</title>
-      <link>/categories/project-management.html</link>
+      <link>https://knozue.github.io/categories/project-management.html</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/categories/project-management.html</guid>
+      <guid>https://knozue.github.io/categories/project-management.html</guid>
       <description></description>
     </item>
     
     <item>
       <title>sports</title>
-      <link>/categories/sports.html</link>
+      <link>https://knozue.github.io/categories/sports.html</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/categories/sports.html</guid>
+      <guid>https://knozue.github.io/categories/sports.html</guid>
       <description></description>
     </item>
     
     <item>
       <title>travel</title>
-      <link>/categories/travel.html</link>
+      <link>https://knozue.github.io/categories/travel.html</link>
       <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/categories/travel.html</guid>
+      <guid>https://knozue.github.io/categories/travel.html</guid>
       <description></description>
     </item>
     
     <item>
       <title>スポーツ</title>
-      <link>/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84.html</link>
+      <link>https://knozue.github.io/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84.html</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84.html</guid>
+      <guid>https://knozue.github.io/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84.html</guid>
       <description></description>
     </item>
     
     <item>
       <title>旅行</title>
-      <link>/categories/%E6%97%85%E8%A1%8C.html</link>
+      <link>https://knozue.github.io/categories/%E6%97%85%E8%A1%8C.html</link>
       <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/categories/%E6%97%85%E8%A1%8C.html</guid>
+      <guid>https://knozue.github.io/categories/%E6%97%85%E8%A1%8C.html</guid>
       <description></description>
     </item>
     

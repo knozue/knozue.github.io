@@ -2,49 +2,49 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>RNA-seq on Daddy&#39;s data analysis by Kazu Nozue</title>
-    <link>/tags/rna-seq.html</link>
+    <link>https://knozue.github.io/tags/rna-seq.html</link>
     <description>Recent content in RNA-seq on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 08 Jan 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/rna-seq/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://knozue.github.io/tags/rna-seq/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Confirming genotypes by visualizing mutations from RNAseq data</title>
-      <link>/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</link>
+      <link>https://knozue.github.io/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</link>
       <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</guid>
+      <guid>https://knozue.github.io/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</guid>
       <description>RNAseq is a powerful tool for transcriptome analysis. It is also useful for genotyping (for example, 1). Here I demonstrated an example of confirmation of genotype used for RNAseq. There are some unavoidable errors due to unexpected mistakes in many steps (eg. contamination of seeds, contamination of samples, pipetting errors during library preparation, rotation of plates, etc.). Therefore confirmation of genotype using RNAseq data is useful for quality control of samples used 2.</description>
     </item>
     
     <item>
       <title>Over-representation analysis 3: GOseq with GO term in non-model organisms</title>
-      <link>/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</link>
+      <link>https://knozue.github.io/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</link>
       <pubDate>Wed, 17 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
+      <guid>https://knozue.github.io/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
       <description>If you want to analyze non-model organisms, what you can do? Please prepare
 fasta file for cDNA of your species (eg. Brassica rapa), fasta file for cDNA of a close model organisms to your species (eg. Arabidopsis thaliana for Brassica rapa), blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (detailed instruciton from NCBI)    required libraries library(tidyverse);library(readr);library(readxl) ## ── Attaching packages ───────────────────────────────────── tidyverse 1.</description>
     </item>
     
     <item>
       <title>Over-representation analysis 5: useful tools</title>
-      <link>/post/2018/10/07/over-representation-analysis-5-useful-tools.html</link>
+      <link>https://knozue.github.io/post/2018/10/07/over-representation-analysis-5-useful-tools.html</link>
       <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/10/07/over-representation-analysis-5-useful-tools.html</guid>
+      <guid>https://knozue.github.io/post/2018/10/07/over-representation-analysis-5-useful-tools.html</guid>
       <description>What genes were found in given categories (eg. GO term) in given gene list? library(tidyverse);library(readxl);library(readr) # prepare GO term - gene table (eg. GOSLIM result), gene list of interest, GO term of interest # output data format is a dataframe with columns (each GO term) and rows (gene names listed in gene list of interest provided by a user) and value (0 (absent) or 1 (present))  read GOseq result table eGOseqs&amp;lt;-list.</description>
     </item>
     
     <item>
       <title>Differential expression analysis with public available sequencing data</title>
-      <link>/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</link>
+      <link>https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</link>
       <pubDate>Mon, 01 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</guid>
+      <guid>https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</guid>
       <description>Download this Rmd file Please download and modify your input/output file location
  Download RNA-seq data from NCBI Let’s use published RNA-seq data from Arabidopsis thaliana mutants (npr1-1 and npr4-4D) Ding (2018).
 library(tidyverse) library(stringr) library(edgeR)  Trimming unnecessary sequences from data (such as adaptors) by trimmomatic  Needs to trim? Do fastqc and see results  trim? # working in directories containing fastq files fastfiles&amp;lt;-list.files(pattern=&amp;quot;fastq&amp;quot;) system(paste(&amp;quot;fastqc &amp;quot;,fastfiles,sep=&amp;quot;&amp;quot;)) # and then check reports to see if there are adaptor contamination # It seems those files were not contaminated so that no need to trim read files.</description>
@@ -52,10 +52,10 @@ library(tidyverse) library(stringr) library(edgeR)  Trimming unnecessary sequenc
     
     <item>
       <title>Over-representation analysis 1: GOseq with GO terms in unsupported model organisms</title>
-      <link>/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</link>
+      <link>https://knozue.github.io/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</link>
       <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</guid>
+      <guid>https://knozue.github.io/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</guid>
       <description>purpose Over-representation analysis (“enrichment analysis”) of RNA-seq data considering cDNA length effects with unsupported model organisms.
  background Among many transcriptome analysis platforms, transcriptome analysis by next-generation sequencing (RNA-seq) has been used widely among model and non-model organisms. In RNA-seq, number of reads mapped to reference cDNA sequences (or genes in genome sequences) is proportional to size of genes1. This effect should be corrected especially when enrichment analysis is performed because a gene category of your interest is enriched only because genes in the category are large in size.</description>
     </item>
