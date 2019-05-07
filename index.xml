@@ -6,10 +6,21 @@
     <description>Recent content on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Seven months later: Native plant garden project4</title>
+      <link>https://knozue.github.io/post/2019/05/07/seven-months-later-native-plant-garden-project4.html</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2019/05/07/seven-months-later-native-plant-garden-project4.html</guid>
+      <description> Clarkia unguiculata has started blooming Clarkia unguiculata blooming
+ As I posted in January, I have lots of Clarkia unguiculata plants, which start blooming the last week in April. Although it seems become early dry season, plants in my yards are still green.
+  </description>
+    </item>
     
     <item>
       <title>Six months later: Native plant garden project 3</title>
@@ -38,15 +49,6 @@
       
       <guid>https://knozue.github.io/post/2019/01/30/slide-presentation-in-r-with-xarigan-package.html</guid>
       <description>How to make slides in RStudio As an audience of a seminar, it is difficut to follow presentation when screen is scrolling down that happens in regular websites. Esay convertion from RMarkdown to slides are described in Rmarkdown book. To make slides for presentation of your RMarkdown documents, xarigan package developed by Yihui Xie is a powerful tool. Please find a demo presentation. Alternative method is using Rpresentation or isoslides (see details in the Rmarkdown book).</description>
-    </item>
-    
-    <item>
-      <title>Three months later: Native plant garden project2</title>
-      <link>https://knozue.github.io/post/2019/01/16/three-months-later-native-plant-garden-project2.html</link>
-      <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2019/01/16/three-months-later-native-plant-garden-project2.html</guid>
-      <description>Many small plants are growing in my yards. Are they native plants that I sprindkled? As I posted in last fall, I started watering early November 2018 and late rainy season has started after the tragic wild fire (&amp;ldquo;Butte Camp Fire&amp;rdquo;). On January 2019 I&amp;rsquo;ve noticed a couple of unfamiliar plants in my yards (Fig. 1), which should be one of native plants in California central valley pollination seed mix.</description>
     </item>
     
     <item>
@@ -265,6 +267,16 @@ Outline Create Integromat.com account (free for 100 MB transfer and/or 1000 oper
       
       <guid>https://knozue.github.io/post/2018/09/12/the-first-post.html</guid>
       <description>Here I would like to start describe briefly how I manage my work and personal projects. How to make your experiments reproducible As scientists we need to convince others that your results are not by chance. Here are four advices I want to emphasize here. Keep all records on your lab notebook presicely that should be easy to understand. Simplify methods of data input to reduce errors. Have clear and</description>
+    </item>
+    
+    <item>
+      <title>Seven months later: Native plant garden project4</title>
+      <link>https://knozue.github.io/post/1/01/01/seven-months-later-native-plant-garden-project4.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/1/01/01/seven-months-later-native-plant-garden-project4.html</guid>
+      <description> Clarkia unguiculata has started blooming As I posted in January , I have lots of Clarkia unguiculata plants, which start blooming this week.
+ </description>
     </item>
     
   </channel>
