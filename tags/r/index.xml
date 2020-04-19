@@ -2,49 +2,49 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on Daddy&#39;s data analysis by Kazu Nozue</title>
-    <link>https://knozue.github.io/tags/r.html</link>
+    <link>/tags/r.html</link>
     <description>Recent content in R on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 29 Dec 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://knozue.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Evaluation of team rank prediction in sports league by sum of residuals</title>
-      <link>https://knozue.github.io/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals.html</link>
+      <link>/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals.html</link>
       <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals.html</guid>
+      <guid>/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals.html</guid>
       <description>Evaluation of team rank prediction in sports league by sum of residuals J1_2019_pred_results&amp;lt;-read_csv(file.path(&amp;quot;2019-12-</description>
     </item>
     
     <item>
       <title>Confirming genotypes by visualizing mutations from RNAseq data</title>
-      <link>https://knozue.github.io/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</link>
+      <link>/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</link>
       <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</guid>
+      <guid>/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</guid>
       <description>RNAseq is a powerful tool for transcriptome analysis. It is also useful for genotyping (for example, 1). Here I demonstrated an example of confirmation of genotype used for RNAseq. There are some unavoidable errors due to unexpected mistakes in many steps (eg. contamination of seeds, contamination of samples, pipetting errors during library preparation, rotation of plates, etc.). Therefore confirmation of genotype using RNAseq data is useful for quality control of samples used 2.</description>
     </item>
     
     <item>
       <title>VennDiagram with differentially expressed genes</title>
-      <link>https://knozue.github.io/post/2018/12/28/venndiagram-with-differentially-expressed-genes.html</link>
+      <link>/post/2018/12/28/venndiagram-with-differentially-expressed-genes.html</link>
       <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/12/28/venndiagram-with-differentially-expressed-genes.html</guid>
+      <guid>/post/2018/12/28/venndiagram-with-differentially-expressed-genes.html</guid>
       <description>How to draw VennDiagram from differentially expressed genes? The last time I posted how to draw a VennDiagram with a simulated data. This time I would like to explain how to draw a VennDiagram from differentially expressed genes (DEGs).
  Overlap between DEGs from Oct 1, 2018 blog post, “Differential expression analysis with public available sequencing data” library(limma) library(tidyverse) ## ── Attaching packages ───────────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.</description>
     </item>
     
     <item>
       <title>List to data frame in R tidyverse</title>
-      <link>https://knozue.github.io/post/2018/12/20/list-to-data-frame-in-r-tidyverse.html</link>
+      <link>/post/2018/12/20/list-to-data-frame-in-r-tidyverse.html</link>
       <pubDate>Thu, 20 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/12/20/list-to-data-frame-in-r-tidyverse.html</guid>
+      <guid>/post/2018/12/20/list-to-data-frame-in-r-tidyverse.html</guid>
       <description>Converting list object to a data frame object is common in R. There are many ways and here is another way using tidyverse packages.
 bind_cols() This is an efficient implementation of the common pattern of do.call(rbind, dfs) or do.call(cbind, dfs) for binding many data frames into one (cited from tidyverse package site).
 library(tidyverse) ## ── Attaching packages ─────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.1.0 ✔ purrr 0.2.5 ## ✔ tibble 1.</description>
@@ -52,67 +52,76 @@ library(tidyverse) ## ── Attaching packages ──────────�
     
     <item>
       <title>Interactive app for time-course data of your kids&#39; meet scores</title>
-      <link>https://knozue.github.io/post/2018/11/06/interactive-app-for-time-course-data-of-your-kids-meet-scores.html</link>
+      <link>/post/2018/11/06/interactive-app-for-time-course-data-of-your-kids-meet-scores.html</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/11/06/interactive-app-for-time-course-data-of-your-kids-meet-scores.html</guid>
+      <guid>/post/2018/11/06/interactive-app-for-time-course-data-of-your-kids-meet-scores.html</guid>
       <description>Shiny package in R language can create a fantastic application in interactive mode using a browser (for free!). In an example below, you can download data file for four years of figure records in US junior olympics of synchronized swimming (public available data from USA synchro web site, compiled by Kazu Nozue). Using search box, you can narrow data down using any words found in any columns in data, such</description>
     </item>
     
     <item>
       <title>Another plant defense hormone is required for responses to light in plant</title>
-      <link>https://knozue.github.io/post/2018/10/26/another-plant-defense-hormone-is-required-for-responses-to-light-in-plant.html</link>
+      <link>/post/2018/10/26/another-plant-defense-hormone-is-required-for-responses-to-light-in-plant.html</link>
       <pubDate>Fri, 26 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/10/26/another-plant-defense-hormone-is-required-for-responses-to-light-in-plant.html</guid>
+      <guid>/post/2018/10/26/another-plant-defense-hormone-is-required-for-responses-to-light-in-plant.html</guid>
       <description>Plants use light as energy source as well as signals for environmental signal changes. Under the canopy shade phtosynthesis activity is reduced, therefore plants responded to existance of neighboring plants that causes near future crisis, such as growing taller and flowering earlier to produce seeds as early as possible, which are collectivcey known as shade avoidance responses. This week I published my paper titled &amp;ldquo;Network analysis reveals a role for salicylic acid pathway components in shade avoidance&amp;rdquo; in Plant Physiology, an international journal in plant biology.</description>
     </item>
     
     <item>
       <title>DGE clustering with ggplot2</title>
-      <link>https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2.html</link>
+      <link>/post/2018/10/24/dge-clustering-with-ggplot2.html</link>
       <pubDate>Wed, 24 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2.html</guid>
+      <guid>/post/2018/10/24/dge-clustering-with-ggplot2.html</guid>
       <description>Hierarchical clustering is powerful method to classify gene expression pattern. Here I applied a method develped by an example of plotly.
 Required libraries # install.packages(&amp;#39;ggdendro&amp;#39;) library(tidyverse);library(ggdendro);library(plotly)  Reading expression value # reading gene expression value (Ding, 2018) from my privious blog ([&amp;quot;Differential expression analysis with public available sequencing data&amp;quot;](https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html) on 2018-10-01)) load(file.path(&amp;quot;2018-10-24-dge-clustering-with-ggplot2_files&amp;quot;,&amp;quot;dge.nolow.Ding2018.Rdata&amp;quot;)) dge.nolow ## Loading required package: edgeR ## Loading required package: limma ## An object of class &amp;quot;DGEList&amp;quot; ## $counts ## SRR6739807 SRR6739808 SRR6739809 SRR6739810 SRR6739811 SRR6739812 ## 1 3598.</description>
     </item>
     
     <item>
       <title>Over-representation analysis 3: GOseq with GO term in non-model organisms</title>
-      <link>https://knozue.github.io/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</link>
+      <link>/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</link>
       <pubDate>Wed, 17 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
+      <guid>/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html</guid>
       <description>If you want to analyze non-model organisms, what you can do? Please prepare
 fasta file for cDNA of your species (eg. Brassica rapa), fasta file for cDNA of a close model organisms to your species (eg. Arabidopsis thaliana for Brassica rapa), blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (detailed instruciton from NCBI)    required libraries library(tidyverse);library(readr);library(readxl) ## ── Attaching packages ───────────────────────────────────── tidyverse 1.</description>
     </item>
     
     <item>
+      <title>VennDiagram</title>
+      <link>/post/2018/10/15/venndiagram.html</link>
+      <pubDate>Mon, 15 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/10/15/venndiagram.html</guid>
+      <description>How to draw VennDiagram?  sample # library(limma) library(tidyverse) library(ggforce) set.seed((123)) mydata &amp;lt;- data.frame(A = rbinom(100, 1, 0.8), B = rbinom(100, 1, 0.7), C = rbinom(100, 1, 0.6)) %&amp;gt;% mutate_all(., as.logical) # drawing circle df.venn &amp;lt;- data.frame(x = c(0, 0.866, -0.866), y = c(1, -0.5, -0.5), labels = c(&amp;#39;A&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;C&amp;#39;)) ggplot(df.venn, aes(x0 = x, y0 = y, r = 1.5, fill = labels)) + geom_circle(alpha = .3, size = 1, colour = &amp;#39;grey&amp;#39;) + coord_fixed() + theme_void() # vdc &amp;lt;- vennCounts(mydata) class(vdc) &amp;lt;- &amp;#39;matrix&amp;#39; df.</description>
+    </item>
+    
+    <item>
       <title>Over-representation analysis 2: GOseq using custom categories</title>
-      <link>https://knozue.github.io/post/2018/10/10/over-representation-analysis-2-goseq-using-custom-categories.html</link>
+      <link>/post/2018/10/10/over-representation-analysis-2-goseq-using-custom-categories.html</link>
       <pubDate>Wed, 10 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/10/10/over-representation-analysis-2-goseq-using-custom-categories.html</guid>
+      <guid>/post/2018/10/10/over-representation-analysis-2-goseq-using-custom-categories.html</guid>
       <description>Download updated gene description (copied from “2018-10-01-…Rmd”) Most updated annotation can be downloaded from TAIR website (for subscribers). I used “TAIR Data 20180630”.
 library(tidyverse);library(readxl);library(readr) ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.1.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.7 ## ✔ tidyr 0.8.2 ✔ stringr 1.3.1 ## ✔ readr 1.1.1 ✔ forcats 0.3.0 ## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ── ## ✖ dplyr::filter() masks stats::filter() ## ✖ dplyr::lag() masks stats::lag() # turn on TAIR subsciption before this procedure At.</description>
     </item>
     
     <item>
       <title>Over-representation analysis 5: useful tools</title>
-      <link>https://knozue.github.io/post/2018/10/07/over-representation-analysis-5-useful-tools.html</link>
+      <link>/post/2018/10/07/over-representation-analysis-5-useful-tools.html</link>
       <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/10/07/over-representation-analysis-5-useful-tools.html</guid>
+      <guid>/post/2018/10/07/over-representation-analysis-5-useful-tools.html</guid>
       <description>What genes were found in given categories (eg. GO term) in given gene list? library(tidyverse);library(readxl);library(readr) # prepare GO term - gene table (eg. GOSLIM result), gene list of interest, GO term of interest # output data format is a dataframe with columns (each GO term) and rows (gene names listed in gene list of interest provided by a user) and value (0 (absent) or 1 (present))  read GOseq result table eGOseqs&amp;lt;-list.</description>
     </item>
     
     <item>
       <title>Differential expression analysis with public available sequencing data</title>
-      <link>https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</link>
+      <link>/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</link>
       <pubDate>Mon, 01 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</guid>
+      <guid>/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html</guid>
       <description>Download this Rmd file Please download and modify your input/output file location
  Download RNA-seq data from NCBI Let’s use published RNA-seq data from Arabidopsis thaliana mutants (npr1-1 and npr4-4D) Ding (2018).
 library(tidyverse) library(stringr) library(edgeR)  Trimming unnecessary sequences from data (such as adaptors) by trimmomatic  Needs to trim? Do fastqc and see results  trim? # working in directories containing fastq files fastfiles&amp;lt;-list.files(pattern=&amp;quot;fastq&amp;quot;) system(paste(&amp;quot;fastqc &amp;quot;,fastfiles,sep=&amp;quot;&amp;quot;)) # and then check reports to see if there are adaptor contamination # It seems those files were not contaminated so that no need to trim read files.</description>
@@ -120,39 +129,39 @@ library(tidyverse) library(stringr) library(edgeR)  Trimming unnecessary sequenc
     
     <item>
       <title>Over-representation analysis 4:  heatmap visualization</title>
-      <link>https://knozue.github.io/post/2018/09/27/over-representation-analysis-4-heatmap-visualization.html</link>
+      <link>/post/2018/09/27/over-representation-analysis-4-heatmap-visualization.html</link>
       <pubDate>Thu, 27 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/09/27/over-representation-analysis-4-heatmap-visualization.html</guid>
+      <guid>/post/2018/09/27/over-representation-analysis-4-heatmap-visualization.html</guid>
       <description>Insert Image&#34; to create directories for putting files-- Similar analysis was found in Guangchuang Yu bioconductor vignettes page.
 library(tidyverse);library(ShortRead);library(goseq);library(GO.db);library(&amp;quot;annotate&amp;quot;) load GOseq function # download cDNA info directly from TAIR At_cdna&amp;lt;-Biostrings::readDNAStringSet(&amp;quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated&amp;quot;) At_cdna ## A DNAStringSet instance of length 27416 ## width seq names ## [1] 2016 ATGGTTCAATATAATTTCA...AAAACCGACAGGCGTTGA AT1G50920.1 | Sym... ## [2] 546 ATGACTCGTTTGTTGCCTT...GTTGATTCTGGTACATAG AT1G36960.1 | Sym... ## [3] 1734 ATGGATTCAGAGTCAGAGT...GATTATATTCTCCAATGA AT1G44020.1 | Sym... ## [4] 1059 ATGTCGGTTCCTCCTAGAT...AGAGAGAGTGATAAATAA AT1G15970.1 | Sym.</description>
     </item>
     
     <item>
       <title>Over-representation analysis 1: GOseq with GO terms in unsupported model organisms</title>
-      <link>https://knozue.github.io/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</link>
+      <link>/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</link>
       <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</guid>
+      <guid>/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term.html</guid>
       <description>purpose Over-representation analysis (“enrichment analysis”) of RNA-seq data considering cDNA length effects with unsupported model organisms.
  background Among many transcriptome analysis platforms, transcriptome analysis by next-generation sequencing (RNA-seq) has been used widely among model and non-model organisms. In RNA-seq, number of reads mapped to reference cDNA sequences (or genes in genome sequences) is proportional to size of genes1. This effect should be corrected especially when enrichment analysis is performed because a gene category of your interest is enriched only because genes in the category are large in size.</description>
     </item>
     
     <item>
       <title>How to make QRcode by R &#43; ggplot2</title>
-      <link>https://knozue.github.io/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</link>
+      <link>/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</guid>
+      <guid>/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</guid>
       <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.1.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.7 ## ✔ tidyr</description>
     </item>
     
     <item>
       <title>その実験、再現できなければ意味がない</title>
-      <link>https://knozue.github.io/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</link>
+      <link>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</link>
       <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://knozue.github.io/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</guid>
+      <guid>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</guid>
       <description>再現できなければ意味がない 数年前、理化学研究所の研究者がNatureに発表した論文が元で1人の自殺者と多額のお金を使った再現性検証実験、多数</description>
     </item>
     
