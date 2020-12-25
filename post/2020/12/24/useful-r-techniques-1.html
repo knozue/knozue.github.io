@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Useful R techniques 1 | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2020-12-24</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+  </div>
+
+  <h1><span class="title">Useful R techniques 1</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/ggplot2">ggplot2</a>; <a href="/tags/r">R</a>; <a href="/tags/%E5%AE%9F%E9%A8%93%E3%83%8E%E3%83%BC%E3%83%88">実験ノート</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="useful-r-techniques-only-for-me" class="section level1">
+<h1>Useful R techniques (only for me?)</h1>
+</div>
+<div id="usage-of-filter" class="section level1">
+<h1>Usage of filter()</h1>
+<pre class="r"><code>mtcars %&gt;% rownames_to_column() %&gt;% filter(str_detect(rowname,&quot;Mazda&quot;))</code></pre>
+<pre><code>##         rowname mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## 1     Mazda RX4  21   6  160 110  3.9 2.620 16.46  0  1    4    4
+## 2 Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</code></pre>
+<pre class="r"><code>mtcars %&gt;% rownames_to_column() %&gt;% filter(!str_detect(rowname,&quot;Mazda&quot;))</code></pre>
+<pre><code>##                rowname  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1           Datsun 710 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## 2       Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## 3    Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## 4              Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## 5           Duster 360 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## 6            Merc 240D 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## 7             Merc 230 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## 8             Merc 280 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## 9            Merc 280C 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## 10          Merc 450SE 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## 11          Merc 450SL 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## 12         Merc 450SLC 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## 13  Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## 14 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## 15   Chrysler Imperial 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## 16            Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## 17         Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## 18      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## 19       Toyota Corona 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## 20    Dodge Challenger 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## 21         AMC Javelin 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## 22          Camaro Z28 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## 23    Pontiac Firebird 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## 24           Fiat X1-9 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## 25       Porsche 914-2 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## 26        Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## 27      Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## 28        Ferrari Dino 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## 29       Maserati Bora 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## 30          Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<pre class="r"><code>mtcars %&gt;% rownames_to_column() %&gt;% filter(str_detect(rowname,&quot;[:alphabet:]+&quot;)) # error</code></pre>
+<pre><code>## Error: Problem with `filter()` input `..1`.
+## x Start of codes indicating failure. (U_ILLEGAL_ARGUMENT_ERROR)
+## ℹ Input `..1` is `str_detect(rowname, &quot;[:alphabet:]+&quot;)`.</code></pre>
+</div>
+<div id="applying-map-to-list-object-by-using-split" class="section level1">
+<h1>Applying map() to list object by using split()</h1>
+<ul>
+<li>Look “Unquoting” for as.name()</li>
+</ul>
+<pre class="r"><code>scatter_by2 &lt;- function(data, x, y) {
+#print(&quot;x is&quot;)
+# print(x) # error 
+  x &lt;- enquo(x)
+print(&quot;x is&quot;);print(x)
+print(&quot;y is&quot;);print(y)
+print(&quot;aes(!!x, !!y) is &quot;); print(aes(!!x, !!y))
+  ggplot(data) + geom_point(aes(!!x, !!y))
+}
+scatter_by2(mtcars, disp, &quot;drat&quot;) # does not work</code></pre>
+<pre><code>## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  global
+## [1] &quot;y is&quot;
+## [1] &quot;drat&quot;
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; &quot;drat&quot;</code></pre>
+<p><img src="/post/2020-12-24-useful-r-techniques-1_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>input &lt;- as.name(&quot;drat&quot;)
+scatter_by2(mtcars, disp, input) # does  work</code></pre>
+<pre><code>## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  global
+## [1] &quot;y is&quot;
+## drat
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `drat`</code></pre>
+<p><img src="/post/2020-12-24-useful-r-techniques-1_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<pre class="r"><code>scatter_by2(mtcars, disp, as.name(&quot;drat&quot;)) # does work</code></pre>
+<pre><code>## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  global
+## [1] &quot;y is&quot;
+## drat
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `drat`</code></pre>
+<p><img src="/post/2020-12-24-useful-r-techniques-1_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+<pre class="r"><code>parameters &lt;- names(mtcars)
+plot.list &lt;- tibble(parameters=names(mtcars)) %&gt;% split(.$parameters) %&gt;% map(~scatter_by2(mtcars, disp, as.name(.$parameters)))</code></pre>
+<pre><code>## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  0x7f81ae6435d0
+## [1] &quot;y is&quot;
+## am
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `am`
+## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  0x7f81adc10d58
+## [1] &quot;y is&quot;
+## carb
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `carb`
+## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  0x7f81abfb5ff0
+## [1] &quot;y is&quot;
+## cyl
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `cyl`
+## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  0x7f81ab8d3758
+## [1] &quot;y is&quot;
+## disp
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `disp`
+## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  0x7f81b20f9d00
+## [1] &quot;y is&quot;
+## drat
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `drat`
+## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  0x7f81b21b14e8
+## [1] &quot;y is&quot;
+## gear
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `gear`
+## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  0x7f81b0694158
+## [1] &quot;y is&quot;
+## hp
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `hp`
+## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  0x7f81b231fac0
+## [1] &quot;y is&quot;
+## mpg
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `mpg`
+## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  0x7f81b0af47c8
+## [1] &quot;y is&quot;
+## qsec
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `qsec`
+## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  0x7f81b128ca20
+## [1] &quot;y is&quot;
+## vs
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `vs`
+## [1] &quot;x is&quot;
+## &lt;quosure&gt;
+## expr: ^disp
+## env:  0x7f81b07a7f38
+## [1] &quot;y is&quot;
+## wt
+## [1] &quot;aes(!!x, !!y) is &quot;
+## Aesthetic mapping: 
+## * `x` -&gt; `disp`
+## * `y` -&gt; `wt`</code></pre>
+<pre class="r"><code>plot.list[[1]]</code></pre>
+<p><img src="/post/2020-12-24-useful-r-techniques-1_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>plot.list[[2]]</code></pre>
+<p><img src="/post/2020-12-24-useful-r-techniques-1_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<pre class="r"><code>plot.list[[3]]</code></pre>
+<p><img src="/post/2020-12-24-useful-r-techniques-1_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+</div>
+<div id="sample-data" class="section level1">
+<h1>sample data</h1>
+<pre class="r"><code>custom.categoreis.map &lt;- c(
+  &quot;cold_Kilian_2007.root.fits.summary.AGI.FC.csv.gz&quot;, 
+  &quot;cold_Kilian_2007.shoot.fits.summary.AGI.FC.csv.gz&quot;,    
+  &quot;Fe_def_KIM_2019_pnas.1916892116.sd01.csv&quot;,        
+  &quot;Heat_Kilian_2007.root.fits.summary.AGI.FC.csv.gz&quot;,
+  &quot;Heat_Kilian_2007.shoot.fits.summary.AGI.FC.csv.gz&quot;,
+  &quot;minusB_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;minusCa_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;minusCu_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;minusFe_Kailasam2019.DEGs.all.anno.csv.gz&quot;,
+  &quot;minusFe_Kim2019.fits.summary.AGI.FC.WT.csv.gz&quot;,
+  &quot;minusFe_Kim2019.fits.summary.locus.FC.WT.csv.gz&quot;,
+  &quot;minusFe_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;minusK_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;minusMg_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;minusMg_Niu_2016_root.DEGs.csv.gz&quot;,
+  &quot;minusMg_Niu_2016_shoot.DEGs.csv.gz&quot;,
+  &quot;minusMn_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;minusMn_Rodriguez-Celma_2016.DEGs.all.anno.csv.gz&quot;,
+  &quot;minusMo_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;minusN_Gutierrez_2007.root.fits.summary.AGI.FC.csv.gz&quot;,
+  &quot;minusN_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;minusN_Peng_2007.AGI.FC.csv.gz&quot;,
+  &quot;minusN_Peng_2007.Br.FC.csv.gz&quot;,
+  &quot;minusP_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;minusPi_1d_Liu_2016_root.DEGs.csv.gz&quot;,
+  &quot;minusPi_1d_Liu_2016_shoot.DEGs.csv.gz&quot;,
+  &quot;minusPi_3d_Liu_2016_root.DEGs.csv.gz&quot;,
+  &quot;minusPi_3d_Liu_2016_shoot.DEGs.csv.gz&quot;,
+  &quot;minusS_Aarabi2016.fits.summary.AGI.FC.csv.gz&quot;,
+  &quot;minusS_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;minusZn_Nishida_2017_root.DEGs.csv.gz&quot;,
+  &quot;plusAl_Ligaba-OSena_2017_root.DEGs.csv.gz&quot;,
+  &quot;plusAl_Ligaba-OSena_2017_shoot.DEGs.csv.gz&quot;,
+  &quot;plusIAA_Nemhauser_2006_seedlings.AGI.FC.csv.gz&quot;,
+  &quot;plusIAA_Nemhauser_2006_seedlings.Br.FC.csv.gz&quot;,
+  &quot;plusMg_Niu_2016_root.DEGs.csv.gz&quot;,
+  &quot;plusMg_Niu_2016_shoot.DEGs.csv.gz&quot;,
+  &quot;plusN_Wang2003.root.fits.summary.AGI.FC.csv.gz&quot;,
+  &quot;plusN_Wang2003.shoot.fits.summary.AGI.FC.csv.gz&quot;)</code></pre>
+<p>To extract Nishida’s DEGs, grep(value=TRUE) can be used for classic R.</p>
+<pre class="r"><code>custom.categoreis.map %&gt;% grep(pattern=&quot;Nishida&quot;,value=TRUE)</code></pre>
+<pre><code>##  [1] &quot;minusB_Nishida_2017_root.DEGs.csv.gz&quot; 
+##  [2] &quot;minusCa_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [3] &quot;minusCu_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [4] &quot;minusFe_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [5] &quot;minusK_Nishida_2017_root.DEGs.csv.gz&quot; 
+##  [6] &quot;minusMg_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [7] &quot;minusMn_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [8] &quot;minusMo_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [9] &quot;minusN_Nishida_2017_root.DEGs.csv.gz&quot; 
+## [10] &quot;minusP_Nishida_2017_root.DEGs.csv.gz&quot; 
+## [11] &quot;minusS_Nishida_2017_root.DEGs.csv.gz&quot; 
+## [12] &quot;minusZn_Nishida_2017_root.DEGs.csv.gz&quot;</code></pre>
+<p>The tidyverse way is using str_subset().</p>
+<pre class="r"><code>custom.categoreis.map %&gt;% str_subset(&quot;Nishida&quot;)</code></pre>
+<pre><code>##  [1] &quot;minusB_Nishida_2017_root.DEGs.csv.gz&quot; 
+##  [2] &quot;minusCa_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [3] &quot;minusCu_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [4] &quot;minusFe_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [5] &quot;minusK_Nishida_2017_root.DEGs.csv.gz&quot; 
+##  [6] &quot;minusMg_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [7] &quot;minusMn_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [8] &quot;minusMo_Nishida_2017_root.DEGs.csv.gz&quot;
+##  [9] &quot;minusN_Nishida_2017_root.DEGs.csv.gz&quot; 
+## [10] &quot;minusP_Nishida_2017_root.DEGs.csv.gz&quot; 
+## [11] &quot;minusS_Nishida_2017_root.DEGs.csv.gz&quot; 
+## [12] &quot;minusZn_Nishida_2017_root.DEGs.csv.gz&quot;</code></pre>
+<p>Other than “Nishida”. (classic R version)</p>
+<pre class="r"><code>custom.categoreis.map %&gt;% grep(pattern=&quot;Nishida&quot;,value=TRUE,invert=TRUE)</code></pre>
+<pre><code>##  [1] &quot;cold_Kilian_2007.root.fits.summary.AGI.FC.csv.gz&quot;     
+##  [2] &quot;cold_Kilian_2007.shoot.fits.summary.AGI.FC.csv.gz&quot;    
+##  [3] &quot;Fe_def_KIM_2019_pnas.1916892116.sd01.csv&quot;             
+##  [4] &quot;Heat_Kilian_2007.root.fits.summary.AGI.FC.csv.gz&quot;     
+##  [5] &quot;Heat_Kilian_2007.shoot.fits.summary.AGI.FC.csv.gz&quot;    
+##  [6] &quot;minusFe_Kailasam2019.DEGs.all.anno.csv.gz&quot;            
+##  [7] &quot;minusFe_Kim2019.fits.summary.AGI.FC.WT.csv.gz&quot;        
+##  [8] &quot;minusFe_Kim2019.fits.summary.locus.FC.WT.csv.gz&quot;      
+##  [9] &quot;minusMg_Niu_2016_root.DEGs.csv.gz&quot;                    
+## [10] &quot;minusMg_Niu_2016_shoot.DEGs.csv.gz&quot;                   
+## [11] &quot;minusMn_Rodriguez-Celma_2016.DEGs.all.anno.csv.gz&quot;    
+## [12] &quot;minusN_Gutierrez_2007.root.fits.summary.AGI.FC.csv.gz&quot;
+## [13] &quot;minusN_Peng_2007.AGI.FC.csv.gz&quot;                       
+## [14] &quot;minusN_Peng_2007.Br.FC.csv.gz&quot;                        
+## [15] &quot;minusPi_1d_Liu_2016_root.DEGs.csv.gz&quot;                 
+## [16] &quot;minusPi_1d_Liu_2016_shoot.DEGs.csv.gz&quot;                
+## [17] &quot;minusPi_3d_Liu_2016_root.DEGs.csv.gz&quot;                 
+## [18] &quot;minusPi_3d_Liu_2016_shoot.DEGs.csv.gz&quot;                
+## [19] &quot;minusS_Aarabi2016.fits.summary.AGI.FC.csv.gz&quot;         
+## [20] &quot;plusAl_Ligaba-OSena_2017_root.DEGs.csv.gz&quot;            
+## [21] &quot;plusAl_Ligaba-OSena_2017_shoot.DEGs.csv.gz&quot;           
+## [22] &quot;plusIAA_Nemhauser_2006_seedlings.AGI.FC.csv.gz&quot;       
+## [23] &quot;plusIAA_Nemhauser_2006_seedlings.Br.FC.csv.gz&quot;        
+## [24] &quot;plusMg_Niu_2016_root.DEGs.csv.gz&quot;                     
+## [25] &quot;plusMg_Niu_2016_shoot.DEGs.csv.gz&quot;                    
+## [26] &quot;plusN_Wang2003.root.fits.summary.AGI.FC.csv.gz&quot;       
+## [27] &quot;plusN_Wang2003.shoot.fits.summary.AGI.FC.csv.gz&quot;</code></pre>
+<p>Other than “Nishida”. (tidyverse version)</p>
+<pre class="r"><code>custom.categoreis.map %&gt;% str_subset(&quot;Nishida&quot;,negate=TRUE)</code></pre>
+<pre><code>##  [1] &quot;cold_Kilian_2007.root.fits.summary.AGI.FC.csv.gz&quot;     
+##  [2] &quot;cold_Kilian_2007.shoot.fits.summary.AGI.FC.csv.gz&quot;    
+##  [3] &quot;Fe_def_KIM_2019_pnas.1916892116.sd01.csv&quot;             
+##  [4] &quot;Heat_Kilian_2007.root.fits.summary.AGI.FC.csv.gz&quot;     
+##  [5] &quot;Heat_Kilian_2007.shoot.fits.summary.AGI.FC.csv.gz&quot;    
+##  [6] &quot;minusFe_Kailasam2019.DEGs.all.anno.csv.gz&quot;            
+##  [7] &quot;minusFe_Kim2019.fits.summary.AGI.FC.WT.csv.gz&quot;        
+##  [8] &quot;minusFe_Kim2019.fits.summary.locus.FC.WT.csv.gz&quot;      
+##  [9] &quot;minusMg_Niu_2016_root.DEGs.csv.gz&quot;                    
+## [10] &quot;minusMg_Niu_2016_shoot.DEGs.csv.gz&quot;                   
+## [11] &quot;minusMn_Rodriguez-Celma_2016.DEGs.all.anno.csv.gz&quot;    
+## [12] &quot;minusN_Gutierrez_2007.root.fits.summary.AGI.FC.csv.gz&quot;
+## [13] &quot;minusN_Peng_2007.AGI.FC.csv.gz&quot;                       
+## [14] &quot;minusN_Peng_2007.Br.FC.csv.gz&quot;                        
+## [15] &quot;minusPi_1d_Liu_2016_root.DEGs.csv.gz&quot;                 
+## [16] &quot;minusPi_1d_Liu_2016_shoot.DEGs.csv.gz&quot;                
+## [17] &quot;minusPi_3d_Liu_2016_root.DEGs.csv.gz&quot;                 
+## [18] &quot;minusPi_3d_Liu_2016_shoot.DEGs.csv.gz&quot;                
+## [19] &quot;minusS_Aarabi2016.fits.summary.AGI.FC.csv.gz&quot;         
+## [20] &quot;plusAl_Ligaba-OSena_2017_root.DEGs.csv.gz&quot;            
+## [21] &quot;plusAl_Ligaba-OSena_2017_shoot.DEGs.csv.gz&quot;           
+## [22] &quot;plusIAA_Nemhauser_2006_seedlings.AGI.FC.csv.gz&quot;       
+## [23] &quot;plusIAA_Nemhauser_2006_seedlings.Br.FC.csv.gz&quot;        
+## [24] &quot;plusMg_Niu_2016_root.DEGs.csv.gz&quot;                     
+## [25] &quot;plusMg_Niu_2016_shoot.DEGs.csv.gz&quot;                    
+## [26] &quot;plusN_Wang2003.root.fits.summary.AGI.FC.csv.gz&quot;       
+## [27] &quot;plusN_Wang2003.shoot.fits.summary.AGI.FC.csv.gz&quot;</code></pre>
+</div>
+<div id="ggplot-legend-size" class="section level1">
+<h1>ggplot legend size</h1>
+<pre class="r"><code>df &lt;- expand.grid(X1 = 1:10, X2 = 1:10)
+df$value &lt;- df$X1 * df$X2
+
+p1 &lt;- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
+p2 &lt;- p1 + geom_point(aes(size = value))
+p2 + theme(legend.key.size= unit(2, &quot;cm&quot;))</code></pre>
+<p><img src="/post/2020-12-24-useful-r-techniques-1_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r"><code>p2 + theme(legend.key.width= unit(2, &quot;cm&quot;))</code></pre>
+<p><img src="/post/2020-12-24-useful-r-techniques-1_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<pre class="r"><code>p2 + theme(legend.key.height= unit(2, &quot;cm&quot;))</code></pre>
+<p><img src="/post/2020-12-24-useful-r-techniques-1_files/figure-html/unnamed-chunk-9-3.png" width="672" /></p>
+</div>
+<div id="pivot_longer-pivot_wider" class="section level1">
+<h1>pivot_longer, pivot_wider</h1>
+<ul>
+<li>Those are cited from</li>
+</ul>
+<pre class="r"><code>vignette(&quot;pivot&quot;)</code></pre>
+<pre><code>## starting httpd help server ... done</code></pre>
+<ul>
+<li>The dataset (“relig_income”) contains three variables: religion, stored in the rows, income spread across the column names, and count stored in the cell values.</li>
+<li>To tidy it we use pivot_longer():</li>
+</ul>
+<pre class="r"><code>relig_income</code></pre>
+<pre><code>## # A tibble: 18 x 11
+##    religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k`
+##    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Agnostic      27        34        60        81        76       137        122
+##  2 Atheist       12        27        37        52        35        70         73
+##  3 Buddhist      27        21        30        34        33        58         62
+##  4 Catholic     418       617       732       670       638      1116        949
+##  5 Don’t k…      15        14        15        11        10        35         21
+##  6 Evangel…     575       869      1064       982       881      1486        949
+##  7 Hindu          1         9         7         9        11        34         47
+##  8 Histori…     228       244       236       238       197       223        131
+##  9 Jehovah…      20        27        24        24        21        30         15
+## 10 Jewish        19        19        25        25        30        95         69
+## 11 Mainlin…     289       495       619       655       651      1107        939
+## 12 Mormon        29        40        48        51        56       112         85
+## 13 Muslim         6         7         9        10         9        23         16
+## 14 Orthodox      13        17        23        32        32        47         38
+## 15 Other C…       9         7        11        13        13        14         18
+## 16 Other F…      20        33        40        46        49        63         46
+## 17 Other W…       5         2         3         4         2         7          3
+## 18 Unaffil…     217       299       374       365       341       528        407
+## # … with 3 more variables: `$100-150k` &lt;dbl&gt;, `&gt;150k` &lt;dbl&gt;, `Don&#39;t
+## #   know/refused` &lt;dbl&gt;</code></pre>
+<pre class="r"><code>relig_income %&gt;% pivot_longer(-religion, names_to = &quot;income&quot;, values_to = &quot;count&quot;)</code></pre>
+<pre><code>## # A tibble: 180 x 3
+##    religion income             count
+##    &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;
+##  1 Agnostic &lt;$10k                 27
+##  2 Agnostic $10-20k               34
+##  3 Agnostic $20-30k               60
+##  4 Agnostic $30-40k               81
+##  5 Agnostic $40-50k               76
+##  6 Agnostic $50-75k              137
+##  7 Agnostic $75-100k             122
+##  8 Agnostic $100-150k            109
+##  9 Agnostic &gt;150k                 84
+## 10 Agnostic Don&#39;t know/refused    96
+## # … with 170 more rows</code></pre>
+<ul>
+<li><p>The first argument is the dataset to reshape, relig_income.</p></li>
+<li><p>The second argument describes which columns need to be reshaped. In this case, it’s every column apart from religion.</p></li>
+<li><p>The names_to gives the name of the variable that will be created from the data stored in the column names, i.e. income.</p></li>
+<li><p>The values_to gives the name of the variable that will be created from the data stored in the cell value, i.e. count.</p></li>
+<li><p>Neither the names_to nor the values_to column exists in relig_income, so we provide them as character strings surrounded in quotes.</p></li>
+</ul>
+</div>
+<div id="numeric-data-in-column-names" class="section level1">
+<h1>Numeric data in column names</h1>
+<pre class="r"><code>billboard</code></pre>
+<pre><code>## # A tibble: 317 x 79
+##    artist track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
+##    &lt;chr&gt;  &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 2 Pac  Baby… 2000-02-26      87    82    72    77    87    94    99    NA
+##  2 2Ge+h… The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA
+##  3 3 Doo… Kryp… 2000-04-08      81    70    68    67    66    57    54    53
+##  4 3 Doo… Loser 2000-10-21      76    76    72    69    67    65    55    59
+##  5 504 B… Wobb… 2000-04-15      57    34    25    17    17    31    36    49
+##  6 98^0   Give… 2000-08-19      51    39    34    26    26    19     2     2
+##  7 A*Tee… Danc… 2000-07-08      97    97    96    95   100    NA    NA    NA
+##  8 Aaliy… I Do… 2000-01-29      84    62    51    41    38    35    35    38
+##  9 Aaliy… Try … 2000-03-18      59    53    38    28    21    18    16    14
+## 10 Adams… Open… 2000-08-26      76    76    74    69    68    67    61    58
+## # … with 307 more rows, and 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;,
+## #   wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;, wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;,
+## #   wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;, wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;,
+## #   wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;, wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;,
+## #   wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;,
+## #   wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;,
+## #   wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;,
+## #   wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, wk49 &lt;dbl&gt;, wk50 &lt;dbl&gt;, wk51 &lt;dbl&gt;, wk52 &lt;dbl&gt;,
+## #   wk53 &lt;dbl&gt;, wk54 &lt;dbl&gt;, wk55 &lt;dbl&gt;, wk56 &lt;dbl&gt;, wk57 &lt;dbl&gt;, wk58 &lt;dbl&gt;,
+## #   wk59 &lt;dbl&gt;, wk60 &lt;dbl&gt;, wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;,
+## #   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;,
+## #   wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</code></pre>
+<pre class="r"><code>billboard %&gt;% 
+  pivot_longer(
+    cols = starts_with(&quot;wk&quot;), 
+    names_to = &quot;week&quot;, 
+    values_to = &quot;rank&quot;,
+    values_drop_na = TRUE
+  )</code></pre>
+<pre><code>## # A tibble: 5,307 x 5
+##    artist  track                   date.entered week   rank
+##    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;
+##  1 2 Pac   Baby Don&#39;t Cry (Keep... 2000-02-26   wk1      87
+##  2 2 Pac   Baby Don&#39;t Cry (Keep... 2000-02-26   wk2      82
+##  3 2 Pac   Baby Don&#39;t Cry (Keep... 2000-02-26   wk3      72
+##  4 2 Pac   Baby Don&#39;t Cry (Keep... 2000-02-26   wk4      77
+##  5 2 Pac   Baby Don&#39;t Cry (Keep... 2000-02-26   wk5      87
+##  6 2 Pac   Baby Don&#39;t Cry (Keep... 2000-02-26   wk6      94
+##  7 2 Pac   Baby Don&#39;t Cry (Keep... 2000-02-26   wk7      99
+##  8 2Ge+her The Hardest Part Of ... 2000-09-02   wk1      91
+##  9 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87
+## 10 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92
+## # … with 5,297 more rows</code></pre>
+<pre class="r"><code>billboard %&gt;% 
+  pivot_longer(
+    cols = starts_with(&quot;wk&quot;), 
+    names_to = &quot;week&quot;, 
+    names_prefix = &quot;wk&quot;,
+    names_ptypes = list(week = integer()),
+    values_to = &quot;rank&quot;,
+    values_drop_na = TRUE,
+  )</code></pre>
+<pre><code>## Error: Can&#39;t convert &lt;character&gt; to &lt;integer&gt;.</code></pre>
+<pre class="r"><code>who</code></pre>
+<pre><code>## # A tibble: 7,240 x 60
+##    country iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534 new_sp_m3544
+##    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;       &lt;int&gt;        &lt;int&gt;        &lt;int&gt;        &lt;int&gt;
+##  1 Afghan… AF    AFG    1980          NA           NA           NA           NA
+##  2 Afghan… AF    AFG    1981          NA           NA           NA           NA
+##  3 Afghan… AF    AFG    1982          NA           NA           NA           NA
+##  4 Afghan… AF    AFG    1983          NA           NA           NA           NA
+##  5 Afghan… AF    AFG    1984          NA           NA           NA           NA
+##  6 Afghan… AF    AFG    1985          NA           NA           NA           NA
+##  7 Afghan… AF    AFG    1986          NA           NA           NA           NA
+##  8 Afghan… AF    AFG    1987          NA           NA           NA           NA
+##  9 Afghan… AF    AFG    1988          NA           NA           NA           NA
+## 10 Afghan… AF    AFG    1989          NA           NA           NA           NA
+## # … with 7,230 more rows, and 52 more variables: new_sp_m4554 &lt;int&gt;,
+## #   new_sp_m5564 &lt;int&gt;, new_sp_m65 &lt;int&gt;, new_sp_f014 &lt;int&gt;,
+## #   new_sp_f1524 &lt;int&gt;, new_sp_f2534 &lt;int&gt;, new_sp_f3544 &lt;int&gt;,
+## #   new_sp_f4554 &lt;int&gt;, new_sp_f5564 &lt;int&gt;, new_sp_f65 &lt;int&gt;,
+## #   new_sn_m014 &lt;int&gt;, new_sn_m1524 &lt;int&gt;, new_sn_m2534 &lt;int&gt;,
+## #   new_sn_m3544 &lt;int&gt;, new_sn_m4554 &lt;int&gt;, new_sn_m5564 &lt;int&gt;,
+## #   new_sn_m65 &lt;int&gt;, new_sn_f014 &lt;int&gt;, new_sn_f1524 &lt;int&gt;,
+## #   new_sn_f2534 &lt;int&gt;, new_sn_f3544 &lt;int&gt;, new_sn_f4554 &lt;int&gt;,
+## #   new_sn_f5564 &lt;int&gt;, new_sn_f65 &lt;int&gt;, new_ep_m014 &lt;int&gt;,
+## #   new_ep_m1524 &lt;int&gt;, new_ep_m2534 &lt;int&gt;, new_ep_m3544 &lt;int&gt;,
+## #   new_ep_m4554 &lt;int&gt;, new_ep_m5564 &lt;int&gt;, new_ep_m65 &lt;int&gt;,
+## #   new_ep_f014 &lt;int&gt;, new_ep_f1524 &lt;int&gt;, new_ep_f2534 &lt;int&gt;,
+## #   new_ep_f3544 &lt;int&gt;, new_ep_f4554 &lt;int&gt;, new_ep_f5564 &lt;int&gt;,
+## #   new_ep_f65 &lt;int&gt;, newrel_m014 &lt;int&gt;, newrel_m1524 &lt;int&gt;,
+## #   newrel_m2534 &lt;int&gt;, newrel_m3544 &lt;int&gt;, newrel_m4554 &lt;int&gt;,
+## #   newrel_m5564 &lt;int&gt;, newrel_m65 &lt;int&gt;, newrel_f014 &lt;int&gt;,
+## #   newrel_f1524 &lt;int&gt;, newrel_f2534 &lt;int&gt;, newrel_f3544 &lt;int&gt;,
+## #   newrel_f4554 &lt;int&gt;, newrel_f5564 &lt;int&gt;, newrel_f65 &lt;int&gt;</code></pre>
+<pre class="r"><code>who %&gt;% pivot_longer(
+  cols = new_sp_m014:newrel_f65,
+  names_to = c(&quot;diagnosis&quot;, &quot;gender&quot;, &quot;age&quot;), 
+  names_pattern = &quot;new_?(.*)_(.)(.*)&quot;,
+  values_to = &quot;count&quot;
+)</code></pre>
+<pre><code>## # A tibble: 405,440 x 8
+##    country     iso2  iso3   year diagnosis gender age   count
+##    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;
+##  1 Afghanistan AF    AFG    1980 sp        m      014      NA
+##  2 Afghanistan AF    AFG    1980 sp        m      1524     NA
+##  3 Afghanistan AF    AFG    1980 sp        m      2534     NA
+##  4 Afghanistan AF    AFG    1980 sp        m      3544     NA
+##  5 Afghanistan AF    AFG    1980 sp        m      4554     NA
+##  6 Afghanistan AF    AFG    1980 sp        m      5564     NA
+##  7 Afghanistan AF    AFG    1980 sp        m      65       NA
+##  8 Afghanistan AF    AFG    1980 sp        f      014      NA
+##  9 Afghanistan AF    AFG    1980 sp        f      1524     NA
+## 10 Afghanistan AF    AFG    1980 sp        f      2534     NA
+## # … with 405,430 more rows</code></pre>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2020/04/18/native-plant-project-v2-march-april-2020.html">Native_plant_project_v2_March_April_2020 &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+
