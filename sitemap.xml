@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://knozue.github.io/post/2021/01/01/heart-rate-data-analysis1.html</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://knozue.github.io/post/2020/12/24/useful-r-techniques-1.html</loc>
     <lastmod>2020-12-24T00:00:00+00:00</lastmod>
   </url>
@@ -188,6 +193,12 @@
   </url>
   
   <url>
+    <loc>https://knozue.github.io/tags/apple-watch.html</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://knozue.github.io/tags/artistic-swimming.html</loc>
     <lastmod>2018-11-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -206,7 +217,7 @@
   
   <url>
     <loc>https://knozue.github.io/</loc>
-    <lastmod>2020-12-24T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -260,7 +271,7 @@
   
   <url>
     <loc>https://knozue.github.io/post.html</loc>
-    <lastmod>2020-12-24T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -272,7 +283,7 @@
   
   <url>
     <loc>https://knozue.github.io/tags/r.html</loc>
-    <lastmod>2020-12-24T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -284,7 +295,7 @@
   
   <url>
     <loc>https://knozue.github.io/tags/rstudio.html</loc>
-    <lastmod>2019-01-30T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -302,7 +313,7 @@
   
   <url>
     <loc>https://knozue.github.io/tags.html</loc>
-    <lastmod>2018-11-06T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -332,7 +343,7 @@
   
   <url>
     <loc>https://knozue.github.io/categories/data-analysis.html</loc>
-    <lastmod>2020-12-24T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -350,7 +361,7 @@
   
   <url>
     <loc>https://knozue.github.io/tags/ggplot2.html</loc>
-    <lastmod>2020-12-24T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -404,7 +415,7 @@
   
   <url>
     <loc>https://knozue.github.io/categories/sports.html</loc>
-    <lastmod>2019-12-29T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

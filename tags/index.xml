@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 06 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 01 Jan 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Apple Watch</title>
+      <link>https://knozue.github.io/tags/apple-watch.html</link>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/tags/apple-watch.html</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Artistic Swimming</title>
@@ -104,7 +113,7 @@
     <item>
       <title>R</title>
       <link>https://knozue.github.io/tags/r.html</link>
-      <pubDate>Thu, 24 Dec 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/tags/r.html</guid>
       <description></description>
@@ -122,7 +131,7 @@
     <item>
       <title>RStudio</title>
       <link>https://knozue.github.io/tags/rstudio.html</link>
-      <pubDate>Wed, 30 Jan 2019 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/tags/rstudio.html</guid>
       <description></description>
@@ -185,7 +194,7 @@
     <item>
       <title>ggplot2</title>
       <link>https://knozue.github.io/tags/ggplot2.html</link>
-      <pubDate>Thu, 24 Dec 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/tags/ggplot2.html</guid>
       <description></description>
