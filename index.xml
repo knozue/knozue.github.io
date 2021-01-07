@@ -6,10 +6,20 @@
     <description>Recent content on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 Jan 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Heat pump water heater</title>
+      <link>https://knozue.github.io/post/2021/01/07/heat-pump-water-heater.html</link>
+      <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2021/01/07/heat-pump-water-heater.html</guid>
+      <description>reading packages library(tidyverse) library(lubridate) library(scales) Buring gas produce CO2. Reducing gas usage is critical to reduce CO2 production from our house. Here is the history of our gas usage of my house since 2012 November.
+# reading data gasdata &amp;lt;- read.csv(file.path(&amp;quot;/Volumes&amp;quot;,&amp;quot;data_personal&amp;quot;,&amp;quot;Kazu_blog&amp;quot;,&amp;quot;resources&amp;quot;,&amp;quot;pge_gas_billing_data_8882170746_2012-11-14_to_2020-10-09.csv&amp;quot;),skip=5) # data format summary(gasdata) ## TYPE START.DATE END.DATE USAGE UNITS ## Natural gas billing:95 1/10/13: 1 1/8/17 : 1 Min. : 2.00 therms:95 ## 1/10/14: 1 1/8/18 : 1 1st Qu.</description>
+    </item>
     
     <item>
       <title>Heart_rate_data_analysis1</title>
@@ -17,7 +27,7 @@
       <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/post/2021/01/01/heart-rate-data-analysis1.html</guid>
-      <description>An Apple watch measures heart rate and you can download its raw data. Here I plotted my daughter’s data in this year. Please see Taras Kaduk’s blog ( https://taraskaduk.com/2019/03/23/apple-health/) for details.  Reading downloaded health data from an Apple watch. path=&amp;quot;/Volumes/data_personal/Kazu_blog/resources&amp;quot; #zip &amp;lt;- paste(path, &amp;#39;export_Mana_101320.zip&amp;#39;, sep = &amp;#39;/&amp;#39;) zip &amp;lt;- paste(path, &amp;#39;export_Mana_122620.zip&amp;#39;, sep = &amp;#39;/&amp;#39;) unzip(zip, exdir = path) Sys.sleep(3) # pause for 3 seconds to let your computer unzip it.</description>
+      <description>An Apple watch measures heart rate and you can download its raw data. Here I plotted my daughter’s data in this year. Please see Taras Kaduk’s blog ( https://taraskaduk.com/2019/03/23/apple-health/) for details.  library(XML) library(tidyverse) library(lubridate) library(scales) library(ggthemes) Reading downloaded health data from an Apple watch. path=&amp;quot;/Volumes/data_personal/Kazu_blog/resources&amp;quot; #zip &amp;lt;- paste(path, &amp;#39;export_Mana_101320.zip&amp;#39;, sep = &amp;#39;/&amp;#39;) zip &amp;lt;- paste(path, &amp;#39;export_Mana_122620.zip&amp;#39;, sep = &amp;#39;/&amp;#39;) unzip(zip, exdir = path) Sys.sleep(3) # pause for 3 seconds to let your computer unzip it.</description>
     </item>
     
     <item>

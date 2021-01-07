@@ -72,6 +72,11 @@
 <ul>
 <li>An Apple watch measures heart rate and you can download its raw data. Here I plotted my daughter’s data in this year. Please see Taras Kaduk’s blog ( <a href="https://taraskaduk.com/2019/03/23/apple-health/" class="uri">https://taraskaduk.com/2019/03/23/apple-health/</a>) for details.</li>
 </ul>
+<pre class="r"><code>library(XML)
+library(tidyverse)
+library(lubridate)
+library(scales)
+library(ggthemes)</code></pre>
 <div id="reading-downloaded-health-data-from-an-apple-watch." class="section level1">
 <h1>Reading downloaded health data from an Apple watch.</h1>
 <pre class="r"><code>path=&quot;/Volumes/data_personal/Kazu_blog/resources&quot;
@@ -252,7 +257,7 @@ pHRmonth + geom_text(data = df3.text,mapping=aes(label = label),size=3)</code></
 
 
 <nav class="post-nav">
-  <span class="nav-prev"></span>
+  <span class="nav-prev"><a href="/post/2021/01/07/heat-pump-water-heater.html">&larr; Heat pump water heater</a></span>
   <span class="nav-next"><a href="/post/2020/12/24/useful-r-techniques-1.html">Useful R techniques 1 &rarr;</a></span>
 </nav>
 

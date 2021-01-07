@@ -6,10 +6,20 @@
     <description>Recent content in California on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 Jan 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://knozue.github.io/tags/california/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Heat pump water heater</title>
+      <link>https://knozue.github.io/post/2021/01/07/heat-pump-water-heater.html</link>
+      <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2021/01/07/heat-pump-water-heater.html</guid>
+      <description>reading packages library(tidyverse) library(lubridate) library(scales) Buring gas produce CO2. Reducing gas usage is critical to reduce CO2 production from our house. Here is the history of our gas usage of my house since 2012 November.
+# reading data gasdata &amp;lt;- read.csv(file.path(&amp;quot;/Volumes&amp;quot;,&amp;quot;data_personal&amp;quot;,&amp;quot;Kazu_blog&amp;quot;,&amp;quot;resources&amp;quot;,&amp;quot;pge_gas_billing_data_8882170746_2012-11-14_to_2020-10-09.csv&amp;quot;),skip=5) # data format summary(gasdata) ## TYPE START.DATE END.DATE USAGE UNITS ## Natural gas billing:95 1/10/13: 1 1/8/17 : 1 Min. : 2.00 therms:95 ## 1/10/14: 1 1/8/18 : 1 1st Qu.</description>
+    </item>
     
     <item>
       <title>Native_plant_project_v2_March_April_2020</title>
