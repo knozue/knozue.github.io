@@ -1,0 +1,50 @@
+---
+title: How to make QR code in Google Sheet using Integromat.com.
+author: Kazu Nozue
+date: '2018-09-18'
+categories:
+  - data-analysis
+  - project-management
+tags:
+  - Google-Drive
+  - Google-Sheet
+  - Integromat.com
+  - QR-code
+slug: how-to-make-qr-code-in-google-sheet-using-integromat-com
+---
+
+# **How to make QR code in google sheet using Integromat.com.**
+
+The goal of this section is to create QRcode in Google Sheet
+
+<img src="/post/2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com_files/GoogleSheet_QRcode2_Screen Shot 2018-09-19 at 7.43.47 AM.png" width=400px align="top">
+
+by using Intergromat.com[^1]!
+
+<img src="/post/2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com_files/QRcode_generator1_Kazu2a_Screen Shot 2018-09-19 at 7.19.12 AM.png" width=400px align="middle" alt="QRcode generator1a">
+
+
+## Outline
+
+(@) Create [Integromat.com](https://www.integromat.com) account (free for 100 MB transfer and/or 1000 operation)
+(@) Link Integromat.com account to your Google accout (for using Google Driv, Sheet)
+(@) Create a new Google sheet with "sample","url","QRcode" columns.
+(@) Create a new Scenario and run once to test it.
+
+## How to create QRcode generator scenario.
+
+(@) Follow directions to create a new scenario (Tutorials in [help](https://support.integromat.com/hc/en-us) in Integromat.com is useful).
+(@) Details of my QRcode generator v1 is described below.
+
+<img src="/post/2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com_files/QRcode_generator1_Kazu2b_Screen Shot 2018-09-19 at 7.19.08 AM.png" width=400px align="middle" alt="QRcode generator1b">
+
+<img src="/post/2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com_files/QRcode_generator1_Kazu2c_Screen Shot 2018-09-19 at 7.18.55 AM.png" width=400px align="middle" alt="QRcode generator1c">
+
+<img src="/post/2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com_files/QRcode_generator1_Kazu2d_Screen Shot 2018-09-19 at 7.24.51 AM.png" width=400px align="middle" alt="QRcode generator1d">
+
+<img src="/post/2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com_files/QRcode_generator1_Kazu2e_Screen Shot 2018-09-19 at 7.18.47 AM.png" width=400px align="middle" alt="QRcode generator1e">
+
+<img src="/post/2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com_files/QRcode_generator1_Kazu2a_Screen Shot 2018-09-19 at 7.19.12 AM.png" width=400px align="middle" alt="QRcode generator1a">
+
+***
+[^1]:Another way is to use Google Sheet Add-on, [QR code generator](https://chrome.google.com/webstore/detail/qr-code-generator/lofihghpipjlmpcnigcopahlpaopcoaa?hl=en-US)

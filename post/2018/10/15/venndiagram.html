@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>VennDiagram | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-10-15</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+  </div>
+
+  <h1><span class="title">VennDiagram</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/reproducibility">reproducibility</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="how-to-draw-venndiagram" class="section level1">
+<h1>How to draw VennDiagram?</h1>
+</div>
+<div id="sample" class="section level1">
+<h1>sample</h1>
+<pre class="r"><code># 
+library(limma)
+library(tidyverse)
+library(ggforce)
+set.seed((123))
+mydata &lt;- data.frame(A = rbinom(100, 1, 0.8),
+                     B = rbinom(100, 1, 0.7),
+                     C = rbinom(100, 1, 0.6)) %&gt;%
+                       mutate_all(., as.logical)
+# drawing circle
+df.venn &lt;- data.frame(x = c(0, 0.866, -0.866),
+                      y = c(1, -0.5, -0.5),
+                      labels = c(&#39;A&#39;, &#39;B&#39;, &#39;C&#39;))
+ggplot(df.venn, aes(x0 = x, y0 = y, r = 1.5, fill = labels)) +
+    geom_circle(alpha = .3, size = 1, colour = &#39;grey&#39;) +
+      coord_fixed() +
+        theme_void()
+# 
+vdc &lt;- vennCounts(mydata)
+class(vdc) &lt;- &#39;matrix&#39;
+df.vdc &lt;- as.data.frame(vdc)[-1,] %&gt;% # remove no overlaps
+  mutate(x = c(0, 1.2, 0.8, -1.2, -0.8, 0, 0),
+         y = c(1.2, -0.6, 0.5, -0.6, 0.5, -1, 0)) # position for numbers
+# final plot
+ggplot(df.venn) +
+  geom_circle(aes(x0 = x, y0 = y, r = 1.5, fill = labels), alpha = .3, size = 1, colour = &#39;grey&#39;) +
+  coord_fixed() +
+  theme_void() +
+  theme(legend.position = &#39;bottom&#39;) +
+  scale_fill_manual(values = c(&#39;cornflowerblue&#39;, &#39;firebrick&#39;,  &#39;gold&#39;)) +
+  scale_colour_manual(values = c(&#39;cornflowerblue&#39;, &#39;firebrick&#39;, &#39;gold&#39;), guide = FALSE) +
+  labs(fill = NULL) +
+  annotate(&quot;text&quot;, x = df.vdc$x, y = df.vdc$y, label = df.vdc$Counts, size = 5)</code></pre>
+</div>
+<div id="using-differentially-expressed-genes" class="section level1">
+<h1>Using differentially expressed genes</h1>
+</div>
+<div id="making-a-function" class="section level1">
+<h1>Making a function</h1>
+<pre class="r"><code>genes.in.enriched.category&lt;-function(enrich.result,gene.list,category.table=Atgoslim.TAIR.BP.list) { # return data frame with all input data with ... which format is good? VennDiagram input format?  
+  enrich.category&lt;-enrich.result[enrich.result$over_represented_pvalue&lt;0.05,&quot;category&quot;]
+  temp&lt;-category.table[gene.list] # short category.table for enriched.result # gene.list shas to be character (not factor)  
+  #names(temp[!is.na(names(temp))])
+  temp&lt;-temp[!is.na(names(temp))] # remove non matched AGI
+  test&lt;-data.frame(AGI=names(temp))
+  for(i in enrich.category) {
+    x&lt;-rep(0,length(names(temp)))
+    x[grep(i,temp)]&lt;-1
+    test&lt;-cbind(test,x)
+    names(test)[dim(test)[2]]&lt;-i
+  }
+  return(test) 
+}</code></pre>
+</div>
+<div id="overlap-between-degs" class="section level1">
+<h1>Overlap between DEGs</h1>
+<pre class="r"><code># read csv files
+
+# making summary table
+
+# convert into count table
+
+# plot (classical way)</code></pre>
+</div>
+<div id="ref" class="section level1">
+<h1>Ref</h1>
+<p><a href="https://scriptsandstatistics.wordpress.com/2018/04/26/how-to-plot-venn-diagrams-using-r-ggplot2-and-ggforce/">norbert’s blog</a> <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/systemPipeR/inst/doc/systemPipeR.html">systemPipeR package</a></p>
+<!-- Amazon Associate ad, KazuRbook1-->
+<div id="amzn-assoc-ad-99af12ae-45ba-4556-8dc6-e84f97060807">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=99af12ae-45ba-4556-8dc6-e84f97060807"></script>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/10/17/over-representation-analysis-3-goseq-with-non-model-go-term.html">&larr; Over-representation analysis 3: GOseq with GO term in non-model organisms</a></span>
+  <span class="nav-next"><a href="/post/2018/10/12/merging-two-branches-in-git.html">Merging two branches in Git  &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

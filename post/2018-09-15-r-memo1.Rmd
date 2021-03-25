@@ -1,0 +1,10 @@
+---
+title: R memo1
+author: Kazu Nozue
+date: '2018-09-15'
+categories:
+  - data-analysis
+tags:
+  - R
+slug: r-memo1
+---

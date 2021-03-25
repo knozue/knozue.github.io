@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Needs more cargo space in electric vehicles! | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2019-03-30</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+     &hercon; <a href="/categories/ev">EV</a>
+  
+  </div>
+
+  <h1><span class="title">Needs more cargo space in electric vehicles!</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/california">California</a>; <a href="/tags/ggplot2">ggplot2</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="advantages-of-electric-vehicles" class="section level1">
+<h1>Advantages of electric vehicles</h1>
+<p>Electric vehicle (EV) became popular in <a href="https://en.wikipedia.org/wiki/Plug-in_electric_vehicles_in_California">California</a>. Recently I can find more than one <a href="https://www.tesla.com/">Tesla</a> car during my daily commute. There are a couple of advantages of EV compared with gas powered vehicles; (1) higher cost efficiency (higher MPGe<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>), (2) lower maintainance cost, and (3) tax incentives and rebate (read <a href="https://www.energysage.com/electric-vehicles/costs-and-benefits-evs/evs-vs-fossil-fuel-vehicles/">an article in energysage.com</a>, <a href="https://www.pge.com/en_US/residential/solar-and-vehicles/options/clean-vehicles/electric/electric.page?ctx=residential">one in a utility company</a>, and <a href="https://www.fueleconomy.gov/feg/evsplash.shtml">a site from U.S. Department of Energy</a>).</p>
+</div>
+<div id="long-range-ev-and-increasing-number-of-charging-points-are-good-for-daily-driving" class="section level1">
+<h1>Long-range EV and increasing number of charging points are good for daily driving?</h1>
+<pre class="r"><code>EV.data  %&gt;% filter(type==&quot;EV&quot;) %&gt;% ggplot(aes(x=`battery capacity (kW)`,y=range,color=make)) + geom_point() + scale_y_continuous(limits=c(0,350)) + scale_x_continuous(limits=c(0,100)) + theme(legend.position=&quot;bottom&quot;) + labs(x=&quot;Battery capacity (kW)&quot;, y=&quot;Driving range (mile)&quot;, title=&quot;Fig. 1&quot;)</code></pre>
+<p><img src="/post/2019-03-30-needs-more-cargo-space-in-electric-vehicles_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Average of daily commute distance in US is <a href="http://www.solarjourneyusa.com/EVdistanceAnalysis.php">13.6 miles in 2009 National Household travel Survey (NHTS)</a> and 95% of commute is less than 40 miles. Due to increasing Lithium battery capacity, recent EV models (such as Tesla, Nissan Leaf plus, Chevy Bolt, Hyndai Kona, etc) can drive more than 200 miles with one fully charged battery (see Fig. 1 redrawn from <a href="https://insideevs.com/compare-plug-ins/">a comparison Table in insideEVs.com</a>), which is sufficient for most of car commuters. However, we need to drive beween our kid school and a pool (for synchronized swimming practice) in addition to commute to work place, resulting 130 miles per day. Furthermore, there are increased density of public available charging stations found in <a href="https://na.chargepoint.com/charge_point">ChargePoint netwowrk</a>, for example. So it seems a recent progress of EV world is perfect for us.</p>
+</div>
+<div id="needs-more-cargo-space" class="section level1">
+<h1>Needs more cargo space!</h1>
+<p>I noticed that an important aspect of car specification is missing in almost all articles on EV; cargo space. I assume that for most of daily commuters do not need large cargo space. However our car needs relatively large cargo space to carry bags for works and school as well as many stuffs for synchronized swimming practices, such as a yoga mat, two square water carrier jug/container, snacs, water bottle, and another bag for swimming. Our current compact car has 17 cubit feet, which is not sufficient. Adding cargo volume data to the table, I found that there are only few EVs has cargo space larger than 20 cubic feet. Furthermore, there seems no correlation between price and cargo volume (Fig. 2), meaning that cargo volume is not important factor to determine price (MSRP)<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. Moreover, there are no high correlation between any of other parameters. <strong>Please make SUVs with larger cargo space at low price!</strong></p>
+<p><a href="http://ggobi.github.io/ggally/#ggallyggpairs">GGally package</a> is used to draw Fig. 2.</p>
+<pre class="r"><code>EV.data  %&gt;% filter(type==&quot;EV&quot;)  %&gt;% ggpairs(columns=c(&quot;range&quot;,&quot;mpge&quot;,&quot;cargo_volume_cu_ft&quot;,&quot;battery capacity (kW)&quot;,&quot;MSRP&quot;), columnLabels =c(&quot;range (miles)&quot;,&quot;mpge&quot;,&quot;cargo vol (cu ft)&quot;,&quot;bettery capacity (kW)&quot;,&quot;price ($)&quot;),lower=list(mappings=aes(color=make,label=model),legend=c(5,2))) + theme(strip.text.y=element_text(angle=0)) + labs(title=&quot;Fig. 2&quot;) </code></pre>
+<p><img src="/post/2019-03-30-needs-more-cargo-space-in-electric-vehicles_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div id="amzn-assoc-ad-432a96c5-15e4-48d2-be83-7444e166c800">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=432a96c5-15e4-48d2-be83-7444e166c800"></script>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>MPGe: (Miles per gallon equivallent) “For most vehicles, the label shows City, Highway, and Combined MPG (miles per gallon) values. The Combined MPG value is the most prominent for the purpose of quick and easy comparison across vehicles. Some form of the miles per gallon metric has been on vehicle labels since 1977. Combined fuel economy is a weighted average of City and Highway MPG values that is calculated by weighting the City value by 55% and the Highway value by 45%. For those vehicles that do not use liquid fuels—such as electric vehicles, plug-in hybrid electric vehicles operating on electricity, and compressed natural gas vehicles—the labels display miles per gallon of gasoline-equivalent (MPGe). Think of this as being similar to MPG, but instead of presenting miles per gallon of the vehicle’s fuel type, it represents the number of miles the vehicle can go using a quantity of fuel with the same energy content as a gallon of gasoline. This allows a reasonable comparison between vehicles using different fuels. For example, you can use MPGe to compare a compressed natural gas (CNG) vehicle with a gasoline vehicle; even though CNG is not dispensed or burned in gallons.” (cited from <a href="https://www.fueleconomy.gov/feg/label/learn-more-electric-label.shtml">fueleconomy.gov web site</a>).<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>MSRP: “manufacturer’s suggested retail price, is quite simply the price that the manufacturer suggests that the dealer should ask for a car. This is also referred to as the retail price, or the dollar amount that a retailer should be asking for the car according to the automaker. Think of it as the car-dealer version of the price tag you see on a television at an electronics store.” (cited from <a href="https://www.autotrader.com/car-tips/buying-car-whats-msrp-228292">www.autotrader.com</a>).<a href="#fnref2">↩</a></p></li>
+</ol>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2019/04/17/six-months-later-native-plant-garden-project3.html">&larr; Six months later: Native plant garden project 3</a></span>
+  <span class="nav-next"><a href="/post/2019/01/30/slide-presentation-in-r-with-xarigan-package.html">Slide presentation in R with xarigan package &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

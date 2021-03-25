@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Evaluation of team rank prediction in sports league by sum of residuals | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2019-12-29</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+     &hercon; <a href="/categories/sports">sports</a>
+  
+  </div>
+
+  <h1><span class="title">Evaluation of team rank prediction in sports league by sum of residuals</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/soccor">soccor</a>; <a href="/tags/tidyverse">tidyverse</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals" class="section level1">
+<h1>Evaluation of team rank prediction in sports league by sum of residuals</h1>
+<pre class="r"><code>J1_2019_pred_results&lt;-read_csv(file.path(&quot;2019-12-29-evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals_files&quot;,&quot;日刊スポーツ・サッカー担当の19年J1順位予想と結果.csv&quot;))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   rank = col_double(),
+##   Hamamoto = col_character(),
+##   No = col_character(),
+##   Hosaka = col_character(),
+##   Shimoda = col_character(),
+##   Sugiyama = col_character(),
+##   Kinoshita = col_character(),
+##   Okazaki = col_character(),
+##   Matsuo = col_character(),
+##   Iwata = col_character(),
+##   Kamiya = col_character(),
+##   Maeda = col_character(),
+##   Sanefuji = col_character(),
+##   Kikukawa = col_character(),
+##   Ishikawa = col_character(),
+##   Uehara = col_character(),
+##   Ogishima = col_character(),
+##   Results = col_character()
+## )</code></pre>
+<pre class="r"><code>#J1_2019_pred_results %&gt;% DT::datatable()
+J1_2019_pred_results %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">rank</th>
+<th align="left">Hamamoto</th>
+<th align="left">No</th>
+<th align="left">Hosaka</th>
+<th align="left">Shimoda</th>
+<th align="left">Sugiyama</th>
+<th align="left">Kinoshita</th>
+<th align="left">Okazaki</th>
+<th align="left">Matsuo</th>
+<th align="left">Iwata</th>
+<th align="left">Kamiya</th>
+<th align="left">Maeda</th>
+<th align="left">Sanefuji</th>
+<th align="left">Kikukawa</th>
+<th align="left">Ishikawa</th>
+<th align="left">Uehara</th>
+<th align="left">Ogishima</th>
+<th align="left">Results</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Kashima</td>
+<td align="left">Kashima</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Kashima</td>
+<td align="left">Urawa</td>
+<td align="left">Urawa</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Urawa</td>
+<td align="left">Kashima</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Urawa</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Yokohama</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Tokyo</td>
+<td align="left">Kashima</td>
+<td align="left">Kashima</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Kashima</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Urawa</td>
+<td align="left">Kashima</td>
+<td align="left">Kobe</td>
+<td align="left">Kobe</td>
+<td align="left">Kobe</td>
+<td align="left">Kobe</td>
+<td align="left">Kashima</td>
+<td align="left">Tokyo</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Kobe</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Sapporo</td>
+<td align="left">C_Osaka</td>
+<td align="left">Urawa</td>
+<td align="left">Tokyo</td>
+<td align="left">Tokyo</td>
+<td align="left">Nagoya</td>
+<td align="left">Kashima</td>
+<td align="left">G_Osaka</td>
+<td align="left">G_Osaka</td>
+<td align="left">Kashima</td>
+<td align="left">Tokyo</td>
+<td align="left">G_Osaka</td>
+<td align="left">Nagoya</td>
+<td align="left">Kobe</td>
+<td align="left">Kashima</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Urawa</td>
+<td align="left">Kobe</td>
+<td align="left">Urawa</td>
+<td align="left">Sapporo</td>
+<td align="left">G_Osaka</td>
+<td align="left">C_Osaka</td>
+<td align="left">G_Osaka</td>
+<td align="left">Urawa</td>
+<td align="left">Kobe</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Kobe</td>
+<td align="left">Kawasaki_F</td>
+<td align="left">Kashima</td>
+<td align="left">Tokyo</td>
+<td align="left">Sapporo</td>
+<td align="left">Urawa</td>
+<td align="left">Kawasaki_F</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">G_Osaka</td>
+<td align="left">Urawa</td>
+<td align="left">Kobe</td>
+<td align="left">Sendai</td>
+<td align="left">Tokyo</td>
+<td align="left">Kobe</td>
+<td align="left">Sapporo</td>
+<td align="left">Sapporo</td>
+<td align="left">G_Osaka</td>
+<td align="left">Shimizu</td>
+<td align="left">Urawa</td>
+<td align="left">C_Osaka</td>
+<td align="left">G_Osaka</td>
+<td align="left">Urawa</td>
+<td align="left">Kashima</td>
+<td align="left">G_Osaka</td>
+<td align="left">C_Osaka</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">Tokyo</td>
+<td align="left">Shonan</td>
+<td align="left">G_Osaka</td>
+<td align="left">Urawa</td>
+<td align="left">Tosu</td>
+<td align="left">Kashima</td>
+<td align="left">Yokohama</td>
+<td align="left">G_Osaka</td>
+<td align="left">Nagoya</td>
+<td align="left">C_Osaka</td>
+<td align="left">Tokyo</td>
+<td align="left">G_Osaka</td>
+<td align="left">Sapporo</td>
+<td align="left">Kashima</td>
+<td align="left">G_Osaka</td>
+<td align="left">Nagoya</td>
+<td align="left">Hiroshima</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="left">Sapporo</td>
+<td align="left">Nagoya</td>
+<td align="left">Yokohama</td>
+<td align="left">Kobe</td>
+<td align="left">Sapporo</td>
+<td align="left">Nagoya</td>
+<td align="left">Kashima</td>
+<td align="left">Kobe</td>
+<td align="left">Sapporo</td>
+<td align="left">Tokyo</td>
+<td align="left">Nagoya</td>
+<td align="left">Tokyo</td>
+<td align="left">Urawa</td>
+<td align="left">Nagoya</td>
+<td align="left">Urawa</td>
+<td align="left">Hiroshima</td>
+<td align="left">G_Osaka</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">C_Osaka</td>
+<td align="left">Hiroshima</td>
+<td align="left">Tokyo</td>
+<td align="left">Iwata</td>
+<td align="left">Kobe</td>
+<td align="left">G_Osaka</td>
+<td align="left">Kobe</td>
+<td align="left">Shonan</td>
+<td align="left">C_Osaka</td>
+<td align="left">Nagoya</td>
+<td align="left">Iwata</td>
+<td align="left">Yokohama</td>
+<td align="left">Nagoya</td>
+<td align="left">Hiroshima</td>
+<td align="left">Tokyo</td>
+<td align="left">Tokyo</td>
+<td align="left">Kobe</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="left">Shonan</td>
+<td align="left">G_Osaka</td>
+<td align="left">C_Osaka</td>
+<td align="left">Tokyo</td>
+<td align="left">Sendai</td>
+<td align="left">Sapporo</td>
+<td align="left">Hiroshima</td>
+<td align="left">Yokohama</td>
+<td align="left">Tokyo</td>
+<td align="left">Hiroshima</td>
+<td align="left">Sapporo</td>
+<td align="left">Sapporo</td>
+<td align="left">Shimizu</td>
+<td align="left">Sapporo</td>
+<td align="left">Tosu</td>
+<td align="left">Iwata</td>
+<td align="left">Ooita</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="left">Shimizu</td>
+<td align="left">Yokohama</td>
+<td align="left">Shonan</td>
+<td align="left">Ooita</td>
+<td align="left">Hiroshima</td>
+<td align="left">Hiroshima</td>
+<td align="left">Nagoya</td>
+<td align="left">Tosu</td>
+<td align="left">Iwata</td>
+<td align="left">Iwata</td>
+<td align="left">Yokohama</td>
+<td align="left">Nagoya</td>
+<td align="left">Hiroshima</td>
+<td align="left">Sendai</td>
+<td align="left">Hiroshima</td>
+<td align="left">Sapporo</td>
+<td align="left">Sapporo</td>
+</tr>
+<tr class="odd">
+<td align="right">11</td>
+<td align="left">Sendai</td>
+<td align="left">C_Osaka</td>
+<td align="left">Iwata</td>
+<td align="left">Shonan</td>
+<td align="left">Shimizu</td>
+<td align="left">Tosu</td>
+<td align="left">Iwata</td>
+<td align="left">Sendai</td>
+<td align="left">Tosu</td>
+<td align="left">Kobe</td>
+<td align="left">Shimizu</td>
+<td align="left">Hiroshima</td>
+<td align="left">Sendai</td>
+<td align="left">C_Osaka</td>
+<td align="left">C_Osaka</td>
+<td align="left">Shimizu</td>
+<td align="left">Sendai</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="left">Hiroshima</td>
+<td align="left">Sapporo</td>
+<td align="left">Shimizu</td>
+<td align="left">Yokohama</td>
+<td align="left">Yokohama</td>
+<td align="left">Sendai</td>
+<td align="left">Shimizu</td>
+<td align="left">Hiroshima</td>
+<td align="left">Shimizu</td>
+<td align="left">Sendai</td>
+<td align="left">C_Osaka</td>
+<td align="left">Shimizu</td>
+<td align="left">Shonan</td>
+<td align="left">Yokohama</td>
+<td align="left">Yokohama</td>
+<td align="left">Yokohama</td>
+<td align="left">Shimizu</td>
+</tr>
+<tr class="odd">
+<td align="right">13</td>
+<td align="left">Yokohama</td>
+<td align="left">Iwata</td>
+<td align="left">Hiroshima</td>
+<td align="left">Shimizu</td>
+<td align="left">Shonan</td>
+<td align="left">Shonan</td>
+<td align="left">Shonan</td>
+<td align="left">Tokyo</td>
+<td align="left">Shonan</td>
+<td align="left">Yokohama</td>
+<td align="left">Hiroshima</td>
+<td align="left">Sendai</td>
+<td align="left">Yokohama</td>
+<td align="left">Shimizu</td>
+<td align="left">Shonan</td>
+<td align="left">C_Osaka</td>
+<td align="left">Nagoya</td>
+</tr>
+<tr class="even">
+<td align="right">14</td>
+<td align="left">Iwata</td>
+<td align="left">Tosu</td>
+<td align="left">Nagoya</td>
+<td align="left">Hiroshima</td>
+<td align="left">C_Osaka</td>
+<td align="left">Shimizu</td>
+<td align="left">C_Osaka</td>
+<td align="left">C_Osaka</td>
+<td align="left">Yokohama</td>
+<td align="left">Tosu</td>
+<td align="left">Tosu</td>
+<td align="left">Tosu</td>
+<td align="left">C_Osaka</td>
+<td align="left">Shonan</td>
+<td align="left">Sendai</td>
+<td align="left">Shonan</td>
+<td align="left">Urawa</td>
+</tr>
+<tr class="odd">
+<td align="right">15</td>
+<td align="left">Nagoya</td>
+<td align="left">Matsumoto</td>
+<td align="left">Tosu</td>
+<td align="left">G_Osaka</td>
+<td align="left">Matsumoto</td>
+<td align="left">Iwata</td>
+<td align="left">Sendai</td>
+<td align="left">Ooita</td>
+<td align="left">Hiroshima</td>
+<td align="left">Matsumoto</td>
+<td align="left">Sendai</td>
+<td align="left">Iwata</td>
+<td align="left">Iwata</td>
+<td align="left">Tosu</td>
+<td align="left">Iwata</td>
+<td align="left">Sendai</td>
+<td align="left">Tosu</td>
+</tr>
+<tr class="even">
+<td align="right">16</td>
+<td align="left">Tosu</td>
+<td align="left">Sendai</td>
+<td align="left">Sendai</td>
+<td align="left">Nagoya</td>
+<td align="left">Iwata</td>
+<td align="left">Yokohama</td>
+<td align="left">Matsumoto</td>
+<td align="left">Shimizu</td>
+<td align="left">Sendai</td>
+<td align="left">Sapporo</td>
+<td align="left">Shonan</td>
+<td align="left">Shonan</td>
+<td align="left">Tosu</td>
+<td align="left">Matsumoto</td>
+<td align="left">Shimizu</td>
+<td align="left">Tosu</td>
+<td align="left">Shonan</td>
+</tr>
+<tr class="odd">
+<td align="right">17</td>
+<td align="left">Matsumoto</td>
+<td align="left">Shimizu</td>
+<td align="left">Ooita</td>
+<td align="left">Tosu</td>
+<td align="left">Nagoya</td>
+<td align="left">Matsumoto</td>
+<td align="left">Tosu</td>
+<td align="left">Iwata</td>
+<td align="left">Matsumoto</td>
+<td align="left">Shonan</td>
+<td align="left">Matsumoto</td>
+<td align="left">Matsumoto</td>
+<td align="left">Ooita</td>
+<td align="left">Iwata</td>
+<td align="left">Matsumoto</td>
+<td align="left">Matsumoto</td>
+<td align="left">Matsumoto</td>
+</tr>
+<tr class="even">
+<td align="right">18</td>
+<td align="left">Ooita</td>
+<td align="left">Ooita</td>
+<td align="left">Matsumoto</td>
+<td align="left">Matsumoto</td>
+<td align="left">Ooita</td>
+<td align="left">Ooita</td>
+<td align="left">Ooita</td>
+<td align="left">Matsumoto</td>
+<td align="left">Ooita</td>
+<td align="left">Ooita</td>
+<td align="left">Ooita</td>
+<td align="left">Ooita</td>
+<td align="left">Matsumoto</td>
+<td align="left">Ooita</td>
+<td align="left">Ooita</td>
+<td align="left">Ooita</td>
+<td align="left">Iwata</td>
+</tr>
+</tbody>
+</table>
+<p>Japanese professional soccor league is called “J league”&quot; and its top level is J1. Juset before season starts sports media predict team rank. It is unusual the media review their prediction after finishing the season, but <a href="https://www.nikkansports.com/soccer/news/201912210000079.html">Nikkansports.com did this year</a> (Table above). In that article their evaluation of the prediction done by 17 writers is rough and not sufficiently analytical, so that I tried to analyze the data here for fun. No writers predicted that Yokohama won this season. I am just curious who’s prediction is very close to the result and which temas did surprised performance.</p>
+</div>
+<div id="convert-data-format" class="section level1">
+<h1>convert data format</h1>
+<pre class="r"><code>Results&lt;-J1_2019_pred_results %&gt;% select(rank,Results) %&gt;% rename(team=Results,results=rank)
+J1_2019_pred_results.mod&lt;-J1_2019_pred_results %&gt;% select(-Results) %&gt;% gather(&quot;person&quot;,&quot;team&quot;,-1) %&gt;% rename(prediction=rank) %&gt;% left_join(Results,by=&quot;team&quot;)</code></pre>
+</div>
+<div id="who-is-the-best-predictor" class="section level1">
+<h1>Who is the best predictor?</h1>
+<pre class="r"><code>J1_2019_pred_results.mod %&gt;% mutate(var=(prediction-results)^2) %&gt;% group_by(person) %&gt;% summarise(`sum of residuals`=sum(var)) %&gt;% arrange(`sum of residuals`)</code></pre>
+<pre><code>## # A tibble: 16 x 2
+##    person    `sum of residuals`
+##    &lt;chr&gt;                  &lt;dbl&gt;
+##  1 Sanefuji                 410
+##  2 Ishikawa                 442
+##  3 Hosaka                   482
+##  4 Kikukawa                 482
+##  5 Hamamoto                 506
+##  6 Okazaki                  508
+##  7 No                       528
+##  8 Maeda                    554
+##  9 Sugiyama                 574
+## 10 Shimoda                  590
+## 11 Kinoshita                592
+## 12 Ogishima                 594
+## 13 Uehara                   604
+## 14 Kamiya                   614
+## 15 Matsuo                   682
+## 16 Iwata                    754</code></pre>
+<p>Smaller sum of resuduals means there are less differences beteen their prediction and result. Congratulations Mr. Sanefuji (correct pronounciation?).</p>
+</div>
+<div id="which-teams-are-surprise" class="section level1">
+<h1>Which teams are surprise?</h1>
+<pre class="r"><code>J1_2019_pred_results.mod %&gt;% mutate(var=(prediction-results)^2) %&gt;% group_by(team) %&gt;% summarise(`sum of residuals`=sum(var)) %&gt;% arrange(desc(`sum of residuals`))</code></pre>
+<pre><code>## # A tibble: 18 x 2
+##    team       `sum of residuals`
+##    &lt;chr&gt;                   &lt;dbl&gt;
+##  1 Yokohama                 1767
+##  2 Urawa                    1746
+##  3 Ooita                    1137
+##  4 Iwata                     590
+##  5 C_Osaka                   585
+##  6 Nagoya                    540
+##  7 Hiroshima                 431
+##  8 Tokyo                     425
+##  9 Shonan                    344
+## 10 Kobe                      271
+## 11 Sapporo                   258
+## 12 Tosu                      189
+## 13 Sendai                    179
+## 14 G_Osaka                   155
+## 15 Shimizu                   128
+## 16 Kawasaki_F                 93
+## 17 Kashima                    60
+## 18 Matsumoto                  18</code></pre>
+<p>Across teams I calculated the sum of residuals. In this analysis larger value means more surprise for those writers. <a href="https://www.f-marinos.com/en/">Yokohama F. Marinos</a> gained the largest value, which means writers underestimate Yokohama’s performance. On the other hand the second largest value of Urwawa has different meaning. Although <a href="https://www.urawa-reds.co.jp/reds-en/">Urwa Red Diamonds</a> became a finalist in 2019 AFC (<a href="https://www.the-afc.com/">Asian Football Confederation</a>) Champions League, their performance was so bad that the team head coach had to quit in the middle of the season. <a href="https://www.so-net.ne.jp/antlers/en/">Kashima Antlers</a> was the winner of 2018 AFC Champions League Final, so that many writers predicted its very good performance. As expected Kashima did good job (3rd place) and its sum of resisuals are very small. Unfortunately <a href="https://www.yamaga-fc.com/en/club">Matsumoto Yamaga</a>’s performance was as expected in a bad meaning The team is too small to be competitive in the top level league. I hope this team in a small town has learned a lot from this year’s experiences.</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>There could be well established method for this kind of analysis, but I am satisfied with my rough analysis using sum of residuals.</p>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2019/12/30/native-plant-garden-project-v2-1.html">&larr; Native plant garden project v2.1</a></span>
+  <span class="nav-next"><a href="/post/2019/12/27/charging-an-electric-vehicle-at-home-240v-outlet-installation-in-my-garage.html">Charging an electric vehicle at home: 240V outlet installation in my garage &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

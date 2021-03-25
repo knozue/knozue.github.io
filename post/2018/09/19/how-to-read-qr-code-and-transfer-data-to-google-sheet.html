@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>How to read QR code and transfer data to Google sheet. | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-09-19</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+     &hercon; <a href="/categories/project-management">project-management</a>
+  
+  </div>
+
+  <h1><span class="title">How to read QR code and transfer data to Google sheet.</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/google-sheet">Google-Sheet</a>; <a href="/tags/qr-code">QR-code</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="copy-scanned-info-by-iphone-and-paste-it-on-your-computer-software." class="section level1">
+<h1>Copy scanned info by iphone and paste it on your computer software.</h1>
+<p><img src="/post/2018-09-19-how-to-read-qr-code-and-transfer-data-to-google-sheet_files/Scan_QRcode.png" width=1200px align="top" alt="Universal Clipboard Scan"></p>
+<p><a href="https://support.apple.com/kb/ph25168?locale=en_US">Universal Clipboard</a> is useful for this purpose when you use <a href="https://blog.macsales.com/42686-a-complete-guide-to-universal-clipboard-in-macos-high-sierra">a certain model of iphone, Mac, and macOS</a>.</p>
+<ul>
+<li>Step 1. Install barcode scanner app that can copy scanned info (“QR Scanner”, “QR Reader”, “Qrafter” from App Store worked as of Sep 2018).</li>
+<li>Step 2. Scan QR code (or any codes?) and copy decoded info.</li>
+<li>Step 3. Paste the decoded into into your software in your computer (eg. Google Sheet, Excel, etc)</li>
+<li>Step 4. After reading the spread sheet with R, you can separate letters by hyphen (“-”), underscore (“_“), or other separater that can be used in base::strsplit() or tidyr::separate(). For example,</li>
+</ul>
+<pre class="r"><code>strsplit(&quot;Col_sun_rep1&quot;,split=&quot;_&quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Col&quot;  &quot;sun&quot;  &quot;rep1&quot;</code></pre>
+<pre class="r"><code>library(tidyverse)
+tibble(x=c(&quot;Col_sun_rep1&quot;,&quot;Col_shade_rep2&quot;)) %&gt;% tidyr::separate(x,c(&quot;genotype&quot;,&quot;treatment&quot;,&quot;replicate&quot;))</code></pre>
+<pre><code>## # A tibble: 2 x 3
+##   genotype treatment replicate
+##   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;    
+## 1 Col      sun       rep1     
+## 2 Col      shade     rep2</code></pre>
+<p>Amaizing and useful.</p>
+</div>
+<div id="troubleshooting" class="section level1">
+<h1>Troubleshooting</h1>
+<ol class="example" style="list-style-type: decimal">
+<li><a href="http://osxdaily.com/2018/02/02/fix-copy-paste-not-working-mac/">Do you have frozen clipboard?</a></li>
+<li>Not working? Check if your devices are connected via bluethooth. It seems that WiFi network is not necessary.</li>
+<li>For Android devices, there seems <a href="http://www.clipbrd.com/">possible solution</a>. Even for <a href="https://www.pushbullet.com/apps">all OS (I haven’t tested…)</a>?</li>
+</ol>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html">&larr; How to make QRcode by R &#43; ggplot2</a></span>
+  <span class="nav-next"><a href="/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com.html">How to make QR code in Google Sheet using Integromat.com. &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>その実験、再現できなければ意味がない | Daddy’s data analysis for biologist, athletes, and family</title>
+
+<meta property='og:title' content='その実験、再現できなければ意味がない - Daddy’s data analysis for biologist, athletes, and family'>
+<meta property='og:description' content='再現できなければ意味がない 数年前、理化学研究所の研究者がNatureに発表した論文が元で1人の自殺者と多額のお金を使った再現性検証実験、多数の人を巻き込んだだけでなく、世間の注目を浴びる大事件になりました。その騒動の一部始終と詳細はここでは扱いませんが、科学(Science)に関わる者として最も致命的と感じることは、論文で発表された研究が本人でさえも再現できなかったということです。
+ 何故、その実験は再現できなかったのか？ 公式見解は詳細すぎるので省略しますが、研究者の端くれとしての私の印象は、実験の記録とサンプルと試薬の管理がお粗末だったこと、データのまとめ方と発表の仕方に誠意が全く感じられないことが再現できなかった原因でしょう。
+ 再現できる研究のためには？ 再現できる実験とは、その結果が偶然(by chance)ではないということです。つまりその実験を繰り返すと同じ結果が出るということです。そのために研究者は何回も実験をして、自分が再現できるかを確かめ、できるだけ再現性の高い方法を見つけようとするのです。そのために大切なことは、
+実験記録を実験ノートに正確で分かりやすく書くこと データの入力を正確かつ単純にすること。 データの解析方法を正確かつ分かりやすい方法で行うこと 実験（＝仕事）を効率よく行うこと  でしょう。
+それぞれの研究環境、内容によってどのようにこれらのことを行うかは違い、様々な方法があるので別に紹介します。ここでは私がこれまで分子生物学と表現系解析を研究室のメンバーとやってきた方法について紹介します。殆どのツールは無料です。
+ 実験記録を実験ノートに正確で分かりやすく書くこと 図１ 研究室のボスが物理的に遠い距離に居たり、ボスが忙しくてあまり会って話す機会がないことは珍しくないと思います。そのような時は、EvernoteやGoogle Docのようなインターネットを使ってボスや共同研究者と実験ノートを共有する仕組みが便利です。日付や第三者の目撃が重要になるパテント用の記録としては不適切かもしれないので、その場合は従来の紙に書く方法をお薦めします。 私は、できるだけ元データも電子記録してオンラインストレージ（詳しくはここを参照）を利用しています。Directoryの構造は色々あると思いますが私は図1のようにしてます1。
+ データの入力を正確かつ単純にすること。 図２ 大量のサンプルを扱っていると、データの入力にミスが出ます。例えば、“Col”、“coi1-16”、“coi1-1”はほかの人が書いたラベルを別の人（もしくは本人でさえも）が読み間違えるといった事態が容易にお!きます。このようなことを防ぐ方法の一つは、Google Formを使うことです（図2)。Google Formは主にアンケートで使われると思いますが、すでにある名前をチェックボックスやプルダウンメニューから選ぶことでラベルの入力ミスが避けられます。別の方法は、自作のバーコードやQRコードを利用することです。Microsoft Wordでラベルのシールにバーコードを印刷し、ポットやポットに挿すプラスティックのタグにシールを貼ります。背の高さなどを測定する時にバーコードリーダーでバーコードをエクセルシートに読み込み、データを入力する方法です。最近は色々進歩があったのでGoogle Sheetとスマートフォンを使って2018版にしました。
+ データの解析方法を正確かつ分かりやすい方法で行うこと R/bioconductor &#43; RStudio &#43; Github &#43; Shiny app (必要ならば)。
+ 実験（＝仕事）を効率よく行うこと これは全ての仕事に言えることで、私は仕事のマネジメントをするためにTrelloというプロジェクトマネジメントソフトを使っています。
+  本当はこのdirectoryの中を説明したREADmeファイルがあると良い(参照）。↩
+   '>
+<meta property='og:url' content='/post/2018-09-18-/'>
+<meta property='og:site_name' content='Daddy’s data analysis for biologist, athletes, and family'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Google-Drive'><meta property='article:tag' content='Google-Form'><meta property='article:tag' content='Google-Sheet'><meta property='article:tag' content='Integromat.com'><meta property='article:tag' content='QR-code'><meta property='article:tag' content='R'><meta property='article:tag' content='reproducibility'><meta property='article:tag' content='Trello'><meta property='article:tag' content='再現性'><meta property='article:tag' content='実験ノート'><meta property='article:published_time' content='2018-09-18T00:00:00Z'/><meta property='article:modified_time' content='2018-09-18T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@'><meta name='twitter:creator' content='@'>
+
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="Daddy’s data analysis for biologist, athletes, and family" />
+
+<link rel="stylesheet" href="/css/style.css"/><link rel='stylesheet' href='/css/custom.css'><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="/"><h1 class="title is-4">Daddy’s data analysis for biologist, athletes, and family</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/knozue' target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="linkedin" href='https://linkedin.com/in/knozue' target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+
+      
+    </nav>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/google-drive">#Google-Drive</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/google-form">#Google-Form</a>
+  
+  | <a class="subtitle is-6" href="/tags/google-sheet">#Google-Sheet</a>
+  
+  | <a class="subtitle is-6" href="/tags/integromat.com">#Integromat.com</a>
+  
+  | <a class="subtitle is-6" href="/tags/qr-code">#QR-code</a>
+  
+  | <a class="subtitle is-6" href="/tags/r">#R</a>
+  
+  | <a class="subtitle is-6" href="/tags/reproducibility">#reproducibility</a>
+  
+  | <a class="subtitle is-6" href="/tags/trello">#Trello</a>
+  
+  | <a class="subtitle is-6" href="/tags/%E5%86%8D%E7%8F%BE%E6%80%A7">#再現性</a>
+  
+  | <a class="subtitle is-6" href="/tags/%E5%AE%9F%E9%A8%93%E3%83%8E%E3%83%BC%E3%83%88">#実験ノート</a>
+  
+
+      
+    </div>
+    <h2 class="subtitle is-6">September 18, 2018</h2>
+    <h1 class="title">その実験、再現できなければ意味がない</h1>
+    
+    <div class="content">
+      <div class="section level1">
+<h1>再現できなければ意味がない</h1>
+<p>数年前、理化学研究所の研究者がNatureに発表した論文が元で1人の自殺者と多額のお金を使った再現性検証実験、多数の人を巻き込んだだけでなく、世間の注目を浴びる大事件になりました。その騒動の一部始終と詳細はここでは扱いませんが、科学(Science)に関わる者として最も致命的と感じることは、<u>論文で発表された研究が本人でさえも再現できなかった</u>ということです。</p>
+</div>
+<div class="section level1">
+<h1>何故、その実験は再現できなかったのか？</h1>
+<p><a href="http://www.riken.jp/pr/topics/2014/20140327_1/">公式見解</a>は詳細すぎるので省略しますが、研究者の端くれとしての私の印象は、実験の記録とサンプルと試薬の管理がお粗末だったこと、データのまとめ方と発表の仕方に誠意が全く感じられないことが再現できなかった原因でしょう。</p>
+</div>
+<div class="section level1">
+<h1>再現できる研究のためには？</h1>
+<p>再現できる実験とは、その結果が偶然(by chance)ではないということです。つまりその実験を繰り返すと同じ結果が出るということです。そのために研究者は何回も実験をして、自分が再現できるかを確かめ、できるだけ再現性の高い方法を見つけようとするのです。そのために大切なことは、</p>
+<ol class="example" style="list-style-type: decimal">
+<li>実験記録を実験ノートに正確で分かりやすく書くこと</li>
+<li>データの入力を正確かつ単純にすること。</li>
+<li>データの解析方法を正確かつ分かりやすい方法で行うこと</li>
+<li>実験（＝仕事）を効率よく行うこと</li>
+</ol>
+<p>でしょう。</p>
+<p>それぞれの研究環境、内容によってどのようにこれらのことを行うかは違い、様々な方法があるので別に紹介します。ここでは私がこれまで分子生物学と表現系解析を研究室のメンバーとやってきた方法について紹介します。殆どのツールは無料です。</p>
+</div>
+<div class="section level1">
+<h1>実験記録を実験ノートに正確で分かりやすく書くこと</h1>
+<p>図１ <img src="/post/2018-09-15-reproducibility_files/Google_Drive_directory_example1.png" alt="Fig.1. Google Drive directory example1" width="800px" align="top" title="図１"></p>
+<p>研究室のボスが物理的に遠い距離に居たり、ボスが忙しくてあまり会って話す機会がないことは珍しくないと思います。そのような時は、<a href="https://evernote.com/">Evernote</a>や<a href="https://www.google.com/docs/about/">Google Doc</a>のようなインターネットを使ってボスや共同研究者と実験ノートを共有する仕組みが便利です。日付や第三者の目撃が重要になるパテント用の記録としては不適切かもしれないので、その場合は従来の紙に書く方法をお薦めします。 私は、できるだけ元データも電子記録してオンラインストレージ（詳しくは<a href="https://www.unionnet.jp/knowledge/online-storage/">ここ</a>を参照）を利用しています。Directoryの構造は色々あると思いますが私は図1のようにしてます<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>。</p>
+</div>
+<div class="section level1">
+<h1>データの入力を正確かつ単純にすること。</h1>
+<p>図２ <img src="/post/2018-09-15-reproducibility_files/GoogleForm_example1.png" alt="Fig.2. Google Form as a data input tool" width="800px" align="top" title="図2"></p>
+<p>大量のサンプルを扱っていると、データの入力にミスが出ます。例えば、“Col”、“coi1-16”、“coi1-1”はほかの人が書いたラベルを別の人（もしくは本人でさえも）が読み間違えるといった事態が容易にお!きます。このようなことを防ぐ方法の一つは、<a href="https://www.google.com/forms/about/">Google Form</a>を使うことです（図2)。Google Formは主にアンケートで使われると思いますが、すでにある名前をチェックボックスやプルダウンメニューから選ぶことでラベルの入力ミスが避けられます。別の方法は、自作のバーコードやQRコードを利用することです。Microsoft Wordでラベルのシールにバーコードを印刷し、ポットやポットに挿すプラスティックのタグにシールを貼ります。背の高さなどを測定する時にバーコードリーダーでバーコードをエクセルシートに読み込み、データを入力する方法です。最近は色々進歩があったのでGoogle Sheetとスマートフォンを使って<a href="https://knozue.github.io/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com/">2018版</a>にしました。</p>
+</div>
+<div class="section level1">
+<h1>データの解析方法を正確かつ分かりやすい方法で行うこと</h1>
+<p>R/bioconductor + RStudio + Github + Shiny app (必要ならば)。</p>
+</div>
+<div class="section level1">
+<h1>実験（＝仕事）を効率よく行うこと</h1>
+<p>これは全ての仕事に言えることで、私は仕事のマネジメントをするために<a href="www.trello.com">Trello</a>というプロジェクトマネジメントソフトを使っています。</p>
+<hr />
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>本当はこのdirectoryの中を説明したREADmeファイルがあると良い(<a href="http://d7.library.gatech.edu/research-data/readme">参照</a>）。<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+      
+      <div class="related">
+
+<h3>Similar articles:</h3>
+<ul>
+	
+	<li><a href="/post/how-to-make-qr-code-in-google-sheet-using-integromat-com/">How to make QR code in Google Sheet using Integromat.com.</a></li>
+	
+	<li><a href="/post/the-first-post/">Busy dad needs project management skills!</a></li>
+	
+	<li><a href="/post/2018-09-15-/">実験はどう記録するか？</a></li>
+	
+	<li><a href="/post/r-memo1/">R memo1</a></li>
+	
+</ul>
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'shortname';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/knozue">Kazu Nozue</a> 2018</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/\/matomo.example.com\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  <img src="//matomo.example.com/piwik.php?idsite=1&amp;rec=1" style="border:0" alt="" />
+</noscript>
+
+</body>
+</html>
+

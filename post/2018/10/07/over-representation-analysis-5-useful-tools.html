@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Over-representation analysis 5: useful tools | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-10-07</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+  </div>
+
+  <h1><span class="title">Over-representation analysis 5: useful tools</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/reproducibility">reproducibility</a>; <a href="/tags/rna-seq">RNA-seq</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="what-genes-were-found-in-given-categories-eg.-go-term-in-given-gene-list" class="section level1">
+<h1>What genes were found in given categories (eg. GO term) in given gene list?</h1>
+<!--![](/post/2018-10-07-over-representation-analysis-5-useful-tools_files/GoogleSheet_QRcode2_Screen Shot 2018-09-19 at 7.43.47 AM.png)-->
+<pre class="r"><code>library(tidyverse);library(readxl);library(readr)
+# prepare GO term - gene table (eg. GOSLIM result), gene list of interest, GO term of interest
+# output data format is a dataframe with columns (each GO term) and rows (gene names listed in gene list of interest provided by a user) and value (0 (absent) or 1 (present))</code></pre>
+</div>
+<div id="read-goseq-result-table" class="section level1">
+<h1>read GOseq result table</h1>
+<pre class="r"><code>eGOseqs&lt;-list.files(pattern=&quot;enrich.Rdata&quot;,path=file.path(&quot;2018-10-07-over-representation-analysis-5-useful-tools_files&quot;,&quot;output_copy_ORA4&quot;))
+eGOseqs.list2&lt;-sapply(file.path(&quot;2018-10-07-over-representation-analysis-5-useful-tools_files&quot;,&quot;output_copy_ORA4&quot;,eGOseqs),function(x) mget(load(x))) # mget will return the value of the object(or objects) in a list. see https://stackoverflow.com/questions/29398630/load-data-frames-into-list
+#names(eGOseqs.list2)
+# Make list into data.frame 
+eGOseqs.list2.summary&lt;-do.call(&quot;rbind&quot;,eGOseqs.list2) 
+#head(eGOseqs.list2.summary) # make sure those are file names
+rownames(eGOseqs.list2.summary)&lt;-1:nrow(eGOseqs.list2.summary)
+#View(eGOseqs.list2.summary)
+# eGOseqs.list2.summary (more than three genes in each KO)
+eGOseqs.list2.summary&lt;-eGOseqs.list2.summary[eGOseqs.list2.summary$numDEInCat&gt;3,]
+# focused on only very significant GO terms
+eGOseqs.list2.summary&lt;-eGOseqs.list2.summary[eGOseqs.list2.summary$over_represented_padjust&lt;1e-4,]
+head(eGOseqs.list2.summary)</code></pre>
+<pre><code>##     category over_represented_pvalue under_represented_pvalue numDEInCat
+## 1 GO:0010200            4.858293e-26                        1         91
+## 2 GO:0006952            5.724864e-26                        1        277
+## 3 GO:0042742            1.352377e-23                        1        153
+## 4 GO:0080167            1.496577e-18                        1         80
+## 5 GO:0009751            6.725063e-18                        1         91
+## 6 GO:0006468            3.953862e-15                        1        312
+##   numInCat                          term ontology over_represented_padjust
+## 1      136            response to chitin       BP             1.083144e-22
+## 2      620              defense response       BP             1.083144e-22
+## 3      288 defense response to bacterium       BP             1.705798e-20
+## 4      134          response to karrikin       BP             1.415762e-15
+## 5      162    response to salicylic acid       BP             5.089528e-15
+## 6      774       protein phosphorylation       BP             2.493569e-12
+##                            Term
+## 1            response to chitin
+## 2              defense response
+## 3 defense response to bacterium
+## 4          response to karrikin
+## 5    response to salicylic acid
+## 6       protein phosphorylation
+##                                                                                                                                                                                                                                                                                                                                     Definition
+## 1                                                                                                                                               A process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a chitin stimulus.
+## 2                                                                                                            Reactions, triggered in response to the presence of a foreign body or the occurrence of an injury, which result in restriction of damage to the organism attacked or prevention/recovery from the infection caused by the attack.
+## 3                                                                                                                                                                                                                                     Reactions triggered in response to the presence of a bacterium that act to protect the cell or organism.
+## 4 Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a karrikin stimulus. Karrikins are signaling molecules in smoke from burning vegetation that trigger seed germination for many angiosperms (flowering plants).
+## 5                                                                                                                                     Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a salicylic acid stimulus.
+## 6                                                                                                                                                                                                                                                                                The process of introducing a phosphate group on to a protein.
+##    FC                                                         sample
+## 1 all genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
+## 2 all genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
+## 3 all genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
+## 4 all genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
+## 5 all genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv
+## 6 all genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv</code></pre>
+</div>
+<div id="goterm-data-arabidopsis-thaliana" class="section level1">
+<h1>GOterm data (Arabidopsis thaliana)</h1>
+<pre class="r"><code>load(&quot;2018-10-07-over-representation-analysis-5-useful-tools_files/Atgoslim.TAIR.BP.list.Rdata&quot;)
+head(Atgoslim.TAIR.BP.list)</code></pre>
+<pre><code>## $`18S RRNA`
+## [1] &quot;GO:0006412&quot; &quot;GO:0006412&quot; &quot;GO:0006412&quot;
+## 
+## $`25S RRNA`
+## [1] &quot;GO:0043043&quot; &quot;GO:0043043&quot;
+## 
+## $`5.8S RRNA`
+## [1] &quot;GO:0043043&quot; &quot;GO:0043043&quot;
+## 
+## $AAN
+## [1] &quot;GO:0007623&quot;
+## 
+## $AAR1
+## [1] &quot;GO:0006970&quot; &quot;GO:0006970&quot; &quot;GO:0040029&quot;
+## 
+## $AAR2
+## [1] &quot;GO:0009845&quot; &quot;GO:0040029&quot;</code></pre>
+</div>
+<div id="dge-list-of-interest" class="section level1">
+<h1>DGE list of interest</h1>
+<pre class="r"><code># Ding (2018) Cell DEGs
+getwd()</code></pre>
+<pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog/content/post&quot;</code></pre>
+<pre class="r"><code>DEG.objs&lt;-list.files(path=file.path(&quot;2018-10-07-over-representation-analysis-5-useful-tools_files&quot;,&quot;output_copy_ORA4&quot;),pattern=&quot;\\.csv$&quot;) # under construction
+DEG.objs</code></pre>
+<pre><code>## [1] &quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv&quot;
+## [2] &quot;genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU.csv&quot;
+## [3] &quot;trt.DEGs.int.rWT.rU.csv&quot;</code></pre>
+<pre class="r"><code># read csv file
+DEG.list&lt;-lapply(DEG.objs, function(x) read_csv(file.path(&quot;2018-10-07-over-representation-analysis-5-useful-tools_files&quot;,&quot;output_copy_ORA4&quot;,x)))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC.genotypenpr1.1 = col_double(),
+##   logFC.genotypenpr1.1.treatmenttreated = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC.genotypenpr4.4D = col_double(),
+##   logFC.genotypenpr4.4D.treatmenttreated = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   genes = col_character(),
+##   logFC = col_double(),
+##   logCPM = col_double(),
+##   LR = col_double(),
+##   PValue = col_double(),
+##   FDR = col_double(),
+##   AGI = col_character(),
+##   symbol2 = col_character(),
+##   full_name = col_character()
+## )</code></pre>
+<pre class="r"><code>names(DEG.list)&lt;-gsub(&quot;.csv&quot;,&quot;&quot;,DEG.objs)
+head(DEG.list)</code></pre>
+<pre><code>## $genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU
+## # A tibble: 6,694 x 10
+##    genes logFC.genotypen… logFC.genotypen… logCPM    LR    PValue       FDR
+##    &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 AT2G…        -4.20               -0.720   6.69 1300. 5.30e-283 1.78e-278
+##  2 AT5G…         3.26                0.530   4.76 1000. 5.96e-218 1.00e-213
+##  3 AT1G…        -2.02               -0.475   7.19  629. 2.69e-137 3.01e-133
+##  4 AT1G…        -2.26               -0.511   7.51  620. 2.83e-135 2.38e-131
+##  5 AT3G…        -3.16                0.888   5.33  618. 5.42e-135 3.64e-131
+##  6 AT5G…        -0.212              -6.72    3.89  607. 1.67e-132 9.35e-129
+##  7 AT2G…         2.22                1.95    9.21  572. 7.80e-125 3.74e-121
+##  8 AT5G…         1.82                1.83    9.40  570. 1.54e-124 6.46e-121
+##  9 AT1G…        -3.65               -1.52    3.37  565. 1.92e-123 7.17e-120
+## 10 AT5G…         0.000149           -7.96    3.77  546. 2.42e-119 8.12e-116
+## # ... with 6,684 more rows, and 3 more variables: AGI &lt;chr&gt;,
+## #   symbol2 &lt;chr&gt;, full_name &lt;chr&gt;
+## 
+## $genotypenpr4_genotypenpr4.treatmenttreated.DEGs.int.rWT.rU
+## # A tibble: 846 x 10
+##    genes logFC.genotypen… logFC.genotypen… logCPM    LR    PValue       FDR
+##    &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 AT5G…             3.04            0.628   4.76  904. 5.00e-197 1.68e-192
+##  2 AT3G…            -5.45           -0.183   1.98  459. 1.80e-100 3.03e- 96
+##  3 AT5G…            -3.30            0.354   3.10  444. 4.51e- 97 5.05e- 93
+##  4 AT1G…            -7.40           -3.70    2.00  432. 1.32e- 94 1.11e- 90
+##  5 AT3G…            -2.97           -0.301   3.36  372. 1.83e- 81 1.23e- 77
+##  6 AT1G…            -2.50            0.891   6.30  288. 2.54e- 63 1.42e- 59
+##  7 AT2G…            -1.42           -0.703   6.69  277. 7.63e- 61 3.66e- 57
+##  8 AT5G…            -3.04            0.434   4.19  211. 1.75e- 46 7.36e- 43
+##  9 AT2G…            -1.10           -0.237   5.87  209. 5.09e- 46 1.90e- 42
+## 10 AT5G…            -1.84           -0.489   2.78  187. 2.68e- 41 9.01e- 38
+## # ... with 836 more rows, and 3 more variables: AGI &lt;chr&gt;, symbol2 &lt;chr&gt;,
+## #   full_name &lt;chr&gt;
+## 
+## $trt.DEGs.int.rWT.rU
+## # A tibble: 7,811 x 9
+##    genes  logFC logCPM    LR    PValue       FDR AGI   symbol2 full_name  
+##    &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;      
+##  1 AT5G1…  8.57   3.89  675. 7.55e-149 2.54e-144 AT5G… AT-HSP… heat shock…
+##  2 AT1G0…  4.00   4.60  592. 7.94e-131 1.33e-126 AT1G… &lt;NA&gt;    &lt;NA&gt;       
+##  3 AT5G2…  6.16   4.19  588. 5.77e-130 6.46e-126 AT5G… ATWRKY… ARABIDOPSI…
+##  4 AT4G2…  3.85   5.39  586. 1.92e-129 1.59e-125 AT4G… CRK14   cysteine-r…
+##  5 AT5G1…  9.64   3.77  586. 2.37e-129 1.59e-125 AT5G… HSP17.… 17.6 kDa c…
+##  6 AT3G2…  4.92   3.36  546. 9.68e-121 5.42e-117 AT3G… &lt;NA&gt;    &lt;NA&gt;       
+##  7 AT4G2…  3.34   6.70  539. 2.78e-119 1.33e-115 AT4G… SGT1A   &lt;NA&gt;       
+##  8 AT5G2…  3.82   6.70  535. 2.42e-118 1.02e-114 AT5G… AtDMR6… NA;DOWNY M…
+##  9 AT5G0…  4.14   7.14  523. 1.07e-115 3.98e-112 AT5G… AtHsp7… NA;NA      
+## 10 AT1G2…  2.87   7.19  511. 3.43e-113 1.15e-109 AT1G… AtWAK1… NA;NA;cell…
+## # ... with 7,801 more rows</code></pre>
+</div>
+<div id="making-a-function" class="section level1">
+<h1>Making a function</h1>
+<pre class="r"><code>genes.in.enriched.category&lt;-function(enrich.result,gene.list,category.table=Atgoslim.TAIR.BP.list) { # return data frame with all input data with ... which format is good? VennDiagram input format?  
+  enrich.category&lt;-enrich.result[enrich.result$over_represented_pvalue&lt;0.05,&quot;category&quot;]
+  temp&lt;-category.table[gene.list] # short category.table for enriched.result # gene.list shas to be character (not factor)  
+  #names(temp[!is.na(names(temp))])
+  temp&lt;-temp[!is.na(names(temp))] # remove non matched AGI
+  test&lt;-data.frame(AGI=names(temp))
+  for(i in enrich.category) {
+    x&lt;-rep(0,length(names(temp)))
+    x[grep(i,temp)]&lt;-1
+    test&lt;-cbind(test,x)
+    names(test)[dim(test)[2]]&lt;-i
+  }
+  return(test) 
+}</code></pre>
+</div>
+<div id="a-case-study-all-misregulated-genes-in-npr1-1-ding-2018-cell" class="section level1">
+<h1>A case study: all misregulated genes in npr1-1 (Ding (2018) Cell)</h1>
+<pre class="r"><code>names(eGOseqs.list2)[1] # all misregulated genes in npr1-1  genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.csv</code></pre>
+<pre><code>## [1] &quot;2018-10-07-over-representation-analysis-5-useful-tools_files/output_copy_ORA4/genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU.all.enrich.Rdata.GO.ORA.result&quot;</code></pre>
+<pre class="r"><code>results.table&lt;-genes.in.enriched.category(enrich.result=eGOseqs.list2[[1]],gene.list=gsub(&quot;(.)(\\.[[:digit:]]+)&quot;,&quot;\\1&quot;,DEG.list[[1]]$genes))
+results.table[1:10,1:10] # the first 10 rows and columns</code></pre>
+<pre><code>##          AGI GO:0010200 GO:0006952 GO:0042742 GO:0080167 GO:0009751
+## 1  AT2G14560          0          0          0          0          1
+## 2  AT1G21250          0          0          0          0          1
+## 3  AT1G35710          0          0          0          0          0
+## 4  AT3G02550          0          0          0          0          0
+## 5  AT5G12030          0          0          0          0          0
+## 6  AT2G34430          0          0          0          0          0
+## 7  AT5G54270          0          0          0          0          0
+## 8  AT1G13470          0          0          0          0          0
+## 9  AT5G12020          0          0          0          0          0
+## 10 AT5G22570          0          0          1          0          0
+##    GO:0006468 GO:0009651 GO:0009416 GO:0009408
+## 1           0          0          0          0
+## 2           1          0          0          0
+## 3           1          0          0          0
+## 4           0          0          0          0
+## 5           0          1          0          1
+## 6           0          0          1          0
+## 7           0          0          1          0
+## 8           0          0          0          0
+## 9           0          1          0          1
+## 10          0          0          0          0</code></pre>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.5.1 (2018-07-02)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS  10.14.3
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] readxl_1.1.0    forcats_0.3.0   stringr_1.3.1   dplyr_0.7.7    
+##  [5] purrr_0.2.5     readr_1.1.1     tidyr_0.8.2     tibble_1.4.2   
+##  [9] ggplot2_3.1.0   tidyverse_1.2.1
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.0       cellranger_1.1.0 plyr_1.8.4       pillar_1.3.0    
+##  [5] compiler_3.5.1   bindr_0.1.1      tools_3.5.1      digest_0.6.18   
+##  [9] lubridate_1.7.4  jsonlite_1.6     evaluate_0.12    nlme_3.1-137    
+## [13] gtable_0.2.0     lattice_0.20-35  pkgconfig_2.0.2  rlang_0.3.0.1   
+## [17] cli_1.0.1        rstudioapi_0.8   yaml_2.2.0       haven_1.1.2     
+## [21] blogdown_0.10    xfun_0.4         bindrcpp_0.2.2   withr_2.1.2     
+## [25] xml2_1.2.0       httr_1.3.1       knitr_1.21       hms_0.4.2       
+## [29] grid_3.5.1       tidyselect_0.2.5 glue_1.3.0       R6_2.3.0        
+## [33] fansi_0.4.0      rmarkdown_1.11   bookdown_0.9     modelr_0.1.2    
+## [37] magrittr_1.5     backports_1.1.2  scales_1.0.0     htmltools_0.3.6 
+## [41] rvest_0.3.2      assertthat_0.2.0 colorspace_1.3-2 utf8_1.1.4      
+## [45] stringi_1.2.4    lazyeval_0.2.1   munsell_0.5.0    broom_0.5.0     
+## [49] crayon_1.3.4</code></pre>
+<!--KazuRbook1 https://affiliate-program.amazon.com/home/ads/adcode/saved-->
+<div id="amzn-assoc-ad-99af12ae-45ba-4556-8dc6-e84f97060807">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=99af12ae-45ba-4556-8dc6-e84f97060807"></script>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/10/10/over-representation-analysis-2-goseq-using-custom-categories.html">&larr; Over-representation analysis 2: GOseq using custom categories</a></span>
+  <span class="nav-next"><a href="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data.html">Differential expression analysis with public available sequencing data &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

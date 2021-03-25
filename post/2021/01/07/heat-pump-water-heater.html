@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Heat pump water heater | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2021-01-07</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+     &hercon; <a href="/categories/decarbonization">decarbonization</a>
+  
+  </div>
+
+  <h1><span class="title">Heat pump water heater</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/california">California</a>; <a href="/tags/heat-pump-water-heater">heat pump water heater</a>; <a href="/tags/power-outage">power outage</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="reading-packages" class="section level1">
+<h1>reading packages</h1>
+<pre class="r"><code>library(tidyverse)
+library(lubridate)
+library(scales)</code></pre>
+<p>Buring gas produce CO2. Reducing gas usage is critical to reduce CO2 production from our house. Here is the history of our gas usage of my house since 2012 November.</p>
+<pre class="r"><code># reading data
+gasdata &lt;- read.csv(file.path(&quot;/Volumes&quot;,&quot;data_personal&quot;,&quot;Kazu_blog&quot;,&quot;resources&quot;,&quot;pge_gas_billing_data_8882170746_2012-11-14_to_2020-10-09.csv&quot;),skip=5)
+# data format
+summary(gasdata)</code></pre>
+<pre><code>##                   TYPE      START.DATE    END.DATE      USAGE          UNITS   
+##  Natural gas billing:95   1/10/13: 1   1/8/17 : 1   Min.   : 2.00   therms:95  
+##                           1/10/14: 1   1/8/18 : 1   1st Qu.:11.00              
+##                           1/10/15: 1   1/9/13 : 1   Median :15.00              
+##                           1/10/16: 1   1/9/14 : 1   Mean   :24.96              
+##                           1/10/19: 1   1/9/15 : 1   3rd Qu.:39.50              
+##                           1/10/20: 1   1/9/16 : 1   Max.   :90.00              
+##                           (Other):89   (Other):89                              
+##        COST     NOTES        
+##  $15.42  : 2   Mode:logical  
+##  $9.78   : 2   NA&#39;s:95       
+##  $10.81  : 1                 
+##  $10.83  : 1                 
+##  $101.56 : 1                 
+##  $102.84 : 1                 
+##  (Other) :87</code></pre>
+<pre class="r"><code># format data
+gasdata2 &lt;- gasdata %&gt;% mutate(COST2 = str_remove_all(as.character(COST),&quot;\\$&quot;) %&gt;% as.numeric()) 
+gasdata2 &lt;- gasdata2 %&gt;% mutate(
+  START.DATE2 = mdy(START.DATE),
+         date = date(START.DATE2),
+         year = year(START.DATE2),
+         month = month(START.DATE2) %&gt;% factor(levels=1:12),
+         day = day(START.DATE2),
+         yday = yday(START.DATE2),
+         wday = wday(START.DATE2))
+str(gasdata2)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    95 obs. of  15 variables:
+##  $ TYPE       : Factor w/ 1 level &quot;Natural gas billing&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ START.DATE : Factor w/ 95 levels &quot;1/10/13&quot;,&quot;1/10/14&quot;,..: 18 24 1 37 44 49 57 67 75 80 ...
+##  $ END.DATE   : Factor w/ 95 levels &quot;1/8/17&quot;,&quot;1/8/18&quot;,..: 24 3 36 43 48 56 65 74 86 88 ...
+##  $ USAGE      : int  30 90 70 49 19 18 14 11 9 11 ...
+##  $ UNITS      : Factor w/ 1 level &quot;therms&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ COST       : Factor w/ 93 levels &quot;$10.81 &quot;,&quot;$10.83 &quot;,..: 52 3 83 68 39 42 26 10 89 7 ...
+##  $ NOTES      : logi  NA NA NA NA NA NA ...
+##  $ COST2      : num  32.1 101.6 73.5 50 20 ...
+##  $ START.DATE2: Date, format: &quot;2012-11-14&quot; &quot;2012-12-11&quot; ...
+##  $ date       : Date, format: &quot;2012-11-14&quot; &quot;2012-12-11&quot; ...
+##  $ year       : num  2012 2012 2013 2013 2013 ...
+##  $ month      : Factor w/ 12 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 11 12 1 2 3 4 5 6 7 8 ...
+##  $ day        : int  14 11 10 9 13 11 11 12 12 10 ...
+##  $ yday       : num  319 346 10 40 72 101 131 163 193 222 ...
+##  $ wday       : num  4 3 5 7 4 5 7 4 6 7 ...</code></pre>
+</div>
+<div id="plot" class="section level1">
+<h1>plot</h1>
+<pre class="r"><code>gasdata2 %&gt;% ggplot(aes(x=month, y=year,  fill=USAGE)) + 
+    geom_tile(col = &#39;grey40&#39;) +
+    scale_fill_continuous(labels = scales::comma, low = &#39;grey95&#39;, high = &#39;#008FD5&#39;) +
+    theme(panel.grid.major = element_blank(),axis.text.x=element_text(angle=90)) +
+    scale_y_reverse() + 
+  geom_text(aes(label=COST2 %&gt;% round() %&gt;% str_c(&quot;$&quot;,.))) +
+    labs(title = &quot;Fig. 1. Monthly gas usage and cost&quot;,x=&quot;Month&quot;,y=&quot;Year&quot;)  + 
+    coord_equal() </code></pre>
+<p><img src="/post/2021-01-07-heat-pump-water-heater_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Yearly gas comsumption had a big peak in winter season probably because gas water heater and gas-powered furnace are used extensively during winter. Other gas-powered equiptments are kitchen cooktop and an oven.</p>
+<p>As a next decarbonization project, we replaced old gas water heater to a heat pump water heater (HPWH) because HPWH is 5x more efficient than gas-powered one <a href="https://cleantechnica.com/2020/04/26/heat-pump-water-heaters-game-changers-in-efficiency/">read an article in Cleantechnica.com</a>. Moreover, since HPWH is an electric device like a reverse system of a refrigerator, lowering CO2 amount in generating electricity by increasing ratio of clean energy should save more CO2 production.</p>
+</div>
+<div id="needs-to-custamize-heating-schedule" class="section level1">
+<h1>Needs to custamize heating schedule</h1>
+<div class="figure">
+<img src="/post/2021-01-07-heat-pump-water-heater_files/HPWH_IMG_4079.PNG" alt="Fig.2 EcoNet_schedule1" width="400" />
+<p class="caption">Fig.2 EcoNet_schedule1</p>
+</div>
+<p>Our new HPWH has an app to control weekly heating schedules. At the late November, I noticed that we do not have enough hot water when we filled hot bath and used hot water for hand dish washing at evening probably because water temparature was getting lower at the beginning of winter. After several attempls of adjusting the schedules, I came up with a schedule that has higher water temparature only during evening. Since our electricity price is higher during peak period (4pm - 9 pm) due to time-of-use (TOU) plan and it takes time to heat water by energy efficienty compressor than energy inefficient electric element, heating has to start from 1 pm and temparature has to set to lowest when hot water is not needed (11 pm) (Fig. 2).</p>
+</div>
+<div id="saving-california-power-outage-during-peak-time-by-switching-to-heat-pump-water-heater" class="section level1">
+<h1>Saving California power outage during peak time by switching to heat pump water heater</h1>
+<p>Another benefit to avoid heating during peak time is to save <a href="https://cleantechnica.com/2020/08/27/no-renewables-did-not-cause-californias-blackouts/">California power outage</a> due to overuse of electricity during peak time during extream heatwaves that happened the last summer <a href="https://cleantechnica.com/2020/08/22/lets-ride-these-heatwaves-with-heat-pumps/">read a Cleantechnica.com article</a>. An important point is that HPWH cools down around its place (remember that HPWH is reverse system of a refrigerator). In my house, our HPWH is placed inside a garage, where was cooler after installing HPWH on August.</p>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2021/01/01/heart-rate-data-analysis1.html">Heart_rate_data_analysis1 &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

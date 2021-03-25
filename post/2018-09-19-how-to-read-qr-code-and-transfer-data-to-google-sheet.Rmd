@@ -1,0 +1,40 @@
+---
+title: How to read QR code and transfer data to Google sheet.
+author: Kazu Nozue
+date: '2018-09-19'
+categories:
+  - data-analysis
+  - project-management
+tags:
+  - Google-Sheet
+  - QR-code
+slug: how-to-read-qr-code-and-transfer-data-to-google-sheet
+---
+# Copy scanned info by iphone and paste it on your computer software.
+
+<img src="/post/2018-09-19-how-to-read-qr-code-and-transfer-data-to-google-sheet_files/Scan_QRcode.png" width=1200px align="top" alt="Universal Clipboard Scan">
+
+[Universal Clipboard](https://support.apple.com/kb/ph25168?locale=en_US
+) is useful for this purpose when you use [a certain model of iphone, Mac, and macOS](https://blog.macsales.com/42686-a-complete-guide-to-universal-clipboard-in-macos-high-sierra). 
+
+* Step 1. Install barcode scanner app that can copy scanned info ("QR Scanner", "QR Reader", "Qrafter" from App Store worked as of Sep 2018).
+* Step 2. Scan QR code (or any codes?) and copy decoded info.
+* Step 3. Paste the decoded into into your software in your computer (eg. Google Sheet, Excel, etc)
+* Step 4. After reading the spread sheet with R, you can separate letters by hyphen ("-"), underscore ("_"), or other separater that can be used in base::strsplit() or tidyr::separate(). For example,
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+strsplit("Col_sun_rep1",split="_")
+library(tidyverse)
+tibble(x=c("Col_sun_rep1","Col_shade_rep2")) %>% tidyr::separate(x,c("genotype","treatment","replicate"))
+```
+
+Amaizing and useful.
+
+
+# Troubleshooting
+(@) [Do you have frozen clipboard?](http://osxdaily.com/2018/02/02/fix-copy-paste-not-working-mac/) 
+(@) Not working? Check if your devices are connected via bluethooth. It seems that WiFi network is not necessary.
+(@) For Android devices, there seems [possible solution](http://www.clipbrd.com/). Even for [all OS (I haven't tested...)](https://www.pushbullet.com/apps)?
+
+
+
+

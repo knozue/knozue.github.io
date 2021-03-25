@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -13,9 +14,34 @@
       <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>/post/2021/01/07/heat-pump-water-heater/</guid>
+=======
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>heat pump water heater on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>https://knozue.github.io/tags/heat-pump-water-heater.html</link>
+    <description>Recent content in heat pump water heater on Daddy&#39;s data analysis by Kazu Nozue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 07 Jan 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://knozue.github.io/tags/heat-pump-water-heater/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Heat pump water heater</title>
+      <link>https://knozue.github.io/post/2021/01/07/heat-pump-water-heater.html</link>
+      <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2021/01/07/heat-pump-water-heater.html</guid>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description>reading packages library(tidyverse) library(lubridate) library(scales) Buring gas produce CO2. Reducing gas usage is critical to reduce CO2 production from our house. Here is the history of our gas usage of my house since 2012 November.
 # reading data gasdata &amp;lt;- read.csv(file.path(&amp;quot;/Volumes&amp;quot;,&amp;quot;data_personal&amp;quot;,&amp;quot;Kazu_blog&amp;quot;,&amp;quot;resources&amp;quot;,&amp;quot;pge_gas_billing_data_8882170746_2012-11-14_to_2020-10-09.csv&amp;quot;),skip=5) # data format summary(gasdata) ## TYPE START.DATE END.DATE USAGE UNITS ## Natural gas billing:95 1/10/13: 1 1/8/17 : 1 Min. : 2.00 therms:95 ## 1/10/14: 1 1/8/18 : 1 1st Qu.</description>
     </item>
     
   </channel>
+<<<<<<< HEAD
 </rss>
+=======
+</rss>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6

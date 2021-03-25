@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -13,71 +14,167 @@
       <pubDate>Fri, 19 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>/categories/data-analysis/</guid>
+=======
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>https://knozue.github.io/categories.html</link>
+    <description>Recent content in Categories on Daddy&#39;s data analysis by Kazu Nozue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://knozue.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>EV</title>
+      <link>https://knozue.github.io/categories/ev.html</link>
+      <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/categories/ev.html</guid>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
+<<<<<<< HEAD
       <title>decarbonization</title>
       <link>/categories/decarbonization/</link>
       <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>/categories/decarbonization/</guid>
+=======
+      <title>communication skill</title>
+      <link>https://knozue.github.io/categories/communication-skill.html</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/categories/communication-skill.html</guid>
       <description></description>
     </item>
     
     <item>
+      <title>data-analysis</title>
+      <link>https://knozue.github.io/categories/data-analysis.html</link>
+      <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/categories/data-analysis.html</guid>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
+      <description></description>
+    </item>
+    
+    <item>
+<<<<<<< HEAD
       <title>sports</title>
       <link>/categories/sports/</link>
       <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>/categories/sports/</guid>
+=======
+      <title>decarbonization</title>
+      <link>https://knozue.github.io/categories/decarbonization.html</link>
+      <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/categories/decarbonization.html</guid>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
       <title>native-plant</title>
+<<<<<<< HEAD
       <link>/categories/native-plant/</link>
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>/categories/native-plant/</guid>
+=======
+      <link>https://knozue.github.io/categories/native-plant.html</link>
+      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/categories/native-plant.html</guid>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
+<<<<<<< HEAD
       <title>EV</title>
       <link>/categories/ev/</link>
       <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/categories/ev/</guid>
+=======
+      <title>project-management</title>
+      <link>https://knozue.github.io/categories/project-management.html</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/categories/project-management.html</guid>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
+<<<<<<< HEAD
       <title>communication skill</title>
       <link>/categories/communication-skill/</link>
       <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
       
       <guid>/categories/communication-skill/</guid>
+=======
+      <title>sports</title>
+      <link>https://knozue.github.io/categories/sports.html</link>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/categories/sports.html</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>travel</title>
+      <link>https://knozue.github.io/categories/travel.html</link>
+      <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/categories/travel.html</guid>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
       <title>スポーツ</title>
+<<<<<<< HEAD
       <link>/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84/</guid>
+=======
+      <link>https://knozue.github.io/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84.html</link>
+      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84.html</guid>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
+<<<<<<< HEAD
       <title>project-management</title>
       <link>/categories/project-management/</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/categories/project-management/</guid>
+=======
+      <title>旅行</title>
+      <link>https://knozue.github.io/categories/%E6%97%85%E8%A1%8C.html</link>
+      <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/categories/%E6%97%85%E8%A1%8C.html</guid>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
   </channel>
+<<<<<<< HEAD
 </rss>
+=======
+</rss>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6

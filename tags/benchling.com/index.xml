@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -13,20 +14,50 @@
       <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019/01/08/confirming-genotypes-by-visualizing-mutations-from-rnaseq-data/</guid>
+=======
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>benchling.com on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>https://knozue.github.io/tags/benchling.com.html</link>
+    <description>Recent content in benchling.com on Daddy&#39;s data analysis by Kazu Nozue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 08 Jan 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://knozue.github.io/tags/benchling.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Confirming genotypes by visualizing mutations from RNAseq data</title>
+      <link>https://knozue.github.io/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</link>
+      <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2019/01/08/confirming-genotype-by-visualizing-mutation-in-rnaseq-data.html</guid>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description>RNAseq is a powerful tool for transcriptome analysis. It is also useful for genotyping (for example, 1). Here I demonstrated an example of confirmation of genotype used for RNAseq. There are some unavoidable errors due to unexpected mistakes in many steps (eg. contamination of seeds, contamination of samples, pipetting errors during library preparation, rotation of plates, etc.). Therefore confirmation of genotype using RNAseq data is useful for quality control of samples used 2.</description>
     </item>
     
     <item>
       <title>Annotating sequences by benchling.com</title>
+<<<<<<< HEAD
       <link>/post/2018/12/06/annotating-sequences-by-benchling-com/</link>
       <pubDate>Thu, 06 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/2018/12/06/annotating-sequences-by-benchling-com/</guid>
       <description>Annotating sequences is critical for making a construct in molecular biology. Benchling.com is a powerful tool for automating the annotation process. This example explains how to label “2x35S promoter” region in sequences of interest. step1: Before adding 2x35S promoter benchling.com plasmid annotation (step1) step2: Exporting 2x25S promoter feature info (sequences) from known annotated sequence benchling.com plasmid annotation</description>
+=======
+      <link>https://knozue.github.io/post/2018/12/06/annotating-sequences-by-benchling-com.html</link>
+      <pubDate>Thu, 06 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2018/12/06/annotating-sequences-by-benchling-com.html</guid>
+      <description>Annotating sequences is critical for making a construct in molecular biology. Benchling.com is a powerful tool for automating the annotation process. This example explains how to label “2x35S promoter” region in sequences of interest. step1: Before adding 2x35S promoter benchling.com plasmid annotation (step1) step2: Exporting 2x25S promoter feature info (sequences) from known annotated sequence From pMDC32 vector</description>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
     </item>
     
     <item>
       <title>Busy dad needs project management skills!</title>
+<<<<<<< HEAD
       <link>/post/2018/09/12/busy-dad-needs-project-management-skills/</link>
       <pubDate>Wed, 12 Sep 2018 00:00:00 +0000</pubDate>
       
@@ -38,3 +69,14 @@ How to make your experiments reproducible As scientists we need to convince othe
     
   </channel>
 </rss>
+=======
+      <link>https://knozue.github.io/post/2018/09/12/the-first-post.html</link>
+      <pubDate>Wed, 12 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2018/09/12/the-first-post.html</guid>
+      <description>Here I would like to start describe briefly how I manage my work and personal projects. How to make your experiments reproducible As scientists we need to convince others that your results are not by chance. Here are four advices I want to emphasize here. Keep all records on your lab notebook presicely that should be easy to understand. Simplify methods of data input to reduce errors. Have clear and</description>
+    </item>
+    
+  </channel>
+</rss>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6

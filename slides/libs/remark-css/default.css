@@ -41,7 +41,11 @@ a, a > code {
   float: right;
   width: 47%;
 }
+<<<<<<< HEAD
 .pull-right + * {
+=======
+.pull-right ~ * {
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
   clear: both;
 }
 img, video, iframe {

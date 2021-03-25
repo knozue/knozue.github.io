@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Over-representation analysis 3: GOseq with GO term in non-model organisms | </title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-09-27</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+  </div>
+
+  <h1><span class="title">Over-representation analysis 3: GOseq with GO term in non-model organisms</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/reproducibility">reproducibility</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+<div id="if-you-want-to-analyze-non-model-organisms-what-you-an-do" class="section level1">
+<h1>If you want to analyze non-model organisms, what you an do?</h1>
+<p>Please prepare</p>
+<ol class="example" style="list-style-type: decimal">
+<li>fasta file for cDNA of your species,</li>
+<li>fasta file for cDNA of a close model organisms to your species,</li>
+<li>blastn program installed in your computer (UNIX (or Mac OSX) or LINUX) (<a href="https://www.ncbi.nlm.nih.gov/books/NBK52640/">detailed instruciton from NCBI</a>) <!--[](/post/2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term_files/Trello_example_Screen Shot 2018-09-20 at 9.58.20 AM.png)--> # required libraries</li>
+</ol>
+<pre class="r"><code>library(tidyverse);library(readr);library(readxl)</code></pre>
+</div>
+<div id="reciprocal-blastn" class="section level1">
+<h1>Reciprocal BLASTN</h1>
+<pre class="r"><code># look Julin&#39;s scripts</code></pre>
+</div>
+<div id="annotate-br-genes-with-atgoslim" class="section level1">
+<h1>Annotate Br genes with Atgoslim</h1>
+<pre class="r"><code>  ## making Brgo.v3.0anno.Atgoslim.BP.list (run once)
+getwd()</code></pre>
+<pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog/content/post&quot;</code></pre>
+<pre class="r"><code>list.files()</code></pre>
+<pre><code>##  [1] &quot;2018-09-12-the-first-post.md&quot;                                                          
+##  [2] &quot;2018-09-13-native-plant-garden-project.md&quot;                                             
+##  [3] &quot;2018-09-14-wifi-or-sim.md&quot;                                                             
+##  [4] &quot;2018-09-15-.html&quot;                                                                      
+##  [5] &quot;2018-09-15-.Rmd&quot;                                                                       
+##  [6] &quot;2018-09-15-r-memo1.html&quot;                                                               
+##  [7] &quot;2018-09-15-r-memo1.Rmd&quot;                                                                
+##  [8] &quot;2018-09-18-.html&quot;                                                                      
+##  [9] &quot;2018-09-18-.Rmd&quot;                                                                       
+## [10] &quot;2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com.html&quot;              
+## [11] &quot;2018-09-18-how-to-make-qr-code-in-google-sheet-using-integromat-com.Rmd&quot;               
+## [12] &quot;2018-09-19-how-to-read-qr-code-and-transfer-data-to-google-sheet.html&quot;                 
+## [13] &quot;2018-09-19-how-to-read-qr-code-and-transfer-data-to-google-sheet.Rmd&quot;                  
+## [14] &quot;2018-09-20-shortcode-test.md&quot;                                                          
+## [15] &quot;2018-09-24-how-to-make-qrcode-by-r-ggplot2.html&quot;                                       
+## [16] &quot;2018-09-24-how-to-make-qrcode-by-r-ggplot2.Rmd&quot;                                        
+## [17] &quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term.html&quot;         
+## [18] &quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term.Rmd&quot;          
+## [19] &quot;2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term_files&quot;          
+## [20] &quot;2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term.html&quot;           
+## [21] &quot;2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term.Rmd&quot;            
+## [22] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization.html&quot;                  
+## [23] &quot;2018-09-27-over-representation-analysis-4-heatmap-visualization.Rmd&quot;                   
+## [24] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data.html&quot;
+## [25] &quot;2018-10-01-differential-expression-analysis-with-public-available-sequencing-data.Rmd&quot; 
+## [26] &quot;2018-10-07-over-representation-analysis-5-useful-tools.html&quot;                           
+## [27] &quot;2018-10-07-over-representation-analysis-5-useful-tools.Rmd&quot;                            
+## [28] &quot;2018-10-10-over-representation-analysis-2-goseq-using-custom-categories.html&quot;          
+## [29] &quot;2018-10-10-over-representation-analysis-2-goseq-using-custom-categories.Rmd&quot;</code></pre>
+<pre class="r"><code>  ### prerequisit: results from reciprocal BLAST against Arabidopsis thaliana
+  Br.v3.0anno.At.BLAST&lt;-readr::read_csv(file=&quot;2018-09-27-over-representation-analysis-3-goseq-with-non-model-go-term_files/Brapa_V3.0_annotated.csv&quot;) # BLASTed by Julin. Due to &quot;On Sat, Sep 29, 2018 at 3:54 PM John Davis &lt;jtdavis@ucdavis.edu&gt; wrote: the max_target_seqs option does not return the top hits but the first N sequences which pass the e-value cutoff.&quot;, we need to rerun script.</code></pre>
+<pre><code>## Warning: Missing column names filled in: &#39;X1&#39; [1]</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X1 = col_integer(),
+##   name = col_character(),
+##   chrom = col_character(),
+##   start = col_integer(),
+##   end = col_integer(),
+##   subject = col_character(),
+##   AGI = col_character(),
+##   At_symbol = col_character(),
+##   At_description = col_character(),
+##   perc_ID = col_double(),
+##   aln_length = col_integer(),
+##   mismatch = col_integer(),
+##   gap_open = col_integer(),
+##   qstart = col_integer(),
+##   qend = col_integer(),
+##   sstart = col_integer(),
+##   send = col_integer(),
+##   eval = col_double(),
+##   score = col_double()
+## )</code></pre>
+<pre class="r"><code>Br.v3.0anno.At.BLAST</code></pre>
+<pre><code>## # A tibble: 38,899 x 19
+##       X1 name  chrom start   end subject AGI   At_symbol At_description
+##    &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;         
+##  1     1 BraA… A01    2864  5220 AT1G43… AT1G… &lt;NA&gt;      &lt;NA&gt;          
+##  2     2 BraA… A01    5264  7621 AT4G38… AT4G… LAZ1      &lt;NA&gt;          
+##  3     3 BraA… A01    8705  9661 AT4G38… AT4G… &lt;NA&gt;      &lt;NA&gt;          
+##  4     4 BraA… A01   10292 11917 AT4G38… AT4G… AQI       &lt;NA&gt;          
+##  5     5 BraA… A01   12431 13279 AT4G38… AT4G… ATEXP20;… expansin -lik…
+##  6     6 BraA… A01   16133 19645 AT4G38… AT4G… ATCSLD4;… encodes a gen…
+##  7     7 BraA… A01   21106 22090 AT4G38… AT4G… ATEXLA2;… member of EXP…
+##  8     8 BraA… A01   23348 24434 AT4G38… AT4G… AtSSU;GG… &lt;NA&gt;          
+##  9     9 BraA… A01   29350 32812 AT4G38… AT4G… STY46     &lt;NA&gt;          
+## 10    10 BraA… A01   33188 33706 AT4G38… AT4G… &lt;NA&gt;      &lt;NA&gt;          
+## # ... with 38,889 more rows, and 10 more variables: perc_ID &lt;dbl&gt;,
+## #   aln_length &lt;int&gt;, mismatch &lt;int&gt;, gap_open &lt;int&gt;, qstart &lt;int&gt;,
+## #   qend &lt;int&gt;, sstart &lt;int&gt;, send &lt;int&gt;, eval &lt;dbl&gt;, score &lt;dbl&gt;</code></pre>
+</div>
+<div id="making-brgo.v3.0anno.atgoslim.bp.list" class="section level1">
+<h1>Making Brgo.v3.0anno.Atgoslim.BP.list</h1>
+<pre class="r"><code># Atgoslim.TAIR.BP.list
+
+# asign At GO into corresponding Br genes
+Brgo.v3.0anno.Atgoslim.BP.list&lt;-list()
+###### under construction #############
+  for(i in 1:length(Br.v3.0anno.At.BLAST$name)) {
+    if(is.null(Atgoslim.TAIR.BP.list[[as_vector(Br.v3.0anno.At.BLAST[i,&quot;AGI&quot;])]])) next else {
+      Brgo.v3.0anno.Atgoslim.BP.list[[i]]&lt;-Atgoslim.TAIR.BP.list[[as_vector(Br.v3.0anno.At.BLAST[i,&quot;AGI&quot;])]]
+      names(Brgo.v3.0anno.Atgoslim.BP.list)[[i]]&lt;-as_vector(Br.v3.0anno.At.BLAST[i,&quot;name&quot;])
+    }
+  }
+  table(sapply(Brgo.v3.0anno.Atgoslim.BP.list,is.null))
+  Brgo.v3.0anno.Atgoslim.BP.list.list&lt;-Brgo.v3.0anno.Atgoslim.BP.list[!sapply(Brgo.v3.0anno.Atgoslim.BP.list,is.null)]
+  table(sapply(Brgo.v3.0anno.Atgoslim.BP.list,is.null))
+  save(Brgo.v3.0anno.Atgoslim.BP.list,file=file.path(&quot;common&quot;,&quot;Annotation&quot;,&quot;output&quot;,&quot;v3.0annotation&quot;,&quot;Brgo.v3.0anno.Atgoslim.BP.list.Rdata&quot;))
+#} else {print(&quot;change directory&quot;);stop}</code></pre>
+</div>
+<div id="uner-construction" class="section level1">
+<h1>uner construction</h1>
+<pre class="r"><code>load(&quot;../../Annotation/input/Brgo.Atgoslim.BP.list.Rdata&quot;) 
+library(ShortRead);library(goseq);library(GO.db);library(&quot;annotate&quot;)
+# for ggplot heatmap
+#library(WGCNA);library(ggplot2);library(reshape2);library(scales)
+# read cDNA fasta file with v3.0 annotation
+Br_cdna&lt;-readDNAStringSet(&quot;http://brassicadb.org/brad/datasets/pub/Genomes/Brassica_rapa/V3.0/Brapa_genome_v3.0_cds.fasta.gz&quot;)
+head(Br_cdna)</code></pre>
+</div>
+<div id="goseq-ora-function-for-brassica-rapa" class="section level1">
+<h1>GOseq ORA function for Brassica rapa</h1>
+<pre class="r"><code>GOseq.Brgo.Atgoslim.BP.list.ORA&lt;-function(genelist,padjust=0.05,ontology=&quot;BP&quot;,custom.category.list=Brgo.Atgoslim.BP.list,cdna=Br_cdna) { # return GO enrichment table, padjus, padjust=0.05. 
+  bias&lt;-nchar(cdna)
+  names(bias)&lt;-names(cdna)
+  TF&lt;-(names(bias) %in% genelist)*1
+  names(TF)&lt;-names(bias)
+  #print(TF)
+  pwf&lt;-nullp(TF,bias.data=bias)
+  #print(pwf$DEgenes)
+  GO.pval &lt;- goseq(pwf,gene2cat=custom.category.list,use_genes_without_cat=TRUE) # format became different in new goseq version (021111). Does not work (042716)
+  #GO.pval &lt;- goseq(pwf,gene2cat=Brgo.DF3,use_genes_without_cat=TRUE) # format became different in new goseq version (021111)
+  
+  #head(GO.pval) 
+  if(ontology==&quot;BP&quot;) {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;BP&quot;)
+  } else if(ontology==&quot;CC&quot;) {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;CC&quot;)
+  } else {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;MF&quot;)
+  }
+    
+  GO.pval2$over_represented_padjust&lt;-p.adjust(GO.pval2$over_represented_pvalue,method=&quot;BH&quot;)
+  if(GO.pval2$over_represented_padjust[1]&gt;padjust) return(&quot;no enriched GO&quot;)
+  else {
+    enriched.GO&lt;-GO.pval2[GO.pval2$over_represented_padjust&lt;padjust,] 
+    print(&quot;enriched.GO is&quot;)
+    print(enriched.GO)
+    
+    ## write Term and Definition 
+    for(i in 1:dim(enriched.GO)[1]) {
+      if(is.null(Term(GOTERM[enriched.GO[i,&quot;category&quot;]]))) {next} else {
+      enriched.GO$Term[i]&lt;-Term(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
+      enriched.GO$Definition[i]&lt;-Definition(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
+      }
+    }
+    return(enriched.GO)
+  }
+}</code></pre>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/">&larr; Differential expression analysis with public available sequencing data</a></span>
+  <span class="nav-next"><a href="/post/2018/09/27/over-representation-analysis-4-heatmap-visualization/">Over-representation analysis 4:  heatmap visualization &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="Subscribe RSS feed">Subscribe RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>test on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>/tags/test.html</link>
+    <description>Recent content in test on Daddy&#39;s data analysis by Kazu Nozue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>shortcode test</title>
+      <link>/post/2018/09/20/shortcode-test.html</link>
+      <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/09/20/shortcode-test.html</guid>
+      <description>Youtube?   Amazon, not working   -- R for Data Science amzn_assoc_ad_type = &#34;banner&#34;; amzn_assoc_marketplace = &#34;amazon&#34;; amzn_assoc_region = &#34;US&#34;; amzn_assoc_placement = &#34;assoc_banner_placement_default&#34;; amzn_assoc_campaigns = &#34;computers_accesories&#34;; amzn_assoc_banner_type = &#34;category&#34;; amzn_assoc_p = &#34;21&#34;; amzn_assoc_isresponsive = &#34;false&#34;; amzn_assoc_banner_id = &#34;1SHGCFFM6T54YWBQH8G2&#34;; amzn_assoc_width = &#34;125&#34;; amzn_assoc_height = &#34;125&#34;; amzn_assoc_tracking_id = &#34;busydaddy1-20&#34;; amzn_assoc_linkid = &#34;292b8ae99673d91ff5d910110121d7b2&#34;;    -- amzn_assoc_ad_type = &#34;banner&#34;; amzn_assoc_marketplace = &#34;amazon&#34;; amzn_assoc_region = &#34;US&#34;; amzn_assoc_placement = &#34;assoc_banner_placement_default&#34;; amzn_assoc_campaigns = &#34;</description>
+    </item>
+    
+  </channel>
+</rss>

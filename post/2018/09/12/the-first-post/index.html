@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Busy dad needs project management skills! | </title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-09-12</span>
+        
+        
+        
+          
+        
+        
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+     &hercon; <a href="/categories/project-management">project-management</a>
+  
+  </div>
+
+  <h1><span class="title">Busy dad needs project management skills!</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/benchling.com">benchling.com</a>; <a href="/tags/google-drive">Google-Drive</a>; <a href="/tags/google-form">Google-Form</a>; <a href="/tags/google-sheet">Google-Sheet</a>; <a href="/tags/trello">Trello</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+<p><img src="/post/2018-09-12-the-first-post_files/concept_network1s.png" alt="Concept Map for this blog" width="400px"/ align="top"></p>
+
+<p>Here I would like to start describe briefly how I manage my work and personal projects.</p>
+
+<h1 id="how-to-make-your-experiments-reproducible">How to make your experiments reproducible</h1>
+
+<p>As scientists we need to convince others that your results are not by chance. Here are four advices I want to emphasize here.</p>
+
+<ul>
+<li>Keep all records on your lab notebook presicely that should be easy to understand.</li>
+<li>Simplify methods of data input to reduce errors.</li>
+<li>Have clear and precise data analysis.</li>
+<li>Efficiently manage time and resources to conduct experiments (or works in general).</li>
+</ul>
+
+<h2 id="keep-records-in-your-lab-notebooks-presicely-that-should-be-easy-to-understand">Keep records in your lab notebooks presicely that should be easy to understand</h2>
+
+<p>You data and lab notebooks have to be well organized for others and yourself to make everything you&rsquo;ve done transparent. To facilitate communication between your boss, your collaborators, and you, I use online notebook systems such as <a href="https://www.evernote.com">Evernote</a>, <a href="https://www.google.com/drive/">Google Drive</a> including Docs and Sheets, and <a href="https://www.benchling.com">benchling.com</a> for molecular biology work. Please find other <a href="***under construction***">excellent websites</a> for leaning how to keep records daily.</p>
+
+<p><img src="/post/2018-09-12-the-first-post_files/Google_Drive_directory_example1.png" alt="Fig.1. Google Drive directory example1" width="800px" align="top" title="Fig.1"><a id="Fig1"></a>
+<strong>Fig. 1. An example of Google Drive directory structure for sharing data and lab notebook with students (&ldquo;Aloni&rdquo; in this example).</strong><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup></p>
+
+<p>Organized directory is essential for proper data storage (<a href="#Fig.1">Fig. 1</a>).</p>
+
+<h2 id="simplify-methods-of-data-input-to-reduce-errors">Simplify methods of data input to reduce errors</h2>
+
+<p><img src="/post/2018-09-12-the-first-post_files/GoogleForm_example1.png" alt="Fig.2. Google Form as a data input tool" width="800px" align="top" title="図2"><a id="Fig2"></a>
+<strong>Fig. 2. An example of usage of Google Form for data input.</strong></p>
+
+<p>When you handle a lot of samples, you will have errors in data input. For example, &ldquo;Col&rdquo;, &ldquo;coi1-16&rdquo;, &ldquo;coi1-1&rdquo; are easy to be confused even if you wrote those labels by yourself. To prevent such a incident is to use <a href="https://www.google.com/forms/about/">Google Form</a>, which has a list of sample names that you only can choose them (<a href="#Fig2">Fig. 2</a>). Another method is to use barcodes, which can be printed out onto stickers by using word processors. We used to use USB-wired barcode reader that connects to a computer, which enable to input decoded info from barcodes to Excel sheets. In the era of smartphone (as of 2018), I updated the barcode system which uses Google Sheet and a smartphone. Please read <a href="https://knozue.github.io/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com/index.html">&ldquo;How to make QR code in Google Sheet using Integromat.com.&rdquo;</a> and <a href="https://knozue.github.io/post/2018/09/19/how-to-read-qr-code-and-transfer-data-to-google-sheet/index.html">&ldquo;How to read QR code and transfer data to Google sheet&rdquo;</a>.</p>
+
+<h2 id="have-clear-and-precise-data-analysis">Have clear and precise data analysis.</h2>
+
+<p>R/bioconductor + RStudio + Github + Shiny app (if necessary to share).</p>
+
+<p>I highly recommend that you use statistic environment, R, and bioconductor package (for bioinformtics), in <a href="https://www.rstudio.com/">RStudio</a> interface. Combined with Github or other web-based version control, you can keep track your data analysis. If you are interested in whole series of training of their application, please visit <a href="http://jnmaloof.github.io/BIS180L_web/slides/Week1_Day1_BIS180L_Intro/">Prof. Julin Maloof&rsquo;s lab class in University of California, Davis</a>. <a href="https://www.rstudio.com/products/shiny/">Shiny</a> is an R package for making web application, and some of our efforts are found in <a href="http://malooflab.phytonetworks.org/apps/">Julin Maloof lab website</a>. I will touch this topic more details in the future posts.</p>
+
+<h2 id="effectively-manage-time-and-resources-to-conduct-experiments-or-works-in-general">Effectively manage time and resources to conduct experiments (or works in general)</h2>
+
+<p><img src="/post/2018-09-12-the-first-post_files/Trello_example_Screen Shot 2018-09-20 at 9.58.20 AM.png" alt="Fig.3. Google Form as a data input tool" width="800px" align="top" title="Fig.3"><a id="Fig3"></a>
+<strong>Fig. 3. An example of usage of Trello in Maloof lab, University of California Davis.</strong></p>
+
+<p><a href="https://www.trello.com">Trello</a>[see Fig.3], <a href="https://support.apple.com/en-us/HT205890">Reminder (Apple only?)</a>, <a href="https://www.evernote.com">Evernote</a>, <a href="https://www.benchling.com">benchling.com</a>, and Gantt Chart (<a href="https://www.omnigroup.com/omniplan">OmniPlan (this is paid software)</a>, or <a href="https://elegantt.com/">Elegantt with Trello</a>) are software I used for time and resource (labor, materials, etc) management. I am planning to explain more details in the future.</p>
+
+<h2 id="easy-accessible-lab-database">Easy accessible lab database</h2>
+
+<p>In addition to lab member&rsquo;s efforts, a lab needs to provide organized lab database, including inventory (plasmid DNA, glycerol stock, seeds, hopefully reagents, using Google Sheets) and protocols (lab website or benchling.com).</p>
+
+<h2 id="enjoy-your-work">Enjoy your work.</h2>
+
+<p>If you are interested in more details, please keep your eyes on this blog. I am planning to update soon.
+Thank you very much!</p>
+
+<hr />
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">Having READme file in this directory top is <a href="http://d7.library.gatech.edu/research-data/readme">recommended</a>.
+ <a class="footnote-return" href="#fnref:1">↩</a></li>
+</ol>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/09/13/native-plant-garden-project/">&larr; Native plant garden project</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="Subscribe RSS feed">Subscribe RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

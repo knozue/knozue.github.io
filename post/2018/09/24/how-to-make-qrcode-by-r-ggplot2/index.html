@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+<<<<<<< HEAD
     <title>How to make QRcode by R &#43; ggplot2 | Daddy&#39;s data analysis by Kazu Nozue</title>
+=======
+    <title>How to make QRcode by R &#43; ggplot2 | </title>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -31,8 +35,11 @@
         
         
         
+<<<<<<< HEAD
         <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2018-09-24-how-to-make-qrcode-by-r-ggplot2/index.Rmd">Edit this page &rarr;</a></span>
         
+=======
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
         
       
       </div>
@@ -44,7 +51,11 @@
 
   <div class="categories">
   
+<<<<<<< HEAD
     <a href="/categories/data-analysis">data analysis</a>
+=======
+    <a href="/categories/data-analysis">data-analysis</a>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
   
      &hercon; <a href="/categories/project-management">project-management</a>
   
@@ -58,7 +69,11 @@
   
 
   
+<<<<<<< HEAD
   <p>Tags: <a href="/tags/qr-code">QR-code</a>; <a href="/tags/r">R</a>; <a href="/tags/reproducibility">reproducibility</a>; <a href="/tags/%E5%86%8D%E7%8F%BE%E6%80%A7">再現性</a>; <a href="/tags/ggplot2">ggplot2</a>
+=======
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/qr-code">QR-code</a>; <a href="/tags/%E5%86%8D%E7%8F%BE%E6%80%A7">再現性</a>; <a href="/tags/reproducibility">reproducibility</a>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
   </p>
   
   
@@ -68,13 +83,17 @@
 
 
 <main>
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
 <div id="ggplot2-version-of-qrcode-generator" class="section level1">
 <h1>ggplot2 version of qrcode generator</h1>
 <pre class="r"><code>library(qrcode)
 library(tidyverse)</code></pre>
+<<<<<<< HEAD
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
 ## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
@@ -83,6 +102,16 @@ library(tidyverse)</code></pre>
 <pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
+=======
+<pre><code>## ── Attaching packages ──────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
+<pre><code>## ── Conflicts ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
 <pre class="r"><code>#QRmatrix&lt;-qrcode_gen(&#39;www.r-project.org&#39;,dataOutput=TRUE)
 ggqrcode &lt;- function(text, color=&quot;black&quot;, alpha=1) {
     pkg &lt;- &quot;qrcode&quot;
@@ -102,6 +131,7 @@ ggqrcode &lt;- function(text, color=&quot;black&quot;, alpha=1) {
 } # https://github.com/GuangchuangYu/yyplot/blob/master/R/ggqrcode.R
 p&lt;-ggqrcode(&quot;Col_shade_rep3&quot;)
 p</code></pre>
+<<<<<<< HEAD
 <p><img src="/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2/index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>p2&lt;-p + labs(title=&quot;Col shade rep3&quot;)
 p2</code></pre>
@@ -111,6 +141,19 @@ p2</code></pre>
 <h1>How to print out QRcodes on a label sheet?</h1>
 <pre class="r"><code>library(cowplot) # see alternative in https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html
 # read sample data
+=======
+<p><img src="/post/2018-09-24-how-to-make-qrcode-by-r-ggplot2_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>p2&lt;-p + labs(title=&quot;Col shade rep3&quot;)
+p2</code></pre>
+<p><img src="/post/2018-09-24-how-to-make-qrcode-by-r-ggplot2_files/figure-html/unnamed-chunk-1-2.png" width="672" /> # How to print out QRcodes on a label sheet?</p>
+<pre class="r"><code>library(cowplot) # see alternative in https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html</code></pre>
+<pre><code>## 
+## Attaching package: &#39;cowplot&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     ggsave</code></pre>
+<pre class="r"><code># read sample data
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
 
 # create QR code and store them in list object (using loop or sapply?)
 
@@ -136,6 +179,7 @@ p2</code></pre>
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -143,6 +187,11 @@ p2</code></pre>
 <nav class="post-nav">
   <span class="nav-prev"><a href="/post/2018/09/26/over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms/">&larr; Over-representation analysis 1: GOseq with GO terms in unsupported model organisms</a></span>
   <span class="nav-next"><a href="/post/2018/09/19/how-to-read-qr-code-and-transfer-data-to-google-sheet/">How to read QR code and transfer data to Google sheet &rarr;</a></span>
+=======
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/09/26/over-representation-analysis-1-goseq-with-arabidopsis-go-term/">&larr; Over-representation analysis 1: GOseq with GO terms in unsupported model organisms</a></span>
+  <span class="nav-next"><a href="/post/2018/09/20/shortcode-test/">shortcode test &rarr;</a></span>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
 </nav>
 
 
@@ -150,6 +199,7 @@ p2</code></pre>
 </article>
 </div>
 
+<<<<<<< HEAD
 <script async src="//yihui.org/js/center-img.js"></script>
 
 <footer>
@@ -177,6 +227,12 @@ p2</code></pre>
 
 
 
+=======
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
 <div class="footer">
   <ul class="menu">
     
@@ -188,7 +244,13 @@ p2</code></pre>
     
     <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
     
+<<<<<<< HEAD
     <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+=======
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="Subscribe RSS feed">Subscribe RSS feed</span></a></li>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
     
   </ul>
   
@@ -196,8 +258,13 @@ p2</code></pre>
 </footer>
 
 
+<<<<<<< HEAD
 <script src="//yihui.org/js/math-code.js"></script>
 <script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+=======
+<script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
 
 
 

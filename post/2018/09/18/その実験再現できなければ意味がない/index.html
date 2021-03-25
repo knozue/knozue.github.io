@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+<<<<<<< HEAD
     <title>その実験、再現できなければ意味がない | Daddy&#39;s data analysis by Kazu Nozue</title>
+=======
+    <title>その実験、再現できなければ意味がない | </title>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -31,8 +35,11 @@
         
         
         
+<<<<<<< HEAD
         <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2018-09-18-/index.Rmd">Edit this page &rarr;</a></span>
         
+=======
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
         
       
       </div>
@@ -44,7 +51,11 @@
 
   <div class="categories">
   
+<<<<<<< HEAD
     <a href="/categories/data-analysis">data analysis</a>
+=======
+    <a href="/categories/data-analysis">data-analysis</a>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
   
      &hercon; <a href="/categories/project-management">project-management</a>
   
@@ -68,6 +79,7 @@
 
 
 <main>
+<<<<<<< HEAD
 
 
 
@@ -80,6 +92,17 @@
 <p><a href="http://www.riken.jp/pr/topics/2014/20140327_1/">公式見解</a>は詳細すぎるので省略しますが、研究者の端くれとしての私の印象は、実験の記録とサンプルと試薬の管理がお粗末だったこと、データのまとめ方と発表の仕方に誠意が全く感じられないことが再現できなかった原因でしょう。</p>
 </div>
 <div id="再現できる研究のためには" class="section level1">
+=======
+<div class="section level1">
+<h1>再現できなければ意味がない</h1>
+<p>数年前、理化学研究所の研究者がNatureに発表した論文が元で1人の自殺者と多額のお金を使った再現性検証実験、多数の人を巻き込んだだけでなく、世間の注目を浴びる大事件になりました。その騒動の一部始終と詳細はここでは扱いませんが、科学(Science)に関わる者として最も致命的と感じることは、<u>論文で発表された研究が本人でさえも再現できなかった</u>ということです。</p>
+</div>
+<div class="section level1">
+<h1>何故、その実験は再現できなかったのか？</h1>
+<p><a href="http://www.riken.jp/pr/topics/2014/20140327_1/">公式見解</a>は詳細すぎるので省略しますが、研究者の端くれとしての私の印象は、実験の記録とサンプルと試薬の管理がお粗末だったこと、データのまとめ方と発表の仕方に誠意が全く感じられないことが再現できなかった原因でしょう。</p>
+</div>
+<div class="section level1">
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
 <h1>再現できる研究のためには？</h1>
 <p>再現できる実験とは、その結果が偶然(by chance)ではないということです。つまりその実験を繰り返すと同じ結果が出るということです。そのために研究者は何回も実験をして、自分が再現できるかを確かめ、できるだけ再現性の高い方法を見つけようとするのです。そのために大切なことは、</p>
 <ol class="example" style="list-style-type: decimal">
@@ -91,6 +114,7 @@
 <p>でしょう。</p>
 <p>それぞれの研究環境、内容によってどのようにこれらのことを行うかは違い、様々な方法があるので別に紹介します。ここでは私がこれまで分子生物学と表現系解析を研究室のメンバーとやってきた方法について紹介します。殆どのツールは無料です。</p>
 </div>
+<<<<<<< HEAD
 <div id="実験記録を実験ノートに正確で分かりやすく書くこと" class="section level1">
 <h1>実験記録を実験ノートに正確で分かりやすく書くこと</h1>
 <p>図１
@@ -109,6 +133,23 @@
 <p>R/bioconductor + RStudio + Github + Shiny app (必要ならば)。</p>
 </div>
 <div id="実験仕事を効率よく行うこと" class="section level1">
+=======
+<div class="section level1">
+<h1>実験記録を実験ノートに正確で分かりやすく書くこと</h1>
+<p>図１ <img src="/post/2018-09-15-reproducibility_files/Google_Drive_directory_example1.png" alt="Fig.1. Google Drive directory example1" width="800px" align="top" title="図１"></p>
+<p>研究室のボスが物理的に遠い距離に居たり、ボスが忙しくてあまり会って話す機会がないことは珍しくないと思います。そのような時は、<a href="https://evernote.com/">Evernote</a>や<a href="https://www.google.com/docs/about/">Google Doc</a>のようなインターネットを使ってボスや共同研究者と実験ノートを共有する仕組みが便利です。日付や第三者の目撃が重要になるパテント用の記録としては不適切かもしれないので、その場合は従来の紙に書く方法をお薦めします。 私は、できるだけ元データも電子記録してオンラインストレージ（詳しくは<a href="https://www.unionnet.jp/knowledge/online-storage/">ここ</a>を参照）を利用しています。Directoryの構造は色々あると思いますが私は図1のようにしてます<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>。</p>
+</div>
+<div class="section level1">
+<h1>データの入力を正確かつ単純にすること。</h1>
+<p>図２ <img src="/post/2018-09-15-reproducibility_files/GoogleForm_example1.png" alt="Fig.2. Google Form as a data input tool" width="800px" align="top" title="図2"></p>
+<p>大量のサンプルを扱っていると、データの入力にミスが出ます。例えば、“Col”、“coi1-16”、“coi1-1”はほかの人が書いたラベルを別の人（もしくは本人でさえも）が読み間違えるといった事態が容易にお!きます。このようなことを防ぐ方法の一つは、<a href="https://www.google.com/forms/about/">Google Form</a>を使うことです（図2)。Google Formは主にアンケートで使われると思いますが、すでにある名前をチェックボックスやプルダウンメニューから選ぶことでラベルの入力ミスが避けられます。別の方法は、自作のバーコードやQRコードを利用することです。Microsoft Wordでラベルのシールにバーコードを印刷し、ポットやポットに挿すプラスティックのタグにシールを貼ります。背の高さなどを測定する時にバーコードリーダーでバーコードをエクセルシートに読み込み、データを入力する方法です。最近は色々進歩があったのでGoogle Sheetとスマートフォンを使って<a href="https://knozue.github.io/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com/">2018版</a>にしました。</p>
+</div>
+<div class="section level1">
+<h1>データの解析方法を正確かつ分かりやすい方法で行うこと</h1>
+<p>R/bioconductor + RStudio + Github + Shiny app (必要ならば)。</p>
+</div>
+<div class="section level1">
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
 <h1>実験（＝仕事）を効率よく行うこと</h1>
 <p>これは全ての仕事に言えることで、私は仕事のマネジメントをするために<a href="www.trello.com">Trello</a>というプロジェクトマネジメントソフトを使っています。</p>
 <hr />
@@ -116,7 +157,11 @@
 <div class="footnotes">
 <hr />
 <ol>
+<<<<<<< HEAD
 <li id="fn1"><p>本当はこのdirectoryの中を説明したREADmeファイルがあると良い(<a href="http://d7.library.gatech.edu/research-data/readme">参照</a>）。<a href="#fnref1" class="footnote-back">↩</a></p></li>
+=======
+<li id="fn1"><p>本当はこのdirectoryの中を説明したREADmeファイルがあると良い(<a href="http://d7.library.gatech.edu/research-data/readme">参照</a>）。<a href="#fnref1">↩</a></p></li>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
 </ol>
 </div>
 
@@ -135,6 +180,7 @@
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -142,6 +188,11 @@
 <nav class="post-nav">
   <span class="nav-prev"><a href="/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com/">&larr; How to make QR code in Google Sheet using Integromat.com.</a></span>
   <span class="nav-next"><a href="/post/2018/09/12/busy-dad-needs-project-management-skills/">Busy dad needs project management skills! &rarr;</a></span>
+=======
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com/">&larr; How to make QR code in Google Sheet using Integromat.com.</a></span>
+  <span class="nav-next"><a href="/post/2018/09/15/r-memo1/">R memo1 &rarr;</a></span>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
 </nav>
 
 
@@ -149,6 +200,7 @@
 </article>
 </div>
 
+<<<<<<< HEAD
 <script async src="//yihui.org/js/center-img.js"></script>
 
 <footer>
@@ -176,6 +228,12 @@
 
 
 
+=======
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<footer>
+
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
 <div class="footer">
   <ul class="menu">
     
@@ -187,7 +245,13 @@
     
     <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
     
+<<<<<<< HEAD
     <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+=======
+    <li><a href="/post/"><span data-hover="Post">Post</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="Subscribe RSS feed">Subscribe RSS feed</span></a></li>
+>>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
     
   </ul>
   
