@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Heart rate data analysis 1 | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2021-01-01</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2021-01-01-heart-rate-data-analysis1/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+     &hercon; <a href="/categories/sports">sports</a>
+  
+  </div>
+
+  <h1><span class="title">Heart rate data analysis 1</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/ggplot2">ggplot2</a>; <a href="/tags/r">R</a>; <a href="/tags/rstudio">RStudio</a>; <a href="/tags/apple-watch">Apple Watch</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<p>An Apple watch measures heart rate and you can download its raw data. Here I plotted my daughter’s data in this year. Please see Taras Kaduk’s blog ( <a href="https://taraskaduk.com/2019/03/23/apple-health/" class="uri">https://taraskaduk.com/2019/03/23/apple-health/</a>) for details.</p>
+<pre class="r"><code>library(XML)
+library(tidyverse)
+library(lubridate)
+library(scales)
+library(ggthemes)</code></pre>
+<div id="reading-downloaded-health-data-from-an-apple-watch." class="section level1">
+<h1>Reading downloaded health data from an Apple watch.</h1>
+<pre class="r"><code>path=&quot;/Volumes/data_personal/Kazu_blog/resources&quot;
+#zip &lt;- paste(path, &#39;export_Mana_101320.zip&#39;, sep = &#39;/&#39;)
+zip &lt;- paste(path, &#39;export_Mana_122620.zip&#39;, sep = &#39;/&#39;)
+
+unzip(zip, exdir = path)
+Sys.sleep(3) # pause for 3 seconds to let your computer unzip it.</code></pre>
+</div>
+<div id="parse-the-xml-file." class="section level1">
+<h1>Parse the xml file.</h1>
+<pre class="r"><code>xml &lt;- xmlParse(paste0(path, &#39;/apple_health_export/export.xml&#39;))
+
+summary(xml)</code></pre>
+<pre><code>## $nameCounts
+## 
+##                           Record                    MetadataEntry 
+##                           625705                            57389 
+##      InstantaneousBeatsPerMinute                     WorkoutEvent 
+##                             6004                              489 
+##                  ActivitySummary HeartRateVariabilityMetadataList 
+##                              354                              182 
+##                          Workout                    FileReference 
+##                              113                               47 
+##                     WorkoutRoute                       ExportDate 
+##                               47                                1 
+##                       HealthData                               Me 
+##                                1                                1 
+## 
+## $numNodes
+## [1] 690333</code></pre>
+</div>
+<div id="convert-xml-data-into-dataframes." class="section level1">
+<h1>Convert xml data into dataframes.</h1>
+<pre class="r"><code>df_record &lt;-   XML:::xmlAttrsToDataFrame(xml[&quot;//Record&quot;])
+df_activity &lt;- XML:::xmlAttrsToDataFrame(xml[&quot;//ActivitySummary&quot;])
+df_workout &lt;-  XML:::xmlAttrsToDataFrame(xml[&quot;//Workout&quot;])
+# df_clinical &lt;- XML:::xmlAttrsToDataFrame(xml[&quot;//ClinicalRecord&quot;])
+# df_location &lt;- XML:::xmlAttrsToDataFrame(xml[&quot;//Location&quot;]) %&gt;% 
+#  mutate(latitude = as.numeric(as.character(latitude)),
+#         longitude = as.numeric(as.character(longitude)))</code></pre>
+</div>
+<div id="format-the-data" class="section level1">
+<h1>Format the data</h1>
+<ul>
+<li>Note that time zone has to be specified (default is “UTC”, see details in help of ymd_hms (?ymd_hms). See also <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">Time zone explanation</a>.</li>
+</ul>
+<pre class="r"><code>df &lt;- df_record %&gt;%
+  mutate(device = gsub(&quot;.*(name:)|,.*&quot;, &quot;&quot;,device),
+         value = as.numeric(as.character(value)),
+         endDate = ymd_hms(endDate,tz=&quot;America/Tijuana&quot;),
+         date = date(endDate),
+         year = year(endDate),
+         month = month(endDate),
+         day = day(endDate),
+         yday = yday(endDate),
+         wday = wday(endDate),
+         hour = hour(endDate),
+         minute = minute(endDate),
+         type = str_remove(type, &quot;HKQuantityTypeIdentifier&quot;)
+         )</code></pre>
+<pre><code>## Warning: Problem with `mutate()` input `value`.
+## ℹ NAs introduced by coercion
+## ℹ Input `value` is `as.numeric(as.character(value))`.</code></pre>
+<pre><code>## Warning in mask$eval_all_mutate(dots[[i]]): NAs introduced by coercion</code></pre>
+<pre><code>## Date in ISO8601 format; converting timezone from UTC to &quot;America/Tijuana&quot;.</code></pre>
+</div>
+<div id="what-type-of-health-data-we-have" class="section level1">
+<h1>What type of health data we have?</h1>
+<pre class="r"><code>df %&gt;% select(type) %&gt;% distinct()</code></pre>
+<pre><code>##                                      type
+## 1                                  Height
+## 2                                BodyMass
+## 3                               HeartRate
+## 4                               StepCount
+## 5                  DistanceWalkingRunning
+## 6                       BasalEnergyBurned
+## 7                      ActiveEnergyBurned
+## 8                          FlightsClimbed
+## 9                       AppleExerciseTime
+## 10                       RestingHeartRate
+## 11                WalkingHeartRateAverage
+## 12                 HeadphoneAudioExposure
+## 13                         AppleStandTime
+## 14 HKCategoryTypeIdentifierAppleStandHour
+## 15  HKCategoryTypeIdentifierMenstrualFlow
+## 16 HKCategoryTypeIdentifierMindfulSession
+## 17       HKCategoryTypeIdentifierBloating
+## 18       HKCategoryTypeIdentifierDiarrhea
+## 19               HeartRateVariabilitySDNN</code></pre>
+</div>
+<div id="plot-heartrate-heatmap-weekly-max" class="section level1">
+<h1>Plot heartRate heatmap (weekly: max)</h1>
+<pre class="r"><code>  # revised
+  df %&gt;%
+  dplyr::filter(type == &#39;HeartRate&#39;) %&gt;% 
+  dplyr::filter(year==2020) %&gt;%
+  group_by(month,wday,hour) %&gt;% 
+  summarize(heartrate=max(value)) %&gt;% 
+  arrange(desc(heartrate)) %&gt;%
+  ggplot(aes(x=hour, y=wday,  fill=heartrate)) + 
+    geom_tile(col = &#39;grey40&#39;) + 
+    scale_fill_continuous(limit=c(0,210),labels = scales::comma, low = &#39;grey95&#39;, high = &#39;#008FD5&#39;) +
+    theme(panel.grid.major = element_blank()) +
+    scale_x_continuous(
+      breaks = c(0, 6, 12, 18),
+      label = c(&quot;Midnight&quot;, &quot;6 AM&quot;, &quot;Midday&quot;, &quot;6 PM&quot;)
+    ) +
+    scale_y_reverse(
+      breaks = c(1,2,3,4,5,6,7),
+      label = c(&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;)
+    ) + 
+    labs(title = &quot;Weekly max HeartRate Heatmap&quot;,
+         caption = &#39;@taraskaduk | taraskaduk.com&#39;,x=&quot;Time&quot;,y=&quot;&quot;)  + 
+    coord_equal() + facet_wrap(.~month,ncol=3)</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;month&#39;, &#39;wday&#39; (override with `.groups` argument)</code></pre>
+<p><img src="/post/2021/01/01/heart-rate-data-analysis1/index_files/figure-html/unnamed-chunk-7-1.png" width="4500" /></p>
+</div>
+<div id="monthly-mean-heart-rate-everyday-calendar" class="section level1">
+<h1>Monthly Mean Heart rate , everyday calendar</h1>
+<pre class="r"><code>df3 &lt;- df %&gt;%
+  dplyr::filter(type == &#39;HeartRate&#39;) %&gt;% 
+  dplyr::filter(year==2020) %&gt;%
+  group_by(date,hour,minute) %&gt;%
+  summarize(heartrate=mean(value)) %&gt;%
+  group_by(date,hour) %&gt;% #View()
+  summarize(mean.heartrate=mean(heartrate)) %&gt;%
+    arrange(desc(mean.heartrate)) %&gt;%
+    mutate(yday=yday(date),
+           wday=wday(date),
+           mday=mday(date),
+           month=month(date),
+           day=day(date)) %&gt;%
+    group_by(date,month,mday,hour) %&gt;% 
+  arrange(desc(mean.heartrate))</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;date&#39;, &#39;hour&#39; (override with `.groups` argument)</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;date&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>  pHRmonth &lt;- ggplot(df3,aes(x=hour, y=mday,  fill=mean.heartrate)) + 
+    geom_tile(col = &#39;grey40&#39;) + 
+    scale_fill_continuous(labels = scales::comma, low = &#39;grey95&#39;, high = &#39;#008FD5&#39;) +
+    theme(panel.grid.major = element_blank(),axis.text.x=element_text(angle=90)) +
+    scale_x_continuous(
+      breaks = c(0, 6, 12, 18),
+      label = c(&quot;Midnight&quot;, &quot;6 AM&quot;, &quot;Midday&quot;, &quot;6 PM&quot;)
+    ) +
+    scale_y_reverse(
+      breaks = 1:31,label=c(1,&quot; &quot;,3,&quot; &quot;,5,&quot; &quot;,7,&quot; &quot;,9,&quot; &quot;,11,&quot; &quot;,13,&quot; &quot;,15,&quot; &quot;,17,&quot; &quot;,19,&quot; &quot;,21,&quot; &quot;,23,&quot; &quot;,25,&quot; &quot;,27,&quot; &quot;,29,&quot; &quot;,31)
+    #  label = c(&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;)
+) + 
+    labs(title = &quot;Monthly mean heartrate Heatmap&quot;,
+#         caption = &#39;@taraskaduk | taraskaduk.com&#39;,
+x=&quot;Time&quot;,y=&quot;&quot;)  + 
+    coord_equal() + facet_wrap(.~month,ncol=3)
+  pHRmonth</code></pre>
+<p><img src="/post/2021/01/01/heart-rate-data-analysis1/index_files/figure-html/unnamed-chunk-8-1.png" width="4500" /></p>
+</div>
+<div id="make-notes-on-graph-by-geom_text" class="section level1">
+<h1>Make notes on graph by geom_text()</h1>
+<ul>
+<li>To writes texts on specific place in a graph, use separate data for the text info.</li>
+</ul>
+<pre class="r"><code># data frame for text
+df3.text &lt;- tibble(month=c(3,5,9,10),mday=c(19,20,15,6),hour=12,mean.heartrate=100,label=c(&quot;Shelter in place&quot;,&quot;Synchro practice restart&quot;,&quot;Synchro fall training starts&quot;,&quot;Synchro team practice starts&quot;))
+pHRmonth + geom_text(data = df3.text,mapping=aes(label = label),size=3)</code></pre>
+<p><img src="/post/2021/01/01/heart-rate-data-analysis1/index_files/figure-html/unnamed-chunk-9-1.png" width="4500" /></p>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2021/01/07/heat-pump-water-heater/">&larr; Heat pump water heater</a></span>
+  <span class="nav-next"><a href="/post/2020/12/24/useful-r-techniques-1/">Useful R techniques 1 &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

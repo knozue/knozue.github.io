@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>List to data frame in R tidyverse | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-12-20</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2018-12-20-list-to-data-frame-in-r-tidyverse/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+  </div>
+
+  <h1><span class="title">List to data frame in R tidyverse</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/tidyverse">tidyverse</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<p>Converting list object to a data frame object is common in R. There are <a href="https://stackoverflow.com/questions/4227223/r-list-to-data-frame">many ways</a> and here is another way using tidyverse packages.</p>
+<div id="bind_cols" class="section level1">
+<h1>bind_cols()</h1>
+<p>This is an efficient implementation of the common pattern of do.call(rbind, dfs) or do.call(cbind, dfs) for binding many data frames into one (cited from <a href="https://dplyr.tidyverse.org/reference/bind.html">tidyverse package site</a>).</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>one &lt;- mtcars[,1:4]
+two &lt;- mtcars[,c(1:10)]
+# Showing how dplyr::select in sapply works
+sapply(list(ONE=one,TWO=two), dplyr::select,mpg) </code></pre>
+<pre><code>## $ONE.mpg
+##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4
+## [16] 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7
+## [31] 15.0 21.4
+## 
+## $TWO.mpg
+##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4
+## [16] 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7
+## [31] 15.0 21.4</code></pre>
+<pre class="r"><code># Convert into data.frame by bind_cols(). Bind_cols() can be used with list object.
+sapply(list(ONE=one,TWO=two), dplyr::select,mpg) %&gt;% bind_cols() </code></pre>
+<pre><code>## # A tibble: 32 x 2
+##    ONE.mpg TWO.mpg
+##      &lt;dbl&gt;   &lt;dbl&gt;
+##  1    21      21  
+##  2    21      21  
+##  3    22.8    22.8
+##  4    21.4    21.4
+##  5    18.7    18.7
+##  6    18.1    18.1
+##  7    14.3    14.3
+##  8    24.4    24.4
+##  9    22.8    22.8
+## 10    19.2    19.2
+## # … with 22 more rows</code></pre>
+<pre class="r"><code># does not work why?
+sapply(list(ONE=one,TWO=two), dplyr::select,mpg) %&gt;% bind_cols(one[,1],.) </code></pre>
+<pre><code>## New names:
+## * `` -&gt; ...1</code></pre>
+<pre><code>## # A tibble: 32 x 3
+##     ...1 ONE.mpg TWO.mpg
+##    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1  21      21      21  
+##  2  21      21      21  
+##  3  22.8    22.8    22.8
+##  4  21.4    21.4    21.4
+##  5  18.7    18.7    18.7
+##  6  18.1    18.1    18.1
+##  7  14.3    14.3    14.3
+##  8  24.4    24.4    24.4
+##  9  22.8    22.8    22.8
+## 10  19.2    19.2    19.2
+## # … with 22 more rows</code></pre>
+<pre class="r"><code>one[,1]</code></pre>
+<pre><code>##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4
+## [16] 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7
+## [31] 15.0 21.4</code></pre>
+<pre class="r"><code># Does work
+sapply(list(ONE=one,TWO=two), dplyr::select,mpg) %&gt;% bind_cols(list(model=rownames(mtcars)),.) </code></pre>
+<pre><code>## # A tibble: 32 x 3
+##    model             ONE.mpg TWO.mpg
+##    &lt;chr&gt;               &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Mazda RX4            21      21  
+##  2 Mazda RX4 Wag        21      21  
+##  3 Datsun 710           22.8    22.8
+##  4 Hornet 4 Drive       21.4    21.4
+##  5 Hornet Sportabout    18.7    18.7
+##  6 Valiant              18.1    18.1
+##  7 Duster 360           14.3    14.3
+##  8 Merc 240D            24.4    24.4
+##  9 Merc 230             22.8    22.8
+## 10 Merc 280             19.2    19.2
+## # … with 22 more rows</code></pre>
+</div>
+<div id="enframe" class="section level1">
+<h1>enframe()</h1>
+<p>Another useful function is enframe<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<pre class="r"><code>x &lt;- list( a = 1: 5, b = 3: 4, c = 5: 6 )
+x</code></pre>
+<pre><code>## $a
+## [1] 1 2 3 4 5
+## 
+## $b
+## [1] 3 4
+## 
+## $c
+## [1] 5 6</code></pre>
+<pre class="r"><code>df &lt;- tibble::enframe( x) 
+df</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   name  value    
+##   &lt;chr&gt; &lt;list&gt;   
+## 1 a     &lt;int [5]&gt;
+## 2 b     &lt;int [2]&gt;
+## 3 c     &lt;int [2]&gt;</code></pre>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1">Wickham, Hadley; Grolemund, Garrett. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data (p. 414). O’Reilly Media.
+<!--KazuRbook1-->
+<div id="amzn-assoc-ad-99af12ae-45ba-4556-8dc6-e84f97060807">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=99af12ae-45ba-4556-8dc6-e84f97060807"></script>
+<a href="#fnref1" class="footnote-back">↩</a></li>
+</ol>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/12/28/venndiagram-with-differentially-expressed-genes/">&larr; VennDiagram with differentially expressed genes</a></span>
+  <span class="nav-next"><a href="/post/2018/12/06/annotating-sequences-by-benchling-com/">Annotating sequences by benchling.com &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

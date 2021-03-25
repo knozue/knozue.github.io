@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Useful R techniques 2 | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2021-03-19</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2021-03-19-useful-r-techniques-2/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+  </div>
+
+  <h1><span class="title">Useful R techniques 2</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/ggplot2">ggplot2</a>; <a href="/tags/tidyverse">tidyverse</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="relational-data-with-dplyr-mutating-joints-and-filtering-joints" class="section level1">
+<h1>Relational Data with dplyr: Mutating Joints and Filtering Joints</h1>
+<p>Key words are key, value, inner_join(), left_join(), right_join(), full_join, semi_join(), and anti_join(). Read <a href="https://r4ds.had.co.nz/">a book written by Hadley Wickham and Garrett Grolemund.</a></p>
+</div>
+<div id="keys-and-values" class="section level1">
+<h1>keys and values</h1>
+<pre class="r"><code># How to count number with each cylinder category?
+mtcars %&gt;% group_by(cyl) %&gt;% summarise(n=n()) # my old way</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##     cyl     n
+##   &lt;dbl&gt; &lt;int&gt;
+## 1     4    11
+## 2     6     7
+## 3     8    14</code></pre>
+<pre class="r"><code>mtcars %&gt;% count(cyl) # ! </code></pre>
+<pre><code>##   cyl  n
+## 1   4 11
+## 2   6  7
+## 3   8 14</code></pre>
+<pre class="r"><code># multiple keys
+mtcars %&gt;% count(cyl,vs) </code></pre>
+<pre><code>##   cyl vs  n
+## 1   4  0  1
+## 2   4  1 10
+## 3   6  0  3
+## 4   6  1  4
+## 5   8  0 14</code></pre>
+<pre class="r"><code># explanation of 11 variables in mtcars data
+?mtcars</code></pre>
+</div>
+<div id="usage-of-inner_join-left_join-right_joinfull_joinsemi_joinanti_join" class="section level1">
+<h1>Usage of inner_join(), left_join(), right_join(),full_join,semi_join(),anti_join()</h1>
+<ul>
+<li>power of %in% in base R, but pipe is not available.</li>
+<li>Mutating Joints (inner_join(), left_join(), right_join(),full_join) and Filtering Joints (semi_join() and anti_join()) are useful.</li>
+<li>Filtering Joints are substitute of %in%.</li>
+</ul>
+<pre class="r"><code># six cylinder cars
+mtcars.6cyl &lt;- mtcars %&gt;% rownames_to_column() %&gt;% filter(cyl==6)
+# heavy cars
+mtcars.heavy &lt;- mtcars %&gt;% rownames_to_column() %&gt;% filter(wt&gt;3)
+# six cylinder and heavy
+## traditional way
+mtcars.6cyl[mtcars.6cyl$rowname %in% mtcars.heavy$rowname,] </code></pre>
+<pre><code>##          rowname  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 3 Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## 4        Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## 5       Merc 280 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## 6      Merc 280C 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4</code></pre>
+<pre class="r"><code>## inner_joint()
+mtcars.6cyl %&gt;% inner_join(mtcars.heavy,by=&quot;rowname&quot;) # disaster of columns</code></pre>
+<pre><code>##          rowname mpg.x cyl.x disp.x hp.x drat.x  wt.x qsec.x vs.x am.x gear.x
+## 1 Hornet 4 Drive  21.4     6  258.0  110   3.08 3.215  19.44    1    0      3
+## 2        Valiant  18.1     6  225.0  105   2.76 3.460  20.22    1    0      3
+## 3       Merc 280  19.2     6  167.6  123   3.92 3.440  18.30    1    0      4
+## 4      Merc 280C  17.8     6  167.6  123   3.92 3.440  18.90    1    0      4
+##   carb.x mpg.y cyl.y disp.y hp.y drat.y  wt.y qsec.y vs.y am.y gear.y carb.y
+## 1      1  21.4     6  258.0  110   3.08 3.215  19.44    1    0      3      1
+## 2      1  18.1     6  225.0  105   2.76 3.460  20.22    1    0      3      1
+## 3      4  19.2     6  167.6  123   3.92 3.440  18.30    1    0      4      4
+## 4      4  17.8     6  167.6  123   3.92 3.440  18.90    1    0      4      4</code></pre>
+<pre class="r"><code>## semi_joint()
+mtcars.6cyl %&gt;% semi_join(mtcars.heavy,by=&quot;rowname&quot;) # Columns are not modified.</code></pre>
+<pre><code>##          rowname  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1 Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## 2        Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## 3       Merc 280 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## 4      Merc 280C 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4</code></pre>
+</div>
+<div id="select" class="section level1">
+<h1>select()</h1>
+<ul>
+<li>see <a href="https://suzan.rbind.io/2018/01/dplyr-tutorial-1/" class="uri">https://suzan.rbind.io/2018/01/dplyr-tutorial-1/</a></li>
+</ul>
+<pre class="r"><code>mtcars %&gt;% dplyr::select(matches(&quot;m&quot;))</code></pre>
+<pre><code>##                      mpg am
+## Mazda RX4           21.0  1
+## Mazda RX4 Wag       21.0  1
+## Datsun 710          22.8  1
+## Hornet 4 Drive      21.4  0
+## Hornet Sportabout   18.7  0
+## Valiant             18.1  0
+## Duster 360          14.3  0
+## Merc 240D           24.4  0
+## Merc 230            22.8  0
+## Merc 280            19.2  0
+## Merc 280C           17.8  0
+## Merc 450SE          16.4  0
+## Merc 450SL          17.3  0
+## Merc 450SLC         15.2  0
+## Cadillac Fleetwood  10.4  0
+## Lincoln Continental 10.4  0
+## Chrysler Imperial   14.7  0
+## Fiat 128            32.4  1
+## Honda Civic         30.4  1
+## Toyota Corolla      33.9  1
+## Toyota Corona       21.5  0
+## Dodge Challenger    15.5  0
+## AMC Javelin         15.2  0
+## Camaro Z28          13.3  0
+## Pontiac Firebird    19.2  0
+## Fiat X1-9           27.3  1
+## Porsche 914-2       26.0  1
+## Lotus Europa        30.4  1
+## Ford Pantera L      15.8  1
+## Ferrari Dino        19.7  1
+## Maserati Bora       15.0  1
+## Volvo 142E          21.4  1</code></pre>
+<pre class="r"><code>mtcars %&gt;% dplyr::select(ends_with(&quot;m&quot;))</code></pre>
+<pre><code>##                     am
+## Mazda RX4            1
+## Mazda RX4 Wag        1
+## Datsun 710           1
+## Hornet 4 Drive       0
+## Hornet Sportabout    0
+## Valiant              0
+## Duster 360           0
+## Merc 240D            0
+## Merc 230             0
+## Merc 280             0
+## Merc 280C            0
+## Merc 450SE           0
+## Merc 450SL           0
+## Merc 450SLC          0
+## Cadillac Fleetwood   0
+## Lincoln Continental  0
+## Chrysler Imperial    0
+## Fiat 128             1
+## Honda Civic          1
+## Toyota Corolla       1
+## Toyota Corona        0
+## Dodge Challenger     0
+## AMC Javelin          0
+## Camaro Z28           0
+## Pontiac Firebird     0
+## Fiat X1-9            1
+## Porsche 914-2        1
+## Lotus Europa         1
+## Ford Pantera L       1
+## Ferrari Dino         1
+## Maserati Bora        1
+## Volvo 142E           1</code></pre>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.6.2 (2019-12-12)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Mojave 10.14.6
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] rlang_0.4.10    forcats_0.5.0   stringr_1.4.0   dplyr_1.0.2    
+##  [5] purrr_0.3.4     readr_1.4.0     tidyr_1.1.2     tibble_3.0.4   
+##  [9] ggplot2_3.3.3   tidyverse_1.3.0
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.6        cellranger_1.1.0  pillar_1.4.7      compiler_3.6.2   
+##  [5] dbplyr_2.0.0      tools_3.6.2       digest_0.6.27     lubridate_1.7.9.2
+##  [9] jsonlite_1.7.2    evaluate_0.14     lifecycle_0.2.0   gtable_0.3.0     
+## [13] pkgconfig_2.0.3   reprex_0.3.0      cli_2.2.0         rstudioapi_0.13  
+## [17] DBI_1.1.0         yaml_2.2.1        blogdown_1.2.2    haven_2.3.1      
+## [21] xfun_0.22         withr_2.3.0       xml2_1.3.2        httr_1.4.2       
+## [25] knitr_1.31        fs_1.5.0          hms_0.5.3         generics_0.1.0   
+## [29] vctrs_0.3.6       grid_3.6.2        tidyselect_1.1.0  glue_1.4.2       
+## [33] R6_2.5.0          fansi_0.4.1       readxl_1.3.1      rmarkdown_2.7    
+## [37] bookdown_0.21     modelr_0.1.8      magrittr_2.0.1    backports_1.2.1  
+## [41] scales_1.1.1      ellipsis_0.3.1    htmltools_0.5.1.1 rvest_0.3.6      
+## [45] assertthat_0.2.1  colorspace_2.0-0  utf8_1.1.4        stringi_1.5.3    
+## [49] munsell_0.5.0     broom_0.7.3       crayon_1.3.4</code></pre>
+</div>
+<div id="r-books" class="section level1">
+<h1>R books</h1>
+<!--KazuRbook1-->
+<div id="amzn-assoc-ad-99af12ae-45ba-4556-8dc6-e84f97060807">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=99af12ae-45ba-4556-8dc6-e84f97060807"></script>
+</div>
+<div id="r-and-bioinformatics" class="section level1">
+<h1>R and bioinformatics</h1>
+<!--R bioinformatics (Vince book)-->
+<div id="amzn-assoc-ad-935bf2a7-7f3b-405c-8fd5-ba4b1be608a8">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=935bf2a7-7f3b-405c-8fd5-ba4b1be608a8"></script>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2021/01/07/heat-pump-water-heater/">Heat pump water heater &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

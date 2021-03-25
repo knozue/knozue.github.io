@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>実験ノート on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>/tags/%E5%AE%9F%E9%A8%93%E3%83%8E%E3%83%BC%E3%83%88/</link>
+    <description>Recent content in 実験ノート on Daddy&#39;s data analysis by Kazu Nozue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 24 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%AE%9F%E9%A8%93%E3%83%8E%E3%83%BC%E3%83%88/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Useful R techniques 1</title>
+      <link>/post/2020/12/24/useful-r-techniques-1/</link>
+      <pubDate>Thu, 24 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2020/12/24/useful-r-techniques-1/</guid>
+      <description>Useful R techniques (only for me?) Usage of filter() mtcars %&amp;gt;% rownames_to_column() %&amp;gt;% filter(str_detect(rowname,&amp;quot;Mazda&amp;quot;)) ## rowname mpg cyl disp hp drat wt qsec vs am gear carb ## 1 Mazda RX4 21 6 160 110 3.9 2.620 16.46 0 1 4 4 ## 2 Mazda RX4 Wag 21 6 160 110 3.9 2.875 17.02 0 1 4 4 mtcars %&amp;gt;% rownames_to_column() %&amp;gt;% filter(!str_detect(rowname,&amp;quot;Mazda&amp;quot;)) ## rowname mpg cyl disp hp drat</description>
+    </item>
+    
+    <item>
+      <title>Annotating sequences by benchling.com</title>
+      <link>/post/2018/12/06/annotating-sequences-by-benchling-com/</link>
+      <pubDate>Thu, 06 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/12/06/annotating-sequences-by-benchling-com/</guid>
+      <description>Annotating sequences is critical for making a construct in molecular biology. Benchling.com is a powerful tool for automating the annotation process. This example explains how to label “2x35S promoter” region in sequences of interest. step1: Before adding 2x35S promoter benchling.com plasmid annotation (step1) step2: Exporting 2x25S promoter feature info (sequences) from known annotated sequence benchling.com plasmid annotation</description>
+    </item>
+    
+    <item>
+      <title>その実験、再現できなければ意味がない</title>
+      <link>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84/</link>
+      <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84/</guid>
+      <description>再現できなければ意味がない 数年前、理化学研究所の研究者がNatureに発表した論文が元で1人の自殺者と多額のお金を使った再現性検証実験、多数</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tidyverse on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>/tags/tidyverse/</link>
+    <description>Recent content in tidyverse on Daddy&#39;s data analysis by Kazu Nozue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 19 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/tidyverse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Useful R techniques 2</title>
+      <link>/post/2021/03/19/useful-r-techniques-2/</link>
+      <pubDate>Fri, 19 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021/03/19/useful-r-techniques-2/</guid>
+      <description>Relational Data with dplyr: Mutating Joints and Filtering Joints Key words are key, value, inner_join(), left_join(), right_join(), full_join, semi_join(), and anti_join(). Read a book written by Hadley Wickham and Garrett Grolemund.
+ keys and values # How to count number with each cylinder category? mtcars %&amp;gt;% group_by(cyl) %&amp;gt;% summarise(n=n()) # my old way ## `summarise()` ungrouping output (override with `.groups` argument) ## # A tibble: 3 x 2 ## cyl n ## &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; ## 1 4 11 ## 2 6 7 ## 3 8 14 mtcars %&amp;gt;% count(cyl) # !</description>
+    </item>
+    
+    <item>
+      <title>Heat pump water heater</title>
+      <link>/post/2021/01/07/heat-pump-water-heater/</link>
+      <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021/01/07/heat-pump-water-heater/</guid>
+      <description>reading packages library(tidyverse) library(lubridate) library(scales) Buring gas produce CO2. Reducing gas usage is critical to reduce CO2 production from our house. Here is the history of our gas usage of my house since 2012 November.
+# reading data gasdata &amp;lt;- read.csv(file.path(&amp;quot;/Volumes&amp;quot;,&amp;quot;data_personal&amp;quot;,&amp;quot;Kazu_blog&amp;quot;,&amp;quot;resources&amp;quot;,&amp;quot;pge_gas_billing_data_8882170746_2012-11-14_to_2020-10-09.csv&amp;quot;),skip=5) # data format summary(gasdata) ## TYPE START.DATE END.DATE USAGE UNITS ## Natural gas billing:95 1/10/13: 1 1/8/17 : 1 Min. : 2.00 therms:95 ## 1/10/14: 1 1/8/18 : 1 1st Qu.</description>
+    </item>
+    
+    <item>
+      <title>Evaluation of team rank prediction in sports league by sum of residuals</title>
+      <link>/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals/</link>
+      <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals/</guid>
+      <description>Evaluation of team rank prediction in sports league by sum of residuals J1_2019_pred_results &amp;lt;- read_csv(file.path(&amp;quot;/Volumes&amp;quot;,&amp;quot;data_perso</description>
+    </item>
+    
+    <item>
+      <title>Needs more cargo space in electric vehicles!</title>
+      <link>/post/2019/03/30/needs-more-cargo-space-in-electric-vehicles/</link>
+      <pubDate>Sat, 30 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019/03/30/needs-more-cargo-space-in-electric-vehicles/</guid>
+      <description>Advantages of electric vehicles Electric vehicle (EV) became popular in California. Recently I can find more than one Tesla car during my daily commute. There are a couple of advantages of EV compared with gas powered vehicles; (1) higher cost efficiency (higher MPGe1), (2) lower maintainance cost, and (3) tax incentives and rebate (read an article in energysage.com, one in a utility company, and a site from U.S. Department of Energy).</description>
+    </item>
+    
+    <item>
+      <title>List to data frame in R tidyverse</title>
+      <link>/post/2018/12/20/list-to-data-frame-in-r-tidyverse/</link>
+      <pubDate>Thu, 20 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/12/20/list-to-data-frame-in-r-tidyverse/</guid>
+      <description>Converting list object to a data frame object is common in R. There are many ways and here is another way using tidyverse packages.
+bind_cols() This is an efficient implementation of the common pattern of do.call(rbind, dfs) or do.call(cbind, dfs) for binding many data frames into one (cited from tidyverse package site).
+library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ── ## ✓ ggplot2 3.3.3 ✓ purrr 0.3.4 ## ✓ tibble 3.</description>
+    </item>
+    
+  </channel>
+</rss>

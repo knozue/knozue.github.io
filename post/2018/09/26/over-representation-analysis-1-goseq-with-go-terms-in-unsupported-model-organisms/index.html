@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Over-representation analysis 1: GOseq with GO terms in unsupported model organisms | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-09-26</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2018-09-26-over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+  </div>
+
+  <h1><span class="title">Over-representation analysis 1: GOseq with GO terms in unsupported model organisms</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/reproducibility">reproducibility</a>; <a href="/tags/rna-seq">RNA-seq</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="purpose" class="section level1">
+<h1>purpose</h1>
+<p>Over-representation analysis (“enrichment analysis”) of RNA-seq data considering cDNA length effects with unsupported model organisms.</p>
+</div>
+<div id="background" class="section level1">
+<h1>background</h1>
+<p>Among many transcriptome analysis platforms, transcriptome analysis by next-generation sequencing (RNA-seq) has been used widely among model and non-model organisms. In RNA-seq, number of reads mapped to reference cDNA sequences (or genes in genome sequences) is proportional to size of genes<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This effect should be corrected especially when enrichment analysis is performed because a gene category of your interest is enriched only because genes in the category are large in size. R/Bioconductor package <a href="https://bioconductor.org/packages/release/bioc/html/goseq.html">GOseq</a> handles this issue and I’ve been using it for my analysis<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> . In my “Over-representation analysis” blog series, I would like to describe how to use the “GOseq” in model organmisms (such as Arabidopsis thaliana as a model plant) using <a href="http://geneontology.org/">GO terms</a> (part1), or custom categories defied by users (part2), and non-model organisms in which a fasta file for cDNAs is available (part3). Furthermore, visualization of the enrichment summary in a heatmap will be described in part4 (instead of long tables!). For details in goseq, please read the origianl GOseq paper and <a href="https://www.ncbi.nlm.nih.gov/pubmed/20132535">papers cited the papers in PubMed</a>.</p>
+<pre class="r"><code># knitr::opts_chunk$set(echo = FALSE, error=TRUE)
+library(goseq)
+library(tidyverse)
+library(readxl)</code></pre>
+</div>
+<div id="goseq-analysis-of-arabidopsis-thaliana-degs" class="section level1">
+<h1>GOseq analysis of Arabidopsis thaliana DEGs</h1>
+<p>Please download shade responsive genes <a href="https://doi.org/10.1371/journal.pgen.1004953.s008">Nozue (2018) PloS Genetics S2 Table1</a>.
+Also download normalized read count file from <a href="https://bitbucket.org/knozue/sasphenotyping">the repository</a> (click “Raw” button)</p>
+<div class="figure">
+<img src="images/myRNAseq.cpm.csv_download_Screen%20Shot%202018-09-29%20at%2011.37.17%20AM.png" alt="download myRNAseq.cpm from repository" width="400" />
+<p class="caption">download myRNAseq.cpm from repository</p>
+</div>
+<p>or <a href="https://bitbucket.org/knozue/sasphenotyping/downloads/">download a repository itself</a>.</p>
+</div>
+<div id="obtaining-arabidopsis-thaliana-degs-resultshide" class="section level1">
+<h1>Obtaining Arabidopsis thaliana DEGs (results=‘hide’)</h1>
+<pre class="r"><code># Unfortunately Arabidopsis thaliana was not supported by goseq.
+head(supportedOrganisms())</code></pre>
+<pre><code>##     Genome         Id  Id Description Lengths in geneLeneDataBase
+## 12 anoCar1    ensGene Ensembl gene ID                        TRUE
+## 13 anoGam1    ensGene Ensembl gene ID                        TRUE
+## 14 apiMel2    ensGene Ensembl gene ID                        TRUE
+## 56 bosTau2 geneSymbol     Gene Symbol                        TRUE
+## 15 bosTau3    ensGene Ensembl gene ID                        TRUE
+## 57 bosTau3 geneSymbol     Gene Symbol                        TRUE
+##    GO Annotation Available
+## 12                   FALSE
+## 13                    TRUE
+## 14                   FALSE
+## 56                    TRUE
+## 15                    TRUE
+## 57                    TRUE</code></pre>
+<pre class="r"><code># reading shade-responsive genes (1h shade treatent)
+getwd()</code></pre>
+<pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog14/content/post/2018-09-26-over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms&quot;</code></pre>
+<pre class="r"><code>list.files(file.path(&quot;..&quot;,&quot;..&quot;,&quot;..&quot;))</code></pre>
+<pre><code>##  [1] &quot;config.yaml&quot;             &quot;content&quot;                
+##  [3] &quot;data&quot;                    &quot;index.Rmd&quot;              
+##  [5] &quot;Kazu_blog&quot;               &quot;Kazu_blog14.Rproj&quot;      
+##  [7] &quot;layouts&quot;                 &quot;netlify.toml&quot;           
+##  [9] &quot;R&quot;                       &quot;resources&quot;              
+## [11] &quot;Slide-with-Xarigan.html&quot; &quot;static&quot;                 
+## [13] &quot;themes&quot;</code></pre>
+<pre class="r"><code>genes.shade1h&lt;-readxl::read_excel(file.path(&quot;..&quot;,&quot;..&quot;,&quot;..&quot;,&quot;resources&quot;,&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files&quot;,&quot;journal.pgen.1004953.s008.XLSX&quot;),sheet=1)
+
+genes.shade1h.up &lt;- genes.shade1h %&gt;% filter(table.logFC&gt;0 &amp; table.FDR&lt;1.0e-15) # Up regulated by shade. Play with table.FDR 
+head(genes.shade1h.up)</code></pre>
+<pre><code>## # A tibble: 6 x 9
+##   AGI   Description table.logConc table.logFC table.PValue table.FDR
+##   &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;
+## 1 AT4G… Encodes an…          33.0       34.1             0         0
+## 2 AT3G… basic heli…          19.2        7.33            0         0
+## 3 AT4G… Auxin indu…          16.0        4.86            0         0
+## 4 AT5G… Encodes a …          16.6        4.15            0         0
+## 5 AT3G… Primary au…          15.5        3.51            0         0
+## 6 AT5G… SAUR-like …          17.3        3.47            0         0
+## # … with 3 more variables: `found in ATH1` &lt;chr&gt;, Kozuka_2010_leaf_blade &lt;dbl&gt;,
+## #   Kozuka_2010_petiole &lt;dbl&gt;</code></pre>
+<pre class="r"><code>genes.shade1h.down &lt;- genes.shade1h %&gt;% filter(table.logFC&gt;0 &amp; table.FDR&lt;1.0e-15) # Down regualated by shade. Play with table.FDR 
+head(genes.shade1h.down)</code></pre>
+<pre><code>## # A tibble: 6 x 9
+##   AGI   Description table.logConc table.logFC table.PValue table.FDR
+##   &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;
+## 1 AT4G… Encodes an…          33.0       34.1             0         0
+## 2 AT3G… basic heli…          19.2        7.33            0         0
+## 3 AT4G… Auxin indu…          16.0        4.86            0         0
+## 4 AT5G… Encodes a …          16.6        4.15            0         0
+## 5 AT3G… Primary au…          15.5        3.51            0         0
+## 6 AT5G… SAUR-like …          17.3        3.47            0         0
+## # … with 3 more variables: `found in ATH1` &lt;chr&gt;, Kozuka_2010_leaf_blade &lt;dbl&gt;,
+## #   Kozuka_2010_petiole &lt;dbl&gt;</code></pre>
+</div>
+<div id="check-expression-pattern-of-degs-resultshide" class="section level1">
+<h1>check expression pattern of DEGs results=‘hide’</h1>
+<pre class="r"><code># load read count data from downloaded repository
+# myRNAseq.cpm&lt;-read_csv(&quot;resources/knozue-sasphenotyping-b04217e6559b/SAS_analysis_Jan2014/R_scripts_data_objects/myRNAseq.cpm.csv&quot;) # change path for your file
+# Another way is to load read count data from downloaded csv file
+#myRNAseq.cpm&lt;-read_csv(&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/myRNAseq.cpm.csv&quot;)
+# Read directly from repository
+myRNAseq.cpm &lt;- read_csv(&quot;https://bitbucket.org/knozue/sasphenotyping/raw/b04217e6559bf953fb03b67071d793c23f112495/SAS_analysis_Jan2014/R_scripts_data_objects/myRNAseq.cpm.csv&quot;)
+# format data for plot
+# genes.shade1h.up %&gt;% left_join(myRNAseq.cpm,by=c(&quot;AGI&quot;=&quot;X1&quot;)) %&gt;% separate(Description,into=&quot;Description&quot;,sep=&quot;;&quot;,drop=TRUE) %&gt;% unite(AGI_desc,c(&quot;AGI&quot;,&quot;Description&quot;)) %&gt;% dplyr::select(-starts_with(&quot;table&quot;),-`found in ATH1`,-starts_with(&quot;Kozuka&quot;)) -&gt; plot.data 
+# 
+genes.shade1h.up %&gt;% left_join(myRNAseq.cpm,by=c(&quot;AGI&quot;=&quot;X1&quot;)) %&gt;% separate(Description,into=&quot;Description&quot;,sep=&quot;;&quot;,extra=&quot;drop&quot;) %&gt;% unite(AGI_desc,c(&quot;AGI&quot;,&quot;Description&quot;)) %&gt;% dplyr::select(-starts_with(&quot;table&quot;),-`found in ATH1`,-starts_with(&quot;Kozuka&quot;)) -&gt; plot.data 
+
+plot.data</code></pre>
+<pre><code>## # A tibble: 20 x 9
+##    AGI_desc Col_Shade_1_rep… Col_Shade_1_rep… Col_Sun_1_repli… Col_Sun_1_repli…
+##    &lt;chr&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 &quot;AT4G37…             17.7             14.1            0                 0   
+##  2 &quot;AT3G21…             29.0             12.4            0.249             0   
+##  3 &quot;AT4G32…             84.8             75.3            2.49              3.07
+##  4 &quot;AT5G07…             41.3             42.8            2.49              2.23
+##  5 &quot;AT3G15…             88.9             56.9            7.97              4.74
+##  6 &quot;AT5G18…             18.2             23.0            0.747             3.07
+##  7 &quot;AT5G52…             90.0             60.9            6.48             10.3 
+##  8 &quot;AT5G02…             58.2             30.2            5.23              6.14
+##  9 &quot;AT5G46…             85.2             86.2           11.0              11.4 
+## 10 &quot;AT4G16…             42.0             43.1            2.99              8.37
+## 11 &quot;AT5G66…             70.7             86.8           12.0              11.2 
+## 12 &quot;AT5G12…            113.              90.5           15.9              16.2 
+## 13 &quot;AT1G21…             39.8             35.1            5.48              6.70
+## 14 &quot;AT5G02…            156.             151.            27.1              24.3 
+## 15 &quot;AT3G23…            142.             120.            24.7              25.1 
+## 16 &quot;AT1G26…            152.             164.            25.4              36.0 
+## 17 &quot;AT5G47…             77.2             80.8           14.4              17.0 
+## 18 &quot;AT4G27…             89.8             67.0           15.2              18.1 
+## 19 &quot;AT4G25…            110.             110.            21.9              25.7 
+## 20 &quot;AT1G67…            278.             242.            59.0              69.8 
+## # … with 4 more variables: Col_Shade_4_replicate1 &lt;dbl&gt;,
+## #   Col_Shade_4_replicate2 &lt;dbl&gt;, Col_Sun_4_replicate1 &lt;dbl&gt;,
+## #   Col_Sun_4_replicate2 &lt;dbl&gt;</code></pre>
+</div>
+<div id="plot-use-labeller-label_wrap_genwidth10-for-multiple-line-in-each-gene-name" class="section level1">
+<h1>plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name</h1>
+<pre class="r"><code>#p &lt;- plot.data %&gt;% gather(sample,value,-1) %&gt;% separate(sample,c(&quot;genotype&quot;,&quot;trt&quot;,&quot;time_hr&quot;,&quot;rep&quot;),sep=&quot;_&quot;) %&gt;%
+#ggplot(aes(x=fct_relevel(trt,&quot;Sun&quot;),y=value,color=trt,shape=time_hr))  + geom_boxplot() + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,labeller = label_wrap_gen(width=30),ncol=3)+theme(strip.text = element_text(size=6))
+# gather into pivod_longer
+p &lt;- plot.data %&gt;% pivot_longer(-1,names_to=&quot;sample&quot;,values_to=&quot;value&quot;) %&gt;% separate(sample,c(&quot;genotype&quot;,&quot;trt&quot;,&quot;time_hr&quot;,&quot;rep&quot;),sep=&quot;_&quot;) %&gt;%
+ggplot(aes(x=fct_relevel(trt,&quot;Sun&quot;),y=value,color=trt,shape=time_hr))  + geom_boxplot() + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,labeller = label_wrap_gen(width=30),ncol=3)+theme(strip.text = element_text(size=6))
+
+p</code></pre>
+<p><img src="/post/2018/09/26/over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="usage-of-goseq.ora-function" class="section level1">
+<h1>Usage of GOseq.ORA function</h1>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog14/content/post/2018-09-26-over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms&quot;</code></pre>
+<pre class="r"><code># GOseq
+library(ShortRead);library(goseq);library(GO.db);library(&quot;annotate&quot;)</code></pre>
+<pre><code>## Warning: package &#39;DelayedArray&#39; was built under R version 3.6.3</code></pre>
+<pre class="r"><code># Download cDNA sequence file from [Araport11] (https://www.arabidopsis.org/download_files/Sequences/Araport11_blastsets/Araport11_genes.201606.cdna.fasta.gz)
+# At_cdna&lt;-Biostrings::readDNAStringSet(&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/Araport11_genes.201606.cdna.fasta&quot;)
+# donot use Araport11 version due to multiple splicing variants 
+# select only representative splicing variant
+# Download cDNA sequence file (representative) from [TAIR10](https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cdna_20110103_representative_gene_model_updated)
+#system(&quot;gunzip -c 2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/TAIR10_cdna_20110103_representative_gene_model.gz &gt; 2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/TAIR10_cdna_20110103_representative_gene_model&quot;)
+#At_cdna&lt;-Biostrings::readDNAStringSet(&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/TAIR10_cdna_20110103_representative_gene_model&quot;) 
+# another way of download files
+#system(&quot;wget https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated&quot;) # error
+download.file(url=&quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_update&quot;,destfile=&quot;../../../resources/2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/TAIR10_cdna_20110103_representative_gene_model.gz&quot;) # error</code></pre>
+<pre><code>## Warning in download.file(url = &quot;https://www.arabidopsis.org/
+## download_files/Sequences/TAIR10_blastsets/
+## TAIR10_cds_20110103_representative_gene_model_update&quot;, : URL &#39;https://
+## www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/
+## TAIR10_cds_20110103_representative_gene_model_update&#39;: status was &#39;Peer
+## certificate cannot be authenticated with given CA certificates&#39;</code></pre>
+<pre><code>## Error in download.file(url = &quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_update&quot;, : cannot open URL &#39;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_update&#39;</code></pre>
+</div>
+<div id="download-directly-from-tair" class="section level1">
+<h1>download directly from TAIR</h1>
+<ul>
+<li>Works only from campus network</li>
+</ul>
+<pre class="r"><code>At_cdna &lt;- Biostrings::readDNAStringSet(&quot;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated&quot;) # In addition: Warning message:In download.file(fp, filepath2[i]) : URL &#39;https://www.arabidopsis.org/download_files/Sequences/TAIR10_blastsets/TAIR10_cds_20110103_representative_gene_model_updated&#39;: status was &#39;Peer certificate cannot be authenticated with given CA certificates&#39; (032121). NO error from on campus</code></pre>
+</div>
+<div id="using-downloaded-file-tair10_cdna_20110103_representative_gene_model_updated.gz" class="section level1">
+<h1>Using downloaded file (TAIR10_cdna_20110103_representative_gene_model_updated.gz)</h1>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/Volumes/data_personal/Kazu_blog14/content/post/2018-09-26-over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms&quot;</code></pre>
+<pre class="r"><code>system(&quot;gunzip -c ../../../resources/2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/TAIR10_cdna_20110103_representative_gene_model_updated.gz &gt; ../../../resources/2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/TAIR10_cdna_20110103_representative_gene_model_updated&quot;)
+At_cdna &lt;- Biostrings::readDNAStringSet(file.path(&quot;..&quot;,&quot;..&quot;,&quot;..&quot;,&quot;resources&quot;,&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files&quot;,&quot;TAIR10_cdna_20110103_representative_gene_model_updated&quot;))
+At_cdna</code></pre>
+<pre><code>##   A DNAStringSet instance of length 33602
+##         width seq                                           names               
+##     [1]  2394 AGAAAACAGTCGACCGTCATT...TATTTGGTAATTTTTTGAGTC AT1G50920.1 | Sym...
+##     [2]   546 ATGACTCGTTTGTTGCCTTAC...CAAGTTGATTCTGGTACATAG AT1G36960.1 | Sym...
+##     [3]  2314 ATGGATTCAGAGTCAGAGTCA...CCTGGTGCATTGTGTTTCTCC AT1G44020.1 | Sym...
+##     [4]  1658 TCGTTTCGTCGTCGATCAGAA...ATCGATTACATGCTACATTTT AT1G15970.1 | Sym...
+##     [5]  1453 ATTGAAAAGAAAACACATCCC...GACCACCAAAATCTTCTCATA AT1G73440.1 | Sym...
+##     ...   ... ...
+## [33598]    87 GGATGGATGTCTGAGCGGTTG...GTTCGAATCCCTCTCCATCCG ATMG00420.1 | Sym...
+## [33599]   384 ATGCTCCCCGCCGGTTGTTGG...CTACGATACTTAACTATATAA ATMG01330.1 | Sym...
+## [33600]   573 ATGGATAACCAATTCATTTTC...GAACAGCGTAGCGACGGATAA ATMG00070.1 | Sym...
+## [33601]   366 ATGGCATCAAAAATCCGCAAA...GATCCTTCTGCATACGCATAA ATMG00130.1 | Sym...
+## [33602]    74 GCGCTCTTAGTTCAGTTCGGT...GTTCAAATCCTACAGAGCGTG ATMG00930.1 | Sym...</code></pre>
+<pre class="r"><code># remove uncompressed file
+system(&quot;rm ../../../resources/2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/TAIR10_cdna_20110103_representative_gene_model_updated&quot;)</code></pre>
+</div>
+<div id="run-this-chunck-once-to-make-atgoslim.tair.bp.list.rdata" class="section level1">
+<h1>Run this chunck once to make Atgoslim.TAIR.BP.list.Rdata</h1>
+<pre class="r"><code>## download TAIR version of [GOSLIM](http://www.arabidopsis.org/download/index-auto.jsp?dir=%2Fdownload_files%2FGO_and_PO_Annotations%2FGene_Ontology_Annotations)
+## read me file is http://www.arabidopsis.org/download_files/GO_and_PO_Annotations/Gene_Ontology_Annotations/ATH_GO.README.txt
+## directly read the file from TAIR
+#test&lt;-readr::read_tsv(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/ATH_GO_GOSLIM.txt.gz&quot;,skip=2,col_names=FALSE) # does not work
+## store uncompressed version in box.com and download it
+#test2&lt;-readr::read_tsv(&quot;https://app.box.com/s/pdxbg2t8vpyatp4x9eewc13qaloa5i4r&quot;,skip=2,col_names=FALSE) # does not work.
+## download file
+#download.file(&quot;https://www.arabidopsis.org/download_files/Subscriber_Data_Releases/TAIR_Data_20180630/ATH_GO_GOSLIM.txt.gz&quot;,destfile =&quot;/../../../resources/2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/ATH_GO_GOSLIM.txt.gz&quot;) 
+# updated (032221, the link was not found)
+#download.file(&quot;https://www.arabidopsis.org/download_files/GO_and_PO_Annotations/Gene_Ontology_Annotations/ATH_GO_GOSLIM.txt.gz&quot;,destfile =&quot;../../../resources/2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/ATH_GO_GOSLIM.txt.gz&quot;)  # does not work
+system(&quot;unzip -c ../../../resources/2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/ATH_GO_GOSLIM.txt_downloaded032221.gz &gt; ../../../resources/2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/ATH_GO_GOSLIM.txt&quot;) # this is not gunzip.
+Atgoslim.TAIR &lt;- read_tsv(file.path(&quot;..&quot;,&quot;..&quot;,&quot;..&quot;,&quot;resources&quot;,&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files&quot;,&quot;ATH_GO_GOSLIM.txt&quot;),skip=6,col_names = FALSE) # previous version needs skip=2</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   X1 = col_character(),
+##   X2 = col_character(),
+##   X3 = col_character(),
+##   X4 = col_character(),
+##   X5 = col_character(),
+##   X6 = col_character(),
+##   X7 = col_double(),
+##   X8 = col_character(),
+##   X9 = col_character(),
+##   X10 = col_character(),
+##   X11 = col_character(),
+##   X12 = col_character(),
+##   X13 = col_character(),
+##   X14 = col_character(),
+##   X15 = col_date(format = &quot;&quot;)
+## )</code></pre>
+<pre class="r"><code>Atgoslim.TAIR %&gt;% filter(X8==&quot;P&quot;,X1==&quot;AT4G38360&quot;) %&gt;% dplyr::select(1,5,6,8,9,10)</code></pre>
+<pre><code>## # A tibble: 15 x 6
+##    X1      X5                               X6      X8    X9               X10  
+##    &lt;chr&gt;   &lt;chr&gt;                            &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;
+##  1 AT4G38… transport                        GO:000… P     transport        IBA  
+##  2 AT4G38… vesicle-mediated transport to t… GO:009… P     other cellular … IGI  
+##  3 AT4G38… vesicle-mediated transport to t… GO:009… P     transport        IGI  
+##  4 AT4G38… negative regulation of brassino… GO:190… P     response to che… IGI  
+##  5 AT4G38… negative regulation of brassino… GO:190… P     response to end… IGI  
+##  6 AT4G38… plant-type hypersensitive respo… GO:000… P     response to str… IEA  
+##  7 AT4G38… plant-type hypersensitive respo… GO:000… P     response to bio… IEA  
+##  8 AT4G38… negative regulation of brassino… GO:190… P     other cellular … IGI  
+##  9 AT4G38… plant-type hypersensitive respo… GO:000… P     other cellular … IEA  
+## 10 AT4G38… negative regulation of brassino… GO:190… P     signal transduc… IGI  
+## 11 AT4G38… programmed cell death            GO:001… P     cell death       IMP  
+## 12 AT4G38… negative regulation of brassino… GO:190… P     cell communicat… IGI  
+## 13 AT4G38… vacuole organization             GO:000… P     cellular compon… IGI  
+## 14 AT4G38… plant-type hypersensitive respo… GO:000… P     cell death       IEA  
+## 15 AT4G38… plant-type hypersensitive respo… GO:000… P     response to ext… IEA</code></pre>
+<pre class="r"><code>Atgoslim.TAIR.BP &lt;-Atgoslim.TAIR%&gt;% filter(X8==&quot;P&quot;)
+Atgoslim.TAIR.BP.list&lt;-tapply(Atgoslim.TAIR.BP$X6,Atgoslim.TAIR.BP$X1,c)
+save(Atgoslim.TAIR.BP.list,file=file.path(&quot;..&quot;,&quot;..&quot;,&quot;..&quot;,&quot;resources&quot;,&quot;2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files&quot;,&quot;Atgoslim.TAIR.BP.list.Rdata&quot;))
+system(&quot;rm /../../../resources/2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/ATH_GO_GOSLIM.txt*&quot;) # remove both files</code></pre>
+</div>
+<div id="goseq.atgoslim.bp.list.ora-function" class="section level1">
+<h1>GOseq.Atgoslim.BP.list.ORA function</h1>
+<p>This function is used to calculate GO ORA results multiple times.</p>
+<pre class="r"><code>load(&quot;../../../resources/2018-09-26-over-representation-analysis-1-goseq-with-arabidopsis-go-term_files/Atgoslim.TAIR.BP.list.Rdata&quot;)
+head(Atgoslim.TAIR.BP.list)</code></pre>
+<pre><code>## $`18S RRNA`
+## [1] &quot;GO:0006412&quot;
+## 
+## $`25S RRNA`
+## [1] &quot;GO:0043043&quot; &quot;GO:0043043&quot; &quot;GO:0043043&quot;
+## 
+## $`5.8S RRNA`
+## [1] &quot;GO:0043043&quot; &quot;GO:0043043&quot; &quot;GO:0043043&quot;
+## 
+## $AAN
+## [1] &quot;GO:0007623&quot;
+## 
+## $AAR1
+## [1] &quot;GO:0006970&quot; &quot;GO:0006970&quot; &quot;GO:0040029&quot;
+## 
+## $AAR2
+## [1] &quot;GO:0009845&quot; &quot;GO:0040029&quot;</code></pre>
+<pre class="r"><code>GOseq.Atgoslim.BP.list.ORA&lt;-function(genelist,padjust=0.05,ontology=&quot;BP&quot;,custom.category.list=Atgoslim.TAIR.BP.list,cdna=At_cdna) { # return GO enrichment table, padjus, padjust=0.05. 
+  bias&lt;-nchar(cdna)
+  names(bias) &lt;- tibble(AGI=names(cdna)) %&gt;% separate(AGI,into=c(&quot;AGI2&quot; ,&quot;test1&quot;,&quot;test2&quot;),sep=&quot; | &quot;,extra=&quot;drop&quot;) %&gt;% separate(AGI2,into=&quot;AGI3&quot;,sep=&quot;\\.&quot;,extra=&quot;drop&quot;) %&gt;% dplyr::select(AGI3) %&gt;%  as_vector()
+  table(duplicated(names(bias))) # revised (032221)
+  #TF&lt;-(names(bias) %in% genelist)*1
+  TF&lt;-as.integer(names(bias) %in% genelist)
+  names(TF)&lt;-names(bias)
+  #print(TF)
+  pwf&lt;-nullp(TF,bias.data=bias)
+  #print(pwf$DEgenes)
+  GO.pval &lt;- goseq(pwf,gene2cat=custom.category.list,use_genes_without_cat=TRUE) # format became different in new goseq version (021111). Does not work (042716)
+  #head(GO.pval) 
+  if(ontology==&quot;BP&quot;) {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;BP&quot;)
+  } else if(ontology==&quot;CC&quot;) {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;CC&quot;)
+  } else {
+    GO.pval2&lt;-subset(GO.pval,ontology==&quot;MF&quot;)
+  }
+  # calculating padjust by BH  
+  GO.pval2$over_represented_padjust&lt;-p.adjust(GO.pval2$over_represented_pvalue,method=&quot;BH&quot;)
+  if(GO.pval2$over_represented_padjust[1]&gt;padjust) return(&quot;no enriched GO&quot;)
+  else {
+    enriched.GO&lt;-GO.pval2[GO.pval2$over_represented_padjust&lt;padjust,] 
+    print(&quot;enriched.GO is&quot;)
+    print(enriched.GO)
+    
+    ## write Term and Definition 
+    for(i in 1:dim(enriched.GO)[1]) {
+      if(is.null(Term(GOTERM[enriched.GO[i,&quot;category&quot;]]))) {next} else {
+      enriched.GO$Term[i]&lt;-Term(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
+      enriched.GO$Definition[i]&lt;-Definition(GOTERM[[enriched.GO[i,&quot;category&quot;]]])
+      }
+    }
+    return(enriched.GO)
+  }
+}</code></pre>
+</div>
+<div id="go.seq" class="section level1">
+<h1>GO.seq</h1>
+<pre class="r"><code># genes.shade1h.up
+genes.shade1h.up$AGI</code></pre>
+<pre><code>##  [1] &quot;AT4G37770&quot; &quot;AT3G21330&quot; &quot;AT4G32280&quot; &quot;AT5G07010&quot; &quot;AT3G15540&quot; &quot;AT5G18050&quot;
+##  [7] &quot;AT5G52900&quot; &quot;AT5G02540&quot; &quot;AT5G46240&quot; &quot;AT4G16780&quot; &quot;AT5G66580&quot; &quot;AT5G12050&quot;
+## [13] &quot;AT1G21050&quot; &quot;AT5G02760&quot; &quot;AT3G23030&quot; &quot;AT1G26945&quot; &quot;AT5G47370&quot; &quot;AT4G27260&quot;
+## [19] &quot;AT4G25260&quot; &quot;AT1G67900&quot;</code></pre>
+<pre class="r"><code>GOseq.Atgoslim.BP.list.ORA(genelist=genes.shade1h.up$AGI)</code></pre>
+<pre><code>## Using manually entered categories.</code></pre>
+<pre><code>## Calculating the p-values...</code></pre>
+<pre><code>## &#39;select()&#39; returned 1:1 mapping between keys and columns</code></pre>
+<p><img src="/post/2018/09/26/over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms/index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre><code>## [1] &quot;enriched.GO is&quot;
+##       category over_represented_pvalue under_represented_pvalue numDEInCat
+## 981 GO:0009733            5.840352e-09                        1          6
+## 935 GO:0009641            1.325751e-07                        1          3
+##     numInCat              term ontology over_represented_padjust
+## 981      251 response to auxin       BP             2.312195e-05
+## 935       17   shade avoidance       BP             2.624325e-04</code></pre>
+<pre><code>##       category over_represented_pvalue under_represented_pvalue numDEInCat
+## 981 GO:0009733            5.840352e-09                        1          6
+## 935 GO:0009641            1.325751e-07                        1          3
+##     numInCat              term ontology over_represented_padjust
+## 981      251 response to auxin       BP             2.312195e-05
+## 935       17   shade avoidance       BP             2.624325e-04
+##                  Term
+## 981 response to auxin
+## 935   shade avoidance
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Definition
+## 981                                                                                                                                                                                                                                                                                                                        Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of an auxin stimulus.
+## 935 Shade avoidance is a set of responses that plants display when they are subjected to the shade of another plant. It often includes elongation, altered flowering time, increased apical dominance and altered partitioning of resources. Plants are able to distinguish between the shade of an inanimate object (e.g. a rock) and the shade of another plant due to the altered balance between red and far-red light in the shade of a plant; this balance between red and far-red light is perceived by phytochrome.</code></pre>
+</div>
+<div id="see-r-scripts-for-vignett" class="section level1">
+<h1>see R scripts for vignett</h1>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.6.2 (2019-12-12)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Mojave 10.14.6
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
+## 
+## other attached packages:
+##  [1] annotate_1.64.0             XML_3.99-0.3               
+##  [3] GO.db_3.10.0                AnnotationDbi_1.48.0       
+##  [5] ShortRead_1.44.3            GenomicAlignments_1.22.1   
+##  [7] SummarizedExperiment_1.16.1 DelayedArray_0.12.3        
+##  [9] matrixStats_0.57.0          Biobase_2.46.0             
+## [11] Rsamtools_2.2.3             Biostrings_2.54.0          
+## [13] XVector_0.26.0              BiocParallel_1.20.1        
+## [15] rtracklayer_1.46.0          GenomicRanges_1.38.0       
+## [17] GenomeInfoDb_1.22.1         IRanges_2.20.2             
+## [19] S4Vectors_0.24.4            BiocGenerics_0.32.0        
+## [21] readxl_1.3.1                forcats_0.5.0              
+## [23] stringr_1.4.0               dplyr_1.0.2                
+## [25] purrr_0.3.4                 readr_1.4.0                
+## [27] tidyr_1.1.2                 tibble_3.0.4               
+## [29] ggplot2_3.3.3               tidyverse_1.3.0            
+## [31] goseq_1.38.0                geneLenDataBase_1.22.0     
+## [33] BiasedUrn_1.07             
+## 
+## loaded via a namespace (and not attached):
+##  [1] colorspace_2.0-0       hwriter_1.3.2          ellipsis_0.3.1        
+##  [4] fs_1.5.0               rstudioapi_0.13        farver_2.0.3          
+##  [7] bit64_4.0.5            fansi_0.4.1            lubridate_1.7.9.2     
+## [10] xml2_1.3.2             splines_3.6.2          knitr_1.31            
+## [13] jsonlite_1.7.2         broom_0.7.3            dbplyr_2.0.0          
+## [16] png_0.1-7              compiler_3.6.2         httr_1.4.2            
+## [19] backports_1.2.1        assertthat_0.2.1       Matrix_1.3-2          
+## [22] cli_2.2.0              htmltools_0.5.1.1      prettyunits_1.1.1     
+## [25] tools_3.6.2            gtable_0.3.0           glue_1.4.2            
+## [28] GenomeInfoDbData_1.2.2 rappdirs_0.3.1         Rcpp_1.0.6            
+## [31] cellranger_1.1.0       vctrs_0.3.6            nlme_3.1-151          
+## [34] blogdown_1.2.2         xfun_0.22              rvest_0.3.6           
+## [37] lifecycle_0.2.0        zlibbioc_1.32.0        scales_1.1.1          
+## [40] hms_0.5.3              RColorBrewer_1.1-2     yaml_2.2.1            
+## [43] curl_4.3               memoise_1.1.0          biomaRt_2.42.1        
+## [46] latticeExtra_0.6-29    stringi_1.5.3          RSQLite_2.2.1         
+## [49] highr_0.8              GenomicFeatures_1.38.2 rlang_0.4.10          
+## [52] pkgconfig_2.0.3        bitops_1.0-6           evaluate_0.14         
+## [55] lattice_0.20-41        labeling_0.4.2         bit_4.0.4             
+## [58] tidyselect_1.1.0       magrittr_2.0.1         bookdown_0.21         
+## [61] R6_2.5.0               generics_0.1.0         DBI_1.1.0             
+## [64] pillar_1.4.7           haven_2.3.1            withr_2.3.0           
+## [67] mgcv_1.8-33            RCurl_1.98-1.2         modelr_0.1.8          
+## [70] crayon_1.3.4           utf8_1.1.4             BiocFileCache_1.10.2  
+## [73] rmarkdown_2.7          jpeg_0.1-8.1           progress_1.2.2        
+## [76] grid_3.6.2             blob_1.2.1             reprex_0.3.0          
+## [79] digest_0.6.27          xtable_1.8-4           openssl_1.4.3         
+## [82] munsell_0.5.0          askpass_1.1</code></pre>
+<hr />
+<!--KazuRbook1 https://affiliate-program.amazon.com/home/ads/adcode/saved-->
+<div id="amzn-assoc-ad-99af12ae-45ba-4556-8dc6-e84f97060807">
+
+</div>
+<script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=99af12ae-45ba-4556-8dc6-e84f97060807"></script>
+<p><strong>References</strong></p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Young, M. D., Wakefield, M. J., Smyth, G. K. &amp; Oshlack, A. Gene ontology analysis for RNA-seq: accounting for selection bias. Genome Biol 11, R14 (2010).<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Nozue, K. et al. Shade avoidance components and pathways in adult plants revealed by phenotypic profiling. PLoS Genet 11, e1004953 (2015).<a href="#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/09/27/over-representation-analysis-4-heatmap-visualization/">&larr; Over-representation analysis 4:  heatmap visualization</a></span>
+  <span class="nav-next"><a href="/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2/">How to make QRcode by R &#43; ggplot2 &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>soccor on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>/tags/soccor/</link>
+    <description>Recent content in soccor on Daddy&#39;s data analysis by Kazu Nozue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 29 Dec 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/soccor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Evaluation of team rank prediction in sports league by sum of residuals</title>
+      <link>/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals/</link>
+      <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals/</guid>
+      <description>Evaluation of team rank prediction in sports league by sum of residuals J1_2019_pred_results &amp;lt;- read_csv(file.path(&amp;quot;/Volumes&amp;quot;,&amp;quot;data_perso</description>
+    </item>
+    
+  </channel>
+</rss>

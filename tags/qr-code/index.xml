@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>QR-code on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>/tags/qr-code/</link>
+    <description>Recent content in QR-code on Daddy&#39;s data analysis by Kazu Nozue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 30 Dec 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/qr-code/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Native plant garden project v2.1</title>
+      <link>/post/2019/12/30/native-plant-garden-project-v2-1/</link>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019/12/30/native-plant-garden-project-v2-1/</guid>
+      <description>Upgrading my native plant garden Toward this rainy season I started upgrading my native plant gardens. Main goals of this project (v2) are
+Completing removal of lawn from frontyard. Planting evergreen shrubs and perenials. Enlarging and remodeling backyard garden. Expanding grape tree in backyard. Labeling plants with weather resistant labeles.   Completing removal of lawn from frontyard. Fig.1 Survived lawn.
+ Fig2. Replacing lawn to native plants.
+ In the first project I expected spontanious disappearance of lawns from fronyard by no watering during summer.</description>
+    </item>
+    
+    <item>
+      <title>How to make QRcode by R &#43; ggplot2</title>
+      <link>/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2/</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2/</guid>
+      <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ── ## ✓ ggplot2 3.3.3 ✓ purrr 0.3.4 ## ✓ tibble 3.0.4 ✓ dplyr 1.0.2 ##</description>
+    </item>
+    
+    <item>
+      <title>How to read QR code and transfer data to Google sheet</title>
+      <link>/post/2018/09/19/how-to-read-qr-code-and-transfer-data-to-google-sheet/</link>
+      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/09/19/how-to-read-qr-code-and-transfer-data-to-google-sheet/</guid>
+      <description>Copy scanned info by iphone and paste it on your computer software. Universal Clipboard Scan
+ Universal Clipboard is useful for this purpose when you use a certain model of iphone, Mac, and macOS.
+ Step 1. Install barcode scanner app that can copy scanned info (“QR Scanner”, “QR Reader”, “Qrafter” from App Store worked as of Sep 2018). Step 2. Scan QR code (or any codes?) and copy decoded info.</description>
+    </item>
+    
+    <item>
+      <title>How to make QR code in Google Sheet using Integromat.com.</title>
+      <link>/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com/</link>
+      <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com/</guid>
+      <description>How to make QR code in google sheet using Integromat.com. The goal of this section is to create QRcode in Google Sheet
+by using Intergromat.com1!
+QRcode generator1a
+ Outline Create Integromat.com account (free for 100 MB transfer and/or 1000 operation) Link Integromat.com account to your Google accout (for using Google Driv, Sheet) Create a new Google sheet with “sample”,“url”,“QRcode” columns. Create a new Scenario and run once to test it.</description>
+    </item>
+    
+    <item>
+      <title>その実験、再現できなければ意味がない</title>
+      <link>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84/</link>
+      <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84/</guid>
+      <description>再現できなければ意味がない 数年前、理化学研究所の研究者がNatureに発表した論文が元で1人の自殺者と多額のお金を使った再現性検証実験、多数</description>
+    </item>
+    
+  </channel>
+</rss>

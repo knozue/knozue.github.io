@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>How to make QRcode by R &#43; ggplot2 | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2018-09-24</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2018-09-24-how-to-make-qrcode-by-r-ggplot2/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+     &hercon; <a href="/categories/project-management">project-management</a>
+  
+  </div>
+
+  <h1><span class="title">How to make QRcode by R &#43; ggplot2</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/qr-code">QR-code</a>; <a href="/tags/r">R</a>; <a href="/tags/reproducibility">reproducibility</a>; <a href="/tags/%E5%86%8D%E7%8F%BE%E6%80%A7">再現性</a>; <a href="/tags/ggplot2">ggplot2</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="ggplot2-version-of-qrcode-generator" class="section level1">
+<h1>ggplot2 version of qrcode generator</h1>
+<pre class="r"><code>library(qrcode)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>#QRmatrix&lt;-qrcode_gen(&#39;www.r-project.org&#39;,dataOutput=TRUE)
+ggqrcode &lt;- function(text, color=&quot;black&quot;, alpha=1) {
+    pkg &lt;- &quot;qrcode&quot;
+    require(pkg, character.only = TRUE)
+    x &lt;- qrcode_gen(text, plotQRcode=F, dataOutput=T)
+    x &lt;- as.data.frame(x)
+
+    y &lt;- x
+    y$id &lt;- rownames(y)
+    y &lt;- gather(y, &quot;key&quot;, &quot;value&quot;, colnames(y)[-ncol(y)])
+    y$key = factor(y$key, levels=rev(colnames(x)))
+    y$id = factor(y$id, levels=rev(rownames(x)))
+
+    ggplot(y, aes_(x=~id, y=~key)) + geom_tile(aes_(fill=~value), alpha=alpha) +
+        scale_fill_gradient(low=&quot;white&quot;, high=color) +
+        theme_void() + theme(legend.position=&#39;none&#39;)
+} # https://github.com/GuangchuangYu/yyplot/blob/master/R/ggqrcode.R
+p&lt;-ggqrcode(&quot;Col_shade_rep3&quot;)
+p</code></pre>
+<p><img src="/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2/index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>p2&lt;-p + labs(title=&quot;Col shade rep3&quot;)
+p2</code></pre>
+<p><img src="/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2/index_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+</div>
+<div id="how-to-print-out-qrcodes-on-a-label-sheet" class="section level1">
+<h1>How to print out QRcodes on a label sheet?</h1>
+<pre class="r"><code>library(cowplot) # see alternative in https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html
+# read sample data
+
+# create QR code and store them in list object (using loop or sapply?)
+
+# plot in one page with appropriate position in labels by cowplot
+
+# save the plot in pdf file
+
+# print the pdf on a label sheet!</code></pre>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"><a href="/post/2018/09/26/over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms/">&larr; Over-representation analysis 1: GOseq with GO terms in unsupported model organisms</a></span>
+  <span class="nav-next"><a href="/post/2018/09/19/how-to-read-qr-code-and-transfer-data-to-google-sheet/">How to read QR code and transfer data to Google sheet &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

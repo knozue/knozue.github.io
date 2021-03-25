@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>/categories/</link>
+    <description>Recent content in Categories on Daddy&#39;s data analysis by Kazu Nozue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 19 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>data analysis</title>
+      <link>/categories/data-analysis/</link>
+      <pubDate>Fri, 19 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/data-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>decarbonization</title>
+      <link>/categories/decarbonization/</link>
+      <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/decarbonization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sports</title>
+      <link>/categories/sports/</link>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/sports/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>native-plant</title>
+      <link>/categories/native-plant/</link>
+      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/native-plant/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>EV</title>
+      <link>/categories/ev/</link>
+      <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/ev/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>communication skill</title>
+      <link>/categories/communication-skill/</link>
+      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/communication-skill/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>スポーツ</title>
+      <link>/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84/</link>
+      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>project-management</title>
+      <link>/categories/project-management/</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/project-management/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
