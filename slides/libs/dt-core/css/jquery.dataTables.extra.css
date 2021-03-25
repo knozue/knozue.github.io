@@ -6,7 +6,6 @@ table.dataTable tr.selected td, table.dataTable td.selected {
 .dataTables_scrollBody .dataTables_sizing {
   visibility: hidden;
 }
-<<<<<<< HEAD
 
 /* The datatables' theme CSS file doesn't define
 the color but with white background. It leads to an issue that
@@ -27,5 +26,3 @@ then. At that time, we need to remove the below CSS attributes.
 div.datatables {
   color: #333;
 }
-=======
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6

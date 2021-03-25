@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -14,627 +13,305 @@
       <pubDate>Fri, 19 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/ggplot2/</guid>
-=======
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on Daddy&#39;s data analysis by Kazu Nozue</title>
-    <link>https://knozue.github.io/tags.html</link>
-    <description>Recent content in Tags on Daddy&#39;s data analysis by Kazu Nozue</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 01 Jan 2021 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://knozue.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Apple Watch</title>
-      <link>https://knozue.github.io/tags/apple-watch.html</link>
-      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/apple-watch.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>R</title>
       <link>/tags/r/</link>
       <pubDate>Fri, 19 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/r/</guid>
-=======
-      <title>Artistic Swimming</title>
-      <link>https://knozue.github.io/tags/artistic-swimming.html</link>
-      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/artistic-swimming.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>tidyverse</title>
       <link>/tags/tidyverse/</link>
       <pubDate>Fri, 19 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/tidyverse/</guid>
-=======
-      <title>California</title>
-      <link>https://knozue.github.io/tags/california.html</link>
-      <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/california.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>california</title>
       <link>/tags/california/</link>
       <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/california/</guid>
-=======
-      <title>Google-Drive</title>
-      <link>https://knozue.github.io/tags/google-drive.html</link>
-      <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/google-drive.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>ggplot</title>
       <link>/tags/ggplot/</link>
       <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/ggplot/</guid>
-=======
-      <title>Google-Form</title>
-      <link>https://knozue.github.io/tags/google-form.html</link>
-      <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/google-form.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>heat pump water heater</title>
       <link>/tags/heat-pump-water-heater/</link>
       <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/heat-pump-water-heater/</guid>
-=======
-      <title>Google-Sheet</title>
-      <link>https://knozue.github.io/tags/google-sheet.html</link>
-      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/google-sheet.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>power outage</title>
       <link>/tags/power-outage/</link>
       <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/power-outage/</guid>
-=======
-      <title>IGV</title>
-      <link>https://knozue.github.io/tags/igv.html</link>
-      <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/igv.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Apple Watch</title>
       <link>/tags/apple-watch/</link>
       <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/apple-watch/</guid>
-=======
-      <title>Integromat.com</title>
-      <link>https://knozue.github.io/tags/integromat.com.html</link>
-      <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/integromat.com.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>RStudio</title>
       <link>/tags/rstudio/</link>
       <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/rstudio/</guid>
-=======
-      <title>NHK for school</title>
-      <link>https://knozue.github.io/tags/nhk-for-school.html</link>
-      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/nhk-for-school.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>実験ノート</title>
       <link>/tags/%E5%AE%9F%E9%A8%93%E3%83%8E%E3%83%BC%E3%83%88/</link>
       <pubDate>Thu, 24 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/%E5%AE%9F%E9%A8%93%E3%83%8E%E3%83%BC%E3%83%88/</guid>
-=======
-      <title>Otsuta-to-Denjiro</title>
-      <link>https://knozue.github.io/tags/otsuta-to-denjiro.html</link>
-      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/otsuta-to-denjiro.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
       <title>QR-code</title>
-<<<<<<< HEAD
       <link>/tags/qr-code/</link>
       <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/qr-code/</guid>
-=======
-      <link>https://knozue.github.io/tags/qr-code.html</link>
-      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/qr-code.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>soccor</title>
       <link>/tags/soccor/</link>
       <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/soccor/</guid>
-=======
-      <title>R</title>
-      <link>https://knozue.github.io/tags/r.html</link>
-      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/r.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>NHK for school</title>
       <link>/tags/nhk-for-school/</link>
       <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/nhk-for-school/</guid>
-=======
-      <title>RNA-seq</title>
-      <link>https://knozue.github.io/tags/rna-seq.html</link>
-      <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/rna-seq.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Otsuta-to-Denjiro</title>
       <link>/tags/otsuta-to-denjiro/</link>
       <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/otsuta-to-denjiro/</guid>
-=======
-      <title>RStudio</title>
-      <link>https://knozue.github.io/tags/rstudio.html</link>
-      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/rstudio.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>お伝と伝次郎</title>
       <link>/tags/%E3%81%8A%E4%BC%9D%E3%81%A8%E4%BC%9D%E6%AC%A1%E9%83%8E/</link>
       <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/%E3%81%8A%E4%BC%9D%E3%81%A8%E4%BC%9D%E6%AC%A1%E9%83%8E/</guid>
-=======
-      <title>Shiny</title>
-      <link>https://knozue.github.io/tags/shiny.html</link>
-      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/shiny.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>xarigan</title>
       <link>/tags/xarigan/</link>
       <pubDate>Wed, 30 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/xarigan/</guid>
-=======
-      <title>Synchronized Swimming</title>
-      <link>https://knozue.github.io/tags/synchronized-swimming.html</link>
-      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/synchronized-swimming.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>benchling.com</title>
       <link>/tags/benchling.com/</link>
       <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/benchling.com/</guid>
-=======
-      <title>Trello</title>
-      <link>https://knozue.github.io/tags/trello.html</link>
-      <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/trello.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>IGV</title>
       <link>/tags/igv/</link>
       <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/igv/</guid>
-=======
-      <title>WiFiルーター</title>
-      <link>https://knozue.github.io/tags/wifi%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC.html</link>
-      <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/wifi%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>reproducibility</title>
       <link>/tags/reproducibility/</link>
       <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/reproducibility/</guid>
-=======
-      <title>benchling.com</title>
-      <link>https://knozue.github.io/tags/benchling.com.html</link>
-      <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/benchling.com.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>RNA-seq</title>
       <link>/tags/rna-seq/</link>
       <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/rna-seq/</guid>
-=======
-      <title>drought</title>
-      <link>https://knozue.github.io/tags/drought.html</link>
-      <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/drought.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Artistic Swimming</title>
       <link>/tags/artistic-swimming/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/artistic-swimming/</guid>
-=======
-      <title>ggplot2</title>
-      <link>https://knozue.github.io/tags/ggplot2.html</link>
-      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/ggplot2.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
       <title>git</title>
-<<<<<<< HEAD
       <link>/tags/git/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/git/</guid>
-=======
-      <link>https://knozue.github.io/tags/git.html</link>
-      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/git.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Shiny</title>
       <link>/tags/shiny/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/shiny/</guid>
-=======
-      <title>heat pump water heater</title>
-      <link>https://knozue.github.io/tags/heat-pump-water-heater.html</link>
-      <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/heat-pump-water-heater.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Synchronized Swimming</title>
       <link>/tags/synchronized-swimming/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/synchronized-swimming/</guid>
-=======
-      <title>portable-WiFi-router</title>
-      <link>https://knozue.github.io/tags/portable-wifi-router.html</link>
-      <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/portable-wifi-router.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>アーティスティックスイミング</title>
       <link>/tags/%E3%82%A2%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/%E3%82%A2%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0/</guid>
-=======
-      <title>power outage</title>
-      <link>https://knozue.github.io/tags/power-outage.html</link>
-      <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/power-outage.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>シンクロナイズドスイミング</title>
       <link>/tags/%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%AD%E3%83%8A%E3%82%A4%E3%82%BA%E3%83%89%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%AD%E3%83%8A%E3%82%A4%E3%82%BA%E3%83%89%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0/</guid>
-=======
-      <title>prepaid-SIM-card</title>
-      <link>https://knozue.github.io/tags/prepaid-sim-card.html</link>
-      <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/prepaid-sim-card.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
       <title>publication</title>
-<<<<<<< HEAD
       <link>/tags/publication/</link>
       <pubDate>Fri, 26 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/publication/</guid>
-=======
-      <link>https://knozue.github.io/tags/publication.html</link>
-      <pubDate>Fri, 26 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/publication.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>drought</title>
       <link>/tags/drought/</link>
       <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/drought/</guid>
-=======
-      <title>reproducibility</title>
-      <link>https://knozue.github.io/tags/reproducibility.html</link>
-      <pubDate>Tue, 08 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/reproducibility.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>再現性</title>
       <link>/tags/%E5%86%8D%E7%8F%BE%E6%80%A7/</link>
       <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/%E5%86%8D%E7%8F%BE%E6%80%A7/</guid>
-=======
-      <title>soccor</title>
-      <link>https://knozue.github.io/tags/soccor.html</link>
-      <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/soccor.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Google-Sheet</title>
       <link>/tags/google-sheet/</link>
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/google-sheet/</guid>
-=======
-      <title>tidyverse</title>
-      <link>https://knozue.github.io/tags/tidyverse.html</link>
-      <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/tidyverse.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Google-Drive</title>
       <link>/tags/google-drive/</link>
       <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/google-drive/</guid>
-=======
-      <title>xarigan</title>
-      <link>https://knozue.github.io/tags/xarigan.html</link>
-      <pubDate>Wed, 30 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/xarigan.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Google-Form</title>
       <link>/tags/google-form/</link>
       <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/google-form/</guid>
-=======
-      <title>お伝と伝次郎</title>
-      <link>https://knozue.github.io/tags/%E3%81%8A%E4%BC%9D%E3%81%A8%E4%BC%9D%E6%AC%A1%E9%83%8E.html</link>
-      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/%E3%81%8A%E4%BC%9D%E3%81%A8%E4%BC%9D%E6%AC%A1%E9%83%8E.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Integromat.com</title>
       <link>/tags/integromat.com/</link>
       <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/integromat.com/</guid>
-=======
-      <title>アーティスティックスイミング</title>
-      <link>https://knozue.github.io/tags/%E3%82%A2%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0.html</link>
-      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/%E3%82%A2%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Trello</title>
       <link>/tags/trello/</link>
       <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/trello/</guid>
-=======
-      <title>シンクロナイズドスイミング</title>
-      <link>https://knozue.github.io/tags/%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%AD%E3%83%8A%E3%82%A4%E3%82%BA%E3%83%89%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0.html</link>
-      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%AD%E3%83%8A%E3%82%A4%E3%82%BA%E3%83%89%E3%82%B9%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0.html</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>プリペイドSIM</title>
-      <link>https://knozue.github.io/tags/%E3%83%97%E3%83%AA%E3%83%9A%E3%82%A4%E3%83%89sim.html</link>
-      <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/%E3%83%97%E3%83%AA%E3%83%9A%E3%82%A4%E3%83%89sim.html</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ポータブル充電器</title>
-      <link>https://knozue.github.io/tags/%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%96%E3%83%AB%E5%85%85%E9%9B%BB%E5%99%A8.html</link>
-      <pubDate>Fri, 14 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%96%E3%83%AB%E5%85%85%E9%9B%BB%E5%99%A8.html</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>再現性</title>
-      <link>https://knozue.github.io/tags/%E5%86%8D%E7%8F%BE%E6%80%A7.html</link>
-      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/%E5%86%8D%E7%8F%BE%E6%80%A7.html</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>実験ノート</title>
-      <link>https://knozue.github.io/tags/%E5%AE%9F%E9%A8%93%E3%83%8E%E3%83%BC%E3%83%88.html</link>
-      <pubDate>Thu, 24 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/%E5%AE%9F%E9%A8%93%E3%83%8E%E3%83%BC%E3%83%88.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description></description>
     </item>
     
   </channel>
-<<<<<<< HEAD
 </rss>
-=======
-</rss>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6

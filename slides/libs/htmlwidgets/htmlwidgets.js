@@ -233,11 +233,7 @@
           theseArgs = theseArgs.concat([task.data]);
           task = task.code;
         }
-<<<<<<< HEAD
         var taskFunc = tryEval(task);
-=======
-        var taskFunc = eval("(" + task + ")");
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
         if (typeof(taskFunc) !== "function") {
           throw new Error("Task must be a function! Source:\n" + task);
         }
@@ -246,7 +242,6 @@
     }
   }
 
-<<<<<<< HEAD
   // Attempt eval() both with and without enclosing in parentheses.
   // Note that enclosing coerces a function declaration into
   // an expression that eval() can parse
@@ -272,8 +267,6 @@
     return result;
   }
 
-=======
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
   function initSizing(el) {
     var sizing = sizingPolicy(el);
     if (!sizing)
@@ -666,7 +659,6 @@
     invokePostRenderHandlers();
   }
 
-<<<<<<< HEAD
 
   function has_jQuery3() {
     if (!window.jQuery) {
@@ -711,23 +703,12 @@
     document.addEventListener("DOMContentLoaded", function() {
       document.removeEventListener("DOMContentLoaded", arguments.callee, false);
       maybeStaticRenderLater();
-=======
-  // Wait until after the document has loaded to render the widgets.
-  if (document.addEventListener) {
-    document.addEventListener("DOMContentLoaded", function() {
-      document.removeEventListener("DOMContentLoaded", arguments.callee, false);
-      window.HTMLWidgets.staticRender();
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
     }, false);
   } else if (document.attachEvent) {
     document.attachEvent("onreadystatechange", function() {
       if (document.readyState === "complete") {
         document.detachEvent("onreadystatechange", arguments.callee);
-<<<<<<< HEAD
         maybeStaticRenderLater();
-=======
-        window.HTMLWidgets.staticRender();
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       }
     });
   }
@@ -815,11 +796,7 @@
       if (o !== null && typeof o === "object" && part in o) {
         if (i == (l - 1)) { // if we are at the end of the line then evalulate
           if (typeof o[part] === "string")
-<<<<<<< HEAD
             o[part] = tryEval(o[part]);
-=======
-            o[part] = eval("(" + o[part] + ")");
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
         } else { // otherwise continue to next embedded object
           o = o[part];
         }

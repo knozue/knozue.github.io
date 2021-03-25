@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -14,51 +13,21 @@
       <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>/post/2021/01/07/heat-pump-water-heater/</guid>
-=======
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>California on Daddy&#39;s data analysis by Kazu Nozue</title>
-    <link>https://knozue.github.io/tags/california.html</link>
-    <description>Recent content in California on Daddy&#39;s data analysis by Kazu Nozue</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 07 Jan 2021 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://knozue.github.io/tags/california/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Heat pump water heater</title>
-      <link>https://knozue.github.io/post/2021/01/07/heat-pump-water-heater.html</link>
-      <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2021/01/07/heat-pump-water-heater.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description>reading packages library(tidyverse) library(lubridate) library(scales) Buring gas produce CO2. Reducing gas usage is critical to reduce CO2 production from our house. Here is the history of our gas usage of my house since 2012 November.
 # reading data gasdata &amp;lt;- read.csv(file.path(&amp;quot;/Volumes&amp;quot;,&amp;quot;data_personal&amp;quot;,&amp;quot;Kazu_blog&amp;quot;,&amp;quot;resources&amp;quot;,&amp;quot;pge_gas_billing_data_8882170746_2012-11-14_to_2020-10-09.csv&amp;quot;),skip=5) # data format summary(gasdata) ## TYPE START.DATE END.DATE USAGE UNITS ## Natural gas billing:95 1/10/13: 1 1/8/17 : 1 Min. : 2.00 therms:95 ## 1/10/14: 1 1/8/18 : 1 1st Qu.</description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Native plant project v2 March-April 2020</title>
       <link>/post/2020/04/18/native_plant_project_v2_march_april_2020/</link>
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>/post/2020/04/18/native_plant_project_v2_march_april_2020/</guid>
-=======
-      <title>Native_plant_project_v2_March_April_2020</title>
-      <link>https://knozue.github.io/post/2020/04/18/native-plant-project-v2-march-april-2020.html</link>
-      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2020/04/18/native-plant-project-v2-march-april-2020.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description>March: Lupins started blooming and California poppies followed. March 21, 2020 This year Lupins and California poppies bloomed earlier than usual due to warm winter. During shelter-in place order many sidewalkers enjoyed our front yard. Some of them took pictures of plants, and others took California poppy plants and planted them to their front yards. As expected those plants were died. I would like to point out that taking s</description>
     </item>
     
     <item>
       <title>Native plant garden project v2.1</title>
-<<<<<<< HEAD
       <link>/post/2019/12/30/native-plant-garden-project-v2-1/</link>
       <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
       
@@ -67,197 +36,106 @@
 Completing removal of lawn from frontyard. Planting evergreen shrubs and perenials. Enlarging and remodeling backyard garden. Expanding grape tree in backyard. Labeling plants with weather resistant labeles.   Completing removal of lawn from frontyard. Fig.1 Survived lawn.
  Fig2. Replacing lawn to native plants.
  In the first project I expected spontanious disappearance of lawns from fronyard by no watering during summer.</description>
-=======
-      <link>https://knozue.github.io/post/2019/12/30/native-plant-garden-project-v2-1.html</link>
-      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2019/12/30/native-plant-garden-project-v2-1.html</guid>
-      <description>Upgrading my native plant garden Toward this rainy season I started upgrading my native plant gardens. Main goals of this project (v2) are
-Completing removal of lawn from frontyard. Planting evergreen shrubs and perenials. Enlarging and remodeling backyard garden. Expanding grape tree in backyard. Labeling plants with weather resistant labeles.   Completing removal of lawn from frontyard. Fig.1 Survived lawn.
- Fig. 2. Replacing lawn to native plants.</description>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
     </item>
     
     <item>
       <title>Charging an electric vehicle at home: 240V outlet installation in my garage</title>
-<<<<<<< HEAD
       <link>/post/2019/12/27/charging-an-electric-vehicle-at-home-240v-outlet-installation-in-my-garage/</link>
       <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019/12/27/charging-an-electric-vehicle-at-home-240v-outlet-installation-in-my-garage/</guid>
-=======
-      <link>https://knozue.github.io/post/2019/12/27/charging-an-electric-vehicle-at-home-240v-outlet-installation-in-my-garage.html</link>
-      <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2019/12/27/charging-an-electric-vehicle-at-home-240v-outlet-installation-in-my-garage.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description>Charging an electric vehicle at home Fig 1. Two 240V outlet installed in my garage today!
 The world of charging an electric vehicle is totally different from gas-fueling an gasoline-powered vehicle. Similar to gas stations there are growing number of electric charger stations, such as Tesla Superchargers and EVgo. The biggest difference is that your can charge your electric vehicle at home. An easy ways is to use regular 110V outlet in your garage, which is called level 1 charging.</description>
     </item>
     
     <item>
-<<<<<<< HEAD
       <title>Decarbonization project: switching a gas-powered vehicle into an electric   vehicle (EV)</title>
       <link>/post/2019/12/05/decarbonization-project-switching-a-gas-powered-vehicle-into-an-electric-vehicle-ev/</link>
       <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019/12/05/decarbonization-project-switching-a-gas-powered-vehicle-into-an-electric-vehicle-ev/</guid>
       <description>Decarbonization and carbon sequestration The U. S. officially notified withdrawal from the Paris Agreement on Nov 4, 2019. I am so sad to hear the news that movement toward decarbonization is essential to prevent from global warming. Please listen a high-school student (Greta Thunberg) speech on decarbonization at United Nations’ Climate Action Summit in September 2019. We should start working on decarbonization ASAP. Toward big goals of decarbonization in the world, our family started from carbon capture/sequestration project, “native plant project”, which also saved lots of precious water in California.</description>
-=======
-      <title>Decarbonization project: switching a gas-powered vehicle into an electric vehicle (EV)</title>
-      <link>https://knozue.github.io/post/2019/12/05/decarbonization-project-switching-a-gas-powered-vehicle-into-an-electric-vehicle-ev.html</link>
-      <pubDate>Thu, 05 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2019/12/05/decarbonization-project-switching-a-gas-powered-vehicle-into-an-electric-vehicle-ev.html</guid>
-      <description>Decarbonization and carbon sequestration  The U. S. officially notified withdrawal from the Paris Agreement on Nov 4, 2019. I am so sad to hear the news that movement toward decarbonization is essential to prevent from global warming. Please listen a high-school student (Greta Thunberg) speech on decarbonization at United Nations’ Climate Action Summit in September 2019. We should start working on decarbonization ASAP. Toward big goals of decarbonization in the world, our family started from carbon capture/sequestration project, “native plant project”, which also saved lots of precious water in California.</description>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
     </item>
     
     <item>
       <title>脱炭素化プロジェクト: ガソリン車から電気自動車へ</title>
-<<<<<<< HEAD
       <link>/post/2019/12/03/%E8%84%B1%E7%82%AD%E7%B4%A0%E5%8C%96%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88-%E3%82%AC%E3%82%BD%E3%83%AA%E3%83%B3%E8%BB%8A%E3%81%8B%E3%82%89%E9%9B%BB%E6%B0%97%E8%87%AA%E5%8B%95%E8%BB%8A%E3%81%B8/</link>
       <pubDate>Tue, 03 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019/12/03/%E8%84%B1%E7%82%AD%E7%B4%A0%E5%8C%96%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88-%E3%82%AC%E3%82%BD%E3%83%AA%E3%83%B3%E8%BB%8A%E3%81%8B%E3%82%89%E9%9B%BB%E6%B0%97%E8%87%AA%E5%8B%95%E8%BB%8A%E3%81%B8/</guid>
-=======
-      <link>https://knozue.github.io/post/2019/12/03/decarbonization1.html</link>
-      <pubDate>Tue, 03 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2019/12/03/decarbonization1.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description>脱炭素化(decarbonization)と炭素回収(carbon sequestration) 2015年のパリ議定書や 1人の高校生環境活動家グレタ・トゥーンベリさんの</description>
     </item>
     
     <item>
       <title>Eight months later: Native plant project 6</title>
-<<<<<<< HEAD
       <link>/post/2019/06/10/eight-months-later-native-plant-project-6/</link>
       <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019/06/10/eight-months-later-native-plant-project-6/</guid>
-=======
-      <link>https://knozue.github.io/post/2019/06/10/eight-months-later-native-plant-project-6.html</link>
-      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2019/06/10/eight-months-later-native-plant-project-6.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description>Milkweed has come back! Milkweed is one of California native plants. This spring milkweed plants returned in my backyard exactly at the same location (Fig.1), suggesting they are perennials. Milkweed plants are very important because they are the only food for precious migrating butterfly, Monarch butterfly (please read an artible in National Geographic). For most organisms milkweed is toxic because their body contain several glucosidic substances called cardenolides. Why the glucosidic substances are not toxic to Monahch butterfly?</description>
     </item>
     
     <item>
       <title>Seven months later: Native plant garden project 5</title>
-<<<<<<< HEAD
       <link>/post/2019/05/10/seven-months-later-native-plant-garden-project-5/</link>
       <pubDate>Fri, 10 May 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019/05/10/seven-months-later-native-plant-garden-project-5/</guid>
       <description>Blooming of Clarkia williamsonii; Farewell to spring? After blooming, lupine have lots of been-like seed pods (Fig. 1).
 Fig. 2. Clarkia williamsonii
-=======
-      <link>https://knozue.github.io/post/2019/05/10/seven-months-later-native-plant-garden-project-5.html</link>
-      <pubDate>Fri, 10 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2019/05/10/seven-months-later-native-plant-garden-project-5.html</guid>
-      <description>Blooming of Clarkia williamsonii; Farewell to spring? After blooming, lupine have lots of been-like seed pods (Fig. 1).
-Fig. 2. Clarkia williamsonii blooming
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
  Among Clarkia unguiculata plants, Clarkia williamsonii started blooming (Fig. 2) . One of closely related species, Clarkia amoena, is called farewell to spring. So as it is May, blooming of Clarkia williamsonii is likely the sign of short spring and beginning of long dry season in California.</description>
     </item>
     
     <item>
       <title>Seven months later: Native plant garden project4</title>
-<<<<<<< HEAD
       <link>/post/2019/05/07/seven-months-later-native-plant-garden-project4/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019/05/07/seven-months-later-native-plant-garden-project4/</guid>
       <description> Clarkia unguiculata has started blooming Clarkia unguiculata
  Fig. 2. Close up
-=======
-      <link>https://knozue.github.io/post/2019/05/07/seven-months-later-native-plant-garden-project4.html</link>
-      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2019/05/07/seven-months-later-native-plant-garden-project4.html</guid>
-      <description> Clarkia unguiculata has started blooming Clarkia unguiculata blooming
- Fig.2. Close up
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
  As I posted in January, I have lots of Clarkia unguiculata plants, which start blooming the last week in April. Although it seems become early dry season, plants in my yards are still green.
   </description>
     </item>
     
     <item>
       <title>Six months later: Native plant garden project 3</title>
-<<<<<<< HEAD
       <link>/post/2019/04/17/six-months-later-native-plant-garden-project-3/</link>
       <pubDate>Wed, 17 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019/04/17/six-months-later-native-plant-garden-project-3/</guid>
       <description>Beautiful lupines blooming in my yard! April 2019 lupine blooming
-=======
-      <link>https://knozue.github.io/post/2019/04/17/six-months-later-native-plant-garden-project3.html</link>
-      <pubDate>Wed, 17 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2019/04/17/six-months-later-native-plant-garden-project3.html</guid>
-      <description>Beautiful lupines blooming in my yard! April 2019 lunine blooming
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
  Native plants have been growing and growing in my yards. In this early spring, lots of lupine plants have been bloomed. As I reported in Jan 16, 2019, our yards have lupine plants from native plant seeds mix. Surprisingly lots of lupine plants grew bigger and had lots of beautiful violet flowers.
  What is this plant? unknown flower</description>
     </item>
     
     <item>
       <title>Needs more cargo space in electric vehicles!</title>
-<<<<<<< HEAD
       <link>/post/2019/03/30/needs-more-cargo-space-in-electric-vehicles/</link>
       <pubDate>Sat, 30 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019/03/30/needs-more-cargo-space-in-electric-vehicles/</guid>
-=======
-      <link>https://knozue.github.io/post/2019/03/30/needs-more-cargo-space-in-electric-vehicles.html</link>
-      <pubDate>Sat, 30 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2019/03/30/needs-more-cargo-space-in-electric-vehicles.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description>Advantages of electric vehicles Electric vehicle (EV) became popular in California. Recently I can find more than one Tesla car during my daily commute. There are a couple of advantages of EV compared with gas powered vehicles; (1) higher cost efficiency (higher MPGe1), (2) lower maintainance cost, and (3) tax incentives and rebate (read an article in energysage.com, one in a utility company, and a site from U.S. Department of Energy).</description>
     </item>
     
     <item>
       <title>Three months later: Native plant garden project2</title>
-<<<<<<< HEAD
       <link>/post/2019/01/16/three-monts-later-native-plant-garden-project2/</link>
       <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019/01/16/three-monts-later-native-plant-garden-project2/</guid>
       <description>Many small plants are growing in my yards. Are they native plants that I sprindkled? Jan 7 2018 front yard plants
  As I posted in last fall, I started watering early November 2018 and late rainy season has started after the tragic wild fire (“Butte Camp Fire”). On January 2019 I’ve noticed a couple of unfamiliar plants in my yards (Fig. 1), which should be one of native plants in California central valley pollination seed mix.</description>
-=======
-      <link>https://knozue.github.io/post/2019/01/16/three-months-later-native-plant-garden-project2.html</link>
-      <pubDate>Wed, 16 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2019/01/16/three-months-later-native-plant-garden-project2.html</guid>
-      <description>Many small plants are growing in my yards. Are they native plants that I sprindkled? As I posted in last fall, I started watering early November 2018 and late rainy season has started after the tragic wild fire (&amp;ldquo;Butte Camp Fire&amp;rdquo;). On January 2019 I&amp;rsquo;ve noticed a couple of unfamiliar plants in my yards (Fig. 1), which should be one of native plants in California central valley pollination seed mix.</description>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
     </item>
     
     <item>
       <title>Native plant garden project</title>
-<<<<<<< HEAD
       <link>/post/2018/10/18/native-plant-garden-project/</link>
       <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/2018/10/18/native-plant-garden-project/</guid>
-=======
-      <link>https://knozue.github.io/post/2018/10/18/native-plant-garden-project.html</link>
-      <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2018/10/18/native-plant-garden-project.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description>Why don&amp;rsquo;t you grow local native plants in your yards? Lawn in yards are common in USA. However, keeping lawn green needs lots of water in California. California central valley is a center of agriculture due to excellent soil quality (ref). However, weather of California central valley is Mediteranian type, which has long dry summer and wet winter (ref). Recent years California has frequent drought problems (ref), which leads me to try replacing lawn into drought resistant plants, especially local native plants, which are resistant to drought.</description>
     </item>
     
   </channel>
-<<<<<<< HEAD
 </rss>
-=======
-</rss>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6

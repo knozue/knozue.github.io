@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -15,49 +14,16 @@
       
       <guid>/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2/</guid>
       <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ── ## ✓ ggplot2 3.3.3 ✓ purrr 0.3.4 ## ✓ tibble 3.0.4 ✓ dplyr 1.0.2 ##</description>
-=======
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>再現性 on Daddy&#39;s data analysis by Kazu Nozue</title>
-    <link>https://knozue.github.io/tags/%E5%86%8D%E7%8F%BE%E6%80%A7.html</link>
-    <description>Recent content in 再現性 on Daddy&#39;s data analysis by Kazu Nozue</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 24 Sep 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://knozue.github.io/tags/%E5%86%8D%E7%8F%BE%E6%80%A7/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>How to make QRcode by R &#43; ggplot2</title>
-      <link>https://knozue.github.io/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</link>
-      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2018/09/24/how-to-make-qrcode-by-r-ggplot2.html</guid>
-      <description>ggplot2 version of qrcode generator library(qrcode) library(tidyverse) ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.1.0 ✔ purrr 0.2.5 ## ✔ tibble 1.4.2 ✔ dplyr 0.7.7 ## ✔ tidyr</description>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
     </item>
     
     <item>
       <title>その実験、再現できなければ意味がない</title>
-<<<<<<< HEAD
       <link>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84/</link>
       <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84/</guid>
-=======
-      <link>https://knozue.github.io/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</link>
-      <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/post/2018/09/18/%E3%81%9D%E3%81%AE%E5%AE%9F%E9%A8%93%E5%86%8D%E7%8F%BE%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E6%84%8F%E5%91%B3%E3%81%8C%E3%81%AA%E3%81%84.html</guid>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
       <description>再現できなければ意味がない 数年前、理化学研究所の研究者がNatureに発表した論文が元で1人の自殺者と多額のお金を使った再現性検証実験、多数</description>
     </item>
     
   </channel>
-<<<<<<< HEAD
 </rss>
-=======
-</rss>
->>>>>>> 164dea5f37d550e6f069a45716c319aa1f4b62b6
