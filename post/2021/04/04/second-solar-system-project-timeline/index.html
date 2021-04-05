@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>The second solar system project: timeline | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2021-04-04</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2021-04-04-second-solar-system-project-timeline/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+     &hercon; <a href="/categories/project-management">project-management</a>
+  
+     &hercon; <a href="/categories/decarbonization">decarbonization</a>
+  
+  </div>
+
+  <h1><span class="title">The second solar system project: timeline</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/ggplot2">ggplot2</a>; <a href="/tags/solar-system">solar system</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<p>Increasing self-production of electricity at home has a couple of benefits.</p>
+<ul>
+<li>Enhancing decarboniztion (<a href="https://www.pge.com/en_US/about-pge/environment/what-we-are-doing/clean-energy-solutions/clean-energy-solutions.page?WT.mc_id=Vanity_cleanenergy">only 29% of electricity from grid was produced from renewable power sources (PGE, 2019)</a>).</li>
+<li>Increasing independency of power production.</li>
+</ul>
+<p>My first solar system produced 3803 kWh per year (an average of 2015 - 2020). Switching <a href="https://knozue.github.io/post/2019/12/05/decarbonization-project-switching-a-gas-powered-vehicle-into-an-electric-vehicle-ev/">a gas-powered car to an electric car in 2019</a> increased electricity comsumption 2.5 times (from (3938 to 10342 kWh). The last year (2020) I started second solar system project for my house to increase production of electricity at home. I will describe detailed electricity data analysis on my house after expanding solar system later post. In this post, I will summarized timelines of the secondsolar system installation, which took time than I expected possibly due to series of avoidable mistakes.
+In view of data analysis,Gannt chart is useful visualization tool of timeline. <a href="https://r4ds.had.co.nz/dates-and-times.html">lubridate R package</a> is used for handling date data and <a href="https://laresbernardo.github.io/lares/reference/plot_timeline.html">lares R packages</a> is used for making Gannt chart.</p>
+<pre class="r"><code>devtools::install_github(&quot;laresbernardo/lares&quot;)</code></pre>
+<pre class="r"><code>library(tidyverse);library(lubridate);library(lares)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<pre class="r"><code># since today() is ymd, use ymd for all
+today &lt;- as.character(today())
+# 
+solar.inst &lt;- tribble(~type,~event,~start,~end,
+&quot;CA’s county\n risk levels\n in my County&quot;,&quot;purple&quot;,&quot;2020-11-17&quot;,   &quot;2021-02-23&quot;,
+&quot;CA’s county\n risk levels\n in my County&quot;,&quot;red&quot;,&quot;2021-02-23&quot;,&quot;2021-03-23&quot;,
+&quot;CA’s county\n risk levels\n in my County&quot;,&quot;orange&quot;, &quot;2021-03-23&quot;,today,
+&quot;solar system&quot;,&quot;reviewing &amp; signing DocSign&quot;,&quot;2020-11-03&quot;,&quot;2020-11-07&quot;,
+&quot;solar system&quot;,&quot;design approval&quot;,&quot;2020-11-19&quot;,&quot;2020-11-20&quot;,
+&quot;solar system&quot;,&quot;contact from designer&quot;,&quot;2020-11-17&quot;,&quot;2020-11-18&quot;,
+&quot;solar system&quot;,&quot;installation (1st attempt) [^1]&quot;,&quot;2020-11-28&quot;,&quot;2020-11-29&quot;,
+&quot;solar system&quot;,&quot;installation (2nd attempt)&quot;,&quot;2020-12-18&quot;,&quot;2020-12-19&quot;,
+&quot;solar system&quot;,&quot;1st payment, $6912&quot;, &quot;2020-12-21&quot;,&quot;2020-12-22&quot;,
+&quot;solar system&quot;,&quot;city inspection (1st)&quot;,&quot;2021-01-20&quot;,&quot;2021-01-21&quot;,
+&quot;solar system&quot;,&quot;city inspection (2nd)&quot;,&quot;2021-02-05&quot;,&quot;2021-02-06&quot;,
+&quot;solar system&quot;,&quot;2nd payment, $1728&quot;,&quot;2021-02-09&quot;,&quot;2021-02-10&quot;,
+&quot;solar system&quot;,&quot;Application of PGE permission by Ilum solar&quot;,&quot;2021-02-11&quot;,&quot;2021-02-12&quot;,
+&quot;solar system&quot;,&quot;Approval by PGE&quot;,&quot;2021-02-24&quot;,&quot;2021-02-25&quot;,
+&quot;solar system&quot;,&quot;Obtaining info for access to solarEdge inverter from mySolarEdge app.&quot;,&quot;2021-02-25&quot;,&quot;2021-02-26&quot;,
+&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^2]&quot;,&quot;2021-03-02&quot;,&quot;2021-03-03&quot;,
+&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^3]&quot;,&quot;2021-03-09&quot;,&quot;2021-03-10&quot;,
+&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^4]&quot;,&quot;2021-03-11&quot;,&quot;2021-03-12&quot;,
+&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^5]&quot;,&quot;2021-03-16&quot;,&quot;2021-03-17&quot;,
+&quot;solar system&quot;,&quot;confirmation of electricity production [^6]&quot;,&quot;2021-03-16&quot;,&quot;2021-03-20&quot;) 
+
+# format date as Date
+solar.inst &lt;- solar.inst %&gt;% mutate(start2 = ymd(start),end2=ymd(end))
+# sort by start2 date
+solar.inst &lt;- solar.inst %&gt;% arrange(start2)
+# 
+p &lt;- plot_timeline(event = solar.inst$event, 
+              start = solar.inst$start2, 
+              end = solar.inst$end2, 
+              title = &quot;Timeline of our 2nd solar system installation&quot;,
+              subtitle = &quot;&quot;,
+              # Simple trick to re-arrange the grids
+              group = factor(solar.inst$type, levels = c(&quot;CA’s county\n risk levels\n in my County&quot;, &quot;solar system&quot;)))
+# plot
+p + theme(axis.text.x=element_text(angle=90))</code></pre>
+<pre><code>## Warning: Removed 40 rows containing missing values (geom_label).</code></pre>
+<p><img src="/post/2021/04/04/second-solar-system-project-timeline/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div id="solaredge-inverter-notes" class="section level1">
+<h1>SolarEdge inverter notes</h1>
+<ul>
+<li>Learning SolarEdge system (HD-wave)
+<ul>
+<li>Only SolarEdge SetApp-enabled inverters (without a LCD display) can be activated or configured via SetApp.</li>
+<li>How to communicate an inverter to SolarEdge server (“monitoring communication”)? See 2:50 in <a href="https://youtu.be/KrfARG450xc">a Youtube video</a></li>
+<li>Reading LED lights signals on the inverter. See <a href="https://www.solaredge.com/us/leds" class="uri">https://www.solaredge.com/us/leds</a></li>
+<li>Stuck night mode.</li>
+</ul></li>
+</ul>
+<p><a href="https://covid19.ca.gov/state-dashboard/">California’s county risk levels</a>
+<a href="https://www.cpuc.ca.gov/solarguide/">California Solar Consumer Protection Guide</a></p>
+<p>See notes <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>,<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>,<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>,<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>,<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, and <a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> on the timeline chart below.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Failed due to miscommunication. An installer came to my house while I was out of town.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Unable to communicate with the inverter from my SolarEdge App. I called SolarEdge support center, said there is no communication set up, which needs an installer.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>It turned out that the inverter needs a new cellular plug-in becasue of a barcode for cellular plug-in was needed to proceed commision process. WiFi communication with my home WiFi for monitoring did not work (I assume that the inverter needs antenna for WiFi (there is no WiFi antenna on the inverter at present).<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>Replacing cellular plug-in module. However, there is no electricity production (checked PGE energy use. Also no production in SolarEdge monitoring). SolarEdge support told me that the inverter was on stuck night mode and suggest that I needed to ask an instalelr for following troubleshooting protocol of stuck night mode.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>Following troubleshooting protocol (no problems). Restarting system worked. I assume that turning on DC switch during comission was wrong procedure. DC switch should have been on the first step (I guess).<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>See following blog.<a href="#fnref6" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2021/03/19/useful-r-techniques-2/">Useful R techniques 2 &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+
