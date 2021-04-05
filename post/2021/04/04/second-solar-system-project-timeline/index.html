@@ -78,7 +78,7 @@
 <li>Enhancing decarboniztion (<a href="https://www.pge.com/en_US/about-pge/environment/what-we-are-doing/clean-energy-solutions/clean-energy-solutions.page?WT.mc_id=Vanity_cleanenergy">only 29% of electricity from grid was produced from renewable power sources (PGE, 2019)</a>).</li>
 <li>Increasing independency of power production.</li>
 </ul>
-<p>My first solar system produced 3803 kWh per year (an average of 2015 - 2020). Switching <a href="https://knozue.github.io/post/2019/12/05/decarbonization-project-switching-a-gas-powered-vehicle-into-an-electric-vehicle-ev/">a gas-powered car to an electric car in 2019</a> increased electricity comsumption 2.5 times (from (3938 to 10342 kWh). The last year (2020) I started second solar system project for my house to increase production of electricity at home. I will describe detailed electricity data analysis on my house after expanding solar system later post. In this post, I will summarized timelines of the secondsolar system installation, which took time than I expected possibly due to series of avoidable mistakes.
+<p>My first solar system produced 3803 kWh per year (an average of 2015 - 2020) <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Switching <a href="https://knozue.github.io/post/2019/12/05/decarbonization-project-switching-a-gas-powered-vehicle-into-an-electric-vehicle-ev/">a gas-powered car to an electric car in 2019</a> increased electricity comsumption 2.5 times (from (3938 to 10342 kWh). The last year (2020) I started second solar system project for my house to increase production of electricity at home. I will describe detailed electricity data analysis on my house after expanding solar system later post. In this post, I will summarized timelines of the secondsolar system installation, which took time than I expected possibly due to series of avoidable mistakes.
 In view of data analysis,Gannt chart is useful visualization tool of timeline. <a href="https://r4ds.had.co.nz/dates-and-times.html">lubridate R package</a> is used for handling date data and <a href="https://laresbernardo.github.io/lares/reference/plot_timeline.html">lares R packages</a> is used for making Gannt chart.</p>
 <pre class="r"><code>devtools::install_github(&quot;laresbernardo/lares&quot;)</code></pre>
 <pre class="r"><code>library(tidyverse);library(lubridate);library(lares)</code></pre>
@@ -105,7 +105,7 @@ solar.inst &lt;- tribble(~type,~event,~start,~end,
 &quot;solar system&quot;,&quot;reviewing &amp; signing DocSign&quot;,&quot;2020-11-03&quot;,&quot;2020-11-07&quot;,
 &quot;solar system&quot;,&quot;design approval&quot;,&quot;2020-11-19&quot;,&quot;2020-11-20&quot;,
 &quot;solar system&quot;,&quot;contact from designer&quot;,&quot;2020-11-17&quot;,&quot;2020-11-18&quot;,
-&quot;solar system&quot;,&quot;installation (1st attempt) [^1]&quot;,&quot;2020-11-28&quot;,&quot;2020-11-29&quot;,
+&quot;solar system&quot;,&quot;installation (1st attempt) [^2]&quot;,&quot;2020-11-28&quot;,&quot;2020-11-29&quot;,
 &quot;solar system&quot;,&quot;installation (2nd attempt)&quot;,&quot;2020-12-18&quot;,&quot;2020-12-19&quot;,
 &quot;solar system&quot;,&quot;1st payment, $6912&quot;, &quot;2020-12-21&quot;,&quot;2020-12-22&quot;,
 &quot;solar system&quot;,&quot;city inspection (1st)&quot;,&quot;2021-01-20&quot;,&quot;2021-01-21&quot;,
@@ -114,11 +114,11 @@ solar.inst &lt;- tribble(~type,~event,~start,~end,
 &quot;solar system&quot;,&quot;Application of PGE permission by Ilum solar&quot;,&quot;2021-02-11&quot;,&quot;2021-02-12&quot;,
 &quot;solar system&quot;,&quot;Approval by PGE&quot;,&quot;2021-02-24&quot;,&quot;2021-02-25&quot;,
 &quot;solar system&quot;,&quot;Obtaining info for access to solarEdge inverter from mySolarEdge app.&quot;,&quot;2021-02-25&quot;,&quot;2021-02-26&quot;,
-&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^2]&quot;,&quot;2021-03-02&quot;,&quot;2021-03-03&quot;,
-&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^3]&quot;,&quot;2021-03-09&quot;,&quot;2021-03-10&quot;,
-&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^4]&quot;,&quot;2021-03-11&quot;,&quot;2021-03-12&quot;,
-&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^5]&quot;,&quot;2021-03-16&quot;,&quot;2021-03-17&quot;,
-&quot;solar system&quot;,&quot;confirmation of electricity production [^6]&quot;,&quot;2021-03-16&quot;,&quot;2021-03-20&quot;) 
+&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^3]&quot;,&quot;2021-03-02&quot;,&quot;2021-03-03&quot;,
+&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^4]&quot;,&quot;2021-03-09&quot;,&quot;2021-03-10&quot;,
+&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^5]&quot;,&quot;2021-03-11&quot;,&quot;2021-03-12&quot;,
+&quot;solar system&quot;,&quot;Ilumn solar technitian visit [^6]&quot;,&quot;2021-03-16&quot;,&quot;2021-03-17&quot;,
+&quot;solar system&quot;,&quot;confirmation of electricity production [^7]&quot;,&quot;2021-03-16&quot;,&quot;2021-03-20&quot;) 
 
 # format date as Date
 solar.inst &lt;- solar.inst %&gt;% mutate(start2 = ymd(start),end2=ymd(end))
@@ -149,17 +149,18 @@ p + theme(axis.text.x=element_text(angle=90))</code></pre>
 </ul>
 <p><a href="https://covid19.ca.gov/state-dashboard/">California’s county risk levels</a>
 <a href="https://www.cpuc.ca.gov/solarguide/">California Solar Consumer Protection Guide</a></p>
-<p>See notes <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>,<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>,<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>,<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>,<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, and <a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> on the timeline chart below.</p>
+<p>See notes <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>,<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>,<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>,<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>,<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>, and <a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> on the timeline chart below.</p>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Failed due to miscommunication. An installer came to my house while I was out of town.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>Unable to communicate with the inverter from my SolarEdge App. I called SolarEdge support center, said there is no communication set up, which needs an installer.<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>It turned out that the inverter needs a new cellular plug-in becasue of a barcode for cellular plug-in was needed to proceed commision process. WiFi communication with my home WiFi for monitoring did not work (I assume that the inverter needs antenna for WiFi (there is no WiFi antenna on the inverter at present).<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>Replacing cellular plug-in module. However, there is no electricity production (checked PGE energy use. Also no production in SolarEdge monitoring). SolarEdge support told me that the inverter was on stuck night mode and suggest that I needed to ask an instalelr for following troubleshooting protocol of stuck night mode.<a href="#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>Following troubleshooting protocol (no problems). Restarting system worked. I assume that turning on DC switch during comission was wrong procedure. DC switch should have been on the first step (I guess).<a href="#fnref5" class="footnote-back">↩</a></p></li>
-<li id="fn6"><p>See following blog.<a href="#fnref6" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>Inline R code was used, <code>`r round(mean(c(3803.7,3733.2,3724.5,3849.9,3780.9,3923.0)),digits=0)`</code> (see <a href="https://rviews.rstudio.com/2017/12/04/how-to-show-r-inline-code-blocks-in-r-markdown/">T. Hovorka, 2017</a>)<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Failed due to miscommunication. An installer came to my house while I was out of town.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Unable to communicate with the inverter from my SolarEdge App. I called SolarEdge support center, said there is no communication set up, which needs an installer.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>It turned out that the inverter needs a new cellular plug-in becasue of a barcode for cellular plug-in was needed to proceed commision process. WiFi communication with my home WiFi for monitoring did not work (I assume that the inverter needs antenna for WiFi (there is no WiFi antenna on the inverter at present).<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>Replacing cellular plug-in module. However, there is no electricity production (checked PGE energy use. Also no production in SolarEdge monitoring). SolarEdge support told me that the inverter was on stuck night mode and suggest that I needed to ask an instalelr for following troubleshooting protocol of stuck night mode.<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>Following troubleshooting protocol (no problems). Restarting system worked. I assume that turning on DC switch during comission was wrong procedure. DC switch should have been on the first step (I guess).<a href="#fnref6" class="footnote-back">↩</a></p></li>
+<li id="fn7"><p>See following blog.<a href="#fnref7" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
 
