@@ -6,11 +6,20 @@
     <description>Recent content in Categories on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>communication skill</title>
+      <link>/categories/communication-skill/</link>
+      <pubDate>Wed, 07 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/communication-skill/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>data analysis</title>
       <link>/categories/data-analysis/</link>
-      <pubDate>Sun, 04 Apr 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 07 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>/categories/data-analysis/</guid>
       <description></description>
@@ -58,15 +67,6 @@
       <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/categories/ev/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>communication skill</title>
-      <link>/categories/communication-skill/</link>
-      <pubDate>Sat, 11 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/communication-skill/</guid>
       <description></description>
     </item>
     

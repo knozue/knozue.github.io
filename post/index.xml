@@ -6,7 +6,21 @@
     <description>Recent content in Posts on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Backup iphone to an external harddrive</title>
+      <link>/post/2021/04/07/backup-iphone-to-an-external-harddrive/</link>
+      <pubDate>Wed, 07 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021/04/07/backup-iphone-to-an-external-harddrive/</guid>
+      <description> If your computer free space is not enough for backing up your iphone, you can use an external harddrive. You can find an instruction.
+Directory name and an example of command line directory name
+ command line
+  Progress directory name
+  Your iphone backup can be found in iTunes &amp;gt; Preferences &amp;gt; Devices iTunes
+  </description>
+    </item>
+    
     <item>
       <title>The second solar system project: timeline</title>
       <link>/post/2021/04/04/second-solar-system-project-timeline/</link>
