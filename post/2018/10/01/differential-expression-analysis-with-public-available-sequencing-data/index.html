@@ -298,12 +298,12 @@ dge.nolow &lt;- calcNormFactors(dge.nolow)
 # lib.size check
 ggplot(dge.nolow$samples,aes(x=sample,y=norm.factors,fill=genotype)) + geom_col() + 
   theme(axis.text.x  = element_text(angle=90, vjust=0.5,size = 7)) </code></pre>
-<p><img src="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 <div id="mds-plot" class="section level1">
 <h1>MDS plot</h1>
 <pre class="r"><code>mds &lt;- plotMDS(dge.nolow,method = &quot;bcv&quot;,labels=dge.nolow$samples$group,gene.selection = &quot;pairwise&quot;, ndim=3)</code></pre>
-<p><img src="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <pre class="r"><code># fix this 
 mds.pl &lt;- as_tibble(mds$cmdscale.out) %&gt;% 
   bind_cols(data.frame(sample=row.names(mds$cmdscale.out)),.) %&gt;%
@@ -313,7 +313,7 @@ mds.pl &lt;- as_tibble(mds$cmdscale.out) %&gt;%
 ## This warning is displayed once every 8 hours.
 ## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
 <pre class="r"><code>mds.pl %&gt;% ggplot(aes(x=V1,y=V2,color=as.factor(treatment),label=genotype)) + geom_text(angle=30) + ggtitle(&quot;DIM 1 vs 2&quot;)</code></pre>
-<p><img src="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-13-2.png" width="672" />
+<p><img src="https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-13-2.png" width="672" />
 # edge.nolowR (model with glm)</p>
 <pre class="r"><code># set references in genotype and treatment
 dge.nolow$samples$genotype&lt;-factor(dge.nolow$samples$genotype,levels=c(&quot;WT&quot;,&quot;npr4-4D&quot;,&quot;npr1-1&quot;))
@@ -558,32 +558,32 @@ plot.data &lt;- DEG.count.list2[[&quot;trt.DEGs.int.rWT.rU&quot;]] %&gt;% left_j
 # plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p1&lt;-plot.data %&gt;% filter(logFC&gt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC,-logCPM,-FDR,-full_name) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;WT SA up-regulated genes&quot;)
 p1</code></pre>
-<p><img src="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <pre class="r"><code># SA down-regulated genes
 plot.data2 &lt;- DEG.count.list2[[&quot;trt.DEGs.int.rWT.rU&quot;]] %&gt;% left_join(cpm.wide,by=c(&quot;genes&quot;=&quot;transcript_ID&quot;)) %&gt;% unite(AGI_desc,c(&quot;AGI&quot;,&quot;symbol2&quot;)) %&gt;% dplyr::select(-LR,-PValue,-genes) 
 # plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p2&lt;-plot.data2 %&gt;% filter(logFC&lt;0 &amp; FDR&lt;1e-50) %&gt;% dplyr::select(-logFC,-logCPM,-FDR,-full_name) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;WT SA down-regulated genes&quot;)
 p2</code></pre>
-<p><img src="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-21-2.png" width="672" />
+<p><img src="https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-21-2.png" width="672" />
 # npr1-1</p>
 <pre class="r"><code># npr1-1 misregulated genes 
 plot.data3 &lt;- DEG.count.list2[[&quot;genotypenpr1_genotypenpr1.treatmenttreated.DEGs.int.rWT.rU&quot;]] %&gt;% left_join(cpm.wide,by=c(&quot;genes&quot;=&quot;transcript_ID&quot;)) %&gt;% unite(AGI_desc,c(&quot;AGI&quot;,&quot;symbol2&quot;)) %&gt;% dplyr::select(-LR,-PValue,-genes) 
 # plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p3 &lt;- plot.data3 %&gt;% filter(logFC.genotypenpr1.1&gt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC.genotypenpr1.1,-logFC.genotypenpr1.1.treatmenttreated,-FDR,-full_name,-logCPM) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;logFC.genotypenpr1.1&gt;0&quot;)
 p3</code></pre>
-<p><img src="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <pre class="r"><code># plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p4 &lt;- plot.data3 %&gt;% filter(logFC.genotypenpr1.1&lt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC.genotypenpr1.1,-logFC.genotypenpr1.1.treatmenttreated,-FDR,-full_name,-logCPM) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;logFC.genotypenpr1.1&lt;0&quot;)
 p4</code></pre>
-<p><img src="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
 <pre class="r"><code># plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p5 &lt;- plot.data3 %&gt;% filter(logFC.genotypenpr1.1.treatmenttreated&gt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC.genotypenpr1.1,-logFC.genotypenpr1.1.treatmenttreated,-FDR,-full_name,-logCPM) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;logFC.genotypenpr1.1.treatmenttreated&gt;0&quot;)
 p5</code></pre>
-<p><img src="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-22-3.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-22-3.png" width="672" /></p>
 <pre class="r"><code># plot: use labeller = label_wrap_gen(width=10) for multiple line in each gene name
 p6 &lt;- plot.data3 %&gt;% filter(logFC.genotypenpr1.1.treatmenttreated&lt;0 &amp; FDR&lt;1e-100) %&gt;% dplyr::select(-logFC.genotypenpr1.1,-logFC.genotypenpr1.1.treatmenttreated,-FDR,-full_name,-logCPM) %&gt;%  gather(Run,value,-1) %&gt;% left_join(sample.info.final,by=&quot;Run&quot;) %&gt;% select(-Run,-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x=fct_relevel(treatment,&quot;untreated&quot;),y=value,color=genotype,shape=rep)) + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,ncol=5,labeller = label_wrap_gen(width=30))+theme(strip.text = element_text(size=6)) + labs(title=&quot;logFC.genotypenpr1.1.treatmenttreated&lt;0&quot;)
 p6</code></pre>
-<p><img src="/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-22-4.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2018/10/01/differential-expression-analysis-with-public-available-sequencing-data/index_files/figure-html/unnamed-chunk-22-4.png" width="672" /></p>
 </div>
 <div id="session-info" class="section level1">
 <h1>Session info</h1>

@@ -140,7 +140,7 @@ scatter_by2(mtcars, disp, &quot;drat&quot;) # does not work</code></pre>
 ## Aesthetic mapping: 
 ## * `x` -&gt; `disp`
 ## * `y` -&gt; &quot;drat&quot;</code></pre>
-<p><img src="/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <pre class="r"><code>input &lt;- as.name(&quot;drat&quot;)
 scatter_by2(mtcars, disp, input) # does  work</code></pre>
 <pre><code>## [1] &quot;x is&quot;
@@ -153,7 +153,7 @@ scatter_by2(mtcars, disp, input) # does  work</code></pre>
 ## Aesthetic mapping: 
 ## * `x` -&gt; `disp`
 ## * `y` -&gt; `drat`</code></pre>
-<p><img src="/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
 <pre class="r"><code>scatter_by2(mtcars, disp, as.name(&quot;drat&quot;)) # does work</code></pre>
 <pre><code>## [1] &quot;x is&quot;
 ## &lt;quosure&gt;
@@ -165,7 +165,7 @@ scatter_by2(mtcars, disp, input) # does  work</code></pre>
 ## Aesthetic mapping: 
 ## * `x` -&gt; `disp`
 ## * `y` -&gt; `drat`</code></pre>
-<p><img src="/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
 <pre class="r"><code>parameters &lt;- names(mtcars)
 plot.list &lt;- tibble(parameters=names(mtcars)) %&gt;% split(.$parameters) %&gt;% map(~scatter_by2(mtcars, disp, as.name(.$parameters)))</code></pre>
 <pre><code>## [1] &quot;x is&quot;
@@ -279,11 +279,11 @@ plot.list &lt;- tibble(parameters=names(mtcars)) %&gt;% split(.$parameters) %&gt
 ## * `x` -&gt; `disp`
 ## * `y` -&gt; `wt`</code></pre>
 <pre class="r"><code>plot.list[[1]]</code></pre>
-<p><img src="/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>plot.list[[2]]</code></pre>
-<p><img src="/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 <pre class="r"><code>plot.list[[3]]</code></pre>
-<p><img src="/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
 </div>
 <div id="sample-data" class="section level1">
 <h1>sample data</h1>
@@ -422,11 +422,11 @@ df$value &lt;- df$X1 * df$X2
 p1 &lt;- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 p2 &lt;- p1 + geom_point(aes(size = value))
 p2 + theme(legend.key.size= unit(2, &quot;cm&quot;))</code></pre>
-<p><img src="/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <pre class="r"><code>p2 + theme(legend.key.width= unit(2, &quot;cm&quot;))</code></pre>
-<p><img src="/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
 <pre class="r"><code>p2 + theme(legend.key.height= unit(2, &quot;cm&quot;))</code></pre>
-<p><img src="/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-9-3.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2020/12/24/useful-r-techniques-1/index_files/figure-html/unnamed-chunk-9-3.png" width="672" /></p>
 </div>
 <div id="pivot_longer-pivot_wider" class="section level1">
 <h1>pivot_longer, pivot_wider</h1>

@@ -193,7 +193,7 @@ df_workout &lt;-  XML:::xmlAttrsToDataFrame(xml[&quot;//Workout&quot;])
          caption = &#39;@taraskaduk | taraskaduk.com&#39;,x=&quot;Time&quot;,y=&quot;&quot;)  + 
     coord_equal() + facet_wrap(.~month,ncol=3)</code></pre>
 <pre><code>## `summarise()` regrouping output by &#39;month&#39;, &#39;wday&#39; (override with `.groups` argument)</code></pre>
-<p><img src="/post/2021/01/01/heart-rate-data-analysis1/index_files/figure-html/unnamed-chunk-7-1.png" width="4500" /></p>
+<p><img src="https://knozue.github.io/post/2021/01/01/heart-rate-data-analysis1/index_files/figure-html/unnamed-chunk-7-1.png" width="4500" /></p>
 </div>
 <div id="monthly-mean-heart-rate-everyday-calendar" class="section level1">
 <h1>Monthly Mean Heart rate , everyday calendar</h1>
@@ -231,7 +231,7 @@ df_workout &lt;-  XML:::xmlAttrsToDataFrame(xml[&quot;//Workout&quot;])
 x=&quot;Time&quot;,y=&quot;&quot;)  + 
     coord_equal() + facet_wrap(.~month,ncol=3)
   pHRmonth</code></pre>
-<p><img src="/post/2021/01/01/heart-rate-data-analysis1/index_files/figure-html/unnamed-chunk-8-1.png" width="4500" /></p>
+<p><img src="https://knozue.github.io/post/2021/01/01/heart-rate-data-analysis1/index_files/figure-html/unnamed-chunk-8-1.png" width="4500" /></p>
 </div>
 <div id="make-notes-on-graph-by-geom_text" class="section level1">
 <h1>Make notes on graph by geom_text()</h1>
@@ -241,7 +241,7 @@ x=&quot;Time&quot;,y=&quot;&quot;)  +
 <pre class="r"><code># data frame for text
 df3.text &lt;- tibble(month=c(3,5,9,10),mday=c(19,20,15,6),hour=12,mean.heartrate=100,label=c(&quot;Shelter in place&quot;,&quot;Synchro practice restart&quot;,&quot;Synchro fall training starts&quot;,&quot;Synchro team practice starts&quot;))
 pHRmonth + geom_text(data = df3.text,mapping=aes(label = label),size=3)</code></pre>
-<p><img src="/post/2021/01/01/heart-rate-data-analysis1/index_files/figure-html/unnamed-chunk-9-1.png" width="4500" /></p>
+<p><img src="https://knozue.github.io/post/2021/01/01/heart-rate-data-analysis1/index_files/figure-html/unnamed-chunk-9-1.png" width="4500" /></p>
 </div>
 
 </main>

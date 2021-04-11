@@ -67,14 +67,14 @@
 
 <main>
 
-<script src="/post/2018/10/24/dge-clustering-with-ggplot2/index_files/htmlwidgets/htmlwidgets.js"></script>
-<script src="/post/2018/10/24/dge-clustering-with-ggplot2/index_files/plotly-binding/plotly.js"></script>
-<script src="/post/2018/10/24/dge-clustering-with-ggplot2/index_files/typedarray/typedarray.min.js"></script>
-<script src="/post/2018/10/24/dge-clustering-with-ggplot2/index_files/jquery/jquery.min.js"></script>
-<link href="/post/2018/10/24/dge-clustering-with-ggplot2/index_files/crosstalk/css/crosstalk.css" rel="stylesheet" />
-<script src="/post/2018/10/24/dge-clustering-with-ggplot2/index_files/crosstalk/js/crosstalk.min.js"></script>
-<link href="/post/2018/10/24/dge-clustering-with-ggplot2/index_files/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="/post/2018/10/24/dge-clustering-with-ggplot2/index_files/plotly-main/plotly-latest.min.js"></script>
+<script src="https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2/index_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2/index_files/plotly-binding/plotly.js"></script>
+<script src="https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2/index_files/typedarray/typedarray.min.js"></script>
+<script src="https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2/index_files/jquery/jquery.min.js"></script>
+<link href="https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2/index_files/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2/index_files/crosstalk/js/crosstalk.min.js"></script>
+<link href="https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2/index_files/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2/index_files/plotly-main/plotly-latest.min.js"></script>
 
 
 <p>Hierarchical clustering is powerful method to classify gene expression pattern.
@@ -460,7 +460,7 @@ mdf$transcript_ID&lt;-factor(mdf$transcript_ID,levels=as_vector(DEG.DF[,1])[row.
 mdf$value2 &lt;- sqrt(abs(mdf$value))*sign(mdf$value) # transforming data by sqrt() plus giving + or - by sign()
 p&lt;-mdf %&gt;% left_join(sample.info.final,by=c(&quot;sample&quot;=&quot;Run&quot;)) %&gt;% dplyr::select(-sample,-group,-LibraryLayout) %&gt;% ggplot(aes(x = transcript_ID, y = sample.y)) + geom_tile(aes(fill = value2)) +scale_fill_gradient2(low=&quot;green&quot;, mid=&quot;black&quot;, high=&quot;magenta&quot;) + theme(axis.text.y=element_text(size=10),axis.text.x = element_blank(),axis.ticks.x = element_blank(),axis.title.x=element_text(size=10), legend.position = &quot;top&quot;) + xlab(&quot;Differentially expressed genes&quot;) + ylab(&quot;sample&quot;)
 p</code></pre>
-<p><img src="/post/2018/10/24/dge-clustering-with-ggplot2/index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2018/10/24/dge-clustering-with-ggplot2/index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code># hide axis ticks and grid lines (error, fix this)
 mat &lt;- matrix(unlist(dplyr::select(df,-sample)),nrow=nrow(df))</code></pre>
 <pre><code>## Error: Can&#39;t subset columns that don&#39;t exist.

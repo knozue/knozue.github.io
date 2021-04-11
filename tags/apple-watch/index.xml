@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Apple Watch on Daddy&#39;s data analysis by Kazu Nozue</title>
-    <link>/tags/apple-watch/</link>
+    <link>https://knozue.github.io/tags/apple-watch/</link>
     <description>Recent content in Apple Watch on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/apple-watch/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/tags/apple-watch/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Heart rate data analysis 1</title>
-      <link>/post/2021/01/01/heart-rate-data-analysis1/</link>
+      <link>https://knozue.github.io/post/2021/01/01/heart-rate-data-analysis1/</link>
       <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021/01/01/heart-rate-data-analysis1/</guid>
+      <guid>https://knozue.github.io/post/2021/01/01/heart-rate-data-analysis1/</guid>
       <description>An Apple watch measures heart rate and you can download its raw data. Here I plotted my daughter’s data in this year. Please see Taras Kaduk’s blog ( https://taraskaduk.com/2019/03/23/apple-health/) for details.
 library(XML) library(tidyverse) library(lubridate) library(scales) library(ggthemes) Reading downloaded health data from an Apple watch. path=&amp;quot;/Volumes/data_personal/Kazu_blog/resources&amp;quot; #zip &amp;lt;- paste(path, &amp;#39;export_Mana_101320.zip&amp;#39;, sep = &amp;#39;/&amp;#39;) zip &amp;lt;- paste(path, &amp;#39;export_Mana_122620.zip&amp;#39;, sep = &amp;#39;/&amp;#39;) unzip(zip, exdir = path) Sys.sleep(3) # pause for 3 seconds to let your computer unzip it.</description>
     </item>

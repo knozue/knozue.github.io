@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>sports on Daddy&#39;s data analysis by Kazu Nozue</title>
-    <link>/categories/sports/</link>
+    <link>https://knozue.github.io/categories/sports/</link>
     <description>Recent content in sports on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/sports/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/categories/sports/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Heart rate data analysis 1</title>
-      <link>/post/2021/01/01/heart-rate-data-analysis1/</link>
+      <link>https://knozue.github.io/post/2021/01/01/heart-rate-data-analysis1/</link>
       <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021/01/01/heart-rate-data-analysis1/</guid>
+      <guid>https://knozue.github.io/post/2021/01/01/heart-rate-data-analysis1/</guid>
       <description>An Apple watch measures heart rate and you can download its raw data. Here I plotted my daughter’s data in this year. Please see Taras Kaduk’s blog ( https://taraskaduk.com/2019/03/23/apple-health/) for details.
 library(XML) library(tidyverse) library(lubridate) library(scales) library(ggthemes) Reading downloaded health data from an Apple watch. path=&amp;quot;/Volumes/data_personal/Kazu_blog/resources&amp;quot; #zip &amp;lt;- paste(path, &amp;#39;export_Mana_101320.zip&amp;#39;, sep = &amp;#39;/&amp;#39;) zip &amp;lt;- paste(path, &amp;#39;export_Mana_122620.zip&amp;#39;, sep = &amp;#39;/&amp;#39;) unzip(zip, exdir = path) Sys.sleep(3) # pause for 3 seconds to let your computer unzip it.</description>
     </item>
     
     <item>
       <title>Evaluation of team rank prediction in sports league by sum of residuals</title>
-      <link>/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals/</link>
+      <link>https://knozue.github.io/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals/</link>
       <pubDate>Sun, 29 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals/</guid>
+      <guid>https://knozue.github.io/post/2019/12/29/evaluation-of-team-rank-prediction-in-sports-league-by-sum-of-residuals/</guid>
       <description>Evaluation of team rank prediction in sports league by sum of residuals J1_2019_pred_results &amp;lt;- read_csv(file.path(&amp;quot;/Volumes&amp;quot;,&amp;quot;data_perso</description>
     </item>
     
     <item>
       <title>Interactive app for time-course data of your kids&#39; meet scores</title>
-      <link>/post/2018/11/06/interactive-app-for-time-course-data-of-your-kids-meet-scores/</link>
+      <link>https://knozue.github.io/post/2018/11/06/interactive-app-for-time-course-data-of-your-kids-meet-scores/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/11/06/interactive-app-for-time-course-data-of-your-kids-meet-scores/</guid>
+      <guid>https://knozue.github.io/post/2018/11/06/interactive-app-for-time-course-data-of-your-kids-meet-scores/</guid>
       <description>Shiny package in R language can create a fantastic application in interactive mode using a browser (for free!). In an example below, you can download data file for four years of figure records in US junior olympics of synchronized swimming (public available data from USA synchro web site, compiled by Kazu Nozue). Using search box, you can narrow data down using any words found in any columns in data, such</description>
     </item>
     

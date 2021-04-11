@@ -199,7 +199,7 @@ p &lt;- plot.data %&gt;% pivot_longer(-1,names_to=&quot;sample&quot;,values_to=&
 ggplot(aes(x=fct_relevel(trt,&quot;Sun&quot;),y=value,color=trt,shape=time_hr))  + geom_boxplot() + geom_jitter() + facet_wrap(AGI_desc~.,scale=&quot;free&quot;,labeller = label_wrap_gen(width=30),ncol=3)+theme(strip.text = element_text(size=6))
 
 p</code></pre>
-<p><img src="/post/2018/09/26/over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2018/09/26/over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 <div id="usage-of-goseq.ora-function" class="section level1">
 <h1>Usage of GOseq.ORA function</h1>
@@ -385,7 +385,7 @@ genes.shade1h.up$AGI</code></pre>
 <pre><code>## Using manually entered categories.</code></pre>
 <pre><code>## Calculating the p-values...</code></pre>
 <pre><code>## &#39;select()&#39; returned 1:1 mapping between keys and columns</code></pre>
-<p><img src="/post/2018/09/26/over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms/index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="https://knozue.github.io/post/2018/09/26/over-representation-analysis-1-goseq-with-go-terms-in-unsupported-model-organisms/index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre><code>## [1] &quot;enriched.GO is&quot;
 ##       category over_represented_pvalue under_represented_pvalue numDEInCat
 ## 981 GO:0009733            5.840352e-09                        1          6
