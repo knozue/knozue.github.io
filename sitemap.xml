@@ -2,31 +2,40 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://knozue.github.io/tags/california/</loc>
+    <lastmod>2021-10-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/categories/</loc>
+    <lastmod>2021-10-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/</loc>
+    <lastmod>2021-10-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/post/2021/10/06/native-plant-project-v2-2020-2021/</loc>
+    <lastmod>2021-10-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/categories/native-plant/</loc>
+    <lastmod>2021-10-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/post/</loc>
+    <lastmod>2021-10-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/</loc>
+    <lastmod>2021-10-06T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://knozue.github.io/tags/backup/</loc>
     <lastmod>2021-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/post/2021/04/07/backup-iphone-to-an-external-harddrive/</loc>
     <lastmod>2021-04-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://knozue.github.io/categories/</loc>
-    <lastmod>2021-04-07T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://knozue.github.io/categories/communication-skill/</loc>
-    <lastmod>2021-04-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/</loc>
     <lastmod>2021-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/categories/data-analysis/</loc>
     <lastmod>2021-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/iphone/</loc>
-    <lastmod>2021-04-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/post/</loc>
-    <lastmod>2021-04-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/</loc>
     <lastmod>2021-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/categories/decarbonization/</loc>
@@ -52,9 +61,6 @@
   </url><url>
     <loc>https://knozue.github.io/post/2021/03/19/useful-r-techniques-2/</loc>
     <lastmod>2021-03-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/california/</loc>
-    <lastmod>2021-01-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/ggplot/</loc>
     <lastmod>2021-01-07T00:00:00+00:00</lastmod>
@@ -87,9 +93,6 @@
     <lastmod>2020-12-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/post/2020/04/18/native_plant_project_v2_march_april_2020/</loc>
-    <lastmod>2020-04-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/categories/native-plant/</loc>
     <lastmod>2020-04-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/post/2019/12/30/native-plant-garden-project-v2-1/</loc>
