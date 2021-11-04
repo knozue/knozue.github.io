@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Useful R techniques 3: row-wise and col-wise sum | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2021-11-04</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2021-11-04-useful-r-techniques-3-row-wise-and-col-wise-sum/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+  </div>
+
+  <h1><span class="title">Useful R techniques 3: row-wise and col-wise sum</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/r">R</a>; <a href="/tags/rstudio">RStudio</a>; <a href="/tags/reproducibility">reproducibility</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="how-to-calculate-mean-or-sum-from-a-table-data" class="section level1">
+<h1>How to calculate mean or sum from a table data?</h1>
+<div id="traditional-r-method-by-using-colsums-for-colwise-and-rowsums-for-row-wise-for-sum" class="section level2">
+<h2>Traditional R method by using colSums (for colwise) and rowSums (for row-wise) for sum</h2>
+<pre class="r"><code>df &lt;- tibble(x = 1:2, y = 3:4, z = 5:6)
+df2 &lt;- rbind(df, colSums(df));df2 # col-wise</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##       x     y     z
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     3     5
+## 2     2     4     6
+## 3     3     7    11</code></pre>
+<pre class="r"><code>df3 &lt;- cbind(df,rowSums(df));df3 # row-wise</code></pre>
+<pre><code>##   x y z rowSums(df)
+## 1 1 3 5           9
+## 2 2 4 6          12</code></pre>
+</div>
+</div>
+<div id="row-wise-operations-by-tidyverse" class="section level1">
+<h1>Row-wise operations by tidyverse</h1>
+<p>See (dplyr site)[<a href="https://dplyr.tidyverse.org/articles/rowwise.html" class="uri">https://dplyr.tidyverse.org/articles/rowwise.html</a>]</p>
+<div id="row-wise" class="section level2">
+<h2>row-wise</h2>
+<pre class="r"><code># does not work
+df %&gt;% mutate(m = mean(c(x, y, z)))</code></pre>
+<pre><code>## # A tibble: 2 × 4
+##       x     y     z     m
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+## 1     1     3     5   3.5
+## 2     2     4     6   3.5</code></pre>
+<pre class="r"><code># work!
+df %&gt;% rowwise() %&gt;% mutate(m = mean(c(x, y, z)))</code></pre>
+<pre><code>## # A tibble: 2 × 4
+## # Rowwise: 
+##       x     y     z     m
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+## 1     1     3     5     3
+## 2     2     4     6     4</code></pre>
+<pre class="r"><code># add one column for sum
+df %&gt;% rowwise() %&gt;% mutate(m = mean(c(x, y, z))) %&gt;% mutate(s=sum(c(x,y,z)))</code></pre>
+<pre><code>## # A tibble: 2 × 5
+## # Rowwise: 
+##       x     y     z     m     s
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
+## 1     1     3     5     3     9
+## 2     2     4     6     4    12</code></pre>
+</div>
+<div id="colwise" class="section level2">
+<h2>colwise</h2>
+<pre class="r"><code>vignette(&quot;colwise&quot;)</code></pre>
+<pre><code>## starting httpd help server ... done</code></pre>
+<pre class="r"><code>df %&gt;% summarise(across(x:z,mean))</code></pre>
+<pre><code>## # A tibble: 1 × 3
+##       x     y     z
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1   1.5   3.5   5.5</code></pre>
+</div>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2021/10/06/native-plant-project-v2-2020-2021/">Native plant project v2 2020-2021 &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

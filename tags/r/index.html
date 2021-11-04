@@ -23,7 +23,7 @@
       <div class="head-meta">
       
         <span>R</span>
-        <span>2021-10-31</span>
+        <span>2021-11-04</span>
         
         
         
@@ -38,6 +38,34 @@
 
 
 
+
+<section class="article-list">
+  <div class="categories">
+  
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+  
+  </div>
+  <h1><a href="/post/2021/11/04/useful-r-techniques-3-row-wise-and-col-wise-sum/">Useful R techniques 3: row-wise and col-wise sum</a></h1>
+  <div class="date-author">
+    <span class="author">Kazu Nozue
+</span> / 
+    <span class="date">2021-11-04</span>
+  </div>
+  <div class="summary">
+    <a href="/post/2021/11/04/useful-r-techniques-3-row-wise-and-col-wise-sum/">
+    
+    
+    
+    
+    
+      
+    
+    df &lt;- tibble(x = 1:2, y = 3:4, z = 5:6) df2 &lt;- rbind(df, colSums(df));df2 # col-wise ## # A tibble: 3 × 3 ## x y z ## &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; ## 1 1 3 5 ## 2 2 4 6 ## 3 3 7 11 df3 &lt;- cbind(df,rowSums(df));df3 # row-wise ## x y z rowSums(df) ## 1 1 3 5 9 ## 2 2 4 6 12   Row-wise&hellip;
+    </a>
+  </div>
+</section>
 
 <section class="article-list">
   <div class="categories">
@@ -184,36 +212,6 @@ library(XML) library(tidyverse) library(lubridate) library(scales) library(ggthe
       
     
     J1_2019_pred_results &lt;- read_csv(file.path(&quot;/Volumes&quot;,&quot;data_personal&quot;,&quot;Kazu_blog14&quot;,&quot;resources&quot;,&quot;日刊スポーツ・サッカー担当の19年J1順位予想と結果.csv&quot;)) ## ## ── Column specification ──────────────────────────────────────────────────────── ## cols( ## rank =&hellip;
-    </a>
-  </div>
-</section>
-
-<section class="article-list">
-  <div class="categories">
-  
-  
-    <a href="/categories/ev">EV</a>
-  
-  
-  </div>
-  <h1><a href="/post/2019/03/30/needs-more-cargo-space-in-electric-vehicles/">Needs more cargo space in electric vehicles!</a></h1>
-  <div class="date-author">
-    <span class="author">Kazu Nozue
-</span> / 
-    <span class="date">2019-03-30</span>
-  </div>
-  <div class="summary">
-    <a href="/post/2019/03/30/needs-more-cargo-space-in-electric-vehicles/">
-    
-    
-    
-    <div class="thumbnail"><img src="https://knozue.github.io/post/2019/03/30/needs-more-cargo-space-in-electric-vehicles/index_files/figure-html/unnamed-chunk-2-1.png" alt="Thumbnail" /></div>
-    
-    
-    
-      
-    
-    Electric vehicle (EV) became popular in California. Recently I can find more than one Tesla car during my daily commute. There are a couple of advantages of EV compared with gas powered vehicles; (1) higher cost efficiency (higher MPGe1), (2) lower maintainance cost, and (3) tax incentives and&hellip;
     </a>
   </div>
 </section>
