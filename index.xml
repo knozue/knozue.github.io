@@ -6,7 +6,17 @@
     <description>Recent content on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>En-ROADS, a free web-based climate simulator</title>
+      <link>https://knozue.github.io/post/2021/12/15/en-roads-a-free-web-based-climate-simulater/</link>
+      <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2021/12/15/en-roads-a-free-web-based-climate-simulater/</guid>
+      <description>2021 Nobel prizes for physics 2021 Nobel prizes for physics were awarded to Syukuro Manabe and Klaus Hasselmann for understandig complex systems, and Giorgio Parisi for the physical modelling of Earth&amp;rsquo;s climate. Those areas are very important to understand global warming. After there initial works, we have an web-based interactive application of climate simulation for free, called En-ROADS.
+En-ROADS Thanks for introducing En-ROADS in my favorite energy related podcast, The Energy Show (Oct 20, 2021) and an clean energy website article, Cleantechnica.</description>
+    </item>
+    
     <item>
       <title>Useful R techniques 3: row-wise and col-wise sum</title>
       <link>https://knozue.github.io/post/2021/11/04/useful-r-techniques-3-row-wise-and-col-wise-sum/</link>
