@@ -6,7 +6,16 @@
     <description>Recent content on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 04 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Combine PDF Files using Automator</title>
+      <link>https://knozue.github.io/post/2022/02/04/combine-pdf-files-using-automator/</link>
+      <pubDate>Fri, 04 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2022/02/04/combine-pdf-files-using-automator/</guid>
+      <description>A PDF file is especially useful when multiple PDF files can be combined into one file. When you combine a couple of PDF files, it is easy to use Preview in Mac (sorry I do not know Windows computers). However, if you want to combine hundreads of files, using Preview is not good choice. Fortunately Mac has a useful program for automation, called Automator. Furthermore, there is a useful blog to explain how to use Automator to combine PDFs.</description>
+    </item>
+    
     <item>
       <title>En-ROADS, a climate simulator</title>
       <link>https://knozue.github.io/post/2021/12/15/en-roads-a-free-web-based-climate-simulater/</link>
