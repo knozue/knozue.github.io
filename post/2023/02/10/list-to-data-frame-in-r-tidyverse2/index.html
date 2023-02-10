@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>List to data frame in R tidyverse2 | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-43XQ39QRQB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-43XQ39QRQB');
+</script>
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2023-02-10</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2023-02-10-list-to-data-frame-in-r-tidyverse2/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data-analysis</a>
+  
+  </div>
+
+  <h1><span class="title">List to data frame in R tidyverse2</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/tidyverse">tidyverse</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+<div id="list-to-dataframe-v2" class="section level1">
+<h1>List to dataframe v2</h1>
+<pre class="r"><code>cyl.4 &lt;- mtcars %&gt;% filter(cyl==4) %&gt;% select(-cyl)
+cyl.6 &lt;- mtcars %&gt;% filter(cyl==6) %&gt;% select(-cyl)
+mtcars.list &lt;- list(&quot;4&quot;=cyl.4,&quot;6&quot;=cyl.6)
+mtcars.list</code></pre>
+<pre><code>## $`4`
+##                 mpg  disp  hp drat    wt  qsec vs am gear carb
+## Datsun 710     22.8 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Merc 240D      24.4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230       22.8 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Fiat 128       32.4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic    30.4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla 33.9  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona  21.5 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Fiat X1-9      27.3  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2  26.0 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa   30.4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Volvo 142E     21.4 121.0 109 4.11 2.780 18.60  1  1    4    2
+## 
+## $`6`
+##                 mpg  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21.0 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21.0 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Hornet 4 Drive 21.4 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Valiant        18.1 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Merc 280       19.2 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C      17.8 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Ferrari Dino   19.7 145.0 175 3.62 2.770 15.50  0  1    5    6</code></pre>
+</div>
+<div id="using-bind_rows.id" class="section level1">
+<h1>using bind_rows(.id)</h1>
+<pre class="r"><code>mtcars.list %&gt;% bind_rows(.id=&quot;cyl&quot;)</code></pre>
+<pre><code>##                cyl  mpg  disp  hp drat    wt  qsec vs am gear carb
+## Datsun 710       4 22.8 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Merc 240D        4 24.4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230         4 22.8 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Fiat 128         4 32.4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic      4 30.4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla   4 33.9  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona    4 21.5 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Fiat X1-9        4 27.3  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2    4 26.0 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa     4 30.4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Volvo 142E       4 21.4 121.0 109 4.11 2.780 18.60  1  1    4    2
+## Mazda RX4        6 21.0 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag    6 21.0 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Hornet 4 Drive   6 21.4 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Valiant          6 18.1 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Merc 280         6 19.2 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C        6 17.8 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Ferrari Dino     6 19.7 145.0 175 3.62 2.770 15.50  0  1    5    6</code></pre>
+<pre class="r"><code>?bind_rows() # read &quot;.id&quot; part</code></pre>
+</div>
+<div id="using-enframe-and-unnest" class="section level1">
+<h1>using enframe() and unnest()</h1>
+<pre class="r"><code>mtcars.list %&gt;% enframe() %&gt;% unnest(value)</code></pre>
+<pre><code>## # A tibble: 18 × 11
+##    name    mpg  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 4      22.8 108      93  3.85  2.32  18.6     1     1     4     1
+##  2 4      24.4 147.     62  3.69  3.19  20       1     0     4     2
+##  3 4      22.8 141.     95  3.92  3.15  22.9     1     0     4     2
+##  4 4      32.4  78.7    66  4.08  2.2   19.5     1     1     4     1
+##  5 4      30.4  75.7    52  4.93  1.62  18.5     1     1     4     2
+##  6 4      33.9  71.1    65  4.22  1.84  19.9     1     1     4     1
+##  7 4      21.5 120.     97  3.7   2.46  20.0     1     0     3     1
+##  8 4      27.3  79      66  4.08  1.94  18.9     1     1     4     1
+##  9 4      26   120.     91  4.43  2.14  16.7     0     1     5     2
+## 10 4      30.4  95.1   113  3.77  1.51  16.9     1     1     5     2
+## 11 4      21.4 121     109  4.11  2.78  18.6     1     1     4     2
+## 12 6      21   160     110  3.9   2.62  16.5     0     1     4     4
+## 13 6      21   160     110  3.9   2.88  17.0     0     1     4     4
+## 14 6      21.4 258     110  3.08  3.22  19.4     1     0     3     1
+## 15 6      18.1 225     105  2.76  3.46  20.2     1     0     3     1
+## 16 6      19.2 168.    123  3.92  3.44  18.3     1     0     4     4
+## 17 6      17.8 168.    123  3.92  3.44  18.9     1     0     4     4
+## 18 6      19.7 145     175  3.62  2.77  15.5     0     1     5     6</code></pre>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session Info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.6.2 (2019-12-12)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS  10.16
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] forcats_0.5.2   stringr_1.4.1   dplyr_1.0.10    purrr_0.3.5    
+## [5] readr_2.1.3     tidyr_1.2.1     tibble_3.1.8    ggplot2_3.3.6  
+## [9] tidyverse_1.3.2
+## 
+## loaded via a namespace (and not attached):
+##  [1] tidyselect_1.2.0    xfun_0.34           bslib_0.4.0        
+##  [4] haven_2.5.1         gargle_1.2.1        colorspace_2.0-3   
+##  [7] vctrs_0.5.0         generics_0.1.3      htmltools_0.5.3    
+## [10] yaml_2.3.6          utf8_1.2.2          rlang_1.0.6        
+## [13] jquerylib_0.1.4     pillar_1.8.1        withr_2.5.0        
+## [16] glue_1.6.2          DBI_1.1.3           dbplyr_2.2.1       
+## [19] readxl_1.4.1        modelr_0.1.9        lifecycle_1.0.3    
+## [22] munsell_0.5.0       blogdown_1.13       gtable_0.3.1       
+## [25] cellranger_1.1.0    rvest_1.0.3         evaluate_0.17      
+## [28] knitr_1.40          tzdb_0.3.0          fastmap_1.1.0      
+## [31] fansi_1.0.3         broom_1.0.1         backports_1.4.1    
+## [34] scales_1.2.1        googlesheets4_1.0.1 cachem_1.0.6       
+## [37] jsonlite_1.8.3      fs_1.5.2            hms_1.1.2          
+## [40] digest_0.6.30       stringi_1.7.8       bookdown_0.29      
+## [43] grid_3.6.2          cli_3.4.1           tools_3.6.2        
+## [46] magrittr_2.0.3      sass_0.4.2          crayon_1.5.2       
+## [49] pkgconfig_2.0.3     ellipsis_0.3.2      xml2_1.3.3         
+## [52] reprex_2.0.2        lubridate_1.8.0     googledrive_2.0.0  
+## [55] httr_1.4.4          assertthat_0.2.1    rmarkdown_2.17     
+## [58] rstudioapi_0.14     R6_2.5.1            compiler_3.6.2</code></pre>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2023/01/29/1/">リジェネラティブ農業 1 &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+
