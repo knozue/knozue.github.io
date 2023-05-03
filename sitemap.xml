@@ -2,22 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://knozue.github.io/tags/california/</loc>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://knozue.github.io/categories/</loc>
-    <lastmod>2023-02-10T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/</loc>
-    <lastmod>2023-02-10T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/categories/data-analysis/</loc>
-    <lastmod>2023-02-10T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://knozue.github.io/post/2023/02/10/list-to-data-frame-in-r-tidyverse2/</loc>
-    <lastmod>2023-02-10T00:00:00+00:00</lastmod>
+    <loc>https://knozue.github.io/categories/decarbonization/</loc>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/ggplot2/</loc>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/heat-pump-water-heater/</loc>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/post/2023/05/02/home-electricity-2019-2023/</loc>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/post/</loc>
-    <lastmod>2023-02-10T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/rstudio/</loc>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/solar-system/</loc>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/</loc>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/post/2023/02/10/list-to-data-frame-in-r-tidyverse2/</loc>
     <lastmod>2023-02-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/tidyverse/</loc>
@@ -44,16 +65,10 @@
     <loc>https://knozue.github.io/tags/climate-change/</loc>
     <lastmod>2021-12-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://knozue.github.io/categories/decarbonization/</loc>
-    <lastmod>2021-12-15T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://knozue.github.io/post/2021/12/15/en-roads-a-free-web-based-climate-simulater/</loc>
     <lastmod>2021-12-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/global-warming/</loc>
-    <lastmod>2021-12-15T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/solar-system/</loc>
     <lastmod>2021-12-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/r/</loc>
@@ -62,14 +77,8 @@
     <loc>https://knozue.github.io/tags/reproducibility/</loc>
     <lastmod>2021-11-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://knozue.github.io/tags/rstudio/</loc>
-    <lastmod>2021-11-04T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://knozue.github.io/post/2021/11/04/useful-r-techniques-3-row-wise-and-col-wise-sum/</loc>
     <lastmod>2021-11-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/california/</loc>
-    <lastmod>2021-10-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/post/2021/10/06/native-plant-project-v2-2020-2021/</loc>
     <lastmod>2021-10-06T00:00:00+00:00</lastmod>
@@ -89,9 +98,6 @@
     <loc>https://knozue.github.io/tags/iphone/</loc>
     <lastmod>2021-04-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://knozue.github.io/tags/ggplot2/</loc>
-    <lastmod>2021-04-04T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://knozue.github.io/categories/project-management/</loc>
     <lastmod>2021-04-04T00:00:00+00:00</lastmod>
   </url><url>
@@ -105,9 +111,6 @@
     <lastmod>2021-01-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/post/2021/01/07/heat-pump-water-heater/</loc>
-    <lastmod>2021-01-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/heat-pump-water-heater/</loc>
     <lastmod>2021-01-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/power-outage/</loc>

@@ -24,11 +24,11 @@
       <div class="head-meta">
       
         <span>Daddy&#39;s data analysis by Kazu Nozue</span>
-        <span>2023-02-10</span>
+        <span>2023-05-02</span>
         
         
         
-        <span>2 / 8</span>
+        <span>2 / 9</span>
       
       </div>
     </nav>
@@ -39,6 +39,34 @@
 
 
 
+
+<section class="article-list">
+  <div class="categories">
+  
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+  
+  </div>
+  <h1><a href="/post/2021/11/04/useful-r-techniques-3-row-wise-and-col-wise-sum/">Useful R techniques 3: row-wise and col-wise sum</a></h1>
+  <div class="date-author">
+    <span class="author">Kazu Nozue
+</span> / 
+    <span class="date">2021-11-04</span>
+  </div>
+  <div class="summary">
+    <a href="/post/2021/11/04/useful-r-techniques-3-row-wise-and-col-wise-sum/">
+    
+    
+    
+    
+    
+      
+    
+    df &lt;- tibble(x = 1:2, y = 3:4, z = 5:6) df2 &lt;- rbind(df, colSums(df));df2 # col-wise ## # A tibble: 3 × 3 ## x y z ## &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; ## 1 1 3 5 ## 2 2 4 6 ## 3 3 7 11 df3 &lt;- cbind(df,rowSums(df));df3 # row-wise ## x y z rowSums(df) ## 1 1 3 5 9 ## 2 2 4 6 12   Row-wise&hellip;
+    </a>
+  </div>
+</section>
 
 <section class="article-list">
   <div class="categories">
@@ -192,37 +220,6 @@ Blue flowers of Salvia x clevelandii ‘Pozo Blue’ Gray Musk&hellip;
   </div>
 </section>
 
-<section class="article-list">
-  <div class="categories">
-  
-  
-    <a href="/categories/data-analysis">data analysis</a>
-  
-  
-  </div>
-  <h1><a href="/post/2021/01/01/heart-rate-data-analysis1/">Heart rate data analysis 1</a></h1>
-  <div class="date-author">
-    <span class="author">Kazu Nozue
-</span> / 
-    <span class="date">2021-01-01</span>
-  </div>
-  <div class="summary">
-    <a href="/post/2021/01/01/heart-rate-data-analysis1/">
-    
-    
-    
-    <div class="thumbnail"><img src="https://knozue.github.io/post/2021/01/01/heart-rate-data-analysis1/index_files/figure-html/unnamed-chunk-7-1.png" alt="Thumbnail" /></div>
-    
-    
-    
-      
-    
-    An Apple watch measures heart rate and you can download its raw data. Here I plotted my daughter’s data in this year. Please see Taras Kaduk’s blog ( https://taraskaduk.com/2019/03/23/apple-health/) for details.
-library(XML) library(tidyverse) library(lubridate) library(scales) library(ggthemes)&hellip;
-    </a>
-  </div>
-</section>
-
 </main>
 <nav>
 <ul class="pagination">
@@ -245,13 +242,13 @@ library(XML) library(tidyverse) library(lubridate) library(scales) library(ggthe
     <span aria-hidden="true">&nbsp;&hellip;&nbsp;</span>
   </li>
   <li class="page-item">
-    <a class="page-link" href="/page/8/">8</a>
+    <a class="page-link" href="/page/9/">9</a>
   </li>
   <li class="page-item">
     <a href="/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
   </li>
   <li class="page-item">
-    <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    <a href="/page/9/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
   </li>
 </ul>
 

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-43XQ39QRQB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-43XQ39QRQB');
+</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Home electricity 2019-2023 | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2023-05-02</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2023-05-02-home-electricity-2019-2023/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+     &hercon; <a href="/categories/decarbonization">decarbonization</a>
+  
+  </div>
+
+  <h1><span class="title">Home electricity 2019-2023</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/california">California</a>; <a href="/tags/ggplot2">ggplot2</a>; <a href="/tags/heat-pump-water-heater">heat pump water heater</a>; <a href="/tags/solar-system">solar system</a>; <a href="/tags/rstudio">RStudio</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<p>As I planned in my past post, <a href="https://knozue.github.io/post/2021/04/04/second-solar-system-project-timeline/">“The second solar system project: timeline”</a>, I woudl like to review the performance of the second solar, as well as other important events related to electricity consumption.</p>
+<div id="data-import" class="section level1">
+<h1>Data import</h1>
+<p>To obtain data of grid usage, I extracted important numbers from monthly PG&amp;E bills. <a href="https://www.pge.com/en_US/about-pge/company-information/profile/profile.page">“Pacific Gas and Electric Company, incorporated in California in 1905, is one of the largest combined natural gas and electric energy companies in the United States.”</a>. Although aily production data from our solar systems can be looked on smart phone apps, those data were not downloadable. Manually I input the daily electricity production data into a spreadsheet as well as <a href="https://knozue.github.io/post/2021/01/07/heat-pump-water-heater/">our heat pump water heater</a> data.</p>
+<pre class="r"><code>PGE &lt;- read_csv(file.path(&quot;/Volumes&quot;,&quot;data_personal&quot;,&quot;Kazu_blog14&quot;,&quot;resources&quot;,&quot;Energy_record - statement_summary.csv&quot;))</code></pre>
+<pre><code>## Rows: 196 Columns: 9
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (8): TYPE, START DATE, END DATE, STATEMENT_DATE, UNITS, COST, NOTES, NOTE2
+## dbl (1): USAGE
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>energy &lt;- read_csv(file.path(&quot;/Volumes&quot;,&quot;data_personal&quot;,&quot;Kazu_blog14&quot;,&quot;resources&quot;,&quot;Energy_record - Daily_Solar_power_generation.csv&quot;))</code></pre>
+<pre><code>## Rows: 1946 Columns: 4
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (1): DATE
+## dbl (3): Sunpower, Illum solar, Water heat pump
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div id="energy-analysis-nem" class="section level1">
+<h1>Energy analysis (NEM)</h1>
+<p>For residences that have solar system, PG&amp;E offered NET metering system (ref) and there is no electric bill for monthly usage of grid. As you noted below, the START and END days are not the first day of each month and varying each month.</p>
+<pre class="r"><code>PGE.NEM &lt;- PGE %&gt;% filter(NOTES==&quot;NEM&quot;)
+PGE.NEM.since2019 &lt;- PGE.NEM %&gt;% mutate(
+  END.DATE2 = mdy(`END DATE`),
+         date = date(END.DATE2),
+         year = year(END.DATE2),
+         month = month(END.DATE2) %&gt;% factor(levels=1:12),
+         day = day(END.DATE2),
+         yday = yday(END.DATE2),
+         wday = wday(END.DATE2)) %&gt;% filter(year &gt; 2018)
+str(PGE.NEM.since2019)</code></pre>
+<pre><code>## tibble [52 × 16] (S3: tbl_df/tbl/data.frame)
+##  $ TYPE          : chr [1:52] &quot;electric&quot; &quot;electric&quot; &quot;electric&quot; &quot;electric&quot; ...
+##  $ START DATE    : chr [1:52] &quot;12/10/2018&quot; &quot;1/9/2019&quot; &quot;2/8/2019&quot; &quot;3/12/2019&quot; ...
+##  $ END DATE      : chr [1:52] &quot;1/8/2019&quot; &quot;2/7/2019&quot; &quot;3/11/2019&quot; &quot;4/10/2019&quot; ...
+##  $ STATEMENT_DATE: chr [1:52] NA NA NA NA ...
+##  $ USAGE         : num [1:52] 228.1 193 125.1 -21.2 -162.8 ...
+##  $ UNITS         : chr [1:52] &quot;kWh&quot; &quot;kWh&quot; &quot;kWh&quot; &quot;kWh&quot; ...
+##  $ COST          : chr [1:52] NA NA NA NA ...
+##  $ NOTES         : chr [1:52] &quot;NEM&quot; &quot;NEM&quot; &quot;NEM&quot; &quot;NEM&quot; ...
+##  $ NOTE2         : chr [1:52] NA NA NA NA ...
+##  $ END.DATE2     : Date[1:52], format: &quot;2019-01-08&quot; &quot;2019-02-07&quot; ...
+##  $ date          : Date[1:52], format: &quot;2019-01-08&quot; &quot;2019-02-07&quot; ...
+##  $ year          : num [1:52] 2019 2019 2019 2019 2019 ...
+##  $ month         : Factor w/ 12 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+##  $ day           : int [1:52] 8 7 11 10 9 10 10 11 10 9 ...
+##  $ yday          : num [1:52] 8 38 70 100 129 161 191 223 253 282 ...
+##  $ wday          : num [1:52] 3 5 2 4 5 2 4 1 3 4 ...</code></pre>
+</div>
+<div id="formatting-energy-data" class="section level1">
+<h1>Formatting energy data</h1>
+<pre class="r"><code>energy &lt;- energy %&gt;% mutate(DATE2 = mdy(`DATE`),
+                  date = date(DATE2),
+                  year = year(DATE2),
+                  month = month(DATE2) %&gt;% factor(levels=1:12),
+                  day = day(DATE2),
+                  yday = yday(DATE2),
+                  wday = wday(DATE2)) %&gt;% filter(year &gt; 2018)</code></pre>
+</div>
+<div id="align-start---end-date-of-monthly-energy-calculation-with-pge-data" class="section level1">
+<h1>Align Start - End date of monthly energy calculation with PGE data</h1>
+<p>cut.POSIXt() is used for splitting values according to “breaks”. suntoku::chops() is tidyverse version, but installing”suntoku” package failed.</p>
+<pre class="r"><code>PGE.NEM.since2019$`START DATE` # use this for break in cut()</code></pre>
+<pre><code>##  [1] &quot;12/10/2018&quot; &quot;1/9/2019&quot;   &quot;2/8/2019&quot;   &quot;3/12/2019&quot;  &quot;4/11/19&quot;   
+##  [6] &quot;5/10/2019&quot;  &quot;6/11/2019&quot;  &quot;7/11/2019&quot;  &quot;8/12/2019&quot;  &quot;9/11/2019&quot; 
+## [11] &quot;10/10/19&quot;   &quot;11/8/2019&quot;  &quot;12/10/2019&quot; &quot;1/9/2020&quot;   &quot;2/10/2020&quot; 
+## [16] &quot;3/11/2020&quot;  &quot;4/10/2020&quot;  &quot;5/11/2020&quot;  &quot;6/10/2020&quot;  &quot;7/9/2020&quot;  
+## [21] &quot;8/10/2020&quot;  &quot;9/9/2020&quot;   &quot;10/9/2020&quot;  &quot;11/8/2020&quot;  &quot;12/9/2020&quot; 
+## [26] &quot;1/9/2021&quot;   &quot;2/9/2021&quot;   &quot;3/11/2021&quot;  &quot;4/12/2021&quot;  &quot;5/11/2021&quot; 
+## [31] &quot;6/10/2021&quot;  &quot;7/12/2021&quot;  &quot;8/11/2021&quot;  &quot;9/10/2021&quot;  &quot;10/11/2021&quot;
+## [36] &quot;11/9/2021&quot;  &quot;12/9/2021&quot;  &quot;1/7/2022&quot;   &quot;2/8/2022&quot;   &quot;3/10/2022&quot; 
+## [41] &quot;4/11/2022&quot;  &quot;5/10/2022&quot;  &quot;6/9/2022&quot;   &quot;7/11/2022&quot;  &quot;8/10/2022&quot; 
+## [46] &quot;9/10/2022&quot;  &quot;10/11/2022&quot; &quot;11/8/2022&quot;  &quot;12/9/2022&quot;  &quot;1/9/2023&quot;  
+## [51] &quot;2/8/2023&quot;   &quot;3/10/2023&quot;</code></pre>
+<pre class="r"><code># cut date with PGE `START DATE`
+energy &lt;- energy %&gt;% mutate(year.month.day2  =as.Date(cut(as.POSIXct(energy$DATE2),breaks=as.POSIXct(mdy(PGE.NEM.since2019$`START DATE`[-1])))))
+energy #%&gt;% View()</code></pre>
+<pre><code>## # A tibble: 1,581 × 12
+##    DATE    Sunpo…¹ Illum…² Water…³ DATE2      date        year month   day  yday
+##    &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;fct&gt; &lt;int&gt; &lt;dbl&gt;
+##  1 1/1/20…     5.5      NA      NA 2019-01-01 2019-01-01  2019 1         1     1
+##  2 1/2/20…     5.2      NA      NA 2019-01-02 2019-01-02  2019 1         2     2
+##  3 1/3/20…     5.3      NA      NA 2019-01-03 2019-01-03  2019 1         3     3
+##  4 1/4/20…     5        NA      NA 2019-01-04 2019-01-04  2019 1         4     4
+##  5 1/5/20…     0.6      NA      NA 2019-01-05 2019-01-05  2019 1         5     5
+##  6 1/6/20…     0.9      NA      NA 2019-01-06 2019-01-06  2019 1         6     6
+##  7 1/7/20…     3.7      NA      NA 2019-01-07 2019-01-07  2019 1         7     7
+##  8 1/8/20…     1.6      NA      NA 2019-01-08 2019-01-08  2019 1         8     8
+##  9 1/9/20…     4.3      NA      NA 2019-01-09 2019-01-09  2019 1         9     9
+## 10 1/10/2…     3        NA      NA 2019-01-10 2019-01-10  2019 1        10    10
+## # … with 1,571 more rows, 2 more variables: wday &lt;dbl&gt;, year.month.day2 &lt;date&gt;,
+## #   and abbreviated variable names ¹​Sunpower, ²​`Illum solar`,
+## #   ³​`Water heat pump`</code></pre>
+<pre class="r"><code># extract year and month only
+energy &lt;- energy %&gt;% mutate(year.month2=str_c(year(year.month.day2),&quot;-&quot;,month(year.month.day2))) #%&gt;% dplyr::select(2:6,13)
+# deal with &quot;NA&quot;
+  energy %&gt;% mutate(year.month2 = ym(year.month2)) %&gt;% 
+    group_by(year.month2) %&gt;% dplyr::summarize(Sunpower.sum=sum(Sunpower,na.rm=TRUE),
+            `Illum solar.sum`=sum(`Illum solar`,na.rm=TRUE),
+            `water heat pump.sum`=sum(`Water heat pump`,na.rm=TRUE))  %&gt;% arrange(year.month2) -&gt; energy.year.month2.summary
+#  
+energy.year.month2.summary %&gt;% View() # </code></pre>
+<pre><code>## Warning in system2(&quot;/usr/bin/otool&quot;, c(&quot;-L&quot;, shQuote(DSO)), stdout = TRUE):
+## running command &#39;&#39;/usr/bin/otool&#39; -L &#39;/Library/Frameworks/R.framework/Resources/
+## modules/R_de.so&#39;&#39; had status 1</code></pre>
+<pre class="r"><code>#write_csv(energy.year.month2.summary,file=&quot;energy.year.month2.summary.csv&quot;)
+str(energy.year.month2.summary)</code></pre>
+<pre><code>## tibble [51 × 4] (S3: tbl_df/tbl/data.frame)
+##  $ year.month2        : Date[1:51], format: &quot;2019-01-01&quot; &quot;2019-02-01&quot; ...
+##  $ Sunpower.sum       : num [1:51] 148 213 320 427 488 ...
+##  $ Illum solar.sum    : num [1:51] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ water heat pump.sum: num [1:51] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+<pre class="r"><code>energy %&gt;% View()</code></pre>
+<pre><code>## Warning in system2(&quot;/usr/bin/otool&quot;, c(&quot;-L&quot;, shQuote(DSO)), stdout = TRUE):
+## running command &#39;&#39;/usr/bin/otool&#39; -L &#39;/Library/Frameworks/R.framework/Resources/
+## modules/R_de.so&#39;&#39; had status 1</code></pre>
+</div>
+<div id="summerise-data-according-to-year.month2-combine-the-summarized-data-with-pge-data." class="section level1">
+<h1>Summerise data according to year.month2, combine the summarized data with PG&amp;E data.</h1>
+<pre class="r"><code>energy.year.month2.summary &lt;- energy.year.month2.summary %&gt;% mutate(year.month2=str_c(year(year.month2),&quot;-&quot;,month(year.month2)))
+PGE.NEM.since2019 %&gt;% unite(year.month2,c(year,month),sep=&quot;-&quot;,remove=FALSE) %&gt;% View()</code></pre>
+<pre><code>## Warning in system2(&quot;/usr/bin/otool&quot;, c(&quot;-L&quot;, shQuote(DSO)), stdout = TRUE):
+## running command &#39;&#39;/usr/bin/otool&#39; -L &#39;/Library/Frameworks/R.framework/Resources/
+## modules/R_de.so&#39;&#39; had status 1</code></pre>
+<pre class="r"><code>PGE.NEM.since2019.solar.HPWH &lt;- PGE.NEM.since2019 %&gt;% unite(year.month2,c(year,month),sep=&quot;-&quot;,remove=FALSE) %&gt;% full_join(energy.year.month2.summary,by=&quot;year.month2&quot;) #%&gt;% View()
+energy.all &lt;- PGE.NEM.since2019.solar.HPWH %&gt;% mutate(production =Sunpower.sum + `Illum solar.sum`, consumption = USAGE+production) %&gt;% mutate(`% HPWH in consumption`=`water heat pump.sum`/consumption*100)
+# USAGE = -production + consumption -&gt; consumption = production + USAGE
+energy.all %&gt;% View()</code></pre>
+<pre><code>## Warning in system2(&quot;/usr/bin/otool&quot;, c(&quot;-L&quot;, shQuote(DSO)), stdout = TRUE):
+## running command &#39;&#39;/usr/bin/otool&#39; -L &#39;/Library/Frameworks/R.framework/Resources/
+## modules/R_de.so&#39;&#39; had status 1</code></pre>
+<pre class="r"><code># rename columns and format data for plotting
+temp &lt;- energy.all %&gt;% 
+  dplyr::rename(Sunpower=Sunpower.sum) %&gt;% 
+  dplyr::rename(Illum_solar=`Illum solar.sum`) %&gt;% 
+  dplyr::rename(HPWH=`water heat pump.sum`)  %&gt;% 
+  dplyr::rename(`Grid_Usage`=USAGE) %&gt;%
+  mutate(Sunpower=-Sunpower, Illum_solar=-Illum_solar,production = -production) %&gt;% # consistent direction
+  pivot_longer(
+  cols=c(Grid_Usage,Sunpower,Illum_solar,production,consumption,HPWH),
+  values_to=&quot;kWh&quot;
+) %&gt;% drop_na(&quot;kWh&quot;)  %&gt;% drop_na(&quot;year.month2&quot;) %&gt;% 
+  mutate(direction=ifelse(kWh&gt;0,&quot;consume&quot;,&quot;produce&quot;)) %&gt;%  mutate(name=factor(name,levels=c(&quot;consumption&quot;,&quot;production&quot;,&quot;Grid_Usage&quot;,&quot;Sunpower&quot;,&quot;Illum_solar&quot;,&quot;HPWH&quot;))) 
+temp %&gt;% View()</code></pre>
+<pre><code>## Warning in system2(&quot;/usr/bin/otool&quot;, c(&quot;-L&quot;, shQuote(DSO)), stdout = TRUE):
+## running command &#39;&#39;/usr/bin/otool&#39; -L &#39;/Library/Frameworks/R.framework/Resources/
+## modules/R_de.so&#39;&#39; had status 1</code></pre>
+<pre class="r"><code># plot
+F1 &lt;-  temp %&gt;% ggplot(aes(x=month,y=kWh,fill=direction)) + geom_bar(stat=&quot;identity&quot;) + 
+    geom_bar(stat=&quot;identity&quot;) +
+    theme(panel.grid.major = element_blank(),axis.text.x=element_text(angle=90),legend.position=&quot;none&quot;) + 
+  facet_grid(year~name)  + 
+    labs(title = &quot;Monthly electricity usage&quot;,x=&quot;Month&quot;,y=&quot;electricity (kWh)&quot;) </code></pre>
+</div>
+<div id="adding-text-by-making-new-data-frame-use-name-columns-note3-columns-yearmonth-to-write-text-only-at-consumption-graph" class="section level1">
+<h1>Adding text by making new data frame (use “name” columns, “note3” columns, “year”,“month” to write text only at “consumption” graph)</h1>
+<pre class="r"><code>F1.text &lt;- tibble(
+  name=factor(&quot;consumption&quot;,levels=c(&quot;consumption&quot;,&quot;production&quot;,&quot;Grid_Usage&quot;,&quot;Sunpower&quot;,&quot;Illum_solar&quot;,&quot;HPWH&quot;)),
+  kWh=1000,
+  month=c(11,8,10,7),
+  year=c(2019,2020,2021,2022),
+  label=c(&quot;LEAF&quot;,&quot;HPWH&quot;,&quot;quit \nsynchro&quot;,&quot;long \nvacation&quot;),direction=&quot;consumption&quot;) #WHP: water heat pump
+F1 + geom_text(data=F1.text,mapping=aes(x=month,y=kWh,label=label),size=3)</code></pre>
+<p><img src="https://knozue.github.io/post/2023/05/02/home-electricity-2019-2023/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>ggsave(file.path(&quot;Monthly_electricity_usage_summary.png&quot;),height=8,width=11)</code></pre>
+</div>
+<div id="dual-y-axis-see-httpsfreyasystems.comcreating-a-dual-axis-plot-with-ggplot2" class="section level1">
+<h1>Dual y-axis (see <a href="https://freyasystems.com/creating-a-dual-axis-plot-with-ggplot2/" class="uri">https://freyasystems.com/creating-a-dual-axis-plot-with-ggplot2/</a>)</h1>
+<p>Keys are usage of sec_axis() in scale_y_continuous() and adjusting scale by multiplying (0.02) in sec_axis() and dividing data (0.02). Usually % HPWH is betweeen 5 and 20 % of monthly consumption.</p>
+<pre class="r"><code># only `% water heat pump in consumption`
+energy.all %&gt;% ggplot(aes(x=month,y=`% HPWH in consumption`)) + geom_point() +   facet_grid(year~.)</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
+<p><img src="https://knozue.github.io/post/2023/05/02/home-electricity-2019-2023/index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code># Consumption and `% water heat pump in consumption` in one plot with dual axis
+energy.all %&gt;% 
+  pivot_longer(
+  cols=c(consumption),
+  values_to=&quot;kWh&quot;
+) %&gt;% drop_na(&quot;kWh&quot;)  %&gt;% drop_na(&quot;year.month2&quot;) %&gt;% ggplot(aes(x=month,y=kWh)) + geom_bar(stat=&quot;identity&quot;) + geom_point(aes(x=month,y=`% HPWH in consumption`/0.02),color=&quot;green&quot;) + 
+  scale_y_continuous(
+    sec.axis = sec_axis(~.* 0.02, name = &quot;% HPWH in consumption&quot;)
+  ) + facet_grid(year~.) + labs(title=&quot;electricity consumption and heat pump water heater usage&quot;,y=&quot;consumption (kWh)&quot;)</code></pre>
+<p><img src="https://knozue.github.io/post/2023/05/02/home-electricity-2019-2023/index_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<pre class="r"><code>ggsave(file.path(&quot;HPWH_summary.png&quot;),height=4,width=4*4/3)</code></pre>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.6.2 (2019-12-12)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS  10.16
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] forcats_0.5.2   stringr_1.4.1   dplyr_1.0.10    purrr_0.3.5    
+##  [5] readr_2.1.3     tidyr_1.2.1     tibble_3.1.8    ggplot2_3.3.6  
+##  [9] tidyverse_1.3.2 lubridate_1.8.0
+## 
+## loaded via a namespace (and not attached):
+##  [1] assertthat_0.2.1    digest_0.6.30       utf8_1.2.2         
+##  [4] R6_2.5.1            cellranger_1.1.0    backports_1.4.1    
+##  [7] reprex_2.0.2        evaluate_0.17       highr_0.9          
+## [10] httr_1.4.4          blogdown_1.13       pillar_1.8.1       
+## [13] rlang_1.0.6         googlesheets4_1.0.1 readxl_1.4.1       
+## [16] rstudioapi_0.14     jquerylib_0.1.4     rmarkdown_2.17     
+## [19] labeling_0.4.2      googledrive_2.0.0   bit_4.0.4          
+## [22] munsell_0.5.0       broom_1.0.1         compiler_3.6.2     
+## [25] modelr_0.1.9        xfun_0.34           systemfonts_0.3.2  
+## [28] pkgconfig_2.0.3     htmltools_0.5.3     tidyselect_1.2.0   
+## [31] bookdown_0.29       fansi_1.0.3         crayon_1.5.2       
+## [34] tzdb_0.3.0          dbplyr_2.2.1        withr_2.5.0        
+## [37] grid_3.6.2          jsonlite_1.8.3      gtable_0.3.1       
+## [40] lifecycle_1.0.3     DBI_1.1.3           magrittr_2.0.3     
+## [43] scales_1.2.1        cli_3.4.1           stringi_1.7.8      
+## [46] vroom_1.6.0         cachem_1.0.6        farver_2.1.1       
+## [49] fs_1.5.2            xml2_1.3.3          bslib_0.4.0        
+## [52] ellipsis_0.3.2      generics_0.1.3      vctrs_0.5.0        
+## [55] tools_3.6.2         bit64_4.0.5         glue_1.6.2         
+## [58] hms_1.1.2           parallel_3.6.2      fastmap_1.1.0      
+## [61] yaml_2.3.6          colorspace_2.0-3    gargle_1.2.1       
+## [64] rvest_1.0.3         knitr_1.40          haven_2.5.1        
+## [67] sass_0.4.2</code></pre>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2023/02/10/list-to-data-frame-in-r-tidyverse2/">List to data frame in R tidyverse2 &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

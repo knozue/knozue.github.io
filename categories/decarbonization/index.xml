@@ -6,7 +6,17 @@
     <description>Recent content in decarbonization on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/categories/decarbonization/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/categories/decarbonization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Home electricity 2019-2023</title>
+      <link>https://knozue.github.io/post/2023/05/02/home-electricity-2019-2023/</link>
+      <pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2023/05/02/home-electricity-2019-2023/</guid>
+      <description>As I planned in my past post, “The second solar system project: timeline”, I woudl like to review the performance of the second solar, as well as other important events related to electricity consumption.
+Data import To obtain data of grid usage, I extracted important numbers from monthly PG&amp;amp;E bills. “Pacific Gas and Electric Company, incorporated in California in 1905, is one of the largest combined natural gas and electric energy companies in the United States.</description>
+    </item>
+    
     <item>
       <title>En-ROADS, a climate simulator</title>
       <link>https://knozue.github.io/post/2021/12/15/en-roads-a-free-web-based-climate-simulater/</link>
