@@ -13,7 +13,7 @@
       <pubDate>Sat, 03 Aug 2024 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/</guid>
-      <description></description>
+      <description>SUMMARY  pheatmap() is useful for easy and pretty heatmap Demonstration of example() and demo() function How to reorder columns? How to add annotation bar with custom colors.  example(pheatmap) ## ## phetmp&amp;gt; # Create test matrix ## phetmp&amp;gt; test = matrix(rnorm(200), 20, 10) ## ## phetmp&amp;gt; test[1:10, seq(1, 10, 2)] = test[1:10, seq(1, 10, 2)] + 3 ## ## phetmp&amp;gt; test[11:20, seq(2, 10, 2)] = test[11:20, seq(2, 10, 2)] + 2 ## ## phetmp&amp;gt; test[15:20, seq(2, 10, 2)] = test[15:20, seq(2, 10, 2)] + 4 ## ## phetmp&amp;gt; colnames(test) = paste(&amp;quot;Test&amp;quot;, 1:10, sep = &amp;quot;&amp;quot;) ## ## phetmp&amp;gt; rownames(test) = paste(&amp;quot;Gene&amp;quot;, 1:20, sep = &amp;quot;&amp;quot;) ## ## phetmp&amp;gt; # Draw heatmaps ## phetmp&amp;gt; pheatmap(test) ## ## phetmp&amp;gt; pheatmap(test, kmeans_k = 2) ## ## phetmp&amp;gt; pheatmap(test, scale = &amp;quot;row&amp;quot;, clustering_distance_rows = &amp;quot;correlation&amp;quot;) ## ## phetmp&amp;gt; pheatmap(test, color = colorRampPalette(c(&amp;quot;navy&amp;quot;, &amp;quot;white&amp;quot;, &amp;quot;firebrick3&amp;quot;))(50)) ## ## phetmp&amp;gt; pheatmap(test, cluster_row = FALSE) ## ## phetmp&amp;gt; pheatmap(test, legend = FALSE) ## ## phetmp&amp;gt; # Show text within cells ## phetmp&amp;gt; pheatmap(test, display_numbers = TRUE) ## ## phetmp&amp;gt; pheatmap(test, display_numbers = TRUE, number_format = &amp;quot;%.</description>
     </item>
     
     <item>

@@ -19,7 +19,6 @@ gtag('config', 'G-43XQ39QRQB');
 
   </head>
 
-
   <body class="page">
     <nav class="header">
       <div class="banner">
@@ -80,6 +79,1068 @@ gtag('config', 'G-43XQ39QRQB');
 
 
 
+<div id="summary" class="section level1">
+<h1>SUMMARY</h1>
+<ul>
+<li>pheatmap() is useful for easy and pretty heatmap</li>
+<li>Demonstration of example() and demo() function</li>
+<li>How to reorder columns?</li>
+<li>How to add annotation bar with custom colors.</li>
+</ul>
+<pre class="r"><code>example(pheatmap)</code></pre>
+<pre><code>## 
+## phetmp&gt; # Create test matrix
+## phetmp&gt; test = matrix(rnorm(200), 20, 10)
+## 
+## phetmp&gt; test[1:10, seq(1, 10, 2)] = test[1:10, seq(1, 10, 2)] + 3
+## 
+## phetmp&gt; test[11:20, seq(2, 10, 2)] = test[11:20, seq(2, 10, 2)] + 2
+## 
+## phetmp&gt; test[15:20, seq(2, 10, 2)] = test[15:20, seq(2, 10, 2)] + 4
+## 
+## phetmp&gt; colnames(test) = paste(&quot;Test&quot;, 1:10, sep = &quot;&quot;)
+## 
+## phetmp&gt; rownames(test) = paste(&quot;Gene&quot;, 1:20, sep = &quot;&quot;)
+## 
+## phetmp&gt; # Draw heatmaps
+## phetmp&gt; pheatmap(test)</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, kmeans_k = 2)</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, scale = &quot;row&quot;, clustering_distance_rows = &quot;correlation&quot;)</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, color = colorRampPalette(c(&quot;navy&quot;, &quot;white&quot;, &quot;firebrick3&quot;))(50))</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-1-4.png" width="672" /></p>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, cluster_row = FALSE)</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-1-5.png" width="672" /></p>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, legend = FALSE)</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-1-6.png" width="672" /></p>
+<pre><code>## 
+## phetmp&gt; # Show text within cells
+## phetmp&gt; pheatmap(test, display_numbers = TRUE)</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-1-7.png" width="672" /></p>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, display_numbers = TRUE, number_format = &quot;%.1e&quot;)</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-1-8.png" width="672" /></p>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, display_numbers = matrix(ifelse(test &gt; 5, &quot;*&quot;, &quot;&quot;), nrow(test)))</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-1-9.png" width="672" /></p>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, cluster_row = FALSE, legend_breaks = -1:4, legend_labels = c(&quot;0&quot;,
+## phetmp+ &quot;1e-4&quot;, &quot;1e-3&quot;, &quot;1e-2&quot;, &quot;1e-1&quot;, &quot;1&quot;))</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-1-10.png" width="672" /></p>
+<pre><code>## 
+## phetmp&gt; # Fix cell sizes and save to file with correct size
+## phetmp&gt; pheatmap(test, cellwidth = 15, cellheight = 12, main = &quot;Example heatmap&quot;)</code></pre>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, cellwidth = 15, cellheight = 12, fontsize = 8, filename = &quot;test.pdf&quot;)
+## 
+## phetmp&gt; # Generate annotations for rows and columns
+## phetmp&gt; annotation_col = data.frame(
+## phetmp+                     CellType = factor(rep(c(&quot;CT1&quot;, &quot;CT2&quot;), 5)), 
+## phetmp+                     Time = 1:5
+## phetmp+                 )
+## 
+## phetmp&gt; rownames(annotation_col) = paste(&quot;Test&quot;, 1:10, sep = &quot;&quot;)
+## 
+## phetmp&gt; annotation_row = data.frame(
+## phetmp+                     GeneClass = factor(rep(c(&quot;Path1&quot;, &quot;Path2&quot;, &quot;Path3&quot;), c(10, 4, 6)))
+## phetmp+                 )
+## 
+## phetmp&gt; rownames(annotation_row) = paste(&quot;Gene&quot;, 1:20, sep = &quot;&quot;)
+## 
+## phetmp&gt; # Display row and color annotations
+## phetmp&gt; pheatmap(test, annotation_col = annotation_col)</code></pre>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, annotation_col = annotation_col, annotation_legend = FALSE)</code></pre>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, annotation_col = annotation_col, annotation_row = annotation_row)</code></pre>
+<pre><code>## 
+## phetmp&gt; # Change angle of text in the columns
+## phetmp&gt; pheatmap(test, annotation_col = annotation_col, annotation_row = annotation_row, angle_col = &quot;45&quot;)</code></pre>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, annotation_col = annotation_col, angle_col = &quot;0&quot;)</code></pre>
+<pre><code>## 
+## phetmp&gt; # Specify colors
+## phetmp&gt; ann_colors = list(
+## phetmp+     Time = c(&quot;white&quot;, &quot;firebrick&quot;),
+## phetmp+     CellType = c(CT1 = &quot;#1B9E77&quot;, CT2 = &quot;#D95F02&quot;),
+## phetmp+     GeneClass = c(Path1 = &quot;#7570B3&quot;, Path2 = &quot;#E7298A&quot;, Path3 = &quot;#66A61E&quot;)
+## phetmp+ )
+## 
+## phetmp&gt; pheatmap(test, annotation_col = annotation_col, annotation_colors = ann_colors, main = &quot;Title&quot;)</code></pre>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, annotation_col = annotation_col, annotation_row = annotation_row, 
+## phetmp+          annotation_colors = ann_colors)</code></pre>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, annotation_col = annotation_col, annotation_colors = ann_colors[2])</code></pre>
+<pre><code>## 
+## phetmp&gt; # Gaps in heatmaps
+## phetmp&gt; pheatmap(test, annotation_col = annotation_col, cluster_rows = FALSE, gaps_row = c(10, 14))</code></pre>
+<pre><code>## 
+## phetmp&gt; pheatmap(test, annotation_col = annotation_col, cluster_rows = FALSE, gaps_row = c(10, 14), 
+## phetmp+          cutree_col = 2)</code></pre>
+<pre><code>## 
+## phetmp&gt; # Show custom strings as row/col names
+## phetmp&gt; labels_row = c(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 
+## phetmp+ &quot;&quot;, &quot;&quot;, &quot;Il10&quot;, &quot;Il15&quot;, &quot;Il1b&quot;)
+## 
+## phetmp&gt; pheatmap(test, annotation_col = annotation_col, labels_row = labels_row)</code></pre>
+<pre><code>## 
+## phetmp&gt; # Specifying clustering from distance matrix
+## phetmp&gt; drows = dist(test, method = &quot;minkowski&quot;)
+## 
+## phetmp&gt; dcols = dist(t(test), method = &quot;minkowski&quot;)
+## 
+## phetmp&gt; pheatmap(test, clustering_distance_rows = drows, clustering_distance_cols = dcols)</code></pre>
+<pre><code>## 
+## phetmp&gt; # Modify ordering of the clusters using clustering callback option
+## phetmp&gt; callback = function(hc, mat){
+## phetmp+     sv = svd(t(mat))$v[,1]
+## phetmp+     dend = reorder(as.dendrogram(hc), wts = sv)
+## phetmp+     as.hclust(dend)
+## phetmp+ }
+## 
+## phetmp&gt; pheatmap(test, clustering_callback = callback)</code></pre>
+<pre><code>## 
+## phetmp&gt; ## Not run: 
+## phetmp&gt; ##D # Same using dendsort package
+## phetmp&gt; ##D library(dendsort)
+## phetmp&gt; ##D 
+## phetmp&gt; ##D callback = function(hc, ...){dendsort(hc)}
+## phetmp&gt; ##D pheatmap(test, clustering_callback = callback)
+## phetmp&gt; ## End(Not run)
+## phetmp&gt; 
+## phetmp&gt; 
+## phetmp&gt; 
+## phetmp&gt;</code></pre>
+</div>
+<div id="check-test-data.frame-used-in-pheatmap" class="section level1">
+<h1>Check “test” data.frame used in pheatmap</h1>
+<pre class="r"><code>test # used in pheatmap</code></pre>
+<pre><code>##              Test1       Test2      Test3      Test4      Test5      Test6
+## Gene1   3.87067521 -0.52148463  0.8540679  1.1025823  2.0900816 -1.5808262
+## Gene2   2.58012361  1.66147955  0.1264007 -0.2446527  1.5992892 -1.4087496
+## Gene3   3.07534085 -0.82356787  2.3691700  0.5082200  5.0526051 -0.4820485
+## Gene4   3.36896499 -0.44590195  2.8332593  0.1836371  1.8391822  1.6773282
+## Gene5   2.72383732  1.23620371  1.5495560 -1.2564252  2.9695515 -0.2697242
+## Gene6   3.10835278 -1.20164879  2.6263214 -0.8284632  3.0976685  0.7695611
+## Gene7   4.02838534  0.32304593  3.1340938  0.4155175  4.1638313  0.6130010
+## Gene8   2.10136976 -1.81411894  3.2213169  0.8538846  4.6478767  1.4257689
+## Gene9   3.15940832  0.04800214  2.9355602 -1.1150639  3.6784761  0.6139766
+## Gene10  4.05575054 -1.14369241  3.1743554 -0.2282896  3.9308344 -1.3617990
+## Gene11 -0.31740553  2.00089619 -1.2117018  1.4034857 -0.3738571  1.8387247
+## Gene12  2.07195177  1.68999830 -0.9570393  0.6584128  1.7512976  2.4369045
+## Gene13 -0.24987423  2.77303852  0.4263491  1.0861125  2.5693820  0.9247355
+## Gene14  0.08241162  0.87755260 -0.4183517  1.6820780 -0.2853531  2.1090133
+## Gene15 -0.21900892  6.13183081 -1.9130865  6.2978984  0.9338894  6.9543967
+## Gene16 -1.26680048  6.60509557  0.4698898  7.2227571  0.7077581  6.5156679
+## Gene17 -0.02048497  8.91535431 -0.3081655  7.0280605  0.7769423  5.4208391
+## Gene18 -1.02108141  6.11864402 -0.3859748  6.1848276  0.8442567  6.8527839
+## Gene19  0.03721107  4.27951427  2.1543848  5.1282305  0.1269995  6.1841706
+## Gene20 -0.36215567  4.63423971  0.8424467  6.6597342  0.3723237  6.4872020
+##              Test7       Test8      Test9      Test10
+## Gene1   2.26090566 -0.75467547  2.4827519 -1.41316613
+## Gene2   3.46210704 -0.22395665  5.0050974  0.55435266
+## Gene3   1.31151257  0.81621795  3.9474228  0.39177664
+## Gene4   5.07983354 -0.25131602  2.4208155 -0.23721317
+## Gene5   2.51494096 -0.02289354  4.6009868 -0.34468093
+## Gene6   4.29279135 -1.06142901  2.9251901  1.35637058
+## Gene7   3.48056390  2.22389884  2.9728142 -0.78173447
+## Gene8   2.60906726  0.12919352  3.9836670  1.47717855
+## Gene9   2.90502823 -0.66608292  3.4953998  0.04325105
+## Gene10  2.10491334 -1.59185388  3.0287533  0.06622071
+## Gene11 -0.18472983  2.97801370  1.1596691  2.68563338
+## Gene12  0.53993086  3.06335088  0.4098599  0.58334800
+## Gene13 -0.94380619  2.58513813  0.9578149  1.48024628
+## Gene14 -1.82395891  0.51087415 -1.3450828  2.18972358
+## Gene15  0.91940578  3.90482072  0.2594961  4.95759229
+## Gene16  0.02390916  6.65261383  0.4748640  8.57701345
+## Gene17  0.56946823  4.62908074  0.9115281  5.79986425
+## Gene18  0.33880997  5.11409509 -0.1024726  7.16366744
+## Gene19  0.15822780  6.39151732 -0.1625198  6.61726546
+## Gene20 -0.50542543  6.67596772 -0.3299609  5.78289674</code></pre>
+</div>
+<div id="error.-no-demo-found-for-toic-pheatmap" class="section level1">
+<h1>Error. “No demo found for toic ‘pheatmap’</h1>
+<pre class="r"><code>demo(pheatmap)</code></pre>
+</div>
+<div id="col-is-drawn-as-found-in-test-data-frame" class="section level1">
+<h1>col is drawn as found in “test” data frame</h1>
+<pre class="r"><code>colnames(test)</code></pre>
+<pre><code>##  [1] &quot;Test1&quot;  &quot;Test2&quot;  &quot;Test3&quot;  &quot;Test4&quot;  &quot;Test5&quot;  &quot;Test6&quot;  &quot;Test7&quot;  &quot;Test8&quot; 
+##  [9] &quot;Test9&quot;  &quot;Test10&quot;</code></pre>
+<pre class="r"><code>pheatmap(test, annotation_col = annotation_col, annotation_colors = ann_colors[2],cluster_cols=FALSE) </code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="sort-test-by-order-of-interest" class="section level1">
+<h1>sort “test” by order of interest</h1>
+<pre class="r"><code>annotation_col3 &lt;- annotation_col %&gt;% unite(CellType.Time, CellType,Time) %&gt;% arrange(CellType.Time) %&gt;% separate(CellType.Time,c(&quot;CellType&quot;,&quot;Time&quot;)) %&gt;% mutate(CellType=factor(CellType),Time=as.numeric(Time))
+str(annotation_col3)</code></pre>
+<pre><code>## &#39;data.frame&#39;:	10 obs. of  2 variables:
+##  $ CellType: Factor w/ 2 levels &quot;CT1&quot;,&quot;CT2&quot;: 1 1 1 1 1 2 2 2 2 2
+##  $ Time    : num  1 2 3 4 5 1 2 3 4 5</code></pre>
+<pre class="r"><code>test3 &lt;- test[,rownames(annotation_col3)]
+#quartz()
+pheatmap(test3, annotation_col = annotation_col3,cluster_cols=FALSE) </code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="colustering-samples" class="section level1">
+<h1>colustering samples</h1>
+<pre class="r"><code>pheatmap(test3, annotation_col = annotation_col3,cluster_cols=TRUE) </code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="custom-color-eg.-change-color-of-time" class="section level1">
+<h1>custom color (eg. change color of “Time”)</h1>
+<pre class="r"><code>ann_colors</code></pre>
+<pre><code>## $Time
+## [1] &quot;white&quot;     &quot;firebrick&quot;
+## 
+## $CellType
+##       CT1       CT2 
+## &quot;#1B9E77&quot; &quot;#D95F02&quot; 
+## 
+## $GeneClass
+##     Path1     Path2     Path3 
+## &quot;#7570B3&quot; &quot;#E7298A&quot; &quot;#66A61E&quot;</code></pre>
+<pre class="r"><code>pheatmap(test3, annotation_col = annotation_col3, annotation_colors = ann_colors,cluster_cols=TRUE) </code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="demo" class="section level1">
+<h1>demo()</h1>
+<pre class="r"><code>demo(lm.glm, package = &quot;stats&quot;, ask = TRUE)</code></pre>
+<pre><code>## 
+## 
+## 	demo(lm.glm)
+## 	---- ~~~~~~
+## 
+## &gt; ### Examples from: &quot;An Introduction to Statistical Modelling&quot;
+## &gt; ###			By Annette Dobson
+## &gt; ###
+## &gt; ### == with some additions ==
+## &gt; 
+## &gt; #  Copyright (C) 1997-2015 The R Core Team
+## &gt; 
+## &gt; require(stats); require(graphics)
+## 
+## &gt; ## Plant Weight Data (Page 9)
+## &gt; ctl &lt;- c(4.17,5.58,5.18,6.11,4.50,4.61,5.17,4.53,5.33,5.14)
+## 
+## &gt; trt &lt;- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
+## 
+## &gt; group &lt;- gl(2,10, labels=c(&quot;Ctl&quot;,&quot;Trt&quot;))
+## 
+## &gt; weight &lt;- c(ctl,trt)
+## 
+## &gt; anova  (lm(weight~group))
+## Analysis of Variance Table
+## 
+## Response: weight
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## group      1 0.6882 0.68820  1.4191  0.249
+## Residuals 18 8.7293 0.48496               
+## 
+## &gt; summary(lm(weight~group -1))
+## 
+## Call:
+## lm(formula = weight ~ group - 1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.0710 -0.4938  0.0685  0.2462  1.3690 
+## 
+## Coefficients:
+##          Estimate Std. Error t value Pr(&gt;|t|)    
+## groupCtl   5.0320     0.2202   22.85 9.55e-15 ***
+## groupTrt   4.6610     0.2202   21.16 3.62e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.6964 on 18 degrees of freedom
+## Multiple R-squared:  0.9818,	Adjusted R-squared:  0.9798 
+## F-statistic: 485.1 on 2 and 18 DF,  p-value: &lt; 2.2e-16
+## 
+## 
+## &gt; ## Birth Weight Data (Page 14)
+## &gt; age &lt;- c(40, 38, 40, 35, 36, 37, 41, 40, 37, 38, 40, 38,
+## + 	 40, 36, 40, 38, 42, 39, 40, 37, 36, 38, 39, 40)
+## 
+## &gt; birthw &lt;- c(2968, 2795, 3163, 2925, 2625, 2847, 3292, 3473, 2628, 3176,
+## + 	    3421, 2975, 3317, 2729, 2935, 2754, 3210, 2817, 3126, 2539,
+## + 	    2412, 2991, 2875, 3231)
+## 
+## &gt; sex &lt;- gl(2,12, labels=c(&quot;M&quot;,&quot;F&quot;))
+## 
+## &gt; plot(age, birthw, col=as.numeric(sex), pch=3*as.numeric(sex),
+## +      main=&quot;Dobson&#39;s Birth Weight Data&quot;)</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre><code>## 
+## &gt; lines(lowess(age[sex==&#39;M&#39;], birthw[sex==&#39;M&#39;]), col=1)
+## 
+## &gt; lines(lowess(age[sex==&#39;F&#39;], birthw[sex==&#39;F&#39;]), col=2)
+## 
+## &gt; legend(&quot;topleft&quot;, levels(sex), col=1:2, pch=3*(1:2), lty=1, bty=&quot;n&quot;)
+## 
+## &gt; summary(l1 &lt;- lm(birthw ~ sex + age),    correlation=TRUE)
+## 
+## Call:
+## lm(formula = birthw ~ sex + age)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -257.49 -125.28  -58.44  169.00  303.98 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -1610.28     786.08  -2.049   0.0532 .  
+## sexF         -163.04      72.81  -2.239   0.0361 *  
+## age           120.89      20.46   5.908 7.28e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 177.1 on 21 degrees of freedom
+## Multiple R-squared:   0.64,	Adjusted R-squared:  0.6057 
+## F-statistic: 18.67 on 2 and 21 DF,  p-value: 2.194e-05
+## 
+## Correlation of Coefficients:
+##      (Intercept) sexF 
+## sexF  0.07            
+## age  -1.00       -0.12
+## 
+## 
+## &gt; summary(l0 &lt;- lm(birthw ~ sex + age -1), correlation=TRUE)
+## 
+## Call:
+## lm(formula = birthw ~ sex + age - 1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -257.49 -125.28  -58.44  169.00  303.98 
+## 
+## Coefficients:
+##      Estimate Std. Error t value Pr(&gt;|t|)    
+## sexM -1610.28     786.08  -2.049   0.0532 .  
+## sexF -1773.32     794.59  -2.232   0.0367 *  
+## age    120.89      20.46   5.908 7.28e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 177.1 on 21 degrees of freedom
+## Multiple R-squared:  0.9969,	Adjusted R-squared:  0.9965 
+## F-statistic:  2258 on 3 and 21 DF,  p-value: &lt; 2.2e-16
+## 
+## Correlation of Coefficients:
+##      sexM  sexF 
+## sexF  1.00      
+## age  -1.00 -1.00
+## 
+## 
+## &gt; anova(l1,l0)
+## Analysis of Variance Table
+## 
+## Model 1: birthw ~ sex + age
+## Model 2: birthw ~ sex + age - 1
+##   Res.Df    RSS Df   Sum of Sq F Pr(&gt;F)
+## 1     21 658771                        
+## 2     21 658771  0 -4.8894e-09         
+## 
+## &gt; summary(li &lt;- lm(birthw ~ sex + sex:age -1), correlation=TRUE)
+## 
+## Call:
+## lm(formula = birthw ~ sex + sex:age - 1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -246.69 -138.11  -39.13  176.57  274.28 
+## 
+## Coefficients:
+##          Estimate Std. Error t value Pr(&gt;|t|)    
+## sexM     -1268.67    1114.64  -1.138 0.268492    
+## sexF     -2141.67    1163.60  -1.841 0.080574 .  
+## sexM:age   111.98      29.05   3.855 0.000986 ***
+## sexF:age   130.40      30.00   4.347 0.000313 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 180.6 on 20 degrees of freedom
+## Multiple R-squared:  0.9969,	Adjusted R-squared:  0.9963 
+## F-statistic:  1629 on 4 and 20 DF,  p-value: &lt; 2.2e-16
+## 
+## Correlation of Coefficients:
+##          sexM  sexF  sexM:age
+## sexF      0.00               
+## sexM:age -1.00  0.00         
+## sexF:age  0.00 -1.00  0.00   
+## 
+## 
+## &gt; anova(li,l0)
+## Analysis of Variance Table
+## 
+## Model 1: birthw ~ sex + sex:age - 1
+## Model 2: birthw ~ sex + age - 1
+##   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
+## 1     20 652425                           
+## 2     21 658771 -1   -6346.2 0.1945 0.6639
+## 
+## &gt; summary(zi &lt;- glm(birthw ~ sex + age, family=gaussian()))
+## 
+## Call:
+## glm(formula = birthw ~ sex + age, family = gaussian())
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -1610.28     786.08  -2.049   0.0532 .  
+## sexF         -163.04      72.81  -2.239   0.0361 *  
+## age           120.89      20.46   5.908 7.28e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 31370.04)
+## 
+##     Null deviance: 1829873  on 23  degrees of freedom
+## Residual deviance:  658771  on 21  degrees of freedom
+## AIC: 321.39
+## 
+## Number of Fisher Scoring iterations: 2
+## 
+## 
+## &gt; summary(z0 &lt;- glm(birthw ~ sex + age - 1, family=gaussian()))
+## 
+## Call:
+## glm(formula = birthw ~ sex + age - 1, family = gaussian())
+## 
+## Coefficients:
+##      Estimate Std. Error t value Pr(&gt;|t|)    
+## sexM -1610.28     786.08  -2.049   0.0532 .  
+## sexF -1773.32     794.59  -2.232   0.0367 *  
+## age    120.89      20.46   5.908 7.28e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 31370.04)
+## 
+##     Null deviance: 213198964  on 24  degrees of freedom
+## Residual deviance:    658771  on 21  degrees of freedom
+## AIC: 321.39
+## 
+## Number of Fisher Scoring iterations: 2
+## 
+## 
+## &gt; anova(zi, z0)
+## Analysis of Deviance Table
+## 
+## Model 1: birthw ~ sex + age
+## Model 2: birthw ~ sex + age - 1
+##   Resid. Df Resid. Dev Df    Deviance F Pr(&gt;F)
+## 1        21     658771                        
+## 2        21     658771  0 -2.3283e-10         
+## 
+## &gt; summary(z.o4 &lt;- update(z0, subset = -4))
+## 
+## Call:
+## glm(formula = birthw ~ sex + age - 1, family = gaussian(), subset = -4)
+## 
+## Coefficients:
+##      Estimate Std. Error t value Pr(&gt;|t|)    
+## sexM -2318.03     801.57  -2.892  0.00902 ** 
+## sexF -2455.44     803.79  -3.055  0.00625 ** 
+## age    138.50      20.71   6.688 1.65e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 26925.39)
+## 
+##     Null deviance: 204643339  on 23  degrees of freedom
+## Residual deviance:    538508  on 20  degrees of freedom
+## AIC: 304.68
+## 
+## Number of Fisher Scoring iterations: 2
+## 
+## 
+## &gt; summary(zz &lt;- update(z0, birthw ~ sex+age-1 + sex:age))
+## 
+## Call:
+## glm(formula = birthw ~ sex + age + sex:age - 1, family = gaussian())
+## 
+## Coefficients:
+##          Estimate Std. Error t value Pr(&gt;|t|)    
+## sexM     -1268.67    1114.64  -1.138 0.268492    
+## sexF     -2141.67    1163.60  -1.841 0.080574 .  
+## age        111.98      29.05   3.855 0.000986 ***
+## sexF:age    18.42      41.76   0.441 0.663893    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 32621.23)
+## 
+##     Null deviance: 213198964  on 24  degrees of freedom
+## Residual deviance:    652425  on 20  degrees of freedom
+## AIC: 323.16
+## 
+## Number of Fisher Scoring iterations: 2
+## 
+## 
+## &gt; anova(z0,zz)
+## Analysis of Deviance Table
+## 
+## Model 1: birthw ~ sex + age - 1
+## Model 2: birthw ~ sex + age + sex:age - 1
+##   Resid. Df Resid. Dev Df Deviance      F Pr(&gt;F)
+## 1        21     658771                          
+## 2        20     652425  1   6346.2 0.1945 0.6639
+## 
+## &gt; ## Poisson Regression Data (Page 42)
+## &gt; x &lt;- c(-1,-1,0,0,0,0,1,1,1)
+## 
+## &gt; y &lt;- c(2,3,6,7,8,9,10,12,15)
+## 
+## &gt; summary(glm(y~x, family=poisson(link=&quot;identity&quot;)))
+## 
+## Call:
+## glm(formula = y ~ x, family = poisson(link = &quot;identity&quot;))
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   7.4516     0.8841   8.428  &lt; 2e-16 ***
+## x             4.9353     1.0892   4.531 5.86e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 18.4206  on 8  degrees of freedom
+## Residual deviance:  1.8947  on 7  degrees of freedom
+## AIC: 40.008
+## 
+## Number of Fisher Scoring iterations: 3
+## 
+## 
+## &gt; ## Calorie Data (Page 45)
+## &gt; calorie &lt;- data.frame(
+## +     carb = c(33,40,37,27,30,43,34,48,30,38,
+## + 	     50,51,30,36,41,42,46,24,35,37),
+## +     age	 = c(33,47,49,35,46,52,62,23,32,42,
+## + 	     31,61,63,40,50,64,56,61,48,28),
+## +     wgt	 = c(100, 92,135,144,140,101, 95,101, 98,105,
+## + 	     108, 85,130,127,109,107,117,100,118,102),
+## +     prot = c(14,15,18,12,15,15,14,17,15,14,
+## + 	     17,19,19,20,15,16,18,13,18,14))
+## 
+## &gt; summary(lmcal &lt;- lm(carb~age+wgt+prot, data= calorie))
+## 
+## Call:
+## lm(formula = carb ~ age + wgt + prot, data = calorie)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.3424  -4.8203   0.9897   3.8553   7.9087 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) 36.96006   13.07128   2.828  0.01213 * 
+## age         -0.11368    0.10933  -1.040  0.31389   
+## wgt         -0.22802    0.08329  -2.738  0.01460 * 
+## prot         1.95771    0.63489   3.084  0.00712 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.956 on 16 degrees of freedom
+## Multiple R-squared:  0.4805,	Adjusted R-squared:  0.3831 
+## F-statistic: 4.934 on 3 and 16 DF,  p-value: 0.01297
+## 
+## 
+## &gt; ## Extended Plant Data (Page 59)
+## &gt; ctl &lt;-	c(4.17,5.58,5.18,6.11,4.50,4.61,5.17,4.53,5.33,5.14)
+## 
+## &gt; trtA &lt;- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
+## 
+## &gt; trtB &lt;- c(6.31,5.12,5.54,5.50,5.37,5.29,4.92,6.15,5.80,5.26)
+## 
+## &gt; group &lt;- gl(3, length(ctl), labels=c(&quot;Ctl&quot;,&quot;A&quot;,&quot;B&quot;))
+## 
+## &gt; weight &lt;- c(ctl,trtA,trtB)
+## 
+## &gt; anova(lmwg &lt;- lm(weight~group))
+## Analysis of Variance Table
+## 
+## Response: weight
+##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+## group      2  3.7663  1.8832  4.8461 0.01591 *
+## Residuals 27 10.4921  0.3886                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## &gt; summary(lmwg)
+## 
+## Call:
+## lm(formula = weight ~ group)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.0710 -0.4180 -0.0060  0.2627  1.3690 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   5.0320     0.1971  25.527   &lt;2e-16 ***
+## groupA       -0.3710     0.2788  -1.331   0.1944    
+## groupB        0.4940     0.2788   1.772   0.0877 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.6234 on 27 degrees of freedom
+## Multiple R-squared:  0.2641,	Adjusted R-squared:  0.2096 
+## F-statistic: 4.846 on 2 and 27 DF,  p-value: 0.01591
+## 
+## 
+## &gt; coef(lmwg)
+## (Intercept)      groupA      groupB 
+##       5.032      -0.371       0.494 
+## 
+## &gt; coef(summary(lmwg))#- incl.  std.err,  t- and P- values.
+##             Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept)    5.032  0.1971284 25.526514 1.936575e-20
+## groupA        -0.371  0.2787816 -1.330791 1.943879e-01
+## groupB         0.494  0.2787816  1.771996 8.768168e-02
+## 
+## &gt; ## Fictitious Anova Data (Page 64)
+## &gt; y &lt;- c(6.8,6.6,5.3,6.1,7.5,7.4,7.2,6.5,7.8,9.1,8.8,9.1)
+## 
+## &gt; a &lt;- gl(3,4)
+## 
+## &gt; b &lt;- gl(2,2, length(a))
+## 
+## &gt; anova(z &lt;- lm(y~a*b))
+## Analysis of Variance Table
+## 
+## Response: y
+##           Df  Sum Sq Mean Sq F value   Pr(&gt;F)   
+## a          2 12.7400  6.3700 25.8243 0.001127 **
+## b          1  0.4033  0.4033  1.6351 0.248225   
+## a:b        2  1.2067  0.6033  2.4459 0.167164   
+## Residuals  6  1.4800  0.2467                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## &gt; ## Achievement Scores (Page 70)
+## &gt; y &lt;- c(6,4,5,3,4,3,6, 8,9,7,9,8,5,7, 6,7,7,7,8,5,7)
+## 
+## &gt; x &lt;- c(3,1,3,1,2,1,4, 4,5,5,4,3,1,2, 3,2,2,3,4,1,4)
+## 
+## &gt; m &lt;- gl(3,7)
+## 
+## &gt; anova(z &lt;- lm(y~x+m))
+## Analysis of Variance Table
+## 
+## Response: y
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## x          1 36.575  36.575  60.355 5.428e-07 ***
+## m          2 16.932   8.466  13.970 0.0002579 ***
+## Residuals 17 10.302   0.606                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## &gt; ## Beetle Data (Page 78)
+## &gt; dose &lt;- c(1.6907, 1.7242, 1.7552, 1.7842, 1.8113, 1.8369, 1.861, 1.8839)
+## 
+## &gt; x &lt;- c( 6, 13, 18, 28, 52, 53, 61, 60)
+## 
+## &gt; n &lt;- c(59, 60, 62, 56, 63, 59, 62, 60)
+## 
+## &gt; dead &lt;- cbind(x, n-x)
+## 
+## &gt; summary(     glm(dead ~ dose, family=binomial(link=logit)))
+## 
+## Call:
+## glm(formula = dead ~ dose, family = binomial(link = logit))
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -60.717      5.181  -11.72   &lt;2e-16 ***
+## dose          34.270      2.912   11.77   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 284.202  on 7  degrees of freedom
+## Residual deviance:  11.232  on 6  degrees of freedom
+## AIC: 41.43
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## &gt; summary(     glm(dead ~ dose, family=binomial(link=probit)))
+## 
+## Call:
+## glm(formula = dead ~ dose, family = binomial(link = probit))
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -34.935      2.648  -13.19   &lt;2e-16 ***
+## dose          19.728      1.487   13.27   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 284.20  on 7  degrees of freedom
+## Residual deviance:  10.12  on 6  degrees of freedom
+## AIC: 40.318
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## &gt; summary(z &lt;- glm(dead ~ dose, family=binomial(link=cloglog)))
+## 
+## Call:
+## glm(formula = dead ~ dose, family = binomial(link = cloglog))
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -39.572      3.240  -12.21   &lt;2e-16 ***
+## dose          22.041      1.799   12.25   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 284.2024  on 7  degrees of freedom
+## Residual deviance:   3.4464  on 6  degrees of freedom
+## AIC: 33.644
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## &gt; anova(z, update(z, dead ~ dose -1))
+## Analysis of Deviance Table
+## 
+## Model 1: dead ~ dose
+## Model 2: dead ~ dose - 1
+##   Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+## 1         6      3.446                          
+## 2         7    285.222 -1  -281.78 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## &gt; ## Anther Data (Page 84)
+## &gt; ## Note that the proportions below are not exactly
+## &gt; ## in accord with the sample sizes quoted below.
+## &gt; ## In particular, the last value, 5/9, should have been 0.556 instead of 0.555:
+## &gt; n &lt;- c(102,  99,   108,	 76,   81,   90)
+## 
+## &gt; p &lt;- c(0.539,0.525,0.528,0.724,0.617,0.555)
+## 
+## &gt; x &lt;- round(n*p)
+## 
+## &gt; ## x &lt;- n*p
+## &gt; y &lt;- cbind(x,n-x)
+## 
+## &gt; f &lt;- rep(c(40,150,350),2)
+## 
+## &gt; (g &lt;- gl(2,3))
+## [1] 1 1 1 2 2 2
+## Levels: 1 2
+## 
+## &gt; summary(glm(y ~ g*f, family=binomial(link=&quot;logit&quot;)))
+## 
+## Call:
+## glm(formula = y ~ g * f, family = binomial(link = &quot;logit&quot;))
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)  0.1456719  0.1975451   0.737   0.4609  
+## g2           0.7963143  0.3125046   2.548   0.0108 *
+## f           -0.0001227  0.0008782  -0.140   0.8889  
+## g2:f        -0.0020493  0.0013483  -1.520   0.1285  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 10.45197  on 5  degrees of freedom
+## Residual deviance:  0.60387  on 2  degrees of freedom
+## AIC: 38.172
+## 
+## Number of Fisher Scoring iterations: 3
+## 
+## 
+## &gt; summary(glm(y ~ g + f, family=binomial(link=&quot;logit&quot;)))
+## 
+## Call:
+## glm(formula = y ~ g + f, family = binomial(link = &quot;logit&quot;))
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)  0.306643   0.167629   1.829   0.0674 .
+## g2           0.405554   0.174560   2.323   0.0202 *
+## f           -0.000997   0.000665  -1.499   0.1338  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 10.4520  on 5  degrees of freedom
+## Residual deviance:  2.9218  on 3  degrees of freedom
+## AIC: 38.49
+## 
+## Number of Fisher Scoring iterations: 3
+## 
+## 
+## &gt; ## The &quot;final model&quot;
+## &gt; summary(glm.p84 &lt;- glm(y~g,  family=binomial(link=&quot;logit&quot;)))
+## 
+## Call:
+## glm(formula = y ~ g, family = binomial(link = &quot;logit&quot;))
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)   0.1231     0.1140   1.080   0.2801  
+## g2            0.3985     0.1741   2.289   0.0221 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 10.452  on 5  degrees of freedom
+## Residual deviance:  5.173  on 4  degrees of freedom
+## AIC: 38.741
+## 
+## Number of Fisher Scoring iterations: 3
+## 
+## 
+## &gt; op &lt;- par(mfrow = c(2,2), oma = c(0,0,1,0))
+## 
+## &gt; plot(glm.p84) # well ?</code></pre>
+<p><img src="https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/index_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+<pre><code>## 
+## &gt; par(op)
+## 
+## &gt; ## Tumour Data (Page 92)
+## &gt; counts &lt;- c(22,2,10,16,54,115,19,33,73,11,17,28)
+## 
+## &gt; type &lt;- gl(4,3,12,labels=c(&quot;freckle&quot;,&quot;superficial&quot;,&quot;nodular&quot;,&quot;indeterminate&quot;))
+## 
+## &gt; site &lt;- gl(3,1,12,labels=c(&quot;head/neck&quot;,&quot;trunk&quot;,&quot;extremities&quot;))
+## 
+## &gt; data.frame(counts,type,site)
+##    counts          type        site
+## 1      22       freckle   head/neck
+## 2       2       freckle       trunk
+## 3      10       freckle extremities
+## 4      16   superficial   head/neck
+## 5      54   superficial       trunk
+## 6     115   superficial extremities
+## 7      19       nodular   head/neck
+## 8      33       nodular       trunk
+## 9      73       nodular extremities
+## 10     11 indeterminate   head/neck
+## 11     17 indeterminate       trunk
+## 12     28 indeterminate extremities
+## 
+## &gt; summary(z &lt;- glm(counts ~ type + site, family=poisson()))
+## 
+## Call:
+## glm(formula = counts ~ type + site, family = poisson())
+## 
+## Coefficients:
+##                   Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)         1.7544     0.2040   8.600  &lt; 2e-16 ***
+## typesuperficial     1.6940     0.1866   9.079  &lt; 2e-16 ***
+## typenodular         1.3020     0.1934   6.731 1.68e-11 ***
+## typeindeterminate   0.4990     0.2174   2.295  0.02173 *  
+## sitetrunk           0.4439     0.1554   2.857  0.00427 ** 
+## siteextremities     1.2010     0.1383   8.683  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 295.203  on 11  degrees of freedom
+## Residual deviance:  51.795  on  6  degrees of freedom
+## AIC: 122.91
+## 
+## Number of Fisher Scoring iterations: 5
+## 
+## 
+## &gt; ## Randomized Controlled Trial (Page 93)
+## &gt; counts &lt;- c(18,17,15, 20,10,20, 25,13,12)
+## 
+## &gt; outcome   &lt;- gl(3, 1, length(counts))
+## 
+## &gt; treatment &lt;- gl(3, 3)
+## 
+## &gt; summary(z &lt;- glm(counts ~ outcome + treatment, family=poisson()))
+## 
+## Call:
+## glm(formula = counts ~ outcome + treatment, family = poisson())
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  3.045e+00  1.709e-01  17.815   &lt;2e-16 ***
+## outcome2    -4.543e-01  2.022e-01  -2.247   0.0246 *  
+## outcome3    -2.930e-01  1.927e-01  -1.520   0.1285    
+## treatment2   1.398e-16  2.000e-01   0.000   1.0000    
+## treatment3  -2.416e-16  2.000e-01   0.000   1.0000    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 10.5814  on 8  degrees of freedom
+## Residual deviance:  5.1291  on 4  degrees of freedom
+## AIC: 56.761
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## &gt; ## Peptic Ulcers and Blood Groups
+## &gt; counts &lt;- c(579, 4219, 911, 4578, 246, 3775, 361, 4532, 291, 5261, 396, 6598)
+## 
+## &gt; group &lt;- gl(2, 1, 12, labels=c(&quot;cases&quot;,&quot;controls&quot;))
+## 
+## &gt; blood &lt;- gl(2, 2, 12, labels=c(&quot;A&quot;,&quot;O&quot;))
+## 
+## &gt; city  &lt;- gl(3, 4, 12, labels=c(&quot;London&quot;,&quot;Manchester&quot;,&quot;Newcastle&quot;))
+## 
+## &gt; cbind(group, blood, city, counts) # gives internal codes for the factors
+##       group blood city counts
+##  [1,]     1     1    1    579
+##  [2,]     2     1    1   4219
+##  [3,]     1     2    1    911
+##  [4,]     2     2    1   4578
+##  [5,]     1     1    2    246
+##  [6,]     2     1    2   3775
+##  [7,]     1     2    2    361
+##  [8,]     2     2    2   4532
+##  [9,]     1     1    3    291
+## [10,]     2     1    3   5261
+## [11,]     1     2    3    396
+## [12,]     2     2    3   6598
+## 
+## &gt; summary(z1 &lt;- glm(counts ~ group*(city + blood), family=poisson()))
+## 
+## Call:
+## glm(formula = counts ~ group * (city + blood), family = poisson())
+## 
+## Coefficients:
+##                              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)                   6.39239    0.03476  183.92  &lt; 2e-16 ***
+## groupcontrols                 1.90813    0.03691   51.69  &lt; 2e-16 ***
+## cityManchester               -0.89800    0.04815  -18.65  &lt; 2e-16 ***
+## cityNewcastle                -0.77420    0.04612  -16.79  &lt; 2e-16 ***
+## bloodO                        0.40187    0.03867   10.39  &lt; 2e-16 ***
+## groupcontrols:cityManchester  0.84069    0.05052   16.64  &lt; 2e-16 ***
+## groupcontrols:cityNewcastle   1.07287    0.04822   22.25  &lt; 2e-16 ***
+## groupcontrols:bloodO         -0.23208    0.04043   -5.74 9.46e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 26717.157  on 11  degrees of freedom
+## Residual deviance:    29.241  on  4  degrees of freedom
+## AIC: 154.32
+## 
+## Number of Fisher Scoring iterations: 3
+## 
+## 
+## &gt; summary(z2 &lt;- glm(counts ~ group*city + blood, family=poisson()),
+## +         correlation = TRUE)
+## 
+## Call:
+## glm(formula = counts ~ group * city + blood, family = poisson())
+## 
+## Coefficients:
+##                              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)                   6.51395    0.02663  244.60   &lt;2e-16 ***
+## groupcontrols                 1.77563    0.02801   63.38   &lt;2e-16 ***
+## cityManchester               -0.89800    0.04815  -18.65   &lt;2e-16 ***
+## cityNewcastle                -0.77420    0.04612  -16.79   &lt;2e-16 ***
+## bloodO                        0.18988    0.01128   16.84   &lt;2e-16 ***
+## groupcontrols:cityManchester  0.84069    0.05052   16.64   &lt;2e-16 ***
+## groupcontrols:cityNewcastle   1.07287    0.04822   22.25   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 26717.157  on 11  degrees of freedom
+## Residual deviance:    62.558  on  5  degrees of freedom
+## AIC: 185.63
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## Correlation of Coefficients:
+##                              (Intercept) groupcontrols cityManchester
+## groupcontrols                -0.90                                   
+## cityManchester               -0.52        0.50                       
+## cityNewcastle                -0.55        0.52          0.30         
+## bloodO                       -0.23        0.00          0.00         
+## groupcontrols:cityManchester  0.50       -0.55         -0.95         
+## groupcontrols:cityNewcastle   0.52       -0.58         -0.29         
+##                              cityNewcastle bloodO groupcontrols:cityManchester
+## groupcontrols                                                                 
+## cityManchester                                                                
+## cityNewcastle                                                                 
+## bloodO                        0.00                                            
+## groupcontrols:cityManchester -0.29          0.00                              
+## groupcontrols:cityNewcastle  -0.96          0.00   0.32                       
+## 
+## 
+## &gt; anova(z2, z1, test = &quot;Chisq&quot;)
+## Analysis of Deviance Table
+## 
+## Model 1: counts ~ group * city + blood
+## Model 2: counts ~ group * (city + blood)
+##   Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+## 1         5     62.558                          
+## 2         4     29.241  1   33.318 7.827e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session Info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 4.4.0 (2024-04-24)
+## Platform: aarch64-apple-darwin20
+## Running under: macOS Sonoma 14.4
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## time zone: America/Los_Angeles
+## tzcode source: internal
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] pheatmap_1.0.12 lubridate_1.9.3 forcats_1.0.0   stringr_1.5.1  
+##  [5] dplyr_1.1.4     purrr_1.0.2     readr_2.1.5     tidyr_1.3.1    
+##  [9] tibble_3.2.1    ggplot2_3.5.1   tidyverse_2.0.0
+## 
+## loaded via a namespace (and not attached):
+##  [1] sass_0.4.9         utf8_1.2.4         generics_0.1.3     blogdown_1.19     
+##  [5] stringi_1.8.4      hms_1.1.3          digest_0.6.36      magrittr_2.0.3    
+##  [9] evaluate_0.24.0    grid_4.4.0         timechange_0.3.0   RColorBrewer_1.1-3
+## [13] bookdown_0.40      fastmap_1.2.0      jsonlite_1.8.8     fansi_1.0.6       
+## [17] scales_1.3.0       jquerylib_0.1.4    cli_3.6.3          rlang_1.1.4       
+## [21] munsell_0.5.1      withr_3.0.0        cachem_1.1.0       yaml_2.3.9        
+## [25] tools_4.4.0        tzdb_0.4.0         colorspace_2.1-0   vctrs_0.6.5       
+## [29] R6_2.5.1           lifecycle_1.0.4    pkgconfig_2.0.3    pillar_1.9.0      
+## [33] bslib_0.7.0        gtable_0.3.5       glue_1.7.0         xfun_0.46         
+## [37] tidyselect_1.2.1   highr_0.11         rstudioapi_0.16.0  knitr_1.48        
+## [41] farver_2.1.2       htmltools_0.5.8.1  rmarkdown_2.27     compiler_4.4.0</code></pre>
+</div>
 
 </main>
 
@@ -156,7 +1217,17 @@ gtag('config', 'G-43XQ39QRQB');
 </footer>
 
 
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
 
 
 
