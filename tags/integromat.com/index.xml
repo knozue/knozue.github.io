@@ -6,7 +6,16 @@
     <description>Recent content in Integromat.com on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 18 Sep 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/tags/integromat.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/tags/integromat.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Remote sensing 1.1: python -&gt; Webhooks -&gt; Google Sheet</title>
+      <link>https://knozue.github.io/post/2024/12/01/remote-sensing-1-1-python-webhooks-google-sheet/</link>
+      <pubDate>Sun, 01 Dec 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2024/12/01/remote-sensing-1-1-python-webhooks-google-sheet/</guid>
+      <description>Toward my goal for remote sensing of my yard soil, I would like to divide its porject into several modules.  module 1. Automatically recording data in Google Sheet (from my computer to Google Sheet). module 2. Sensing soil data using Raspberry pi 3 model B. module 3. Combining 1 and 2   Setting up module 1 Since my Rasppberry pi 3 model 3 runs under Python, I would like to use Python in my computer to send some data to Google Sheet.</description>
+    </item>
+    
     <item>
       <title>How to make QR code in Google Sheet using Integromat.com.</title>
       <link>https://knozue.github.io/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com/</link>

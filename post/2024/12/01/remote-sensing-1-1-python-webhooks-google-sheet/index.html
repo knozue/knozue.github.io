@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-43XQ39QRQB"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+
+gtag('config', 'G-43XQ39QRQB');
+</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Remote sensing 1.1: python -&gt; Webhooks -&gt; Google Sheet | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2024-12-01</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2024-12-01-remote-sensing-1-1-python-webhooks-google-sheet/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+     &hercon; <a href="/categories/regenerative-agriculture">regenerative agriculture</a>
+  
+  </div>
+
+  <h1><span class="title">Remote sensing 1.1: python -&gt; Webhooks -&gt; Google Sheet</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/integromat.com">Integromat.com</a>; <a href="/tags/rstudio">RStudio</a>; <a href="/tags/make.com">make.com</a>; <a href="/tags/webhooks">Webhooks</a>; <a href="/tags/python">Python</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="toward-my-goal-for-remote-sensing-of-my-yard-soil-i-would-like-to-divide-its-porject-into-several-modules." class="section level1">
+<h1>Toward my goal for remote sensing of my yard soil, I would like to divide its porject into several modules.</h1>
+<ul>
+<li>module 1. Automatically recording data in Google Sheet (from my computer to Google Sheet).</li>
+<li>module 2. Sensing soil data using Raspberry pi 3 model B.</li>
+<li>module 3. Combining 1 and 2</li>
+</ul>
+</div>
+<div id="setting-up-module-1" class="section level1">
+<h1>Setting up module 1</h1>
+<p>Since my Rasppberry pi 3 model 3 runs under Python, I would like to use Python in my computer to send some data to Google Sheet. Currently I am learning Python using <a href="https://www.geeksforgeeks.org/how-to-use-jupyter-notebook-an-ultimate-guide/">www.geeksforgeeks.org</a>. To test Python I started to use Jupyter notebook, but switched to Jupyter notebook in Visual Studio Code because I’ve just started to use <a href="https://code.visualstudio.com/">Visual Studio Code</a> just because my colleague use it, which seems a user friendly interface for a cloud computing system for scientist called Jetstream2. Also VS code also work with Jupiter notebook (<a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks" class="uri">https://code.visualstudio.com/docs/datascience/jupyter-notebooks</a>).</p>
+<ul>
+<li>Note1: Commenting in Python are [# or ““” “““”] (<a href="https://www.datacamp.com/tutorial/python-block-comment" class="uri">https://www.datacamp.com/tutorial/python-block-comment</a>).</li>
+</ul>
+</div>
+<div id="another-interface-for-python-is-rstudio-which-is-used-for-writing-this-blog." class="section level1">
+<h1>Another interface for python is RStudio, which is used for writing this blog.</h1>
+<p><a href="https://posit.co/blog/three-ways-to-program-in-python-with-rstudio/">There are three ways to operate Python in RStudio</a>
+One advantage to use RStudio with Python is the reticulate package in R enable to access R data by Python.
+Please find more details in a RStudio site, <a href="https://support.posit.co/hc/en-us/articles/1500007929061-Using-Python-with-the-RStudio-IDE">Using Python with the RStudio IDE</a>.</p>
+<div id="testing-python-in-rstudio-ide" class="section level2">
+<h2>testing Python in RStudio IDE</h2>
+<pre class="python"><code>print(&quot;Hello world&quot;)</code></pre>
+<pre><code>## Hello world</code></pre>
+</div>
+</div>
+<div id="installing-a-python-package-from-rstudio" class="section level1">
+<h1>Installing a python package from RStudio</h1>
+<p>Install “requests” through reticulate R package via conda (see <a href="https://rstudio.github.io/reticulate/articles/python_packages.html" class="uri">https://rstudio.github.io/reticulate/articles/python_packages.html</a>), which did not work</p>
+<pre class="r"><code># create a new environment 
+conda_create(&quot;r-reticulate&quot;)
+# install requests
+conda_install(&quot;r-reticulate&quot;, &quot;requests&quot;)
+# import requests (it will be automatically discovered in &quot;r-reticulate&quot;)
+requests &lt;- import(&quot;requests&quot;) # Did not work. error </code></pre>
+</div>
+<div id="simple-installation-did-work" class="section level1">
+<h1>Simple Installation did work!</h1>
+<pre class="r"><code>py_install(&quot;requests&quot;) # worked!</code></pre>
+</div>
+<div id="test-obtaining-date-and-time-in-python" class="section level1">
+<h1>Test obtaining date and time in Python</h1>
+<pre class="python"><code>import datetime
+import requests 
+data_to_send={}
+data_to_send[&quot;data&quot;]= str(datetime.datetime.now())
+print(data_to_send)</code></pre>
+<pre><code>## {&#39;data&#39;: &#39;2024-12-01 18:20:24.627400&#39;}</code></pre>
+</div>
+<div id="explanation-of-those-codes-for-preparing-data-to-send-explained-by-chatgpt" class="section level1">
+<h1>Explanation of those codes for preparing Data to Send (explained by ChatGPT)</h1>
+<ul>
+<li>data_to_send = {}: Creates an empty dictionary named data_to_send.</li>
+<li>data_to_send[“data”] = str(datetime.datetime.now()):</li>
+<li>Adds a key-value pair to the dictionary.</li>
+<li>The key is “data”, and the value is the current date and time,</li>
+<li>converted to a string. datetime.datetime.now() gets the current date and time,</li>
+<li>and str() converts it to a string format.</li>
+</ul>
+</div>
+<div id="sending-obtained-data-in-python-to-google-sheet-via-webhooks" class="section level1">
+<h1>Sending obtained data in python to Google Sheet via Webhooks</h1>
+<p>Using <a href="https://www.make.com/en/help/tools/webhooks">Webhooks in make.com</a>, which is formally Integromat, <a href="https://youtu.be/JjytGtMsePw?feature=shared">a workflow automation tool</a>. Another way is using IFTTT. The third way is to use an Google Add On, called <a href="https://workspace.google.com/marketplace/app/webhooks_for_sheets/860288437469">Webhookds for Sheets</a>.</p>
+<p>Let’s try sending date and time to Google Sheet using Webhooks in make.</p>
+<pre class="python"><code>import datetime
+import requests
+
+data_to_send={}
+data_to_send[&quot;data&quot;]= str(datetime.datetime.now())
+print(data_to_send)</code></pre>
+<pre><code>## {&#39;data&#39;: &#39;2024-12-01 18:20:24.648999&#39;}</code></pre>
+<pre class="python"><code># For Webhooks in make.com
+r = requests.post(&quot;https://hook.us2.make.com/yr98qz3aipk3k3rll5oy7xxdazu16wlr&quot;,json = data_to_send)</code></pre>
+</div>
+<div id="exporting-the-data-to-google-sheet-via-webhooks-in-make.com." class="section level1">
+<h1>Exporting the data to Google Sheet via Webhooks in make.com.</h1>
+<p>The date and time data had been exported to my Google Sheet once I click “Run Once” button in the scinario window in make.com (you have to lon into your account).</p>
+<p><img src="images/Overview.png" width="480" /></p>
+<p><img src="images/Webhooks1.png" width="480" /></p>
+<p><img src="images/GoogleSheet1.png" width="480" /></p>
+<p><img src="images/GoogleSheet2.png" width="480" />
+# The data has been imported to the Google Sheet</p>
+<p><img src="images/GoogleSheet_results.png" width="480" /></p>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 4.4.0 (2024-04-24)
+## Platform: aarch64-apple-darwin20
+## Running under: macOS Sonoma 14.4
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## time zone: America/Los_Angeles
+## tzcode source: internal
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] reticulate_1.40.0
+## 
+## loaded via a namespace (and not attached):
+##  [1] cli_3.6.3         knitr_1.48        rlang_1.1.4       xfun_0.49        
+##  [5] png_0.1-8         jsonlite_1.8.9    rprojroot_2.0.4   htmltools_0.5.8.1
+##  [9] sass_0.4.9        rmarkdown_2.28    grid_4.4.0        evaluate_1.0.0   
+## [13] jquerylib_0.1.4   fastmap_1.2.0     yaml_2.3.10       lifecycle_1.0.4  
+## [17] bookdown_0.41     compiler_4.4.0    Rcpp_1.0.13       here_1.0.1       
+## [21] rstudioapi_0.16.0 blogdown_1.19     lattice_0.22-6    digest_0.6.37    
+## [25] R6_2.5.1          bslib_0.8.0       Matrix_1.7-0      tools_4.4.0      
+## [29] cachem_1.1.0</code></pre>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2024/11/25/regenerative-agriculture-3-my-backyard-trial/">Regenerative agriculture 3: my backyard trial &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

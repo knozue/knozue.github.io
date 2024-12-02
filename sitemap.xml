@@ -2,13 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://knozue.github.io/tags/california/</loc>
-    <lastmod>2024-11-25T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://knozue.github.io/categories/</loc>
-    <lastmod>2024-11-25T00:00:00+00:00</lastmod>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/categories/data-analysis/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/integromat.com/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/make.com/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/post/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/python/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/categories/regenerative-agriculture/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/post/2024/12/01/remote-sensing-1-1-python-webhooks-google-sheet/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/rstudio/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/webhooks/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/california/</loc>
     <lastmod>2024-11-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/gabe-brown/</loc>
@@ -20,25 +50,10 @@
     <loc>https://knozue.github.io/categories/native-plant/</loc>
     <lastmod>2024-11-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://knozue.github.io/post/</loc>
-    <lastmod>2024-11-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/categories/regenerative-agriculture/</loc>
-    <lastmod>2024-11-25T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://knozue.github.io/post/2024/11/25/regenerative-agriculture-3-my-backyard-trial/</loc>
     <lastmod>2024-11-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://knozue.github.io/tags/</loc>
-    <lastmod>2024-11-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/categories/data-analysis/</loc>
-    <lastmod>2024-08-03T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://knozue.github.io/tags/r/</loc>
-    <lastmod>2024-08-03T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/rstudio/</loc>
     <lastmod>2024-08-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/tidyverse/</loc>
@@ -315,9 +330,6 @@
     <lastmod>2018-09-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/post/2018/09/18/how-to-make-qr-code-in-google-sheet-using-integromat-com/</loc>
-    <lastmod>2018-09-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/integromat.com/</loc>
     <lastmod>2018-09-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/trello/</loc>
