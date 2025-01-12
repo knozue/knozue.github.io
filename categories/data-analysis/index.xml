@@ -13,7 +13,7 @@
       <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/post/2025/01/12/synteny-plot-mcscan-jbrowse2/</guid>
-      <description>When I work with two close relatives, it is interesting which genes are homologous and how chromosomal structures are conserved among those relatives. Synteny plot is useful to visualize how to copmare multiple genomic sequences. MCScan is a tool I would like to introduce here. As an example I used Solanum lycopersicum and Solanum pennellii, which had been used in my lab.
+      <description>When I work with two close relatives, it is interesting which genes are homologous and how chromosomal structures are conserved among those relatives. Synteny plot is useful to visualize how to compare multiple genomic sequences. MCScan is a tool I would like to introduce here. As an example I used Solanum lycopersicum and Solanum pennellii, which had been used in my lab.
 Preparation Donwload genome fasta files and gff files.</description>
     </item>
     
