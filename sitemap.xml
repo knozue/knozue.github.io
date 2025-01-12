@@ -3,21 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://knozue.github.io/categories/</loc>
-    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/</loc>
-    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/categories/data-analysis/</loc>
-    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/jcvi/</loc>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/mcscan/</loc>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/post/</loc>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/synteny/</loc>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/post/2025/01/12/synteny-plot-mcscan-jbrowse2/</loc>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/</loc>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/integromat.com/</loc>
     <lastmod>2024-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/make.com/</loc>
-    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/post/</loc>
     <lastmod>2024-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/python/</loc>
@@ -30,9 +45,6 @@
     <lastmod>2024-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/rstudio/</loc>
-    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/</loc>
     <lastmod>2024-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/webhooks/</loc>

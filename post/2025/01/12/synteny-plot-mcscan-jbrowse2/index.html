@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Synteny plot MCscan JBrowse2 | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2025-01-12</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2025-01-12-synteny-plot-mcscan-jbrowse2/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+  </div>
+
+  <h1><span class="title">Synteny plot MCscan JBrowse2</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/synteny">Synteny</a>; <a href="/tags/mcscan">MCScan</a>; <a href="/tags/jcvi">JCVI</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<p>When I work with two close relatives, it is interesting which genes are homologous and how chromosomal structures are conserved among those relatives. Synteny plot is useful to visualize how to copmare multiple genomic sequences. <a href="https://github.com/tanghaibao/jcvi/wiki/Mcscan-(python-version)">MCScan</a> is a tool I would like to introduce here. As an example I used <a href="https://solgenomics.net/organism/Solanum_lycopersicum/genome8"><em>Solanum</em> <em>lycopersicum</em></a> and <a href="https://solgenomics.net/organism/Solanum_pennellii/genome"><em>Solanum</em> <em>pennellii</em></a>, which had been used in my lab.</p>
+<div id="preparation" class="section level1">
+<h1>Preparation</h1>
+<div id="donwload-genome-fasta-files-and-gff-files." class="section level2">
+<h2>Donwload genome fasta files and gff files.</h2>
+</div>
+<div id="install-last" class="section level2">
+<h2>Install <a href="https://gitlab.com/mcfrith/last">last</a></h2>
+<pre class="bash"><code>cd /usr/local/bin
+sudo wget https://gitlab.com/mcfrith/last/-/archive/1584/last-1584.tar.gz
+sudo tar -xvzf last-1584.tar.gz
+cd last-1584
+sudo make
+cd /usr/local/bin
+sudo ln -s sudo ln -s last-1584/bin/* ./</code></pre>
+</div>
+<div id="now-install-jcvi-which-inlcudes-mcscan" class="section level2">
+<h2>Now install <a href="https://github.com/tanghaibao/jcvi">JCVI</a> (which inlcudes MCscan)</h2>
+<pre class="bash"><code>conda create -n jcvi python=3.10 scipy # as of 12/2024, version 3.13 does not allow installation to complete.
+conda activate jcvi
+pip install jcvi
+brew install texlive #note: conda version of texlive is broken</code></pre>
+</div>
+<div id="activate-jcvi" class="section level2">
+<h2>activate jcvi</h2>
+<pre class="bash"><code>cd /Volumes/data_work/data8/NGS_related/Sinha_lab/Sinteny_MCscan/input
+conda activate jcvi</code></pre>
+</div>
+<div id="format-fasta-files" class="section level2">
+<h2>format fasta files</h2>
+<pre class="bash"><code>python -m jcvi.formats.fasta format /Volumes/data_work/Data8/NGS_related/Sinha_lab/ITAG4.0_release/ITAG4.0_proteins.fasta SLitag4_0.pep
+
+python -m jcvi.formats.fasta format /Volumes/data_work/Data8/NGS_related/Sinha_lab/Solanum_pennellii_v2/annotations/Spenn-v2-aa-annot.fa SPenn.pep</code></pre>
+</div>
+<div id="convert-gff-to-bed-genome" class="section level2">
+<h2>Convert GFF to BED (genome)</h2>
+<pre class="bash"><code># Convert GFF to BED (genome)
+#python -m jcvi.formats.gff bed --type=mRNA --key=Name /Volumes/data_work/Data8/NGS_related/Sinha_lab/ITAG4.0_release/ITAG4.0_gene_models.gff -o SLitag4_0.bed
+python -m jcvi.formats.gff bed --type=mRNA --key=Name --primary_only /Volumes/data_work/Data8/NGS_related/Sinha_lab/ITAG4.0_release/ITAG4.0_gene_models.gff -o SLitag4_0.bed
+python -m jcvi.formats.gff bed --type=mRNA --key=Name --primary_only /Volumes/data_work/Data8/NGS_related/Sinha_lab/Solanum_pennellii_v2/spenn_v2.0_gene_models_annot.gff -o SPenn.bed</code></pre>
+</div>
+<div id="modify-bed-file-for-working-orthologw" class="section level2">
+<h2>Modify bed file for working orthologw</h2>
+<p>If Solyc00g500001.1.1 in fasta file, bed file has to use Solyc00g500001.1</p>
+<div id="do-not-to-remove-.-at-the-end-in-fasta-file-gene-name-to-match-gene-names-in-both-files." class="section level3">
+<h3>(Do not) To remove .* at the end in fasta file gene name to match gene names in both files.</h3>
+</div>
+<div id="do-to-remove-.-at-the-endo-in-bed-file-gene-name." class="section level3">
+<h3>(Do) To remove .* at the endo in bed file gene name.</h3>
+<pre class="bash"><code>grep &quot;\.5\.1&quot; SLitag4_0.bed # specific to *.5.1.1
+head SLitag4_0.bed  # others
+# format
+sed -i &#39;&#39; -E &#39;s/(Solyc[0-9]+g[0-9]+\.[0-9]+)\.[0-9]/\1/&#39; SLitag4_0.bed 
+head SLitag4_0.bed
+grep &quot;\.5\.1&quot; SLitag4_0.bed
+head SLitag4_0.bed 
+
+# Explanation gy ChatGPT
+# Explanation of Parts:
+#sed: The stream editor used for text transformations.
+#
+#-i &#39;&#39;:
+#
+#The -i flag means &quot;edit the file in place.&quot;
+#The empty &#39;&#39; argument is specific to macOS sed and is used to indicate no backup file should be created. On Linux, you could use -i without the empty quotes or specify a backup suffix like -i.bak.
+#-E: Enables extended regular expressions (ERE), which allow more advanced pattern matching than basic sed syntax.
+
+#&#39;s/.../.../&#39;:
+
+#This is the sed substitution command. The syntax is:
+#s/&lt;pattern&gt;/&lt;replacement&gt;/
+#s/ indicates a substitution.
+#The first part (&lt;pattern&gt;) defines what to search for.
+#The second part (&lt;replacement&gt;) defines what to replace it with.
+#Pattern Explanation ((Solyc[0-9]+g[0-9]+\.[0-9]+)\.[0-9]):
+
+#Solyc: Matches the literal string Solyc.
+#[0-9]+: Matches one or more digits (representing chromosome or gene numbers).
+#g: Matches the literal character g.
+#[0-9]+: Matches one or more digits (representing additional gene details).
+#\.: Matches a literal period (.).
+#[0-9]+: Matches one or more digits (possibly a version or sub-feature number).
+#\.[0-9]: Matches another period followed by a single digit. This is the part you want to remove.
+#( ... ): Groups part of the pattern so it can be referenced in the replacement using \1.
+#Replacement (\1):
+
+#\1 refers to the first group captured in parentheses ((Solyc[0-9]+g[0-9]+\.[0-9]+)).
+#This keeps the matched part before the second .[0-9] while excluding the trailing .X.
+#File (SLitag4_0.bed):
+
+#This is the input file being edited in place.
+#What It Does:
+#This command removes the trailing .X (where X is a single digit) from strings that match the pattern Solyc&lt;number&gt;g&lt;number&gt;.&lt;number&gt;.&lt;number&gt; in the file SLitag4_0.bed. The modified file is saved in place without creating a backup.
+
+# For SPenn.bed
+head SPenn.bed &gt; SPenn.test.bed
+sed -i &#39;&#39; -E &#39;s/(Sopen[0-9]+g[0-9]+)\.[0-9]$/\1/&#39; SPenn.test.bed 
+cat SPenn.test.bed
+# real
+sed -i &#39;&#39; -E &#39;s/(Sopen[0-9]+g[0-9]+)\.[0-9]+/\1/&#39; SPenn.bed 
+cat SPenn.bed</code></pre>
+</div>
+</div>
+<div id="find-orthologs" class="section level2">
+<h2>find orthologs</h2>
+<pre class="bash"><code>cd ../../output/
+ln -s ../input/* ./
+
+python -m jcvi.compara.catalog ortholog --dbtype prot SLitag4_0 SPenn</code></pre>
+<p>#You can use awk to remove the “-” from the first column (chromosome name) and save the result. This is to have simple chromosome name in the synteny plot.</p>
+<pre class="bash"><code>## for M82
+awk &#39;{gsub(&quot;SL4.0&quot;, &quot;&quot;, $1); print}&#39; SLitag4_0.bed &gt; SLitag4_0_cleaned.bed
+## for SPenn
+awk &#39;{gsub(&quot;Spenn-&quot;, &quot;&quot;, $1); print}&#39; SPenn.bed &gt; SPenn_cleaned.bed</code></pre>
+</div>
+<div id="change-space-to-in-.bed-using-bbe-editor" class="section level2">
+<h2>change space to “ in .bed using BBE editor</h2>
+</div>
+<div id="write-layout-file" class="section level2">
+<h2>Write layout file</h2>
+<pre class="r"><code>write_file(
+&quot;# y, xstart, xend, rotation, color, label, va,  bed
+ .6,     .1,    .8,       0,   m, M82, top, SLitag4_0_cleaned.bed
+ .4,     .1,    .8,       0,   k, SPenn, top, SPenn_cleaned.bed
+# edges
+e, 0, 1, SLitag4.0.SPenn.anchors.simple
+&quot;,
+file=&quot;/Volumes/data_work/data8/NGS_related/Sinha_lab/Sinteny_MCscan/output/layout3&quot;)</code></pre>
+</div>
+<div id="set-chromosomes-to-plot-and-order." class="section level2">
+<h2>Set chromosomes to plot and order.</h2>
+<p>This chromosome names has to be matched to the bed files described in layout file and each line correspond to each genotype (i.e. two genotypes needs two lines).</p>
+<pre class="r"><code># M82 chromosome name
+M82_ids &lt;- read_delim(&quot;/Volumes/data_work/data8/NGS_related/Sinha_lab/Sinteny_MCscan/output/SLitag4_0_cleaned.bed&quot;,col_names = FALSE) %&gt;% count(X1) %&gt;% dplyr::select(X1) %&gt;% as.vector()
+# SPenn chromosome name
+SPenn_ids &lt;- read_delim(&quot;/Volumes/data_work/data8/NGS_related/Sinha_lab/Sinteny_MCscan/output/SPenn_cleaned.bed&quot;,col_names = FALSE) %&gt;% count(X1) %&gt;% dplyr::select(X1)  %&gt;% as.vector()  
+# combine them
+seqIDs &lt;- list(str_c(M82_ids$X1,collapse=&quot;,&quot;),
+               str_c(SPenn_ids$X1,collapse=&quot;,&quot;)
+               )
+# write two lines
+write_lines(seqIDs, &quot;/Volumes/data_work/data8/NGS_related/Sinha_lab/Sinteny_MCscan/output/seqids4&quot;) </code></pre>
+</div>
+</div>
+<div id="plot" class="section level1">
+<h1>Plot</h1>
+<pre class="bash"><code>python -m jcvi.graphics.karyotype --outfile S.lycoM82_S.Penn_karyotype2.pdf seqids4 layout3</code></pre>
+<div class="float">
+<img src="images/S.lycoM82_S.Penn_karyotype2.jpg" width="480" alt="Karyotype" />
+<div class="figcaption">Karyotype</div>
+</div>
+</div>
+<div id="microsynteny" class="section level1">
+<h1>Microsynteny</h1>
+<div id="lets-move-to-local-synteny." class="section level2">
+<h2>Let’s move to local synteny.</h2>
+<pre class="bash"><code>python -m jcvi.compara.synteny mcscan SLitag4_0_cleaned.bed SLitag4_0.SPenn.lifted.anchors --iter=1 -o SLitag4_0.SPenn.i1.blocks</code></pre>
+</div>
+<div id="select-only-chromosome-6-in-m82" class="section level2">
+<h2>Select only chromosome 6 in M82</h2>
+<pre class="bash"><code>grep &quot;Solyc06g&quot; SLitag4_0.SPenn.i1.blocks &gt; blocks.M82chr06    </code></pre>
+</div>
+<div id="write-block-layout" class="section level2">
+<h2>write block layout</h2>
+<pre class="bash"><code>write_file(
+&quot;# x,   y, rotation,   ha,     va,   color, ratio,            label
+0.5, 0.6,        0, left, center,       m,     1,       M82 Chr6
+0.5, 0.4,        0, left, center, #fc8d62,     1, Penn
+# edges
+e, 0, 1&quot;,
+file=&quot;/Volumes/data_work/data8/NGS_related/Sinha_lab/Sinteny_MCscan/output/blocks1.layout&quot;)</code></pre>
+</div>
+<div id="microsynteny-plot-m82-chromosome-6" class="section level2">
+<h2>microsynteny plot (M82 chromosome 6)</h2>
+<pre class="bash"><code>python -m jcvi.formats.bed merge SLitag4_0_cleaned.bed SPenn_cleaned.bed -o SLitag4_0_SPenn.bed
+python -m jcvi.graphics.synteny blocks.M82chr06 SLitag4_0_SPenn.bed blocks1.layout   --outputprefix S.lycoM82_blocks.M82chr06</code></pre>
+</div>
+<div id="label-solyc06g052070-solyc06g072930" class="section level2">
+<h2>label “Solyc06g052070” ~ “Solyc06g072930”</h2>
+<pre class="bash"><code>python -m jcvi.graphics.synteny blocks.M82chr06 SLitag4_0_SPenn.bed blocks1.layout   --outputprefix S.lycoM82_blocks.M82chr06.v2 --genelabelsize=10 --genelabels=Solyc06g052070.3,Solyc06g072930.4</code></pre>
+</div>
+</div>
+<div id="how-about-spenn-chr06" class="section level1">
+<h1>how about SPenn chr06?</h1>
+<div id="make-spenn-blocks" class="section level2">
+<h2>Make SPenn blocks</h2>
+<pre class="bash"><code>python -m jcvi.compara.synteny mcscan SPenn_cleaned.bed SLitag4_0.SPenn.lifted.anchors --iter=1 -o SPenn_SLitag4_0.i1.blocks</code></pre>
+</div>
+<div id="select-only-s.-penn-chromosome-6" class="section level2">
+<h2>select only S. Penn chromosome 6</h2>
+<pre class="bash"><code>grep &quot;Sopen06g&quot; SPenn_SLitag4_0.i1.blocks &gt; blocks.SPennchr06 </code></pre>
+</div>
+<div id="write-block-layout-1" class="section level2">
+<h2>write block layout</h2>
+<pre class="bash"><code>write_file(
+&quot;# x,   y, rotation,   ha,     va,   color, ratio,            label
+0.5, 0.6,        0, left, center,       m,     1,       M82
+0.5, 0.4,        0, left, center, #fc8d62,     1, Penn Chr6
+# edges
+e, 0, 1&quot;,
+file=&quot;/Volumes/data_work/data8/NGS_related/Sinha_lab/Sinteny_MCscan/output/blocks.SpennChr06.layout&quot;)</code></pre>
+</div>
+<div id="microsynteny-plot-spenn-chromosome-6" class="section level2">
+<h2>microsynteny plot (SPenn chromosome 6)</h2>
+<pre class="bash"><code>python -m jcvi.graphics.synteny blocks.SPennchr06 SLitag4_0_SPenn.bed blocks.SpennChr06.layout   --outputprefix S.lycoM82_blocks.SPennchr06</code></pre>
+<div class="float">
+<img src="images/S.lycoM82_blocks.M82chr06.v2.jpg" width="480" alt="M82 chr06 synteny" />
+<div class="figcaption">M82 chr06 synteny</div>
+</div>
+</div>
+</div>
+<div id="visualization-of-synteny-plot-by-jbrowse2" class="section level1">
+<h1>visualization of synteny plot by <a href="https://jbrowse.org/jb2/docs/user_guides/linear_synteny_view/">JBrowse2</a></h1>
+<div id="install-jbrowse2-app-on-a-computer" class="section level2">
+<h2>Install JBrowse2 app on a computer</h2>
+</div>
+<div id="import-.anchor.simple-file-together-with-.bed-files" class="section level2">
+<h2>Import .anchor.simple file together with .bed files</h2>
+<div class="float">
+<img src="images/JBrowse2_synteny.jpg" width="480" alt="JBrowse2 synteny" />
+<div class="figcaption">JBrowse2 synteny</div>
+</div>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 4.4.0 (2024-04-24)
+## Platform: aarch64-apple-darwin20
+## Running under: macOS Sonoma 14.4
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## time zone: America/Los_Angeles
+## tzcode source: internal
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] lubridate_1.9.3 forcats_1.0.0   stringr_1.5.1   dplyr_1.1.4    
+##  [5] purrr_1.0.2     readr_2.1.5     tidyr_1.3.1     tibble_3.2.1   
+##  [9] ggplot2_3.5.1   tidyverse_2.0.0
+## 
+## loaded via a namespace (and not attached):
+##  [1] gtable_0.3.5      jsonlite_1.8.9    compiler_4.4.0    tidyselect_1.2.1 
+##  [5] jquerylib_0.1.4   scales_1.3.0      yaml_2.3.10       fastmap_1.2.0    
+##  [9] R6_2.5.1          generics_0.1.3    knitr_1.48        bookdown_0.41    
+## [13] munsell_0.5.1     tzdb_0.4.0        bslib_0.8.0       pillar_1.9.0     
+## [17] rlang_1.1.4       utf8_1.2.4        stringi_1.8.4     cachem_1.1.0     
+## [21] xfun_0.49         sass_0.4.9        timechange_0.3.0  cli_3.6.3        
+## [25] withr_3.0.1       magrittr_2.0.3    digest_0.6.37     grid_4.4.0       
+## [29] rstudioapi_0.16.0 hms_1.1.3         lifecycle_1.0.4   vctrs_0.6.5      
+## [33] evaluate_1.0.0    glue_1.7.0        blogdown_1.19     fansi_1.0.6      
+## [37] colorspace_2.1-1  rmarkdown_2.28    tools_4.4.0       pkgconfig_2.0.3  
+## [41] htmltools_0.5.8.1</code></pre>
+</div>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2024/12/01/remote-sensing-1-1-python-webhooks-google-sheet/">Remote sensing 1.1: python -&gt; Webhooks -&gt; Google Sheet &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Synteny on Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link>https://knozue.github.io/tags/synteny/</link>
+    <description>Recent content in Synteny on Daddy&#39;s data analysis by Kazu Nozue</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/tags/synteny/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Synteny plot MCscan JBrowse2</title>
+      <link>https://knozue.github.io/post/2025/01/12/synteny-plot-mcscan-jbrowse2/</link>
+      <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2025/01/12/synteny-plot-mcscan-jbrowse2/</guid>
+      <description>When I work with two close relatives, it is interesting which genes are homologous and how chromosomal structures are conserved among those relatives. Synteny plot is useful to visualize how to copmare multiple genomic sequences. MCScan is a tool I would like to introduce here. As an example I used Solanum lycopersicum and Solanum pennellii, which had been used in my lab.
+Preparation Donwload genome fasta files and gff files.</description>
+    </item>
+    
+  </channel>
+</rss>
