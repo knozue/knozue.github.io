@@ -6,7 +6,52 @@
     <description>Recent content in Tags on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ggplot2</title>
+      <link>https://knozue.github.io/tags/ggplot2/</link>
+      <pubDate>Tue, 02 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/tags/ggplot2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>promoter</title>
+      <link>https://knozue.github.io/tags/promoter/</link>
+      <pubDate>Tue, 02 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/tags/promoter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>https://knozue.github.io/tags/r/</link>
+      <pubDate>Tue, 02 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RStudio</title>
+      <link>https://knozue.github.io/tags/rstudio/</link>
+      <pubDate>Tue, 02 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/tags/rstudio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidyverse</title>
+      <link>https://knozue.github.io/tags/tidyverse/</link>
+      <pubDate>Tue, 02 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/tags/tidyverse/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>JCVI</title>
       <link>https://knozue.github.io/tags/jcvi/</link>
@@ -62,15 +107,6 @@
     </item>
     
     <item>
-      <title>RStudio</title>
-      <link>https://knozue.github.io/tags/rstudio/</link>
-      <pubDate>Sun, 01 Dec 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/rstudio/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Webhooks</title>
       <link>https://knozue.github.io/tags/webhooks/</link>
       <pubDate>Sun, 01 Dec 2024 00:00:00 +0000</pubDate>
@@ -107,38 +143,11 @@
     </item>
     
     <item>
-      <title>R</title>
-      <link>https://knozue.github.io/tags/r/</link>
-      <pubDate>Sat, 03 Aug 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/r/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tidyverse</title>
-      <link>https://knozue.github.io/tags/tidyverse/</link>
-      <pubDate>Sat, 03 Aug 2024 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/tidyverse/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>induction heating</title>
       <link>https://knozue.github.io/tags/induction-heating/</link>
       <pubDate>Wed, 27 Dec 2023 00:00:00 +0000</pubDate>
       
       <guid>https://knozue.github.io/tags/induction-heating/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ggplot2</title>
-      <link>https://knozue.github.io/tags/ggplot2/</link>
-      <pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://knozue.github.io/tags/ggplot2/</guid>
       <description></description>
     </item>
     

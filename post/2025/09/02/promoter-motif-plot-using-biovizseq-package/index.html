@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Promoter motif plot using BioVizSeq package | Daddy&#39;s data analysis by Kazu Nozue</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+  </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-43XQ39QRQB"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+
+gtag('config', 'G-43XQ39QRQB');
+</script>
+
+  <body class="page">
+    <nav class="header">
+      <div class="banner">
+<a href="/">
+
+<img src="/post/concept_network2title.png" alt="Daddy&#39;s data analysis for biologist, athletes, and family" />
+</a>
+</div>
+
+      <div class="head-meta">
+      
+        <span><a href="/">&larr; Back to Home</a></span>
+        <span class="date">2025-09-02</span>
+        
+        
+        
+          
+        
+        
+        
+        <span><a href="https://github.com/yihui/hugo-xmag/edit/master/exampleSite/content/post/2025-09-02-promoter-motif-plot-using-biovizseq-package/index.Rmd">Edit this page &rarr;</a></span>
+        
+        
+      
+      </div>
+    </nav>
+
+<div class="container">
+<article>
+<div class="article-meta">
+
+  <div class="categories">
+  
+    <a href="/categories/data-analysis">data analysis</a>
+  
+  </div>
+
+  <h1><span class="title">Promoter motif plot using BioVizSeq package</span></h1>
+
+  
+  <h3 class="author">Kazu Nozue
+</h3>
+  
+
+  
+  <p>Tags: <a href="/tags/ggplot2">ggplot2</a>; <a href="/tags/rstudio">RStudio</a>; <a href="/tags/r">R</a>; <a href="/tags/tidyverse">tidyverse</a>; <a href="/tags/promoter">promoter</a>
+  </p>
+  
+  
+
+</div>
+
+
+
+<main>
+
+
+
+<div id="installing-biovizseq-package" class="section level1">
+<h1><a href="https://zhaosq2022.r-universe.dev/BioVizSeq">Installing BioVizSeq package</a></h1>
+<div id="struggle-with-package-installation" class="section level2">
+<h2>struggle with package installation</h2>
+<pre class="r"><code>install.packages(&quot;BioVizSeq&quot;)
+library(BioVizSeq)
+library(shinydashboard)
+install.packages(&quot;shinycssloaders&quot;) # /var/folders/_w/7dj610fh8xn6h8001s7_5h3r0000gn/T//Rtmph1L7Mw/downloaded_packages
+install.packages(&quot;shinycssloaders&quot;,lib=&quot;/var/folders/_w/7dj610fh8xn6h8001s7_5h3r0000gn/T//Rtmph1L7Mw/downloaded_packages/shinycssloaders&quot;)
+install.packages(&quot;/Users/nozue/Downloads/shinydashboard_0.7.3.tar.gz&quot;, repos = NULL, type = &quot;source&quot;)
+library(shinycssloaders)
+library(shinyWidgets)
+biovizseq()</code></pre>
+</div>
+</div>
+<div id="first-get-plant-promoter-motif-search-at-plantcare-site" class="section level1">
+<h1>First get plant promoter motif search at <a href="https://bioinformatics.psb.ugent.be/webtools/plantcare/html/">PlantCARE site</a></h1>
+<p>This site is using plant promoter motif database. But the promoter motif data is old.</p>
+</div>
+<div id="ram1-solyc02g094340.1-ram2-solyc02g087500.3-solyc04g005840.1-solyc10g084900.1" class="section level1">
+<h1>RAM1 (“Solyc02g094340.1”), RAM2 (“Solyc02g087500.3”, “Solyc04g005840.1”, “Solyc10g084900.1”)</h1>
+<pre class="r"><code>library(BioVizSeq)</code></pre>
+<pre><code>## Package BioVizSeq loaded successfully!</code></pre>
+<pre class="r"><code># SL RAM1 prom data (PlantCARE_16059), PlantCARE_16059_SL_RAM1prom_plantCARE
+plantcare_file.Solyc02g094340 &lt;- read.table(&quot;/Volumes/data_work/Data6/Sinha_lab/PlasticityIII_AMF_TRAP/AMF_responsive_gene_promoters/PlantCARE_16059_SL_RAM1_prom_plantCARE/plantCARE_output_PlantCARE_16059.tab&quot;, header = FALSE, sep = &#39;\t&#39;, quote=&quot;&quot;) 
+# SL RAM2a (tentatively called) &quot;Solyc02g087500.3&quot; prom data ()
+plantcare_file.Solyc02g087500 &lt;- read.table(&quot;/Volumes/data_work/Data6/Sinha_lab/PlasticityIII_AMF_TRAP/AMF_responsive_gene_promoters/PlantCARE_18029_RAM2a_prom_plantCARE/plantCARE_output_PlantCARE_18029.tab&quot;, header = FALSE, sep = &#39;\t&#39;, quote=&quot;&quot;) 
+# SL RAM2b prom data Solyc04g005840, PlantCARE_28616
+plantcare_file.Solyc04g005840 &lt;- read.table(&quot;/Volumes/data_work/Data6/Sinha_lab/PlasticityIII_AMF_TRAP/AMF_responsive_gene_promoters/PlantCARE_28616_SLRAM2B_prom_plantCARE/plantCARE_output_PlantCARE_28616.tab&quot;, header = FALSE, sep = &#39;\t&#39;, quote=&quot;&quot;)
+# SL RAM2c prom data Solyc10g084900 PlantCARE_31086
+plantcare_file.Solyc10g08490 &lt;- read.table(&quot;/Volumes/data_work/Data6/Sinha_lab/PlasticityIII_AMF_TRAP/AMF_responsive_gene_promoters/PlantCARE_31086_SLRAM2C_prom_plantCARE/plantCARE_output_PlantCARE_31086.tab&quot;, header = FALSE, sep = &#39;\t&#39;, quote=&quot;&quot;) 
+# change format 
+plantcare_file.Solyc02g094340 &lt;- plantcare_classify(plantcare_file.Solyc02g094340) %&gt;% mutate(ID=&quot;RAM1 Solyc02g094340&quot;)
+plantcare_file.Solyc02g087500 &lt;- plantcare_classify(plantcare_file.Solyc02g087500) %&gt;% mutate(ID=&quot;RAM2a Solyc02g087500&quot;)
+plantcare_file.Solyc04g005840 &lt;- plantcare_classify(plantcare_file.Solyc04g005840) %&gt;% mutate(ID=&quot;RAM2b Solyc04g005840&quot;)
+plantcare_file.Solyc10g08490 &lt;- plantcare_classify(plantcare_file.Solyc10g08490) %&gt;% mutate(ID=&quot;RAM2c Solyc10g08490&quot;)
+# combine
+plantcare_loc &lt;- plantcare_to_loc(bind_rows(plantcare_file.Solyc02g094340,plantcare_file.Solyc02g087500, plantcare_file.Solyc04g005840, plantcare_file.Solyc10g08490)) 
+promoter_length &lt;- data.frame(ID = unique(plantcare_loc$ID), length=5000)
+# all elements
+motif_plot(plantcare_loc, promoter_length,show_motif_id=FALSE) + labs(x=&quot;Promoter Length&quot;, y=&quot;Gene&quot;)</code></pre>
+<p><img src="https://knozue.github.io/post/2025/09/02/promoter-motif-plot-using-biovizseq-package/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code># &quot;abscisic acid&quot;, SA, JA, mixed stress, wound, ethylene
+motif_plot(plantcare_loc %&gt;% filter(element %in% c(&quot;salicylic acid&quot;,&quot;JA&quot;,&quot;abscisic acid&quot;,&quot;mixed stress&quot;,&quot;wound&quot;,&quot;ethylene&quot;)), promoter_length,show_motif_id=FALSE,) + labs(x=&quot;Promoter Length&quot;, y=&quot;Gene&quot;)</code></pre>
+<p><img src="https://knozue.github.io/post/2025/09/02/promoter-motif-plot-using-biovizseq-package/index_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<pre class="r"><code># facet_grid does not work
+#motif_plot(plantcare_loc, promoter_length,show_motif_id=FALSE) + labs(x=&quot;Promoter Length&quot;, y=&quot;Gene&quot;) + facet_wrap(element~.)
+# SA and JA
+motif_plot(plantcare_loc %&gt;% filter(element %in% c(&quot;salicylic acid&quot;,&quot;JA&quot;)), promoter_length,show_motif_id=FALSE,) + labs(x=&quot;Promoter Length&quot;, y=&quot;Gene&quot;)</code></pre>
+<p><img src="https://knozue.github.io/post/2025/09/02/promoter-motif-plot-using-biovizseq-package/index_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+</div>
+<div id="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes" class="section level1">
+<h1>How to plot promoter motif of interest in FYI gene promoters (~ 100 genes)?</h1>
+<p>PHOSPHATE STARVATION RESPONSE (PHR) transcription factors belong to the MYB transcription factor (TF) family and bind to PHR1 binding site (P1BS) motifs (GNATATNC) in the promoters of phosphate starvation-induced (PSI) genes. Rice OsPHS2 is necessary for AMF colonization (<a href="https://www.nature.com/articles/s41467-022-27976-8">Das 2022</a>). Here I am just looking P1BS motifs in core AMF pathway genes in tomato reported in <a href="https://www.sciencedirect.com/science/article/pii/S2590346222002619">Zeng 2023</a>.</p>
+<div id="step-a.-bulk-extraction-of-2-kb-promoter-region-sequences-of-all-tomato-genes." class="section level3">
+<h3>step A. Bulk extraction of 2 kb promoter region sequences of all tomato genes.</h3>
+</div>
+<div id="step-b.-get-gene-of-interest-this-thime-amf-core-genes" class="section level3">
+<h3>step B. Get gene of interest (this thime, AMF core genes)</h3>
+</div>
+<div id="step-c.-extract-the-promoter-sequences-of-fyi-genes-in-step-b." class="section level3">
+<h3>step C. Extract the promoter sequences of FYI genes in step B.</h3>
+</div>
+<div id="step-d.-find-a-promoter-motif-of-interest-in-the-promoter-sequences-in-fasta-format" class="section level3">
+<h3>step D. Find a promoter motif of interest in the promoter sequences (in fasta format)</h3>
+</div>
+<div id="step-e.-plot-the-position-of-the-motif-in-the-promoters" class="section level3">
+<h3>step E. Plot the position of the motif in the promoters</h3>
+</div>
+<div id="step-a.-extract-promoters-of-genes-of-interest-by-bulk-extraction-of-promoter-sequences-using-ensemblplant-biomart-interface" class="section level3">
+<h3>step A. extract promoters of genes of interest by bulk extraction of promoter sequences using <a href="https://plants.ensembl.org/info/data/biomart/index.html">EnsemblPlant BioMart interface</a></h3>
+<div id="step-1-access-the-biomart-interface" class="section level4">
+<h4>Step 1: Access the BioMart interface</h4>
+<p>Go to the Ensembl Plants website.
+Click on the BioMart link, which is usually located in the header or in the “Tools” section.</p>
+</div>
+<div id="step-2-select-the-database-and-dataset" class="section level4">
+<h4>Step 2: Select the database and dataset</h4>
+<p>On the BioMart page, under “CHOOSE DATABASE,” select Ensembl Plants Genes.
+Under “CHOOSE DATASET,” find and select your species of interest (e.g., Arabidopsis thaliana genes or Zea mays genes).</p>
+</div>
+<div id="step-3-add-your-gene-filters" class="section level4">
+<h4>Step 3: Add your gene filters</h4>
+<p>In the left-hand panel, click Filters.
+Expand the “GENE” section. Here you can input your gene list. For example, use the filter “Gene stable ID(s)” and paste a list of Ensembl gene IDs.
+You can use other filters, such as gene name or chromosome location, if you don’t have a list of Ensembl gene IDs.</p>
+</div>
+<div id="step-4-define-the-sequence-attributes" class="section level4">
+<h4>Step 4: Define the sequence attributes</h4>
+<p>In the left-hand panel, click Attributes.
+Expand the “SEQUENCES” section.
+Select the “Flank (Upstream)” attribute. This is the crucial step for defining the promoter region.
+In the “Flank (Upstream)” options, specify the following:
+Upstream flanking region: Enter the number of base pairs you want to retrieve upstream of the gene’s transcription start site (e.g., 1500 bp, a common length for promoter analysis).
+Downstream flanking region: Set this to 0 since you only want the upstream region.
+Strand: Select “Coding strand” or “Sense strand”. For promoter extraction, retrieving the sequence on the same strand as the gene is standard.</p>
+</div>
+<div id="step-5-configure-your-output" class="section level4">
+<h4>Step 5: Configure your output</h4>
+<p>Under the “ATTRIBUTES” section, you can add other desired output information, such as “Gene stable ID” or “Associated Gene Name” to easily link the sequences back to your original genes.
+Click the “Results” button in the left-hand panel.
+On the results page, you can review a preview of your query.
+To download the sequences, click “Export all results to”.
+Select “File”, choose “FASTA” as the file format, and then click the “Go” button. This will download your promoter sequences in FASTA format.</p>
+</div>
+</div>
+<div id="step-b.-orthogroup-table-supplementary-table-s7-for-amf-core-genes-reported-in-zeng-2023." class="section level3">
+<h3>Step B. Orthogroup table (supplementary table S7) for AMF core genes reported in <a href="https://www.sciencedirect.com/science/article/pii/S2590346222002619">Zeng 2023</a>.</h3>
+<pre class="r"><code>library(tidyverse)
+Zeng_2023_S7 &lt;- readxl::read_excel(&quot;/Volumes/data_work/Data6/Sinha_lab/PlasticityIII_AMF_TRAP/ScienceDirect_files_20Feb2024_21-27-28.124/1-s2.0-S2590346222002619-mmc2.xlsx&quot;,sheet=&quot;Table S7&quot;,skip=1) %&gt;% drop_na()
+# needs to format this table to use inner_join() (see &quot;00_annotation.Rmd&quot;)
+
+# step1 for itag4.1
+brake.into.singleID4a &lt;- function(DT=Zeng_2023_S7,target.column=&quot;Solanum_lycopersicum&quot;) {
+  #target.column &lt;- enquo(target.column)
+  print(target.column)
+  x &lt;- DT %&gt;% dplyr::select(all_of(target.column))  %&gt;% as_vector() %&gt;% str_split(&quot;, &quot;) %&gt;% unlist() 
+DT %&gt;% dplyr::select(-all_of(target.column)) %&gt;% right_join(tibble(Orthogroup=rep(DT %&gt;% dplyr::select(Orthogroup) %&gt;% as_vector(),length(x)), Solanum_lycopersicum = x)) 
+} 
+# test
+temp &lt;- brake.into.singleID4a(DT=Zeng_2023_S7 %&gt;% dplyr::slice(1:1))
+#
+for(n in 1:dim(Zeng_2023_S7)[1]) {
+  print(&quot;n is &quot;);print(n)
+temp &lt;- temp %&gt;% bind_rows(brake.into.singleID4a(Zeng_2023_S7 %&gt;% dplyr::slice(n:n)))
+}
+temp %&gt;% View()
+Zeng_2023_S7.v2 &lt;- temp %&gt;% separate(Solanum_lycopersicum,sep=&quot;\\.&quot;,into=&quot;gene&quot;,extra=&quot;drop&quot;,fill=&quot;left&quot;,remove=FALSE)
+Zeng_2023_S7.v2 %&gt;% View()
+# extract only tomato genes and format
+SL.AMFcore.Zeng2023.gene.df &lt;- Zeng_2023_S7.v2 %&gt;% distinct(Solanum_lycopersicum) %&gt;% dplyr::select(Solanum_lycopersicum) %&gt;% mutate(Solanum_lycopersicum=str_remove_all(Solanum_lycopersicum,&quot;Sly_&quot;)) %&gt;% separate(Solanum_lycopersicum,c(&quot;v1&quot;,&quot;v2&quot;,&quot;v3&quot;),remove=FALSE) %&gt;% filter(str_detect(Solanum_lycopersicum,&quot;Solyc&quot;)) %&gt;% select(v1) 
+# write
+write_csv(SL.AMFcore.Zeng2023.gene.df,file.path(&quot;SL.AMFcore.Zeng2023.gene.csv&quot;))
+# 
+SL.AMFcore.Zeng2023.gene &lt;- SL.AMFcore.Zeng2023.gene.df %&gt;% as_vector()</code></pre>
+</div>
+<div id="step-c-1-modify-output-from-biomart-in-enesmbpleplant-by-awk-in-unix" class="section level3">
+<h3>Step C-1 modify output from Biomart in EnesmbplePlant by awk in UNIX</h3>
+<pre class="r"><code>system(&quot;awk &#39;/^&gt;/ {if (N&gt;0) printf(\&quot;\\n\&quot;); printf(\&quot;%s\\t\&quot;,$0); N++; next;} {printf(\&quot;%s\&quot;,$0);} END {printf(\&quot;\\n\&quot;);}&#39; mart_export.txt &gt; mart_export_mod.txt&quot;)
+# look
+system(&quot;head mart_export_mod.txt&quot;)</code></pre>
+</div>
+<div id="step-c-2-extracting-promoter-sequences-of-fyi-genes-by-r-unix.-learning-from-chatgpt-answer." class="section level3">
+<h3>Step C-2 Extracting promoter sequences of FYI genes by R + UNIX. Learning from ChatGPT answer.</h3>
+<pre class="r"><code>out_file &lt;- &quot;SL.AMFcore.Zeng2023_prom2000.fasta&quot;
+# shQuote() is for Quote a string to be passed to an operating system shell.
+for (gene in SL.AMFcore.Zeng2023.gene) {
+  cmd &lt;- paste(
+    &quot;grep&quot;, shQuote(gene),
+    &quot;mart_export_mod.txt | tr &#39;\\t&#39; &#39;\\n&#39; &gt;&gt;&quot;, out_file
+  )
+  print(cmd)
+  system(cmd) # run UNIX command
+} # works well</code></pre>
+</div>
+<div id="step-d.-pibs-promoter-motif-analysis" class="section level3">
+<h3>Step D. PIBS promoter motif analysis</h3>
+<p>Custom motif (“GNATATNC” for P1BS) finding in given promoter sequences <a href="https://rsat.eead.csic.es/plants/dna-pattern.cgi">“RSAT - dna-pattern”</a> used in Das (2022).</p>
+</div>
+<div id="step-e.-read-p1bs-promoter-motif-analysis-resuls-rsat-website-and-plot" class="section level3">
+<h3>Step E. read P1BS promoter motif analysis resuls RSAT website and plot</h3>
+<p>Use BioVizSeq package above.</p>
+<pre class="r"><code>library(BioVizSeq)
+# remove &quot;;&quot; for column name
+SL.AMFcore.Zeng2023.P1BS &lt;- readr::read_delim(file.path(&quot;/Volumes&quot;,&quot;data_work&quot;,&quot;Data8&quot;,&quot;NGS_related&quot;,&quot;Sinha_lab&quot;,&quot;RNAseq_tomato_AMF&quot;,&quot;output&quot;,&quot;dna-pattern_2025-08-28.072501_h5Ildx.pat&quot;), comment=&quot;;&quot;,col_names=TRUE,delim=&quot;\t&quot;)</code></pre>
+<pre><code>## Rows: 154 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;\t&quot;
+## chr (5): PatID, Strand, Pattern, SeqID, matching_seq
+## dbl (3): Start, End, Score
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>SL.AMFcore.Zeng2023.P1BS.loc &lt;- SL.AMFcore.Zeng2023.P1BS %&gt;% filter(!PatID==&quot;START_END&quot;) %&gt;% mutate(element=&quot;P1BS&quot;) %&gt;% dplyr::select(SeqID,element,Start,End) %&gt;% rename(ID=SeqID,start=Start,end=End) %&gt;% as.data.frame()
+# add promoter length
+#data.frame(ID = unique(plantcare_loc.SL$ID), length=5000)
+promoter_length &lt;- SL.AMFcore.Zeng2023.P1BS %&gt;% semi_join(SL.AMFcore.Zeng2023.P1BS.loc,by=join_by(SeqID==ID)) %&gt;% filter(PatID==&quot;START_END&quot;)  %&gt;% mutate(length=Start) %&gt;% dplyr::select(SeqID,length) %&gt;% as.data.frame()
+# plot
+p.P1BS &lt;- motif_plot(SL.AMFcore.Zeng2023.P1BS.loc,promoter_length,motif_color=&quot;blue&quot;) + labs(x=&quot;Promoter Length&quot;, y=&quot;Gene&quot;)
+p.P1BS</code></pre>
+<p><img src="https://knozue.github.io/post/2025/09/02/promoter-motif-plot-using-biovizseq-package/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>#p.P1BS + theme(line = element_line(&quot;blue&quot;)) # does not work
+#p.P1BS + theme(plot.background = element_rect(color=&quot;blue&quot;)) # does not work
+
+# how many genes ad P1BS?
+SL.AMFcore.Zeng2023.P1BS.loc %&gt;% count(ID) %&gt;% dim() # 38 genes</code></pre>
+<pre><code>## [1] 38  2</code></pre>
+<pre class="r"><code>length(SL.AMFcore.Zeng2023.gene) # 132 genes total</code></pre>
+<pre><code>## [1] 132</code></pre>
+<pre class="r"><code># save
+#ggsave(p.P1BS,file=&quot;promoter_motisf_P1BS_SL.AMFcore.Zeng2023.png&quot;,width=11,height=8)</code></pre>
+</div>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session Info</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 4.5.0 (2025-04-11)
+## Platform: aarch64-apple-darwin20
+## Running under: macOS Sonoma 14.4
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib 
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## time zone: America/Los_Angeles
+## tzcode source: internal
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] BioVizSeq_1.0.3      lubridate_1.9.4      forcats_1.0.0       
+##  [4] stringr_1.5.1        dplyr_1.1.4          purrr_1.1.0         
+##  [7] readr_2.1.5          tidyr_1.3.1          tibble_3.3.0        
+## [10] ggplot2_3.5.2        tidyverse_2.0.0      shinydashboard_0.7.3
+## [13] promises_1.3.3       htmltools_0.5.8.1   
+## 
+## loaded via a namespace (and not attached):
+##  [1] gtable_0.3.6       xfun_0.52          bslib_0.9.0        lattice_0.22-7    
+##  [5] tzdb_0.5.0         vctrs_0.6.5        tools_4.5.0        generics_0.1.4    
+##  [9] yulab.utils_0.2.0  parallel_4.5.0     pkgconfig_2.0.3    ggplotify_0.1.2   
+## [13] RColorBrewer_1.1-3 readxl_1.4.5       lifecycle_1.0.4    compiler_4.5.0    
+## [17] farver_2.1.2       treeio_1.32.0      ggtree_3.16.3      httpuv_1.6.16     
+## [21] ggfun_0.2.0        sass_0.4.10        yaml_2.3.10        lazyeval_0.2.2    
+## [25] crayon_1.5.3       later_1.4.2        pillar_1.11.0      jquerylib_0.1.4   
+## [29] seqinr_4.2-36      MASS_7.3-65        cachem_1.1.0       mime_0.13         
+## [33] nlme_3.1-168       tidyselect_1.2.1   ggh4x_0.3.1        aplot_0.2.8       
+## [37] digest_0.6.37      stringi_1.8.7      bookdown_0.43      labeling_0.4.3    
+## [41] ade4_1.7-23        fastmap_1.2.0      grid_4.5.0         cli_3.6.5         
+## [45] magrittr_2.0.3     patchwork_1.3.1    ape_5.8-1          withr_3.0.2       
+## [49] scales_1.4.0       bit64_4.6.0-1      timechange_0.3.0   rmarkdown_2.29    
+## [53] httr_1.4.7         bit_4.6.0          cellranger_1.1.0   blogdown_1.21     
+## [57] hms_1.1.3          shiny_1.11.1       evaluate_1.0.4     knitr_1.50        
+## [61] gridGraphics_0.5-1 rlang_1.1.6        Rcpp_1.1.0         xtable_1.8-4      
+## [65] glue_1.8.0         tidytree_0.4.6     vroom_1.6.5        rstudioapi_0.17.1 
+## [69] jsonlite_2.0.0     R6_2.6.1           fs_1.6.6</code></pre>
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/post/2025/01/12/synteny-plot-mcscan-jbrowse2/">Synteny plot MCscan JBrowse2 &rarr;</a></span>
+</nav>
+
+
+
+</article>
+</div>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+<footer>
+
+
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	 
+</style>
+<div id="mc_embed_signup">
+<form action="https://github.us19.list-manage.com/subscribe/post?u=6998dd4b198ff6953fa7c4c57&amp;id=e3202ca383" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to my mailing list (free)</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6998dd4b198ff6953fa7c4c57_e3202ca383" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+
+
+
+<div class="footer">
+  <ul class="menu">
+    
+    <li><a href="/"><span data-hover="Home">Home</span></a></li>
+    
+    <li><a href="/about/"><span data-hover="About">About</span></a></li>
+    
+    <li><a href="/categories/"><span data-hover="Categories">Categories</span></a></li>
+    
+    <li><a href="/tags/"><span data-hover="Tags">Tags</span></a></li>
+    
+    <li><a href="/index.xml"><span data-hover="RSS feed">RSS feed</span></a></li>
+    
+  </ul>
+  
+</div>
+</footer>
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-96166887-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+</body>
+</html>
+
