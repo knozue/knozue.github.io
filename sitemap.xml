@@ -3,37 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://knozue.github.io/categories/</loc>
-    <lastmod>2025-09-02T00:00:00+00:00</lastmod>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/</loc>
-    <lastmod>2025-09-02T00:00:00+00:00</lastmod>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/categories/data-analysis/</loc>
-    <lastmod>2025-09-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/ggplot2/</loc>
-    <lastmod>2025-09-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/post/</loc>
-    <lastmod>2025-09-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/promoter/</loc>
-    <lastmod>2025-09-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/post/2025/09/02/promoter-motif-plot-using-biovizseq-package/</loc>
-    <lastmod>2025-09-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/r/</loc>
-    <lastmod>2025-09-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/rstudio/</loc>
-    <lastmod>2025-09-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/</loc>
-    <lastmod>2025-09-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://knozue.github.io/tags/tidyverse/</loc>
-    <lastmod>2025-09-02T00:00:00+00:00</lastmod>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/jcvi/</loc>
     <lastmod>2025-01-12T00:00:00+00:00</lastmod>
@@ -41,10 +17,16 @@
     <loc>https://knozue.github.io/tags/mcscan/</loc>
     <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://knozue.github.io/post/</loc>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://knozue.github.io/tags/synteny/</loc>
     <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/post/2025/01/12/synteny-plot-mcscan-jbrowse2/</loc>
+    <lastmod>2025-01-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/</loc>
     <lastmod>2025-01-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/integromat.com/</loc>
@@ -60,6 +42,9 @@
     <lastmod>2024-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/post/2024/12/01/remote-sensing-1-1-python-webhooks-google-sheet/</loc>
+    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/rstudio/</loc>
     <lastmod>2024-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/webhooks/</loc>
@@ -80,6 +65,12 @@
     <loc>https://knozue.github.io/post/2024/11/25/regenerative-agriculture-3-my-backyard-trial/</loc>
     <lastmod>2024-11-25T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://knozue.github.io/tags/r/</loc>
+    <lastmod>2024-08-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/tidyverse/</loc>
+    <lastmod>2024-08-03T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/</loc>
     <lastmod>2024-08-03T00:00:00+00:00</lastmod>
   </url><url>
@@ -97,6 +88,9 @@
   </url><url>
     <loc>https://knozue.github.io/post/2023/12/25/regenerative-agriculture-2/</loc>
     <lastmod>2023-12-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://knozue.github.io/tags/ggplot2/</loc>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://knozue.github.io/tags/heat-pump-water-heater/</loc>
     <lastmod>2023-05-02T00:00:00+00:00</lastmod>
