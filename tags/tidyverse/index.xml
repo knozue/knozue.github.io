@@ -6,7 +6,17 @@
     <description>Recent content in tidyverse on Daddy&#39;s data analysis by Kazu Nozue</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 03 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/tags/tidyverse/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://knozue.github.io/tags/tidyverse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Promoter motif plot using BioVizSeq package</title>
+      <link>https://knozue.github.io/post/2025/09/02/promoter-motif-plot-using-biovizseq-package/</link>
+      <pubDate>Tue, 02 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://knozue.github.io/post/2025/09/02/promoter-motif-plot-using-biovizseq-package/</guid>
+      <description>Installing BioVizSeq package struggle with package installation #install.packages(&amp;quot;BioVizSeq&amp;quot;) library(BioVizSeq) #library(shinydashboard) #install.packages(&amp;quot;shinycssloaders&amp;quot;) # /var/folders/_w/7dj610fh8xn6h8001s7_5h3r0000gn/T//Rtmph1L7Mw/downloaded_packages #install.packages(&amp;quot;shinycssloaders&amp;quot;,lib=&amp;quot;/var/folders/_w/7dj610fh8xn6h8001s7_5h3r0000gn/T//Rtmph1L7Mw/downloaded_packages/shinycssloaders&amp;quot;) #install.packages(&amp;quot;/Users/nozue/Downloads/shinydashboard_0.7.3.tar.gz&amp;quot;, repos = NULL, type = &amp;quot;source&amp;quot;) #library(shinycssloaders) #library(shinyWidgets) #biovizseq()   First get plant promoter motif search at PlantCARE site This site is using plant promoter motif database. But the promoter motif data is old.
+ RAM1 (“Solyc02g094340.1”), RAM2 (“Solyc02g087500.3”, “Solyc04g005840.1”, “Solyc10g084900.1”) library(BioVizSeq) ## Package BioVizSeq loaded successfully! # SL RAM1 prom data (PlantCARE_16059), PlantCARE_16059_SL_RAM1prom_plantCARE plantcare_file.</description>
+    </item>
+    
     <item>
       <title>Useful R techniques 4: Pretty Heatmap</title>
       <link>https://knozue.github.io/post/2024/08/03/useful-r-techniques-4-pretty-heatmap/</link>

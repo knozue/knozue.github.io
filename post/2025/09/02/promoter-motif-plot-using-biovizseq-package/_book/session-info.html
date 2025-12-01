@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Session Info | Promoter motif plot using BioVizSeq package</title>
+  <meta name="description" content="5 Session Info | Promoter motif plot using BioVizSeq package" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Session Info | Promoter motif plot using BioVizSeq package" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Session Info | Promoter motif plot using BioVizSeq package" />
+  
+  
+  
+
+<meta name="author" content="Kazu Nozue" />
+
+
+<meta name="date" content="2025-09-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Installing BioVizSeq package</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#struggle-with-package-installation"><i class="fa fa-check"></i><b>1.1</b> struggle with package installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="first-get-plant-promoter-motif-search-at-plantcare-site.html"><a href="first-get-plant-promoter-motif-search-at-plantcare-site.html"><i class="fa fa-check"></i><b>2</b> First get plant promoter motif search at PlantCARE site</a></li>
+<li class="chapter" data-level="3" data-path="ram1-solyc02g094340.1-ram2-solyc02g087500.3-solyc04g005840.1-solyc10g084900.html"><a href="ram1-solyc02g094340.1-ram2-solyc02g087500.3-solyc04g005840.1-solyc10g084900.html"><i class="fa fa-check"></i><b>3</b> RAM1 (“Solyc02g094340.1”), RAM2 (“Solyc02g087500.3”, “Solyc04g005840.1”, “Solyc10g084900.1”)</a></li>
+<li class="chapter" data-level="4" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><i class="fa fa-check"></i><b>4</b> How to plot promoter motif of interest in FYI gene promoters (~ 100 genes)?</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-a.-bulk-extraction-of-2-kb-promoter-region-sequences-of-all-tomato-genes."><i class="fa fa-check"></i><b>4.0.1</b> step A. Bulk extraction of 2 kb promoter region sequences of all tomato genes.</a></li>
+<li class="chapter" data-level="4.0.2" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-b.-get-gene-of-interest-this-thime-amf-core-genes"><i class="fa fa-check"></i><b>4.0.2</b> step B. Get gene of interest (this thime, AMF core genes)</a></li>
+<li class="chapter" data-level="4.0.3" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-c.-extract-the-promoter-sequences-of-fyi-genes-in-step-b."><i class="fa fa-check"></i><b>4.0.3</b> step C. Extract the promoter sequences of FYI genes in step B.</a></li>
+<li class="chapter" data-level="4.0.4" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-d.-find-a-promoter-motif-of-interest-in-the-promoter-sequences-in-fasta-format"><i class="fa fa-check"></i><b>4.0.4</b> step D. Find a promoter motif of interest in the promoter sequences (in fasta format)</a></li>
+<li class="chapter" data-level="4.0.5" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-e.-plot-the-position-of-the-motif-in-the-promoters"><i class="fa fa-check"></i><b>4.0.5</b> step E. Plot the position of the motif in the promoters</a></li>
+<li class="chapter" data-level="4.0.6" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-a.-extract-promoters-of-genes-of-interest-by-bulk-extraction-of-promoter-sequences-using-ensemblplant-biomart-interface"><i class="fa fa-check"></i><b>4.0.6</b> step A. extract promoters of genes of interest by bulk extraction of promoter sequences using EnsemblPlant BioMart interface</a></li>
+<li class="chapter" data-level="4.0.7" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-b.-orthogroup-table-supplementary-table-s7-for-amf-core-genes-reported-in-zeng-2023."><i class="fa fa-check"></i><b>4.0.7</b> Step B. Orthogroup table (supplementary table S7) for AMF core genes reported in Zeng 2023.</a></li>
+<li class="chapter" data-level="4.0.8" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-c-1-modify-output-from-biomart-in-enesmbpleplant-by-awk-in-unix"><i class="fa fa-check"></i><b>4.0.8</b> Step C-1 modify output from Biomart in EnesmbplePlant by awk in UNIX</a></li>
+<li class="chapter" data-level="4.0.9" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-c-2-extracting-promoter-sequences-of-fyi-genes-by-r-unix.-learning-from-chatgpt-answer."><i class="fa fa-check"></i><b>4.0.9</b> Step C-2 Extracting promoter sequences of FYI genes by R + UNIX. Learning from ChatGPT answer.</a></li>
+<li class="chapter" data-level="4.0.10" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-d.-pibs-promoter-motif-analysis"><i class="fa fa-check"></i><b>4.0.10</b> Step D. PIBS promoter motif analysis</a></li>
+<li class="chapter" data-level="4.0.11" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-e.-read-p1bs-promoter-motif-analysis-resuls-rsat-website-and-plot"><i class="fa fa-check"></i><b>4.0.11</b> Step E. read P1BS promoter motif analysis resuls RSAT website and plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="session-info.html"><a href="session-info.html"><i class="fa fa-check"></i><b>5</b> Session Info</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Promoter motif plot using BioVizSeq package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="session-info" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Session Info<a href="session-info.html#session-info" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="session-info.html#cb16-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.5.0 (2025-04-11)
+## Platform: aarch64-apple-darwin20
+## Running under: macOS Sonoma 14.4
+## 
+## Matrix products: default
+## BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## time zone: America/Los_Angeles
+## tzcode source: internal
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] shiny_1.11.1         shinydashboard_0.7.3 promises_1.3.3       htmltools_0.5.8.1    BioVizSeq_1.0.3     
+##  [6] lubridate_1.9.4      forcats_1.0.0        stringr_1.5.1        dplyr_1.1.4          purrr_1.1.0         
+## [11] readr_2.1.5          tidyr_1.3.1          tibble_3.3.0         ggplot2_3.5.2        tidyverse_2.0.0     
+## [16] biomaRt_2.64.0      
+## 
+## loaded via a namespace (and not attached):
+##   [1] DBI_1.2.3               httr2_1.2.1             readxl_1.4.5            rlang_1.1.6            
+##   [5] magrittr_2.0.3          ade4_1.7-23             compiler_4.5.0          RSQLite_2.4.2          
+##   [9] systemfonts_1.2.3       png_0.1-8               vctrs_0.6.5             pkgconfig_2.0.3        
+##  [13] crayon_1.5.3            fastmap_1.2.0           dbplyr_2.5.0            XVector_0.48.0         
+##  [17] labeling_0.4.3          utf8_1.2.6              rmarkdown_2.29          tzdb_0.5.0             
+##  [21] ps_1.9.1                UCSC.utils_1.4.0        ragg_1.4.0              bit_4.6.0              
+##  [25] xfun_0.52               cachem_1.1.0            seqinr_4.2-36           aplot_0.2.8            
+##  [29] GenomeInfoDb_1.44.1     jsonlite_2.0.0          progress_1.2.3          blob_1.2.4             
+##  [33] later_1.4.2             parallel_4.5.0          prettyunits_1.2.0       R6_2.6.1               
+##  [37] bslib_0.9.0             stringi_1.8.7           RColorBrewer_1.1-3      pkgload_1.4.0          
+##  [41] jquerylib_0.1.4         cellranger_1.1.0        bookdown_0.43           Rcpp_1.1.0             
+##  [45] knitr_1.50              IRanges_2.42.0          httpuv_1.6.16           timechange_0.3.0       
+##  [49] tidyselect_1.2.1        rstudioapi_0.17.1       yaml_2.3.10             miniUI_0.1.2           
+##  [53] blogdown_1.21           processx_3.8.6          curl_6.4.0              lattice_0.22-7         
+##  [57] Biobase_2.68.0          treeio_1.32.0           withr_3.0.2             KEGGREST_1.48.1        
+##  [61] evaluate_1.0.4          gridGraphics_0.5-1      BiocFileCache_2.16.1    xml2_1.3.8             
+##  [65] Biostrings_2.76.0       pillar_1.11.0           ggtree_3.16.3           filelock_1.0.3         
+##  [69] stats4_4.5.0            ggfun_0.2.0             generics_0.1.4          vroom_1.6.5            
+##  [73] servr_0.32              S4Vectors_0.46.0        hms_1.1.3               scales_1.4.0           
+##  [77] tidytree_0.4.6          xtable_1.8-4            glue_1.8.0              lazyeval_0.2.2         
+##  [81] tools_4.5.0             fs_1.6.6                grid_4.5.0              ape_5.8-1              
+##  [85] AnnotationDbi_1.70.0    nlme_3.1-168            GenomeInfoDbData_1.2.14 patchwork_1.3.1        
+##  [89] cli_3.6.5               rappdirs_0.3.3          textshaping_1.0.1       gtable_0.3.6           
+##  [93] ggh4x_0.3.1             yulab.utils_0.2.0       sass_0.4.10             digest_0.6.37          
+##  [97] BiocGenerics_0.54.0     ggplotify_0.1.2         farver_2.1.2            memoise_2.0.1          
+## [101] lifecycle_1.0.4         httr_1.4.7              mime_0.13               bit64_4.6.0-1          
+## [105] MASS_7.3-65</code></pre>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

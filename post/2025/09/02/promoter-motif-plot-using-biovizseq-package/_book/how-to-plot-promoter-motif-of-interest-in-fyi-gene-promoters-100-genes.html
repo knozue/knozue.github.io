@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 How to plot promoter motif of interest in FYI gene promoters (~ 100 genes)? | Promoter motif plot using BioVizSeq package</title>
+  <meta name="description" content="4 How to plot promoter motif of interest in FYI gene promoters (~ 100 genes)? | Promoter motif plot using BioVizSeq package" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 How to plot promoter motif of interest in FYI gene promoters (~ 100 genes)? | Promoter motif plot using BioVizSeq package" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 How to plot promoter motif of interest in FYI gene promoters (~ 100 genes)? | Promoter motif plot using BioVizSeq package" />
+  
+  
+  
+
+<meta name="author" content="Kazu Nozue" />
+
+
+<meta name="date" content="2025-09-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ram1-solyc02g094340.1-ram2-solyc02g087500.3-solyc04g005840.1-solyc10g084900.html"/>
+<link rel="next" href="session-info.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Installing BioVizSeq package</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#struggle-with-package-installation"><i class="fa fa-check"></i><b>1.1</b> struggle with package installation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="first-get-plant-promoter-motif-search-at-plantcare-site.html"><a href="first-get-plant-promoter-motif-search-at-plantcare-site.html"><i class="fa fa-check"></i><b>2</b> First get plant promoter motif search at PlantCARE site</a></li>
+<li class="chapter" data-level="3" data-path="ram1-solyc02g094340.1-ram2-solyc02g087500.3-solyc04g005840.1-solyc10g084900.html"><a href="ram1-solyc02g094340.1-ram2-solyc02g087500.3-solyc04g005840.1-solyc10g084900.html"><i class="fa fa-check"></i><b>3</b> RAM1 (“Solyc02g094340.1”), RAM2 (“Solyc02g087500.3”, “Solyc04g005840.1”, “Solyc10g084900.1”)</a></li>
+<li class="chapter" data-level="4" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><i class="fa fa-check"></i><b>4</b> How to plot promoter motif of interest in FYI gene promoters (~ 100 genes)?</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-a.-bulk-extraction-of-2-kb-promoter-region-sequences-of-all-tomato-genes."><i class="fa fa-check"></i><b>4.0.1</b> step A. Bulk extraction of 2 kb promoter region sequences of all tomato genes.</a></li>
+<li class="chapter" data-level="4.0.2" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-b.-get-gene-of-interest-this-thime-amf-core-genes"><i class="fa fa-check"></i><b>4.0.2</b> step B. Get gene of interest (this thime, AMF core genes)</a></li>
+<li class="chapter" data-level="4.0.3" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-c.-extract-the-promoter-sequences-of-fyi-genes-in-step-b."><i class="fa fa-check"></i><b>4.0.3</b> step C. Extract the promoter sequences of FYI genes in step B.</a></li>
+<li class="chapter" data-level="4.0.4" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-d.-find-a-promoter-motif-of-interest-in-the-promoter-sequences-in-fasta-format"><i class="fa fa-check"></i><b>4.0.4</b> step D. Find a promoter motif of interest in the promoter sequences (in fasta format)</a></li>
+<li class="chapter" data-level="4.0.5" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-e.-plot-the-position-of-the-motif-in-the-promoters"><i class="fa fa-check"></i><b>4.0.5</b> step E. Plot the position of the motif in the promoters</a></li>
+<li class="chapter" data-level="4.0.6" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-a.-extract-promoters-of-genes-of-interest-by-bulk-extraction-of-promoter-sequences-using-ensemblplant-biomart-interface"><i class="fa fa-check"></i><b>4.0.6</b> step A. extract promoters of genes of interest by bulk extraction of promoter sequences using EnsemblPlant BioMart interface</a></li>
+<li class="chapter" data-level="4.0.7" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-b.-orthogroup-table-supplementary-table-s7-for-amf-core-genes-reported-in-zeng-2023."><i class="fa fa-check"></i><b>4.0.7</b> Step B. Orthogroup table (supplementary table S7) for AMF core genes reported in Zeng 2023.</a></li>
+<li class="chapter" data-level="4.0.8" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-c-1-modify-output-from-biomart-in-enesmbpleplant-by-awk-in-unix"><i class="fa fa-check"></i><b>4.0.8</b> Step C-1 modify output from Biomart in EnesmbplePlant by awk in UNIX</a></li>
+<li class="chapter" data-level="4.0.9" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-c-2-extracting-promoter-sequences-of-fyi-genes-by-r-unix.-learning-from-chatgpt-answer."><i class="fa fa-check"></i><b>4.0.9</b> Step C-2 Extracting promoter sequences of FYI genes by R + UNIX. Learning from ChatGPT answer.</a></li>
+<li class="chapter" data-level="4.0.10" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-d.-pibs-promoter-motif-analysis"><i class="fa fa-check"></i><b>4.0.10</b> Step D. PIBS promoter motif analysis</a></li>
+<li class="chapter" data-level="4.0.11" data-path="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-e.-read-p1bs-promoter-motif-analysis-resuls-rsat-website-and-plot"><i class="fa fa-check"></i><b>4.0.11</b> Step E. read P1BS promoter motif analysis resuls RSAT website and plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="session-info.html"><a href="session-info.html"><i class="fa fa-check"></i><b>5</b> Session Info</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Promoter motif plot using BioVizSeq package</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> How to plot promoter motif of interest in FYI gene promoters (~ 100 genes)?<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>PHOSPHATE STARVATION RESPONSE (PHR) transcription factors belong to the MYB transcription factor (TF) family and bind to PHR1 binding site (P1BS) motifs (GNATATNC) in the promoters of phosphate starvation-induced (PSI) genes. Rice OsPHS2 is necessary for AMF colonization (<a href="https://www.nature.com/articles/s41467-022-27976-8">Das 2022</a>). Here I am just looking P1BS motifs in core AMF pathway genes in tomato reported in <a href="https://www.sciencedirect.com/science/article/pii/S2590346222002619">Zeng 2023</a>.</p>
+<div id="step-a.-bulk-extraction-of-2-kb-promoter-region-sequences-of-all-tomato-genes." class="section level3 hasAnchor" number="4.0.1">
+<h3><span class="header-section-number">4.0.1</span> step A. Bulk extraction of 2 kb promoter region sequences of all tomato genes.<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-a.-bulk-extraction-of-2-kb-promoter-region-sequences-of-all-tomato-genes." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="step-b.-get-gene-of-interest-this-thime-amf-core-genes" class="section level3 hasAnchor" number="4.0.2">
+<h3><span class="header-section-number">4.0.2</span> step B. Get gene of interest (this thime, AMF core genes)<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-b.-get-gene-of-interest-this-thime-amf-core-genes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="step-c.-extract-the-promoter-sequences-of-fyi-genes-in-step-b." class="section level3 hasAnchor" number="4.0.3">
+<h3><span class="header-section-number">4.0.3</span> step C. Extract the promoter sequences of FYI genes in step B.<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-c.-extract-the-promoter-sequences-of-fyi-genes-in-step-b." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="step-d.-find-a-promoter-motif-of-interest-in-the-promoter-sequences-in-fasta-format" class="section level3 hasAnchor" number="4.0.4">
+<h3><span class="header-section-number">4.0.4</span> step D. Find a promoter motif of interest in the promoter sequences (in fasta format)<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-d.-find-a-promoter-motif-of-interest-in-the-promoter-sequences-in-fasta-format" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="step-e.-plot-the-position-of-the-motif-in-the-promoters" class="section level3 hasAnchor" number="4.0.5">
+<h3><span class="header-section-number">4.0.5</span> step E. Plot the position of the motif in the promoters<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-e.-plot-the-position-of-the-motif-in-the-promoters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="step-a.-extract-promoters-of-genes-of-interest-by-bulk-extraction-of-promoter-sequences-using-ensemblplant-biomart-interface" class="section level3 hasAnchor" number="4.0.6">
+<h3><span class="header-section-number">4.0.6</span> step A. extract promoters of genes of interest by bulk extraction of promoter sequences using <a href="https://plants.ensembl.org/info/data/biomart/index.html">EnsemblPlant BioMart interface</a><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-a.-extract-promoters-of-genes-of-interest-by-bulk-extraction-of-promoter-sequences-using-ensemblplant-biomart-interface" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="step-1-access-the-biomart-interface" class="section level4 hasAnchor" number="4.0.6.1">
+<h4><span class="header-section-number">4.0.6.1</span> Step 1: Access the BioMart interface<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-1-access-the-biomart-interface" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Go to the Ensembl Plants website.
+Click on the BioMart link, which is usually located in the header or in the “Tools” section.</p>
+</div>
+<div id="step-2-select-the-database-and-dataset" class="section level4 hasAnchor" number="4.0.6.2">
+<h4><span class="header-section-number">4.0.6.2</span> Step 2: Select the database and dataset<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-2-select-the-database-and-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>On the BioMart page, under “CHOOSE DATABASE,” select Ensembl Plants Genes.
+Under “CHOOSE DATASET,” find and select your species of interest (e.g., Arabidopsis thaliana genes or Zea mays genes).</p>
+</div>
+<div id="step-3-add-your-gene-filters" class="section level4 hasAnchor" number="4.0.6.3">
+<h4><span class="header-section-number">4.0.6.3</span> Step 3: Add your gene filters<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-3-add-your-gene-filters" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In the left-hand panel, click Filters.
+Expand the “GENE” section. Here you can input your gene list. For example, use the filter “Gene stable ID(s)” and paste a list of Ensembl gene IDs.
+You can use other filters, such as gene name or chromosome location, if you don’t have a list of Ensembl gene IDs.</p>
+</div>
+<div id="step-4-define-the-sequence-attributes" class="section level4 hasAnchor" number="4.0.6.4">
+<h4><span class="header-section-number">4.0.6.4</span> Step 4: Define the sequence attributes<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-4-define-the-sequence-attributes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In the left-hand panel, click Attributes.
+Expand the “SEQUENCES” section.
+Select the “Flank (Upstream)” attribute. This is the crucial step for defining the promoter region.
+In the “Flank (Upstream)” options, specify the following:
+Upstream flanking region: Enter the number of base pairs you want to retrieve upstream of the gene’s transcription start site (e.g., 1500 bp, a common length for promoter analysis).
+Downstream flanking region: Set this to 0 since you only want the upstream region.
+Strand: Select “Coding strand” or “Sense strand”. For promoter extraction, retrieving the sequence on the same strand as the gene is standard.</p>
+</div>
+<div id="step-5-configure-your-output" class="section level4 hasAnchor" number="4.0.6.5">
+<h4><span class="header-section-number">4.0.6.5</span> Step 5: Configure your output<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-5-configure-your-output" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Under the “ATTRIBUTES” section, you can add other desired output information, such as “Gene stable ID” or “Associated Gene Name” to easily link the sequences back to your original genes.
+Click the “Results” button in the left-hand panel.
+On the results page, you can review a preview of your query.
+To download the sequences, click “Export all results to”.
+Select “File”, choose “FASTA” as the file format, and then click the “Go” button. This will download your promoter sequences in FASTA format.</p>
+</div>
+</div>
+<div id="step-b.-orthogroup-table-supplementary-table-s7-for-amf-core-genes-reported-in-zeng-2023." class="section level3 hasAnchor" number="4.0.7">
+<h3><span class="header-section-number">4.0.7</span> Step B. Orthogroup table (supplementary table S7) for AMF core genes reported in <a href="https://www.sciencedirect.com/science/article/pii/S2590346222002619">Zeng 2023</a>.<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-b.-orthogroup-table-supplementary-table-s7-for-amf-core-genes-reported-in-zeng-2023." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-2" tabindex="-1"></a>Zeng_2023_S7 <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;/Volumes/data_work/Data6/Sinha_lab/PlasticityIII_AMF_TRAP/ScienceDirect_files_20Feb2024_21-27-28.124/1-s2.0-S2590346222002619-mmc2.xlsx&quot;</span>,<span class="at">sheet=</span><span class="st">&quot;Table S7&quot;</span>,<span class="at">skip=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
+<span id="cb5-3"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-3" tabindex="-1"></a><span class="co"># needs to format this table to use inner_join() (see &quot;00_annotation.Rmd&quot;)</span></span>
+<span id="cb5-4"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-5" tabindex="-1"></a><span class="co"># step1 for itag4.1</span></span>
+<span id="cb5-6"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-6" tabindex="-1"></a>brake.into.singleID4a <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">DT=</span>Zeng_2023_S7,<span class="at">target.column=</span><span class="st">&quot;Solanum_lycopersicum&quot;</span>) {</span>
+<span id="cb5-7"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-7" tabindex="-1"></a>  <span class="co">#target.column &lt;- enquo(target.column)</span></span>
+<span id="cb5-8"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-8" tabindex="-1"></a>  <span class="fu">print</span>(target.column)</span>
+<span id="cb5-9"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-9" tabindex="-1"></a>  x <span class="ot">&lt;-</span> DT <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">all_of</span>(target.column))  <span class="sc">%&gt;%</span> <span class="fu">as_vector</span>() <span class="sc">%&gt;%</span> <span class="fu">str_split</span>(<span class="st">&quot;, &quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() </span>
+<span id="cb5-10"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-10" tabindex="-1"></a>DT <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">all_of</span>(target.column)) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(<span class="fu">tibble</span>(<span class="at">Orthogroup=</span><span class="fu">rep</span>(DT <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Orthogroup) <span class="sc">%&gt;%</span> <span class="fu">as_vector</span>(),<span class="fu">length</span>(x)), <span class="at">Solanum_lycopersicum =</span> x)) </span>
+<span id="cb5-11"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-11" tabindex="-1"></a>} </span>
+<span id="cb5-12"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-12" tabindex="-1"></a><span class="co"># test</span></span>
+<span id="cb5-13"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-13" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">brake.into.singleID4a</span>(<span class="at">DT=</span>Zeng_2023_S7 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>))</span>
+<span id="cb5-14"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-14" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb5-15"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-15" tabindex="-1"></a><span class="cf">for</span>(n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(Zeng_2023_S7)[<span class="dv">1</span>]) {</span>
+<span id="cb5-16"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-16" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;n is &quot;</span>);<span class="fu">print</span>(n)</span>
+<span id="cb5-17"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-17" tabindex="-1"></a>temp <span class="ot">&lt;-</span> temp <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>(<span class="fu">brake.into.singleID4a</span>(Zeng_2023_S7 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice</span>(n<span class="sc">:</span>n)))</span>
+<span id="cb5-18"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-18" tabindex="-1"></a>}</span>
+<span id="cb5-19"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-19" tabindex="-1"></a>temp <span class="sc">%&gt;%</span> <span class="fu">View</span>()</span>
+<span id="cb5-20"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-20" tabindex="-1"></a>Zeng_2023_S7.v2 <span class="ot">&lt;-</span> temp <span class="sc">%&gt;%</span> <span class="fu">separate</span>(Solanum_lycopersicum,<span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>,<span class="at">into=</span><span class="st">&quot;gene&quot;</span>,<span class="at">extra=</span><span class="st">&quot;drop&quot;</span>,<span class="at">fill=</span><span class="st">&quot;left&quot;</span>,<span class="at">remove=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-21"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-21" tabindex="-1"></a>Zeng_2023_S7.v2 <span class="sc">%&gt;%</span> <span class="fu">View</span>()</span>
+<span id="cb5-22"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-22" tabindex="-1"></a><span class="co"># extract only tomato genes and format</span></span>
+<span id="cb5-23"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-23" tabindex="-1"></a>SL.AMFcore.Zeng2023.gene.df <span class="ot">&lt;-</span> Zeng_2023_S7.v2 <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(Solanum_lycopersicum) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Solanum_lycopersicum) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Solanum_lycopersicum=</span><span class="fu">str_remove_all</span>(Solanum_lycopersicum,<span class="st">&quot;Sly_&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">separate</span>(Solanum_lycopersicum,<span class="fu">c</span>(<span class="st">&quot;v1&quot;</span>,<span class="st">&quot;v2&quot;</span>,<span class="st">&quot;v3&quot;</span>),<span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(Solanum_lycopersicum,<span class="st">&quot;Solyc&quot;</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(v1) </span>
+<span id="cb5-24"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-24" tabindex="-1"></a><span class="co"># write</span></span>
+<span id="cb5-25"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-25" tabindex="-1"></a><span class="fu">write_csv</span>(SL.AMFcore.Zeng2023.gene.df,<span class="fu">file.path</span>(<span class="st">&quot;SL.AMFcore.Zeng2023.gene.csv&quot;</span>))</span>
+<span id="cb5-26"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-26" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb5-27"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb5-27" tabindex="-1"></a>SL.AMFcore.Zeng2023.gene <span class="ot">&lt;-</span> SL.AMFcore.Zeng2023.gene.df <span class="sc">%&gt;%</span> <span class="fu">as_vector</span>()</span></code></pre></div>
+</div>
+<div id="step-c-1-modify-output-from-biomart-in-enesmbpleplant-by-awk-in-unix" class="section level3 hasAnchor" number="4.0.8">
+<h3><span class="header-section-number">4.0.8</span> Step C-1 modify output from Biomart in EnesmbplePlant by awk in UNIX<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-c-1-modify-output-from-biomart-in-enesmbpleplant-by-awk-in-unix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb6-1" tabindex="-1"></a><span class="fu">system</span>(<span class="st">&quot;awk &#39;/^&gt;/ {if (N&gt;0) printf(</span><span class="sc">\&quot;\\</span><span class="st">n</span><span class="sc">\&quot;</span><span class="st">); printf(</span><span class="sc">\&quot;</span><span class="st">%s</span><span class="sc">\\</span><span class="st">t</span><span class="sc">\&quot;</span><span class="st">,$0); N++; next;} {printf(</span><span class="sc">\&quot;</span><span class="st">%s</span><span class="sc">\&quot;</span><span class="st">,$0);} END {printf(</span><span class="sc">\&quot;\\</span><span class="st">n</span><span class="sc">\&quot;</span><span class="st">);}&#39; mart_export.txt &gt; mart_export_mod.txt&quot;</span>)</span>
+<span id="cb6-2"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb6-2" tabindex="-1"></a><span class="co"># look</span></span>
+<span id="cb6-3"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb6-3" tabindex="-1"></a><span class="fu">system</span>(<span class="st">&quot;head mart_export_mod.txt&quot;</span>)</span></code></pre></div>
+</div>
+<div id="step-c-2-extracting-promoter-sequences-of-fyi-genes-by-r-unix.-learning-from-chatgpt-answer." class="section level3 hasAnchor" number="4.0.9">
+<h3><span class="header-section-number">4.0.9</span> Step C-2 Extracting promoter sequences of FYI genes by R + UNIX. Learning from ChatGPT answer.<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-c-2-extracting-promoter-sequences-of-fyi-genes-by-r-unix.-learning-from-chatgpt-answer." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb7-1" tabindex="-1"></a>out_file <span class="ot">&lt;-</span> <span class="st">&quot;SL.AMFcore.Zeng2023_prom2000.fasta&quot;</span></span>
+<span id="cb7-2"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb7-2" tabindex="-1"></a><span class="co"># shQuote() is for Quote a string to be passed to an operating system shell.</span></span>
+<span id="cb7-3"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb7-3" tabindex="-1"></a><span class="cf">for</span> (gene <span class="cf">in</span> SL.AMFcore.Zeng2023.gene) {</span>
+<span id="cb7-4"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb7-4" tabindex="-1"></a>  cmd <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
+<span id="cb7-5"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb7-5" tabindex="-1"></a>    <span class="st">&quot;grep&quot;</span>, <span class="fu">shQuote</span>(gene),</span>
+<span id="cb7-6"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb7-6" tabindex="-1"></a>    <span class="st">&quot;mart_export_mod.txt | tr &#39;</span><span class="sc">\\</span><span class="st">t&#39; &#39;</span><span class="sc">\\</span><span class="st">n&#39; &gt;&gt;&quot;</span>, out_file</span>
+<span id="cb7-7"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb7-7" tabindex="-1"></a>  )</span>
+<span id="cb7-8"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb7-8" tabindex="-1"></a>  <span class="fu">print</span>(cmd)</span>
+<span id="cb7-9"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb7-9" tabindex="-1"></a>  <span class="fu">system</span>(cmd) <span class="co"># run UNIX command</span></span>
+<span id="cb7-10"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb7-10" tabindex="-1"></a>} <span class="co"># works well</span></span></code></pre></div>
+</div>
+<div id="step-d.-pibs-promoter-motif-analysis" class="section level3 hasAnchor" number="4.0.10">
+<h3><span class="header-section-number">4.0.10</span> Step D. PIBS promoter motif analysis<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-d.-pibs-promoter-motif-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Custom motif (“GNATATNC” for P1BS) finding in given promoter sequences <a href="https://rsat.eead.csic.es/plants/dna-pattern.cgi">“RSAT - dna-pattern”</a> used in Das (2022).</p>
+</div>
+<div id="step-e.-read-p1bs-promoter-motif-analysis-resuls-rsat-website-and-plot" class="section level3 hasAnchor" number="4.0.11">
+<h3><span class="header-section-number">4.0.11</span> Step E. read P1BS promoter motif analysis resuls RSAT website and plot<a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#step-e.-read-p1bs-promoter-motif-analysis-resuls-rsat-website-and-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Use BioVizSeq package above.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb8-1" tabindex="-1"></a><span class="fu">library</span>(BioVizSeq)</span>
+<span id="cb8-2"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb8-2" tabindex="-1"></a><span class="co"># remove &quot;;&quot; for column name</span></span>
+<span id="cb8-3"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb8-3" tabindex="-1"></a>SL.AMFcore.Zeng2023.P1BS <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_delim</span>(<span class="fu">file.path</span>(<span class="st">&quot;/Volumes&quot;</span>,<span class="st">&quot;data_work&quot;</span>,<span class="st">&quot;Data8&quot;</span>,<span class="st">&quot;NGS_related&quot;</span>,<span class="st">&quot;Sinha_lab&quot;</span>,<span class="st">&quot;RNAseq_tomato_AMF&quot;</span>,<span class="st">&quot;output&quot;</span>,<span class="st">&quot;dna-pattern_2025-08-28.072501_h5Ildx.pat&quot;</span>), <span class="at">comment=</span><span class="st">&quot;;&quot;</span>,<span class="at">col_names=</span><span class="cn">TRUE</span>,<span class="at">delim=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 154 Columns: 8
+## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────
+## Delimiter: &quot;\t&quot;
+## chr (5): PatID, Strand, Pattern, SeqID, matching_seq
+## dbl (3): Start, End, Score
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb10-1" tabindex="-1"></a>SL.AMFcore.Zeng2023.P1BS.loc <span class="ot">&lt;-</span> SL.AMFcore.Zeng2023.P1BS <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>PatID<span class="sc">==</span><span class="st">&quot;START_END&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">element=</span><span class="st">&quot;P1BS&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(SeqID,element,Start,End) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">ID=</span>SeqID,<span class="at">start=</span>Start,<span class="at">end=</span>End) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb10-2"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb10-2" tabindex="-1"></a><span class="co"># add promoter length</span></span>
+<span id="cb10-3"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb10-3" tabindex="-1"></a><span class="co">#data.frame(ID = unique(plantcare_loc.SL$ID), length=5000)</span></span>
+<span id="cb10-4"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb10-4" tabindex="-1"></a>promoter_length <span class="ot">&lt;-</span> SL.AMFcore.Zeng2023.P1BS <span class="sc">%&gt;%</span> <span class="fu">semi_join</span>(SL.AMFcore.Zeng2023.P1BS.loc,<span class="at">by=</span><span class="fu">join_by</span>(SeqID<span class="sc">==</span>ID)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(PatID<span class="sc">==</span><span class="st">&quot;START_END&quot;</span>)  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">length=</span>Start) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(SeqID,length) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb10-5"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb10-5" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb10-6"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb10-6" tabindex="-1"></a>p.P1BS <span class="ot">&lt;-</span> <span class="fu">motif_plot</span>(SL.AMFcore.Zeng2023.P1BS.loc,promoter_length,<span class="at">motif_color=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Promoter Length&quot;</span>, <span class="at">y=</span><span class="st">&quot;Gene&quot;</span>)</span>
+<span id="cb10-7"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb10-7" tabindex="-1"></a>p.P1BS</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb11-1" tabindex="-1"></a><span class="co">#p.P1BS + theme(line = element_line(&quot;blue&quot;)) # does not work</span></span>
+<span id="cb11-2"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb11-2" tabindex="-1"></a><span class="co">#p.P1BS + theme(plot.background = element_rect(color=&quot;blue&quot;)) # does not work</span></span>
+<span id="cb11-3"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb11-4" tabindex="-1"></a><span class="co"># how many genes ad P1BS?</span></span>
+<span id="cb11-5"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb11-5" tabindex="-1"></a>SL.AMFcore.Zeng2023.P1BS.loc <span class="sc">%&gt;%</span> <span class="fu">count</span>(ID) <span class="sc">%&gt;%</span> <span class="fu">dim</span>() <span class="co"># 38 genes</span></span></code></pre></div>
+<pre><code>## [1] 38  2</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb13-1" tabindex="-1"></a><span class="fu">length</span>(SL.AMFcore.Zeng2023.gene) <span class="co"># 132 genes total</span></span></code></pre></div>
+<pre><code>## [1] 132</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb15-1" tabindex="-1"></a><span class="co"># save</span></span>
+<span id="cb15-2"><a href="how-to-plot-promoter-motif-of-interest-in-fyi-gene-promoters-100-genes.html#cb15-2" tabindex="-1"></a><span class="co">#ggsave(p.P1BS,file=&quot;promoter_motisf_P1BS_SL.AMFcore.Zeng2023.png&quot;,width=11,height=8)</span></span></code></pre></div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ram1-solyc02g094340.1-ram2-solyc02g087500.3-solyc04g005840.1-solyc10g084900.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="session-info.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>
